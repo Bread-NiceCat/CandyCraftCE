@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "candycraftce",
+  "version": "${version}",
+  "name": "CandyCraft CE",
+  "description": "",
+  "authors": [
+	"Bread_NiceCat",
+	"Star_Ocean_Sama(Texture)"
+  ],
+  "contact": {
+	"homepage": "https://github.com/BreadNiceCat/CandyCraft",
+	"sources": "https://github.com/BreadNiceCat/CandyCraft"
+  },
+  "mixins": [
+	"candycraftce.mixins.json",
+	"candycraftce-common.mixins.json"
+  ],
+  "license": "GNU GPL v3",
+  "icon": "assets/candycraftce/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"fabric-datagen": [
+	  "cn.breadnicecat.candycraftce.datagen.fabric.CCDatagenFabric"
+	],
+	"main": [
+	  "cn.breadnicecat.candycraftce.fabric.CandyCraftCEImpl"
+	]
+  },
+  "depends": {
+	"fabric": "*",
+	"minecraft": ">=1.20.1"
+  }
+}

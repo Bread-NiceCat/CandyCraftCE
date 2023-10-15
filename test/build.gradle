@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'idea'
+
+}
+
+group = 'cn.breadnicecat'
+version = '1'
+
+targetCompatibility = 17
+sourceCompatibility = 17
+
+repositories {
+    maven { url = "https://maven.aliyun.com/repository/public" }
+    mavenCentral()
+}
+dependencies {
+    compileOnly 'org.jetbrains:annotations:24.0.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+}

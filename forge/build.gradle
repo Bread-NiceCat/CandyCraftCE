@@ -1,0 +1,114 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+        mixinConfig "candycraftce-common.mixins.json"
+        mixinConfig "candycraftce.mixins.json"
+    }
+
+    runs {
+        data {
+            data()
+            name("Forge Data Generator")
+            programArgs "--all", "--mod", "candycraftce"
+            programArgs "--output", generatedResources.absolutePath
+            programArgs "--existing", new File(project(":common").getProjectDir(), "/src/main/resources").absolutePath
+        }
+        client {
+            vmArg "-Dmixin.debug.export=true"
+            vmArg "-Dmixin.debug.verbose=true"
+        }
+    }
+}
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+repositories {
+    flatDir {
+        dir "libs"
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    // Remove the next line if you don't want to depend on the API
+//    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+
+    modRuntimeOnly "local:appleskin-forge-mc1.20.1:2.5.0"
+//JEI
+//    modImplementation "mezz.jei:jei-1.20.1-forge:15.2.0.25"
+    modApi "mezz.jei:jei-1.20.1-forge:15.2.0.25-local"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+}
+
+jar {
+    classifier "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenForge(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

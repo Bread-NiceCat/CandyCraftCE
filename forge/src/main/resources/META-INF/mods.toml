@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+issueTrackerURL = "https://github.com/BreadNiceCat/CandyCraft/issues"
+license = "GNU GPL v3"
+
+[[mods]]
+modId = "candycraftce"
+version = "${version}"
+displayName = "CandyCraft CE"
+authors = "Bread_NiceCat, Star_Ocean_Sama(Texture)"
+credits = "Architectury-Loom"
+description = '''
+'''
+logoFile = "assets/candycraftce/icon.png"
+
+[[dependencies.candycraftce]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.candycraftce]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"

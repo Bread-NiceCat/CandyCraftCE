@@ -1,0 +1,76 @@
+{
+  "cd-1": {
+    "sounds": [
+      {
+        "name": "candycraftce:cd-1",
+        "stream": true
+      }
+    ]
+  },
+  "cd-2": {
+    "sounds": [
+      {
+        "name": "candycraftce:cd-2",
+        "stream": true
+      }
+    ]
+  },
+  "cd-3": {
+    "sounds": [
+      {
+        "name": "candycraftce:cd-3",
+        "stream": true
+      }
+    ]
+  },
+  "cd-4": {
+    "sounds": [
+      {
+        "name": "candycraftce:cd-4",
+        "stream": true
+      }
+    ]
+  },
+  "jelly_dig": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "candycraftce:jelly1"
+      },
+      {
+        "type": "event",
+        "name": "candycraftce:jelly2"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "jelly_step": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "candycraftce:jelly1"
+      },
+      {
+        "type": "event",
+        "name": "candycraftce:jelly2"
+      },
+      {
+        "type": "event",
+        "name": "candycraftce:jelly3"
+      },
+      {
+        "type": "event",
+        "name": "candycraftce:jelly4"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "wwwooowww": {
+    "sounds": [
+      {
+        "name": "candycraftce:wwwooowww",
+        "stream": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+accessWidener   v2  named
+accessible field net/minecraft/client/renderer/ItemBlockRenderTypes TYPE_BY_BLOCK Ljava/util/Map;
+accessible field net/minecraft/client/renderer/ItemBlockRenderTypes TYPE_BY_FLUID Ljava/util/Map;
+accessible method net/minecraft/client/model/geom/PartPose <init> (FFFFFF)V
+accessible field net/minecraft/client/model/geom/ModelPart children Ljava/util/Map;
