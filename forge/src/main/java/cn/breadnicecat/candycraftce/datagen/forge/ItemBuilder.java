@@ -46,19 +46,6 @@ class ItemBuilder {
 	}
 
 
-	/*=====Models=====*/
-
-	ItemBuilder model(BiConsumer<ItemEntry<?>, CItemModelProvider> con) {
-		CItemModelProvider.ENTRIES.add(provider -> con.accept(entry, provider));
-		return this;
-	}
-
-	ItemBuilder modelGenerated() {
-		model((ie, con) -> con.basicItem(ie.getItem()));
-		return this;
-	}
-
-
 	/*=====I18n=====*/
 	ItemBuilder english(String name) {
 		CLanguageProvider.ENTRIES.add(pro -> pro.add(entry.getItem(), name));
@@ -79,5 +66,21 @@ class ItemBuilder {
 		english(prim);
 		return this;
 	}
+	/*=====Models=====*/
 
+	ItemBuilder model(BiConsumer<ItemEntry<?>, CItemModelProvider> con) {
+		CItemModelProvider.ENTRIES.add(provider -> con.accept(entry, provider));
+		return this;
+	}
+
+	ItemBuilder modelGenerated() {
+		model((ie, con) -> con.basicItem(ie.getItem()));
+		return this;
+	}
+
+
+	ItemBuilder modelHandheld() {
+		model((ie, con) -> con.handheldItem(ie.getItem()));
+		return this;
+	}
 }

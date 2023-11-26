@@ -74,17 +74,73 @@ public class CDatagens {
 		item(JELLY_SENTRY_KEY).englishAuto().modelGenerated();
 		item(JELLY_BOSS_KEY).englishAuto().modelGenerated();
 
-
-		item(RECORD_1).english("Jelly Queen's Secret Record").tags(ItemTags.MUSIC_DISCS).modelGenerated();
+		item(RECORD_1).english("Jelly Queen's Secret Record").modelGenerated().tags(ItemTags.MUSIC_DISCS);
 		CLanguageProvider.addEntry("item.candycraftce.record_1.desc", "Caution & Crisis C418 - Sweden (Caution & Crisis Remix)");
-		item(RECORD_2).english("Suguard's Secret Record").tags(ItemTags.MUSIC_DISCS).modelGenerated();
+		item(RECORD_2).english("Suguard's Secret Record").modelGenerated().tags(ItemTags.MUSIC_DISCS);
 		CLanguageProvider.addEntry("item.candycraftce.record_2.desc", "Jakim - Every");
-		item(RECORD_3).english("Rainbow Record").tags(ItemTags.MUSIC_DISCS).modelGenerated();
+		item(RECORD_3).english("Rainbow Record").modelGenerated().tags(ItemTags.MUSIC_DISCS);
 		CLanguageProvider.addEntry("item.candycraftce.record_3.desc", "Jean Jacques Perrey - Brazilian Flower");
-		item(RECORD_4).english("Licorice beetle's Secret Record").tags(ItemTags.MUSIC_DISCS).modelGenerated();
+		item(RECORD_4).english("Licorice beetle's Secret Record").modelGenerated().tags(ItemTags.MUSIC_DISCS);
 		CLanguageProvider.addEntry("item.candycraftce.record_4.desc", "Little End - Rain travel in the MineCraft");
+
 		item(RECORD_WWWOOOWWW).modelGenerated();
 
+		item(GINGERBREAD_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(JELLY_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(SKY_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(CHEWING_GUM_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(HONEYCOMB_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(CRANBERRY_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(NESSIE_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+		item(SUGUARD_EMBLEM).englishAuto().modelGenerated().tags(CItemTags.EMBLEM);
+
+		item(HONEYCOMB_ARROW).englishAuto().modelGenerated().tags(CItemTags.CANDY_ARROWS);
+		item(CARAMEL_BOW).englishAuto();
+
+		item(MARSHMALLOW_SWORD).englishAuto().modelHandheld().tags(ItemTags.SWORDS);
+		item(MARSHMALLOW_SHOVEL).englishAuto().modelHandheld().tags(ItemTags.SHOVELS);
+		item(MARSHMALLOW_PICKAXE).englishAuto().modelHandheld().tags(ItemTags.PICKAXES);
+		item(MARSHMALLOW_AXE).englishAuto().modelHandheld().tags(ItemTags.AXES);
+		item(MARSHMALLOW_HOE).englishAuto().modelHandheld().tags(ItemTags.HOES);
+
+		item(LICORICE_SWORD).englishAuto().modelHandheld().tags(ItemTags.SWORDS);
+		item(LICORICE_SHOVEL).englishAuto().modelHandheld().tags(ItemTags.SHOVELS);
+		item(LICORICE_PICKAXE).englishAuto().modelHandheld().tags(ItemTags.PICKAXES);
+		item(LICORICE_AXE).englishAuto().modelHandheld().tags(ItemTags.AXES);
+		item(LICORICE_HOE).englishAuto().modelHandheld().tags(ItemTags.HOES);
+
+		item(HONEYCOMB_SWORD).englishAuto().modelHandheld().tags(ItemTags.SWORDS);
+		item(HONEYCOMB_SHOVEL).englishAuto().modelHandheld().tags(ItemTags.SHOVELS);
+		item(HONEYCOMB_PICKAXE).englishAuto().modelHandheld().tags(ItemTags.PICKAXES);
+		item(HONEYCOMB_AXE).englishAuto().modelHandheld().tags(ItemTags.AXES);
+		item(HONEYCOMB_HOE).englishAuto().modelHandheld().tags(ItemTags.HOES);
+
+		item(PEZ_SWORD).englishAuto(PEZ_MODIFIER).modelHandheld().tags(ItemTags.SWORDS);
+		item(PEZ_SHOVEL).englishAuto(PEZ_MODIFIER).modelHandheld().tags(ItemTags.SHOVELS);
+		item(PEZ_PICKAXE).englishAuto(PEZ_MODIFIER).modelHandheld().tags(ItemTags.PICKAXES);
+		item(PEZ_AXE).englishAuto(PEZ_MODIFIER).modelHandheld().tags(ItemTags.AXES);
+		item(PEZ_HOE).englishAuto(PEZ_MODIFIER).modelHandheld().tags(ItemTags.HOES);
+
+		item(LICORICE_HELMET).englishAuto().modelGenerated();
+		item(LICORICE_CHESTPLATE).englishAuto().modelGenerated();
+		item(LICORICE_LEGGINGS).englishAuto().modelGenerated();
+		item(LICORICE_BOOTS).englishAuto().modelGenerated();
+
+		item(HONEYCOMB_HELMET).englishAuto().modelGenerated();
+		item(HONEYCOMB_CHESTPLATE).englishAuto().modelGenerated();
+		item(HONEYCOMB_LEGGINGS).englishAuto().modelGenerated();
+		item(HONEYCOMB_BOOTS).englishAuto().modelGenerated();
+
+		item(PEZ_HELMET).englishAuto(PEZ_MODIFIER).modelGenerated();
+		item(PEZ_CHESTPLATE).englishAuto(PEZ_MODIFIER).modelGenerated();
+		item(PEZ_LEGGINGS).englishAuto(PEZ_MODIFIER).modelGenerated();
+		item(PEZ_BOOTS).englishAuto(PEZ_MODIFIER).modelGenerated();
+
+		item(WATER_MASK).englishAuto().modelGenerated();
+		item(JELLY_CROWN).englishAuto().modelGenerated();
+		item(TRAMPOJELLY_BOOTS).englishAuto().modelGenerated();
+
+		item(I_I_DEBUG).english("I 爱 Debug!!!!").modelGenerated();
 	}
 
 	private static void blocks() {

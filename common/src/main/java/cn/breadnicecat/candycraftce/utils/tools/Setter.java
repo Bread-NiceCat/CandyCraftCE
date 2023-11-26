@@ -7,7 +7,7 @@ import java.util.function.Consumer;
  * @date 2023/1/22 13:15
  */
 public interface Setter<T> extends Consumer<T> {
-	
+
 	/**
 	 * @deprecated use set(t) instead
 	 */
@@ -16,6 +16,6 @@ public interface Setter<T> extends Consumer<T> {
 	default void accept(T t) {
 		set(t);
 	}
-	
+
 	void set(T t);
 }

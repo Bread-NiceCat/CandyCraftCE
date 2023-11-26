@@ -27,7 +27,7 @@ public interface Accessor<T> extends Setter<T>, Getter<T> {
 
 		@Override
 		public void set(T t) {
-			throw new UnsupportedOperationException("frozen!");
+			throw new UnsupportedOperationException("frozen");
 		}
 
 		@Override

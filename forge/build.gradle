@@ -43,6 +43,9 @@ configurations {
 repositories {
     flatDir {
         dir "libs"
+        content {
+            includeGroup "local"
+        }
     }
 }
 
@@ -53,9 +56,10 @@ dependencies {
 
 
     modRuntimeOnly "local:appleskin-forge-mc1.20.1:2.5.0"
-//JEI
-//    modImplementation "mezz.jei:jei-1.20.1-forge:15.2.0.25"
-    modApi "mezz.jei:jei-1.20.1-forge:15.2.0.25-local"
+    modRuntimeOnly "local:BetterTags-1.20.1:1.1"
+    modImplementation "local:jei-1.20.1-forge:15.2.0.25-local"
+    modImplementation "curse.maven:jade-324717:4801177"
+
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

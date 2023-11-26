@@ -6,29 +6,6 @@ plugins {
 architectury {
     minecraft = rootProject.minecraft_version
 }
-repositories {
-    maven {
-        url = "https://download.mcbbs.net/assets/"
-    }
-}
-subprojects {
-
-    apply plugin: "dev.architectury.loom"
-    repositories {
-        maven { url = "https://maven.aliyun.com/repository/public" }
-        maven { url = "https://modmaven.dev" }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered() {
-            officialMojangMappings()
-            parchment("org.parchmentmc.data:${rootProject.parchment_version}")
-        }
-        // mappings loom.officialMojangMappings()
-    }
-}
 
 allprojects {
     apply plugin: "java"
@@ -41,15 +18,44 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+        var aliyun = maven { url = "https://maven.aliyun.com/repository/public" }
+        remove(aliyun)
+        addFirst(aliyun)
+        maven { url = "https://download.mcbbs.net/assets/" }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = "https://modmaven.dev" }
+        maven {
+            url "https://www.cursemaven.com"
+            content { includeGroup "curse.maven" }
+        }
     }
-
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         options.release = 17
     }
 
-
     java {
         withSourcesJar()
     }
 }
+subprojects {
+
+    apply plugin: "dev.architectury.loom"
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        implementation 'org.codehaus.groovy:groovy:3.0.19'
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:${rootProject.parchment_version}")
+        }
+    }
+}
+
+
+println("=".repeat(40))
+println("here in project $project.name")
+println("repo here=>")
+getRepositories().forEach { println it.url }
+println("repo end")
+println("=".repeat(40))

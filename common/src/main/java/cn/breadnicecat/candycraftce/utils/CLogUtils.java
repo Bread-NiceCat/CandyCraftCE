@@ -35,9 +35,8 @@ public class CLogUtils {
 		return CACHE.computeIfAbsent(id, LoggerFactory::getLogger);
 	}
 
-
 	private static Logger getCallerModLogger() {
-		Class<?> caller = getCaller();
+		Class<?> caller = getCaller(4);
 		return getModLogger(caller);
 	}
 

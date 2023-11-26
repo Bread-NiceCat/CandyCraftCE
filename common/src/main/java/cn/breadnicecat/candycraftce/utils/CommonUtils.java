@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.utils;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 
 import java.util.Random;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -12,29 +13,6 @@ import java.util.function.Supplier;
  * 非mc特有
  */
 public class CommonUtils {
-
-	/**
-	 * 填充指定长度字符
-	 */
-	public static String fill(String raw, int len, char fill) {
-		StringBuilder builder = new StringBuilder(raw);
-		builder.append(String.valueOf(fill).repeat(Math.max(0, len)));
-		return builder.toString();
-	}
-
-	/**
-	 * 填充字符直到达到指定长度
-	 */
-	public static String fillUntil(String raw, int toLength, char fill) {
-		if (raw.length() > toLength) {
-			throw new IllegalArgumentException("raw.length()>toLength");
-		} else if (raw.length() == toLength) {
-			return raw;
-		} else {
-			return fill(raw, toLength - raw.length(), fill);
-		}
-
-	}
 
 
 	public static final Random RANDOM = new Random();
@@ -80,15 +58,23 @@ public class CommonUtils {
 
 
 	public static void assertTrue(boolean bool) {
-		assertTrue(bool, "false");
+		assertTrue(bool, "assert not false");
 	}
 
 	public static void assertTrue(boolean bool, String msg) {
-		if (!bool) throw new IllegalStateException(msg);
+		assertTrue(bool, () -> msg);
 	}
 
 	public static void assertTrue(boolean bool, Supplier<String> msg) {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
 
+	public static Runnable conditionalRunnable(Runnable runnable, BooleanSupplier... predicate) {
+		return predicate.length == 0 ? runnable : () -> {
+			for (BooleanSupplier supplier : predicate) {
+				if (!supplier.getAsBoolean()) return;
+			}
+			runnable.run();
+		};
+	}
 }

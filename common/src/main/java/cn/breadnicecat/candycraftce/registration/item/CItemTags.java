@@ -12,11 +12,15 @@ import net.minecraft.world.item.Item;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
 public class CItemTags {
-	public static final TagKey<Item> LICORICE = bind("licorice");
-	public static final TagKey<Item> HONEYCOMB = bind("honeycomb");
-	public static final TagKey<Item> PEZ = bind("pez");
+	public static final TagKey<Item> LICORICE = cbind("licorice");
+	public static final TagKey<Item> HONEYCOMB = cbind("honeycomb");
+	public static final TagKey<Item> PEZ = cbind("pez");
 
-	private static TagKey<Item> bind(String name) {
+	public static final TagKey<Item> EMBLEM = cbind("emblem");
+	public static final TagKey<Item> CANDY_ARROWS = cbind("candy_arrows");
+	public static final TagKey<Item> MARSHMALLOW_PLANKS = cbind("marshmallow_planks");
+
+	private static TagKey<Item> cbind(String name) {
 		return TagKey.create(Registries.ITEM, ResourceUtils.prefix(name));
 	}
 }

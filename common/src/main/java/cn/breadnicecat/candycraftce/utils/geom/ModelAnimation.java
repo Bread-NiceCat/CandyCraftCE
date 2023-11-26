@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.utils.geom;
 
 import cn.breadnicecat.candycraftce.utils.MthUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
-import cn.breadnicecat.candycraftce.utils.tools.collection.UnmodifiableBNodes;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.model.geom.ModelPart;
 

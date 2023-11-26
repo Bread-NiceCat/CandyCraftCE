@@ -10,10 +10,13 @@ version = '1'
 targetCompatibility = 17
 sourceCompatibility = 17
 
+
 repositories {
     maven { url = "https://maven.aliyun.com/repository/public" }
     mavenCentral()
 }
+println("repo here=>")
+getRepositories().forEach { println it.url }
 dependencies {
     compileOnly 'org.jetbrains:annotations:24.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'

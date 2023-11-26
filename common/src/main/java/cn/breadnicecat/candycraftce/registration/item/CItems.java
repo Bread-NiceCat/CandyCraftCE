@@ -1,27 +1,26 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
+import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.registration.item.items.ItemCaramelBow;
+import cn.breadnicecat.candycraftce.registration.item.items.ItemHoneycombArrow;
+import cn.breadnicecat.candycraftce.registration.item.items.ItemIIDebug;
+import cn.breadnicecat.candycraftce.registration.item.items.ItemWaterMask;
 import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.registration.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.redstone.Redstone;
 
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static cn.breadnicecat.candycraftce.registration.item.CItemTemples._recordItem;
+import static cn.breadnicecat.candycraftce.registration.item.CItemTemples._record_wwwooowww;
 
 /**
  * Created in 2023/8/9 10:22
@@ -34,36 +33,42 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CItems {
 	static {
 		CLogUtils.sign();
+		CandyCraftCE.hookPostBootstrap(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
 	}
 
-	public static final HashMap<ResourceLocation, ItemEntry<? extends Item>> ITEMS = new HashMap<>();
-	public static final ItemEntry<Item> LICORICE = simpleItem("licorice").save();
-	public static final ItemEntry<Item> HONEYCOMB = simpleItem("honeycomb").save();
-	public static final ItemEntry<Item> HONEYCOMB_SHARD = simpleItem("honeycomb_shard").save();
-	public static final ItemEntry<Item> PEZ = simpleItem("pez").save();
-	public static final ItemEntry<Item> MARSHMALLOW_STICK = simpleItem("marshmallow_stick").save();
-	public static final ItemEntry<Item> SUGAR_CRYSTAL = simpleItem("sugar_crystal").save();
-	public static final ItemEntry<Item> COTTON_CANDY = simpleItem("cotton_candy").save();
-	public static final ItemEntry<Item> GUMMY = simpleItem("gummy").save();
-	public static final ItemEntry<Item> HOT_GUMMY = simpleItem("hot_gummy").save();
-	public static final ItemEntry<Item> CHOCOLATE_COIN = simpleItem("chocolate_coin").save();
-	public static final ItemEntry<Item> NOUGAT_POWDER = simpleItem("nougat_powder").save();
-	public static final ItemEntry<Item> PEZ_DUST = simpleItem("pez_dust").save();
-	public static final ItemEntry<Item> WAFFLE = simpleItem("waffle").save();
-	public static final ItemEntry<Item> WAFFLE_NUGGET = simpleItem("waffle_nugget").save();
-	public static final ItemEntry<Item> CANDIED_CHERRY = simpleItem("candied_cherry").save();
-	public static final ItemEntry<Item> CANDY_CANE = simpleItem("candy_cane").save();
-	public static final ItemEntry<Item> CHEWING_GUM = simpleItem("chewing_gum").save();
-	public static final ItemEntry<Item> LOLLIPOP = simpleItem("lollipop").save();
-	public static final ItemEntry<Item> CRANFISH = simpleItem("cranfish").save();
-	public static final ItemEntry<Item> CRANFISH_COOKED = simpleItem("cranfish_cooked").save();
-	public static final ItemEntry<Item> CRANFISH_SCALE = simpleItem("cranfish_scale").save();
+	public static Map<ResourceLocation, ItemEntry<? extends Item>> ITEMS = new HashMap<>();
+	//TODO FOOD
+	public static final ItemEntry<Item> LICORICE = builder("licorice").setFood(10, 4).save();
+	public static final ItemEntry<Item> HONEYCOMB = builder("honeycomb").save();
+	public static final ItemEntry<Item> HONEYCOMB_SHARD = builder("honeycomb_shard").save();
+	public static final ItemEntry<Item> PEZ = builder("pez").save();
+	public static final ItemEntry<Item> MARSHMALLOW_STICK = builder("marshmallow_stick").save();
+	public static final ItemEntry<Item> SUGAR_CRYSTAL = builder("sugar_crystal").save();
+	public static final ItemEntry<Item> COTTON_CANDY = builder("cotton_candy").save();
+	public static final ItemEntry<Item> GUMMY = builder("gummy").save();
+	public static final ItemEntry<Item> HOT_GUMMY = builder("hot_gummy").save();
+	public static final ItemEntry<Item> CHOCOLATE_COIN = builder("chocolate_coin").save();
+	public static final ItemEntry<Item> NOUGAT_POWDER = builder("nougat_powder").save();
+	public static final ItemEntry<Item> PEZ_DUST = builder("pez_dust").save();
+	public static final ItemEntry<Item> WAFFLE = builder("waffle").save();
+	public static final ItemEntry<Item> WAFFLE_NUGGET = builder("waffle_nugget").save();
+	public static final ItemEntry<Item> CANDIED_CHERRY = builder("candied_cherry").save();
+	public static final ItemEntry<Item> CANDY_CANE = builder("candy_cane").save();
+	public static final ItemEntry<Item> CHEWING_GUM = builder("chewing_gum").save();
+	public static final ItemEntry<Item> LOLLIPOP = builder("lollipop").save();
+	public static final ItemEntry<Item> CRANFISH = builder("cranfish").save();
+	public static final ItemEntry<Item> CRANFISH_COOKED = builder("cranfish_cooked").save();
+	public static final ItemEntry<Item> CRANFISH_SCALE = builder("cranfish_scale").save();
 	//HELPER.single(DRAGIBUS, () -> new ItemCustomNamedBlockItem(DRAGIBUS_CROPS.getBlock(), defaultItemProperties()),GENERATED);
 //HELPER.single(LOLLIPOP_SEEDS, () -> new ItemCustomNamedBlockItem(LOLLIPOP_STEM.getBlock(), defaultItemProperties()),GENERATED);
-	//地牢门钥匙
-	public static final ItemEntry<Item> JELLY_SENTRY_KEY = of("jelly_sentry_key", () -> new Item(new Properties().stacksTo(1).rarity(Rarity.UNCOMMON))).ctab().save();
-	public static final ItemEntry<Item> JELLY_BOSS_KEY = copyFrom("jelly_boss_key", JELLY_SENTRY_KEY).save();
-	//地牢钥匙
+
+	/* 地牢门钥匙 */
+	public static final ItemEntry<Item> JELLY_SENTRY_KEY = builder("jelly_sentry_key")
+			.setProperties(properties -> properties.stacksTo(1).rarity(Rarity.UNCOMMON))
+			.save();
+	public static final ItemEntry<Item> JELLY_BOSS_KEY = builder("jelly_boss_key", JELLY_SENTRY_KEY).save();
+
+	/*地牢钥匙*/
 //HELPER.batch((n, a) -> new ItemDungeonKey(defaultItemProperties().stacksTo(1).rarity(Rarity.RARE), (ItemDungeonKey.DungeonTypes) a[0]),
 //                GENERATED)
 //        .addElement(JELLY_DUNGEON_KEY, ItemDungeonKey.DungeonTypes.JELLY_DUNGEON)
@@ -72,129 +77,202 @@ public class CItems {
 //        .addElement(SUGUARD_DUNGEON_KEY, ItemDungeonKey.DungeonTypes.UNDEFINED)
 //        .register();
 
-	public static final ItemEntry<RecordItem> RECORD_1 = of("record_1", () -> _recordItem(1, CSoundEvents.CD_1, new Properties().stacksTo(1), 316)).ctab().save();
-	public static final ItemEntry<RecordItem> RECORD_2 = of("record_2", () -> _recordItem(2, CSoundEvents.CD_2, new Properties().stacksTo(1), 98)).ctab().save();
-	public static final ItemEntry<RecordItem> RECORD_3 = of("record_3", () -> _recordItem(3, CSoundEvents.CD_3, new Properties().stacksTo(1), 112)).ctab().save();
-	public static final ItemEntry<RecordItem> RECORD_4 = of("record_4", () -> _recordItem(4, CSoundEvents.CD_4, new Properties().stacksTo(1), 188)).ctab().save();
-	public static final ItemEntry<RecordItem> RECORD_WWWOOOWWW = of("record_wwwooowww", () -> _record_wwwooowww(Redstone.SIGNAL_MAX, CSoundEvents.CD_WWWOOOWWW, new Properties().stacksTo(1).rarity(Rarity.EPIC), 302, "BreadNiceCat's Secret Record", "Mono Inc. - Children of the Dark")).save();
+	/*唱片*/
+	public static final ItemEntry<RecordItem> RECORD_1 = builder("record_1",
+			(p, param) -> _recordItem((Integer) param[0], (SoundEntry) param[1], p, (Integer) param[2]))
+			.setProperties(p -> p.stacksTo(1))
+			.setParameters(1, CSoundEvents.CD_1, 316)
+
+			.save();
+
+	public static final ItemEntry<RecordItem> RECORD_2 = builder("record_2", RECORD_1)
+			.setParameters(2, CSoundEvents.CD_2, 98)
+			.save();
+	public static final ItemEntry<RecordItem> RECORD_3 = builder("record_3", RECORD_1)
+			.setParameters(3, CSoundEvents.CD_3, 112)
+			.save();
+	public static final ItemEntry<RecordItem> RECORD_4 = builder("record_4", RECORD_1)
+			.setParameters(4, CSoundEvents.CD_4, 188)
+			.save();
+	public static final ItemEntry<RecordItem> RECORD_WWWOOOWWW = builder("record_wwwooowww",
+			p -> _record_wwwooowww(Redstone.SIGNAL_MAX, CSoundEvents.CD_WWWOOOWWW, p, 302, "Bread_NiceCat's Secret Record", "Mono Inc. - Children of the Dark"))
+			.setProperties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+			.setCtab(false)
+			.save();
+	public static final ItemEntry<Item> GINGERBREAD_EMBLEM = builder("gingerbread_emblem").save();
+	public static final ItemEntry<Item> JELLY_EMBLEM = builder("jelly_emblem").save();
+	public static final ItemEntry<Item> SKY_EMBLEM = builder("sky_emblem").save();
+	public static final ItemEntry<Item> CHEWING_GUM_EMBLEM = builder("chewing_gum_emblem").save();
+	public static final ItemEntry<Item> HONEYCOMB_EMBLEM = builder("honeycomb_emblem").save();
+	public static final ItemEntry<Item> CRANBERRY_EMBLEM = builder("cranberry_emblem").save();
+	public static final ItemEntry<Item> NESSIE_EMBLEM = builder("nessie_emblem").save();
+	public static final ItemEntry<Item> SUGUARD_EMBLEM = builder("suguard_emblem").save();
+//	HELPER.single(FORK, ItemFork::new, HANDHELD);
+
+	public static final ItemEntry<ItemHoneycombArrow> HONEYCOMB_ARROW = builder("honeycomb_arrow", ItemHoneycombArrow::new).save();
+	public static final ItemEntry<ItemCaramelBow> CARAMEL_BOW = builder("caramel_bow", ItemCaramelBow::new).save();
+//HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
+
+	/*工具*/
+	//MARSHMALLOW
+	public static final ItemEntry<SwordItem> MARSHMALLOW_SWORD = builder("marshmallow_sword",
+			(p, param) -> new SwordItem((Tier) param[0],/*baseDamage*/ (Integer) param[1],/*baseSpeed*/(Float) param[2], p))
+			.setParameters(CTiers.MARSHMALLOW, 3, -2.4F)
+			.save();
+	public static final ItemEntry<ShovelItem> MARSHMALLOW_SHOVEL = builder("marshmallow_shovel",
+			(p, param) -> new ShovelItem((Tier) param[0],/*baseDamage*/(Float) param[1], /*baseSpeed*/(Float) param[2], p))
+			.setParameters(CTiers.MARSHMALLOW, 1.5F, -3F)
+			.save();
+	public static final ItemEntry<PickaxeItem> MARSHMALLOW_PICKAXE = builder("marshmallow_pickaxe",
+			(p, param) -> new PickaxeItem((Tier) param[0],/*baseDamage*/(Integer) param[1], /*baseSpeed*/(Float) param[2], p))
+			.setParameters(CTiers.MARSHMALLOW, 1, -2.8F)
+			.save();
+	public static final ItemEntry<AxeItem> MARSHMALLOW_AXE = builder("marshmallow_axe",
+			(p, param) -> new AxeItem((Tier) param[0],/*baseDamage*/(Float) param[1], /*baseSpeed*/(Float) param[2], p))
+			.setParameters(CTiers.MARSHMALLOW, 6F, -3.2F)
+			.save();
+	public static final ItemEntry<HoeItem> MARSHMALLOW_HOE = builder("marshmallow_hoe",
+			(p, param) -> new HoeItem((Tier) param[0],/*baseDamage*/(Integer) param[1], /*baseSpeed*/(Float) param[2], p))
+			.setParameters(CTiers.MARSHMALLOW, 0, -3.0F)
+			.save();
+	//LICORICE
+	public static final ItemEntry<SwordItem> LICORICE_SWORD = builder("licorice_sword", MARSHMALLOW_SWORD)
+			.setParameters(CTiers.LICORICE, 3, -2.4F)
+			.save();
+	public static final ItemEntry<ShovelItem> LICORICE_SHOVEL = builder("licorice_shovel", MARSHMALLOW_SHOVEL)
+			.setParameters(CTiers.LICORICE, 1.5F, -3F)
+			.save();
+	public static final ItemEntry<PickaxeItem> LICORICE_PICKAXE = builder("licorice_pickaxe", MARSHMALLOW_PICKAXE)
+			.setParameters(CTiers.LICORICE, 1, -2.8F)
+			.save();
+	public static final ItemEntry<AxeItem> LICORICE_AXE = builder("licorice_axe", MARSHMALLOW_AXE)
+			.setParameters(CTiers.LICORICE, 7F, -3.2F)
+			.save();
+	public static final ItemEntry<HoeItem> LICORICE_HOE = builder("licorice_hoe", MARSHMALLOW_HOE)
+			.setParameters(CTiers.LICORICE, -1, -2.0F)
+			.save();
+	//HONEYCOMB
+	public static final ItemEntry<SwordItem> HONEYCOMB_SWORD = builder("honeycomb_sword", MARSHMALLOW_SWORD)
+			.setParameters(CTiers.HONEYCOMB, 3, -2.4F)
+			.save();
+	public static final ItemEntry<ShovelItem> HONEYCOMB_SHOVEL = builder("honeycomb_shovel", MARSHMALLOW_SHOVEL)
+			.setParameters(CTiers.HONEYCOMB, 1.5F, -3F)
+			.save();
+	public static final ItemEntry<PickaxeItem> HONEYCOMB_PICKAXE = builder("honeycomb_pickaxe", MARSHMALLOW_PICKAXE)
+			.setParameters(CTiers.HONEYCOMB, 1, -2.8F)
+			.save();
+	public static final ItemEntry<AxeItem> HONEYCOMB_AXE = builder("honeycomb_axe", MARSHMALLOW_AXE)
+			.setParameters(CTiers.HONEYCOMB, 7F, -3.2F)
+			.save();
+	public static final ItemEntry<HoeItem> HONEYCOMB_HOE = builder("honeycomb_hoe", MARSHMALLOW_HOE)
+			.setParameters(CTiers.HONEYCOMB, -1, -2.0F)
+			.save();
+	//PEZ
+	public static final ItemEntry<SwordItem> PEZ_SWORD = builder("pez_sword", MARSHMALLOW_SWORD)
+			.setParameters(CTiers.PEZ, 3, -2.4F)
+			.save();
+	public static final ItemEntry<ShovelItem> PEZ_SHOVEL = builder("pez_shovel", MARSHMALLOW_SHOVEL)
+			.setParameters(CTiers.PEZ, 1.5F, -3.0F)
+			.save();
+	public static final ItemEntry<PickaxeItem> PEZ_PICKAXE = builder("pez_pickaxe", MARSHMALLOW_PICKAXE)
+			.setParameters(CTiers.PEZ, 1, -2.8F)
+			.save();
+	public static final ItemEntry<AxeItem> PEZ_AXE = builder("pez_axe", MARSHMALLOW_AXE)
+			.setParameters(CTiers.PEZ, 5.0F, -3.0F)
+			.save();
+	public static final ItemEntry<HoeItem> PEZ_HOE = builder("pez_hoe", MARSHMALLOW_HOE)
+			.setParameters(CTiers.PEZ, 5, -3.0F)
+			.save();
+
+	/*Armors*/
+	//Licorice
+	public static final ItemEntry<ArmorItem> LICORICE_HELMET = builder("licorice_helmet",
+			(prop, param) -> new ArmorItem((ArmorMaterial) param[0], ArmorItem.Type.HELMET, prop))
+			.setParameters(CArmorMaterials.LICORICE)
+			.save();
+	public static final ItemEntry<ArmorItem> LICORICE_CHESTPLATE = builder("licorice_chestplate",
+			(prop, param) -> new ArmorItem((ArmorMaterial) param[0], ArmorItem.Type.CHESTPLATE, prop))
+			.setParameters(CArmorMaterials.LICORICE)
+			.save();
+	public static final ItemEntry<ArmorItem> LICORICE_LEGGINGS = builder("licorice_leggings",
+			(prop, param) -> new ArmorItem((ArmorMaterial) param[0], ArmorItem.Type.LEGGINGS, prop))
+			.setParameters(CArmorMaterials.LICORICE)
+			.save();
+	public static final ItemEntry<ArmorItem> LICORICE_BOOTS = builder("licorice_boots",
+			(prop, param) -> new ArmorItem((ArmorMaterial) param[0], ArmorItem.Type.BOOTS, prop))
+			.setParameters(CArmorMaterials.LICORICE)
+			.save();
+	//Honeycomb
+	public static final ItemEntry<ArmorItem> HONEYCOMB_HELMET = builder("honeycomb_helmet", LICORICE_HELMET)
+			.setParameters(CArmorMaterials.HONEYCOMB)
+			.save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_CHESTPLATE = builder("honeycomb_chestplate", LICORICE_CHESTPLATE)
+			.setParameters(CArmorMaterials.HONEYCOMB)
+			.save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_LEGGINGS = builder("honeycomb_leggings", LICORICE_LEGGINGS)
+			.setParameters(CArmorMaterials.HONEYCOMB)
+			.save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_BOOTS = builder("honeycomb_boots", LICORICE_BOOTS)
+			.setParameters(CArmorMaterials.HONEYCOMB)
+			.save();
+	//PEZ
+	public static final ItemEntry<ArmorItem> PEZ_HELMET = builder("pez_helmet", LICORICE_HELMET)
+			.setParameters(CArmorMaterials.PEZ)
+			.save();
+	public static final ItemEntry<ArmorItem> PEZ_CHESTPLATE = builder("pez_chestplate", LICORICE_CHESTPLATE)
+			.setParameters(CArmorMaterials.PEZ)
+			.save();
+	public static final ItemEntry<ArmorItem> PEZ_LEGGINGS = builder("pez_leggings", LICORICE_LEGGINGS)
+			.setParameters(CArmorMaterials.PEZ)
+			.save();
+	public static final ItemEntry<ArmorItem> PEZ_BOOTS = builder("pez_boots", LICORICE_BOOTS)
+			.setParameters(CArmorMaterials.PEZ)
+			.save();
+	//Sp
+	public static final ItemEntry<ItemWaterMask> WATER_MASK = builder("water_mask", (p) -> new ItemWaterMask(p)).save();
+	public static final ItemEntry<ArmorItem> JELLY_CROWN = builder("jelly_crown", LICORICE_HELMET)
+			.setParameters(CArmorMaterials.JELLY_CROWN)
+			.save();
+	public static final ItemEntry<ArmorItem> TRAMPOJELLY_BOOTS = builder("trampojelly_boots", LICORICE_BOOTS)
+			.setParameters(CArmorMaterials.TRAMPOJELLY_BOOTS)
+			.save();
+
+	//HELPER.single(IIDEBUG, ItemIiDebug::new, MODEL_SP_DEBUG, EXCLUDE_SUGARY, EXCLUDE_AUTO_GENERATE_LANG);
+	public static final ItemEntry<ItemIIDebug> I_I_DEBUG = builder("i_i_debug", ItemIIDebug::new)
+			.setTab(CreativeModeTabs.OP_BLOCKS)
+			.setCtab(false)
+			.save();
+//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
+
+	//	public static final ItemEntry<BlockItem> TEST_BLOCK = simpleBlockItem(CBlocks.TEST_BLOCK).save();
 
 
-	//HOOKS
-
-	@ExpectPlatform
-	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
-		throw new AssertionError();
+	static {
+		CandyCraftCE.hookMinecraftSetup(() -> {
+			//@see net.minecraft.client.renderer.item.ItemProperties.<cinit>
+		}, CandyCraftCE::isClient);
 	}
 
-	@ExpectPlatform
-	private static RecordItem _record_wwwooowww(int analog, SoundEntry evt, Properties prop, int lengthInSeconds, String nameInGame, String musicName) {
-		throw new AssertionError();
+	public static CItemBuilder<Item> builder(String name) {
+		return new CItemBuilder<>(name, Item::new);
 	}
 
-//	public static final ItemEntry<BlockItem> TEST_BLOCK = simpleBlockItem(CBlocks.TEST_BLOCK).save();
-
-	/**
-	 * 自动与CFoods挂钩
-	 */
-	private static ItemBuilder<Item> simpleItem(String name) {
-		final var ref = new Object() {
-			Supplier<FoodProperties> prop;
-		};
-		ItemBuilder<Item> builder = of(name, () ->
-				new Item(new Properties().food(ref.prop.get()))).ctab();
-		ref.prop = () -> CFoods.getFoodProperties(builder.name);
-		return builder;
+	public static <I extends Item> CItemBuilder<I> builder(String name, Function<Item.Properties, I> fac) {
+		return new CItemBuilder<>(name, fac);
 	}
 
-	public static <I extends Item> ItemBuilder<I> of(String name, Supplier<I> item) {
-		return new ItemBuilder<>(prefix(name), item);
+	public static <I extends Item> CItemBuilder<I> builder(String name, BiFunction<Item.Properties, Object[], I> fac) {
+		return new CItemBuilder<>(name, fac);
 	}
 
-	public static <I extends Item> ItemBuilder<I> copyFrom(String name, ItemEntry<I> origin) {
-		return new ItemBuilder<>(prefix(name), origin);
+	public static <I extends Item> CItemBuilder<I> builder(String name, Supplier<I> fac) {
+		return new CItemBuilder<>(name, fac);
 	}
 
-	/**
-	 * 自动与CFoods挂钩
-	 */
-	/*=====BLOCK=====*/
-//	private static ItemBuilder<BlockItem> simpleBlockItem(BlockEntry<?> block) {
-//		final var ref = new Object() {
-//			FoodProperties prop;
-//		};
-//		ItemBuilder<BlockItem> builder = ofBlock(block, (t) ->
-//				new BlockItem(t.getBlock(), new Item.Properties().food(ref.prop))).ctab();
-//		ref.prop = CFoods.getFoodProperties(builder.name);
-//		return builder;
-//	}
+	public static <I extends Item> CItemBuilder<I> builder(String name, ItemEntry<I> from) {
+		return new CItemBuilder<>(name, from);
+	}
 
-//	private static <B extends Block, BI extends BlockItem> ItemBuilder<BI> ofBlock(BlockEntry<B> block, Function<BlockEntry<B>, BI> item) {
-//		return new ItemBuilder<>(block.getID(), () -> item.apply(block));
-//	}
 	public static void init() {
-	}
-
-	/**
-	 * Created in 2023/8/11 9:03
-	 * Project: candycraftce
-	 *
-	 * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
-	 */
-	public static class ItemBuilder<I extends Item> {
-
-		private static final HashMap<ItemEntry<?>, ItemBuilder<?>> FOR_COPY = new HashMap<>();
-
-		private final Supplier<I> sup;
-		private final ResourceLocation name;
-		private final LinkedList<Consumer<ItemEntry<I>>> consumers;
-
-		private boolean isSaved = false;
-
-
-		private ItemBuilder(ResourceLocation name, Supplier<I> sup) {
-			this.name = Objects.requireNonNull(name);
-			this.sup = Objects.requireNonNull(sup);
-			consumers = new LinkedList<>();
-		}
-
-		@SuppressWarnings("unchecked")
-		private ItemBuilder(ResourceLocation name, ItemEntry<I> copyFrom) {
-			this.name = Objects.requireNonNull(name);
-			ItemBuilder<I> co = (ItemBuilder<I>) FOR_COPY.get(copyFrom);
-			this.sup = Objects.requireNonNull(co.sup);
-			consumers = new LinkedList<>(co.consumers);
-		}
-
-		public ItemBuilder<I> accept(Consumer<ItemEntry<I>> consumer) {
-			checkState();
-			consumers.add(consumer);
-			return this;
-		}
-
-		public ItemBuilder<I> ctab() {
-			return accept(CCTab::add);
-		}
-
-		public <B extends Block & ItemLike> ItemEntry<I> save() {
-			checkState();
-			isSaved = true;
-
-			ItemEntry<I> entry = register(name, sup);
-			assertTrue(ITEMS.put(name, entry) == null, "Duplicate name: " + name);
-			FOR_COPY.put(entry, this);
-			consumers.forEach(k -> k.accept(entry));
-			return entry;
-		}
-
-		private void checkState() {
-			assertTrue(!isSaved, "saved");
-		}
-
-		@ExpectPlatform
-		private static <I extends Item> ItemEntry<I> register(ResourceLocation name, Supplier<I> sup) {
-			throw new AssertionError();
-		}
-
-
 	}
 }

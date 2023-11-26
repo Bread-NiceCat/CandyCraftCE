@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
-import cn.breadnicecat.candycraftce.registration.RegistrationEntry;
+import cn.breadnicecat.candycraftce.registration.RegistryEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
 
-public abstract class ItemEntry<I extends Item> extends RegistrationEntry {
+public abstract class ItemEntry<I extends Item> extends RegistryEntry {
 
 
 	public ItemEntry(ResourceLocation name) {

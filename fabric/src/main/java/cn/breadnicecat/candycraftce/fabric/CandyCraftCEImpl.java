@@ -1,20 +1,25 @@
 package cn.breadnicecat.candycraftce.fabric;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minecraft.util.profiling.jfr.Environment;
 
-public class CandyCraftCEImpl implements ModInitializer {
+import java.util.function.BooleanSupplier;
+
+public class CandyCraftCEImpl extends CandyCraftCE implements ModInitializer {
 
 
 	private static final EnvType envType = FabricLoaderImpl.InitHelper.get().getEnvironmentType();
 
+	public CandyCraftCEImpl() {
+		super();
+	}
+
 	@Override
 	public void onInitialize() {
-		CandyCraftCE.bootstrap();
+		//在构造函数中
 	}
 
 	public static Environment getEnvironment() {
@@ -24,6 +29,10 @@ public class CandyCraftCEImpl implements ModInitializer {
 	@Deprecated
 	public static ModPlatform getPlatform() {
 		return ModPlatform.FABRIC;
+	}
+
+	public static void hookMinecraftSetup(Runnable runnable, BooleanSupplier... predicate) {
+		hookPostBootstrap(runnable, predicate);
 	}
 
 }
