@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.registration.block.BlockEntry;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -8,11 +9,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -20,8 +25,10 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.devImmune;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.hookPostBootstrap;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.isInDev;
+import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.Factory.byFunc;
+import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.Factory.bySupply;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -34,22 +41,30 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CItemBuilder<I extends Item> {
 	static {
-		CandyCraftCE.hookPostBootstrap(devImmune(() -> BY_PRODUCTS = null));//清理内存占用
+		if (!isInDev()) CandyCraftCE.hookPostBootstrap(() -> BY_PRODUCTS = null);//清理内存占用
 	}
 
 	private static HashMap<ItemEntry<?>, CItemBuilder<?>> BY_PRODUCTS = new HashMap<>();
 
 	private boolean isFrozen = CandyCraftCE.isBootstrapped();
 	private final String name;
-	private BiFunction<Item.Properties, Object[], I> factory;
+//	/**
+//	 * 副本会对{@link #)等修饰方法做限制
+//	 */
+//	private boolean isCopy=false;
 
-	public Item.Properties properties = new Item.Properties();
+	//以下是可以被复制的参数
+	private Factory<I> factory;
+	public Properties properties = new Properties();
 	public Object[] param = new Object[0];
-	public boolean ctab;
-
+	/**
+	 * 默认处于CTab中，参见{@link #setCtab}
+	 */
+	public boolean ctab = true;
+	//可复制 END
 
 	/**
-	 * @see #registerTabEntry(Pair, Either)
+	 * 用法@see #registerTabEntry(Pair, Either)
 	 */
 	public Map<ResourceKey<CreativeModeTab>, Either<Supplier<ItemStack>, Supplier<ItemStack>>> ex_tabs = new HashMap<>();
 
@@ -57,89 +72,93 @@ public class CItemBuilder<I extends Item> {
 	 * 通过ItemEntry复制Builder
 	 */
 	@SuppressWarnings("unchecked")
-	public CItemBuilder(String name, ItemEntry<I> copyFrom) {
-		this(name, (CItemBuilder<I>) BY_PRODUCTS.get(copyFrom));
+	public static <I extends Item> CItemBuilder<I> create(String name, ItemEntry<I> copyFrom) {
+		return create(name, (CItemBuilder<I>) BY_PRODUCTS.get(copyFrom));
 	}
 
 	/**
 	 * 从另一个builder复制参数
 	 */
-	public CItemBuilder(String name, CItemBuilder<I> that) {
-		this(name, that.factory);
-		this.properties = that.properties;
-		this.param = that.param;
-		this.ctab = that.ctab;
-
+	public static <I extends Item> CItemBuilder<I> create(String name, CItemBuilder<I> that) {
+		CItemBuilder<I> builder = new CItemBuilder<>(name, that.factory);
+		builder.properties = that.properties;
+		builder.param = Arrays.copyOf(that.param, that.param.length);
+		return builder;
 	}
 
-	public CItemBuilder(String name, Function<Item.Properties, I> factory) {
-		this(name, lower(factory));
+	public static <I extends Item> CItemBuilder<I> create(String name, Function<Properties, I> factory) {
+		return new CItemBuilder<>(name, byFunc(factory));
 	}
 
-	public CItemBuilder(String name, Supplier<I> fac) {
-		this(name, higher(fac));
+	public static <I extends Item> CItemBuilder<I> create(String name, Supplier<I> fac) {
+		return new CItemBuilder<>(name, bySupply(fac));
 	}
 
-	/**
-	 * 默认处于CTab中，参见{@link #setCtab}
-	 *
-	 * @param factory 带参的factory
-	 * @apiNote 所有的构造都要委托给此
-	 */
-	public CItemBuilder(String name, BiFunction<Item.Properties, Object[], I> factory) {
+	public static CItemBuilder<Item> create(String name) {
+		return create(name, Item::new);
+	}
+
+	public static <I extends Item> CItemBuilder<I> create(String name, Factory<I> factory) {
+		return new CItemBuilder<>(name, factory);
+	}
+
+	protected CItemBuilder(String name, Factory<I> factory) {
 		checkState();
 		this.name = name;
 		this.factory = factory;
 		//防止有未save的builder
 		hookPostBootstrap(() -> {
-			if (!isFrozen) throw new IllegalStateException("unfrozen builder");
+			if (!isFrozen) throw new IllegalStateException("unfrozen builder, haven't been save?");
 		});
-		setCtab();
 	}
 
+	public static CItemBuilder<BlockItem> block(BlockEntry<Block> block) {
+		String namespace = block.getID().getNamespace();
+		assertTrue(namespace.equals(CandyCraftCE.MOD_ID), () -> "wrong namespace, require equ " + CandyCraftCE.MOD_ID);
+		return create(namespace, (p) -> new BlockItem(block.getBlock(), p));
+	}
 
-	public CItemBuilder<I> setFactory(@NotNull BiFunction<Item.Properties, Object[], I> of) {
+	public CItemBuilder<I> resetFactory(@NotNull BiFunction<Properties, Object[], I> of) {
 		checkState();
-		this.factory = Objects.requireNonNull(of);
+		this.factory = Factory.byBiFunc(of);
 		return this;
 	}
 
-	public CItemBuilder<I> setFactory(@NotNull Function<Item.Properties, I> of) {
+	public CItemBuilder<I> resetFactory(@NotNull Function<Properties, I> of) {
 		checkState();
-		setFactory(lower(of));
+		this.factory = Factory.byFunc(of);
 		return this;
 	}
 
-	public CItemBuilder<I> setFactory(@NotNull Supplier<I> of) {
+	public CItemBuilder<I> resetFactory(@NotNull Supplier<I> of) {
 		checkState();
-		setFactory(higher(of));
+		this.factory = Factory.bySupply(of);
 		return this;
 	}
 
 	/**
 	 * 新的Properties
 	 */
-	public CItemBuilder<I> setProperties(@NotNull Item.Properties prop) {
+	public CItemBuilder<I> setProperties(@NotNull Properties prop) {
 		checkState();
+		checkIsSupportProperties();
 		this.properties = Objects.requireNonNull(prop);
 		return this;
 	}
 
-	/**
-	 * 对默认的进行修饰
-	 */
-	public CItemBuilder<I> setProperties(Function<Item.Properties, Item.Properties> prop) {
-		checkState();
-		setProperties(prop.apply(this.properties));
-		return this;
+	private void checkIsSupportProperties() {
+		if (!factory.isSupportProp())
+			throw new UnsupportedOperationException("Unable to access properties. Try to upgrade `factory` level");
 	}
+
 
 	/**
 	 * @param food 调用properties#food
-	 * @see net.minecraft.world.item.Item.Properties#food(FoodProperties)
+	 * @see Properties#food(FoodProperties)
 	 */
 	public CItemBuilder<I> setFood(FoodProperties food) {
 		checkState();
+		checkIsSupportProperties();
 		properties.food(food);
 		return this;
 	}
@@ -154,13 +173,28 @@ public class CItemBuilder<I extends Item> {
 	public CItemBuilder<I> setFood(int nutrition, int saturation) {
 		checkState();
 		float saturationModifier = saturation / 2f / nutrition;
-		return setFood(new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturationModifier).build());
+		return setFood(new FoodProperties.Builder()
+				.nutrition(nutrition).saturationMod(saturationModifier).build());
+	}
+
+	public CItemBuilder<I> modifyParameters(@NotNull Function<Object[], Object[]> paramFunc) {
+		checkState();
+		checkIsSupportParam();
+		assertTrue(this.param.length != 0, "empty!");
+		setParameters(paramFunc.apply(this.param));
+		return this;
 	}
 
 	public CItemBuilder<I> setParameters(Object... param) {
 		checkState();
+		checkIsSupportParam();
 		this.param = param;
 		return this;
+	}
+
+	private void checkIsSupportParam() {
+		if (!factory.isSupportParam())
+			throw new UnsupportedOperationException("Unable to access parameters. Try to upgrade `factory` level");
 	}
 
 	public CItemBuilder<I> setCtab(boolean ctab) {
@@ -169,11 +203,6 @@ public class CItemBuilder<I extends Item> {
 		return this;
 	}
 
-	public CItemBuilder<I> setCtab() {
-		checkState();
-		setCtab(true);
-		return this;
-	}
 
 	/**
 	 * @param tab 在此tab中的最前面
@@ -223,16 +252,6 @@ public class CItemBuilder<I extends Item> {
 		assertTrue(!isFrozen, "Frozen Builder");
 	}
 
-	public static <I> BiFunction<Item.Properties, Object[], I> lower(Function<Item.Properties, I> fac) {
-		Objects.requireNonNull(fac);
-		return (f, s) -> fac.apply(f);
-	}
-
-	public static <I extends Item> Function<Item.Properties, I> higher(Supplier<I> met) {
-		Objects.requireNonNull(met);
-		return (ignore) -> met.get();
-	}
-
 	public static <I extends Item> ItemEntry<I> register(String name, Supplier<I> sup) {
 		return register(prefix(name), sup);
 	}
@@ -255,4 +274,43 @@ public class CItemBuilder<I extends Item> {
 		throw new AssertionError();
 	}
 
+	public interface Factory<I extends Item> extends BiFunction<Properties, Object[], I> {
+		static <I extends Item> Factory<I> bySupply(Supplier<I> supplier) {
+			Objects.requireNonNull(supplier);
+			return (SupplierFactory<I>) (p, a) -> supplier.get();
+		}
+
+		static <I extends Item> Factory<I> byFunc(Function<Properties, I> func) {
+			Objects.requireNonNull(func);
+			return (WithProperties<I>) (p, a) -> func.apply(p);
+		}
+
+		static <I extends Item> Factory<I> byBiFunc(BiFunction<Properties, Object[], I> bi) {
+			Objects.requireNonNull(bi);
+			return bi::apply;
+		}
+
+		default boolean isSupportProp() {
+			return true;
+		}
+
+		default boolean isSupportParam() {
+			return true;
+		}
+
+	}
+
+	interface WithProperties<I extends Item> extends Factory<I> {
+		@Override
+		default boolean isSupportParam() {
+			return false;
+		}
+	}
+
+	interface SupplierFactory<I extends Item> extends WithProperties<I> {
+		@Override
+		default boolean isSupportProp() {
+			return false;
+		}
+	}
 }

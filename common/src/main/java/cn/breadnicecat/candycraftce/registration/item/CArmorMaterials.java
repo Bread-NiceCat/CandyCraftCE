@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
+import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import cn.breadnicecat.candycraftce.utils.tools.LazySupplier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -58,7 +59,7 @@ public enum CArmorMaterials implements ArmorMaterial {
 	 * @param repairIngredient     修复材料
 	 */
 	CArmorMaterials(String name, int durabilityMultiplier, int[] protectionPerType, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-		this.name = name;
+		this.name = ResourceUtils.simplePrefix(name);
 		this.durabilityMultiplier = durabilityMultiplier;
 		assertTrue(protectionPerType.length == 4, "protectionPerType.length must equals 4 ,even you'll never use the rest");
 		this.protectionFunctionForType = protectionPerType;

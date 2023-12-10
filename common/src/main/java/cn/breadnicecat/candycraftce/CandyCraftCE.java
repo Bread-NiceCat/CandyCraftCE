@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce;
 
+import cn.breadnicecat.candycraftce.registration.block.CBlocks;
 import cn.breadnicecat.candycraftce.registration.item.CItems;
 import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.LinkedList;
-import java.util.function.BooleanSupplier;
 
 import static cn.breadnicecat.candycraftce.utils.CLogUtils.getModLogger;
 
@@ -23,13 +23,10 @@ public class CandyCraftCE {
 
 	static {
 		CLogUtils.sign();
-		LOGGER.info("=".repeat(50));
-		LOGGER.info(MOD_ID + " Running in " + getEnvironment() + " with " + getPlatform());
-		if (inDev) LOGGER.info("Here running IDE mode!If you're not a developer, Please report the issue!");
-		LOGGER.info("=".repeat(50));
 	}
 
 	private static LinkedList<Runnable> bootstrapHooks = new LinkedList<>();
+	protected static LinkedList<Runnable> mcSetupHooks = new LinkedList<>();
 
 	private static boolean postBootstrap = false;
 	private static boolean preBootstrap = false;
@@ -43,44 +40,34 @@ public class CandyCraftCE {
 			throw new IllegalStateException("bootstrapped!");
 		}
 		preBootstrap = true;
+		LOGGER.info("=".repeat(50));
+		LOGGER.info(MOD_ID + " Running in " + getEnvironment() + " with " + getPlatform());
+		if (inDev) LOGGER.info("Here running IDE mode!If you're not a developer, Please report the issue!");
+		LOGGER.info("=".repeat(50));
 
-		CItems.init();//->CBlocks
+
+		CItems.init();
+		CBlocks.init();
 		CSoundEvents.init();
-//		CBlocks.init();
 
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
 
-		preBootstrap = false;
 		postBootstrap = true;
 	}
 
-	public static void hookPostBootstrap(Runnable runnable, BooleanSupplier... predicate) {
-		bootstrapHooks.add(predicate.length == 0 ? runnable : () -> {
-			for (BooleanSupplier supplier : predicate) {
-				if (!supplier.getAsBoolean()) return;
-			}
-			runnable.run();
-		});
+
+	public static void hookPostBootstrap(Runnable runnable) {
+		bootstrapHooks.add(runnable);
 	}
 
 	/**
 	 * Forge: FMLCommonSetupEvent
-	 * Fabric 委托给{@link #hookPostBootstrap}
+	 * Fabric: onInitialize
 	 */
-	@ExpectPlatform
-	public static void hookMinecraftSetup(Runnable runnable, BooleanSupplier... predicate) {
-		throw new AssertionError();
+	public static void hookMinecraftSetup(Runnable runnable) {
+		mcSetupHooks.add(runnable);
 	}
-
-	/**
-	 * 如果是在开发环境里，返回空的Runnable
-	 */
-	public static Runnable devImmune(Runnable runnable) {
-		return isInDev() ? () -> {
-		} : runnable;
-	}
-
 
 	/**
 	 * @return 完成bootstrap

@@ -58,7 +58,7 @@ public class CommonUtils {
 
 
 	public static void assertTrue(boolean bool) {
-		assertTrue(bool, "assert not false");
+		assertTrue(bool, "assert true");
 	}
 
 	public static void assertTrue(boolean bool, String msg) {
@@ -69,7 +69,7 @@ public class CommonUtils {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
 
-	public static Runnable conditionalRunnable(Runnable runnable, BooleanSupplier... predicate) {
+	public static Runnable optional(Runnable runnable, BooleanSupplier... predicate) {
 		return predicate.length == 0 ? runnable : () -> {
 			for (BooleanSupplier supplier : predicate) {
 				if (!supplier.getAsBoolean()) return;

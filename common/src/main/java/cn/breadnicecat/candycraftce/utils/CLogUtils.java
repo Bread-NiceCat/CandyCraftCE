@@ -40,9 +40,6 @@ public class CLogUtils {
 		return getModLogger(caller);
 	}
 
-	/**
-	 * 一般用于{@code <clinit>}中
-	 */
 	public static void sign() {
 		getCallerModLogger().info("{} signed", getCaller().getName());
 	}
@@ -51,7 +48,11 @@ public class CLogUtils {
 		Logger logger = getCallerModLogger();
 		Thread thread = Thread.currentThread();
 		logger.info(STACK_TRACE_MARKER, thread.toString());
-		for (StackTraceElement traceElement : thread.getStackTrace()) {
+		StackTraceElement[] stackTrace = thread.getStackTrace();
+		for (int i = 2; i < stackTrace.length; i++) {
+			//0:at java.lang.Thread.getStackTrace(Thread.java:1610)
+			//1:at cn.breadnicecat.candycraftce.utils.CLogUtils.printStackTrace(CLogUtils.java:54)
+			StackTraceElement traceElement = stackTrace[i];
 			logger.info(STACK_TRACE_MARKER, "\tat " + traceElement);
 		}
 	}

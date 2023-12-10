@@ -6,8 +6,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minecraft.util.profiling.jfr.Environment;
 
-import java.util.function.BooleanSupplier;
-
 public class CandyCraftCEImpl extends CandyCraftCE implements ModInitializer {
 
 
@@ -19,7 +17,8 @@ public class CandyCraftCEImpl extends CandyCraftCE implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//在构造函数中
+		mcSetupHooks.forEach(Runnable::run);
+		mcSetupHooks = null;
 	}
 
 	public static Environment getEnvironment() {
@@ -31,8 +30,5 @@ public class CandyCraftCEImpl extends CandyCraftCE implements ModInitializer {
 		return ModPlatform.FABRIC;
 	}
 
-	public static void hookMinecraftSetup(Runnable runnable, BooleanSupplier... predicate) {
-		hookPostBootstrap(runnable, predicate);
-	}
 
 }

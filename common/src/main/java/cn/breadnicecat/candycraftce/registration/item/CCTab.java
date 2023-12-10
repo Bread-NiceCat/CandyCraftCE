@@ -1,6 +1,5 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
-import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -18,10 +17,6 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
 public class CCTab {
-	static {
-		CLogUtils.sign();
-	}
-
 	public static final LinkedHashSet<Supplier<ItemStack>> ENTRIES = new LinkedHashSet<>();
 	public static final String TITLE_KEY = "itemGroup.candycraftce";
 	public static ResourceKey<CreativeModeTab> TAB_KEY = register("candycraftce", builder -> builder

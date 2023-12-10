@@ -1,8 +1,18 @@
+buildscript {
+    ext.kotlin_version = '2.0.0-Beta1'
+    repositories {
+        maven { url = "https://maven.aliyun.com/repository/public" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
 plugins {
     id 'java'
     id 'idea'
-
 }
+apply plugin: 'kotlin'
 
 group = 'cn.breadnicecat'
 version = '1'
@@ -16,8 +26,9 @@ repositories {
     mavenCentral()
 }
 println("repo here=>")
-getRepositories().forEach { println it.url }
+getRepositories().any { println it.url }
 dependencies {
     compileOnly 'org.jetbrains:annotations:24.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

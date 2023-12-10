@@ -29,7 +29,7 @@ allprojects {
             content { includeGroup "curse.maven" }
         }
     }
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = 17
     }
@@ -44,7 +44,6 @@ subprojects {
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        implementation 'org.codehaus.groovy:groovy:3.0.19'
         mappings loom.layered() {
             officialMojangMappings()
             parchment("org.parchmentmc.data:${rootProject.parchment_version}")

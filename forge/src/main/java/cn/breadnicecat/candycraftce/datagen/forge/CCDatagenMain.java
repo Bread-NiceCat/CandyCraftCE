@@ -20,12 +20,10 @@ import java.util.concurrent.CompletableFuture;
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCDatagenMain {
-	static {
-		CLogUtils.getModLogger().warn("RUNNING DATAGEN ENVIRONMENT");
-	}
 
 	@SubscribeEvent
 	public static void onInitializeDataGenerator(GatherDataEvent evt) {
+		CLogUtils.getModLogger().warn("RUNNING DATAGEN ENVIRONMENT");
 		CDatagens.init();
 		ExistingFileHelper efhelper = evt.getExistingFileHelper();
 		DataGenerator generator = evt.getGenerator();

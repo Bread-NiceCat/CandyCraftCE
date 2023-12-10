@@ -14,11 +14,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.LinkedList;
-import java.util.function.BooleanSupplier;
-
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.conditionalRunnable;
 
 @Mod(MOD_ID)
 public class CandyCraftCEImpl extends CandyCraftCE {
@@ -51,16 +47,10 @@ public class CandyCraftCEImpl extends CandyCraftCE {
 		return ModPlatform.FORGE;
 	}
 
-	public static LinkedList<Runnable> mcSetupHooks = new LinkedList<>();
-
 	@SubscribeEvent
 	public static void onFMLCommonSetup(FMLCommonSetupEvent setup) {
 		CLogUtils.getModLogger().info("hit McSetupHooks");
 		mcSetupHooks.forEach(Runnable::run);
 		mcSetupHooks = null;
-	}
-
-	public static void hookMinecraftSetup(Runnable runnable, BooleanSupplier... predicate) {
-		mcSetupHooks.add(conditionalRunnable(runnable, predicate));
 	}
 }

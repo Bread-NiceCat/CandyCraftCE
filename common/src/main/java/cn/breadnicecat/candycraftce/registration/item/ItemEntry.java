@@ -15,8 +15,8 @@ import net.minecraft.world.item.ItemStack;
 public abstract class ItemEntry<I extends Item> extends RegistryEntry {
 
 
-	public ItemEntry(ResourceLocation name) {
-		super(name);
+	public ItemEntry(ResourceLocation id) {
+		super(id);
 	}
 
 	public abstract I getItem();

@@ -1,6 +1,5 @@
 package cn.breadnicecat.candycraftce.registration.entity;
 
-import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
@@ -22,9 +21,6 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
 public class CEntities {
-	static {
-		CLogUtils.sign();
-	}
 
 //	public static final HashMap<ResourceLocation, EntityEntry<?>> ENTITIES = new HashMap<>();
 //	@Environment(EnvType.CLIENT)

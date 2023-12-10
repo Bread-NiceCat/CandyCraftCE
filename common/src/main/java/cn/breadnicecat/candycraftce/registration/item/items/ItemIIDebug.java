@@ -35,6 +35,8 @@ public class ItemIIDebug extends Item {
 				int[] zero = pContext.getItemInHand().getOrCreateTag().getIntArray("zero");
 				if (zero.length != 0) {
 					player.sendSystemMessage(Component.literal("[坐标测算]: 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
+				} else {
+					player.sendSystemMessage(Component.literal("[坐标测算]: 未调零").withStyle(ChatFormatting.DARK_RED));
 				}
 
 			}
