@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.forge;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -14,14 +15,18 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.Objects;
+
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.mcSetupHooks;
 
 @Mod(MOD_ID)
-public class CandyCraftCEImpl extends CandyCraftCE {
+public class CandyCraftCEImpl {
 
-	public static final Dist dist = FMLEnvironment.dist;
+	public static final Dist dist = Objects.requireNonNull(FMLEnvironment.dist);
 
 	public CandyCraftCEImpl() {
+		CandyCraftCE.runBootstrap(dist == Dist.CLIENT ? Environment.CLIENT : Environment.SERVER, ModPlatform.FORGE);
 	}
 
 

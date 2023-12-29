@@ -9,6 +9,7 @@ import cn.breadnicecat.candycraftce.registration.item.items.ItemWaterMask;
 import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.registration.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.redstone.Redstone;
@@ -17,10 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.create;
-import static cn.breadnicecat.candycraftce.registration.item.CItemTemples._recordItem;
-import static cn.breadnicecat.candycraftce.registration.item.CItemTemples._record_wwwooowww;
 
 /**
  * Created in 2023/8/9 10:22
@@ -247,7 +245,7 @@ public class CItems {
 
 
 	static {
-		if (isClient()) {
+		if (CandyCraftCE.isClient()) {
 			CandyCraftCE.hookMinecraftSetup(() -> {
 				//@see net.minecraft.client.renderer.item.ItemProperties.<cinit>
 			});
@@ -256,5 +254,19 @@ public class CItems {
 
 
 	public static void init() {
+	}
+
+	//模板
+
+
+	//平台差异
+	@ExpectPlatform
+	private static RecordItem _recordItem(int analog, SoundEntry evt, Item.Properties prop, int lengthInSeconds) {
+		throw new AssertionError();
+	}
+
+	@ExpectPlatform
+	private static RecordItem _record_wwwooowww(int analog, SoundEntry evt, Item.Properties prop, int lengthInSeconds, String nameInGame, String musicName) {
+		throw new AssertionError();
 	}
 }

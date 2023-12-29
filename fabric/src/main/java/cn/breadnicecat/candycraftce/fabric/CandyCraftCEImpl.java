@@ -6,28 +6,22 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minecraft.util.profiling.jfr.Environment;
 
-public class CandyCraftCEImpl extends CandyCraftCE implements ModInitializer {
+import java.util.Objects;
 
 
-	private static final EnvType envType = FabricLoaderImpl.InitHelper.get().getEnvironmentType();
+public class CandyCraftCEImpl implements ModInitializer {
+
+
+	private static final EnvType envType = Objects.requireNonNull(FabricLoaderImpl.InitHelper.get().getEnvironmentType());
 
 	public CandyCraftCEImpl() {
-		super();
+		CandyCraftCE.runBootstrap(envType == EnvType.CLIENT ? Environment.CLIENT : Environment.SERVER, CandyCraftCE.ModPlatform.FABRIC);
 	}
 
 	@Override
 	public void onInitialize() {
-		mcSetupHooks.forEach(Runnable::run);
-		mcSetupHooks = null;
-	}
-
-	public static Environment getEnvironment() {
-		return envType == EnvType.CLIENT ? Environment.CLIENT : Environment.SERVER;
-	}
-
-	@Deprecated
-	public static ModPlatform getPlatform() {
-		return ModPlatform.FABRIC;
+		CandyCraftCE.mcSetupHooks.forEach(Runnable::run);
+		CandyCraftCE.mcSetupHooks = null;
 	}
 
 

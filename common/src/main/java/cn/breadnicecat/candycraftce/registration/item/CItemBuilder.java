@@ -25,8 +25,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.hookPostBootstrap;
-import static cn.breadnicecat.candycraftce.CandyCraftCE.isInDev;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.Factory.byFunc;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.Factory.bySupply;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
@@ -41,7 +41,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CItemBuilder<I extends Item> {
 	static {
-		if (!isInDev()) CandyCraftCE.hookPostBootstrap(() -> BY_PRODUCTS = null);//清理内存占用
+		if (!IS_DEV) CandyCraftCE.hookPostBootstrap(() -> BY_PRODUCTS = null);//清理内存占用
 	}
 
 	private static HashMap<ItemEntry<?>, CItemBuilder<?>> BY_PRODUCTS = new HashMap<>();

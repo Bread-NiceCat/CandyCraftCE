@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.Map;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.isInDev;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
 
 /**
  * Created in 2023/7/29 15:23
@@ -29,7 +29,7 @@ public class DEBUGS {
 		CLogUtils.getModLogger().warn("=".repeat(40));
 		CLogUtils.getModLogger().warn("DEBUGS is using now!");
 		CLogUtils.getModLogger().warn("=".repeat(40));
-		if (!isInDev()) throw new IllegalStateException("Not in DEV");
+		if (!IS_DEV) throw new IllegalStateException("Not in DEV");
 	}
 
 //	public static Class<?> loadClass(File directory, String className) {
