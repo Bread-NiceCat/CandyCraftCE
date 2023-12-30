@@ -1,16 +1,16 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
+import cn.breadnicecat.candycraftce.registration.sound.SoundEntry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedHashSet;
-import java.util.function.Consumer;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
  * Created in 2023/10/14 21:07
@@ -20,7 +20,6 @@ import java.util.function.Consumer;
  * <p>
  */
 public class CSoundProvider extends SoundDefinitionsProvider {
-	public static final LinkedHashSet<Consumer<CSoundProvider>> ENTRIES = new LinkedHashSet<>();
 
 	public CSoundProvider(PackOutput output, ExistingFileHelper helper) {
 		super(output, CandyCraftCE.MOD_ID, helper);
@@ -28,17 +27,44 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 
 	@Override
 	public void registerSounds() {
-		ENTRIES.forEach((k) -> k.accept(this));
+		asMusicDisc(CSoundEvents.CD_1, prefix("cd-1"));
+		asMusicDisc(CSoundEvents.CD_2, prefix("cd-2"));
+		asMusicDisc(CSoundEvents.CD_3, prefix("cd-3"));
+		asMusicDisc(CSoundEvents.CD_4, prefix("cd-4"));
+		asMusicDisc(CSoundEvents.CD_WWWOOOWWW, prefix("wwwooowww"));
+		asStepSound(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
+		asBreakSound(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
 	}
 
-	@Override
-	public void add(@NotNull SoundEvent soundEvent, @NotNull SoundDefinition definition) {
-		super.add(soundEvent, definition);
+	public void asStepSound(SoundEntry sound, ResourceLocation... soundLocs) {
+		withSubtitle(sound, "subtitles.block.generic.footsteps", soundLocs);
 	}
 
-	@Override
-	public void add(@NotNull ResourceLocation soundEvent, @NotNull SoundDefinition definition) {
-		super.add(soundEvent, definition);
+	public void asBreakSound(SoundEntry sound, ResourceLocation... soundLocs) {
+		withSubtitle(sound, "subtitles.block.generic.break", soundLocs);
 	}
+
+	public void asPlaceSound(SoundEntry sound, ResourceLocation... soundLocs) {
+		withSubtitle(sound, "subtitles.block.generic.place", soundLocs);
+	}
+
+	public void asMusicDisc(SoundEntry sound, ResourceLocation soundLoc) {
+		add(sound, SoundDefinition.definition()
+				.with(SoundDefinition.Sound.sound(soundLoc, SoundDefinition.SoundType.SOUND).stream())
+		);
+	}
+
+	public void withSubtitle(SoundEntry sound, String subtitle, ResourceLocation... soundLocs) {
+		SoundDefinition definition = SoundDefinition.definition().subtitle(subtitle);
+		for (ResourceLocation loc : soundLocs) {
+			definition.with(SoundDefinition.Sound.sound(loc, SoundDefinition.SoundType.EVENT));
+		}
+		add(sound, definition);
+	}
+
+	public void add(SoundEntry sound, @NotNull SoundDefinition definition) {
+		add(sound.getSound(), definition);
+	}
+
 
 }

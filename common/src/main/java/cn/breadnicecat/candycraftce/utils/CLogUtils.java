@@ -40,8 +40,10 @@ public class CLogUtils {
 		return getModLogger(caller);
 	}
 
-	public static void sign() {
-		getCallerModLogger().info("{} signed", getCaller().getName());
+	public static Logger sign() {
+		Logger l = getCallerModLogger();
+		l.info("{} signed", getCaller().getName());
+		return l;
 	}
 
 	public static void printStackTrace() {
@@ -57,11 +59,4 @@ public class CLogUtils {
 		}
 	}
 
-//	/**
-//	 * 一般用于init方法中
-//	 */
-//	public static void initialing() {
-//		Class<?> caller = getCaller();
-//		getModLogger(caller).info("Initialing {}...", caller.getName());
-//	}
 }

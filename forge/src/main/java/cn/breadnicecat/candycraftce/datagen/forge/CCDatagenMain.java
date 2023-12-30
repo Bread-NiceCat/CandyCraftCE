@@ -9,6 +9,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.slf4j.Logger;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,15 +22,16 @@ import java.util.concurrent.CompletableFuture;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCDatagenMain {
 
+	private static final Logger LOGGER = CLogUtils.sign();
+
 	@SubscribeEvent
 	public static void onInitializeDataGenerator(GatherDataEvent evt) {
-		CLogUtils.getModLogger().warn("RUNNING DATAGEN ENVIRONMENT");
-		CDatagens.init();
+		terminalHelper();
+		LOGGER.warn("RUNNING DATAGEN ENVIRONMENT");
 		ExistingFileHelper efhelper = evt.getExistingFileHelper();
 		DataGenerator generator = evt.getGenerator();
 		PackOutput pack = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookup = evt.getLookupProvider();
-
 
 		CBlockTagsProvider blocktag = new CBlockTagsProvider(pack, lookup, efhelper);
 		generator.addProvider(evt.includeServer(), blocktag);
@@ -39,5 +41,24 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CBlockModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
+	}
+
+	private static void terminalHelper() {
+		Thread main = Thread.currentThread();
+		Thread helper = new Thread(() -> {
+			LOGGER.info("Thread Terminal Helper started!");
+			while (main.isAlive()) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					throw new RuntimeException(e);
+				}
+			}
+			LOGGER.info("main Thread terminated, prepare exit(0)!");
+			System.exit(0);
+		});
+		helper.setName("Terminal Helper");
+		helper.setDaemon(true);
+		helper.start();
 	}
 }

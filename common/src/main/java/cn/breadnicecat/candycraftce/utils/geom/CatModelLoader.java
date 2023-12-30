@@ -31,7 +31,7 @@ import java.util.zip.GZIPInputStream;
 @Environment(EnvType.CLIENT)
 public class CatModelLoader {
 	private static final Gson GSON = new Gson();
-	private static final Logger LOGGER = CLogUtils.getModLogger();
+	private static final Logger LOGGER = CLogUtils.sign();
 
 	private CatModelLoader() {
 	}

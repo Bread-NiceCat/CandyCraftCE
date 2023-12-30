@@ -11,17 +11,12 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.Objects;
 
-import static cn.breadnicecat.candycraftce.utils.CLogUtils.getModLogger;
-
 public final class CandyCraftCE {
 	public static final String MOD_ID = "candycraftce";
 	public static final String MOD_NAME = "CandyCraft CE";
 
-	static {
-		CLogUtils.sign();
-	}
+	private static final Logger LOGGER = CLogUtils.sign();
 
-	private static final Logger LOGGER = getModLogger();
 
 	public static final boolean IS_DEV;
 

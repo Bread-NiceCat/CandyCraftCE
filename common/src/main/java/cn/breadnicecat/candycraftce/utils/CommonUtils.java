@@ -77,4 +77,11 @@ public class CommonUtils {
 			runnable.run();
 		};
 	}
+
+	@SafeVarargs
+	public static <I> void receive(Consumer<I> house, I... guests) {
+		for (I guest : guests) {
+			house.accept(guest);
+		}
+	}
 }
