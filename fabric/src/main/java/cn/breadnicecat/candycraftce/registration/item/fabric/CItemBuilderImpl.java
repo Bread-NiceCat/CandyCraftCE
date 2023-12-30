@@ -1,18 +1,16 @@
 package cn.breadnicecat.candycraftce.registration.item.fabric;
 
-import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.registration.item.ItemEntry;
-import cn.breadnicecat.candycraftce.utils.tools.Accessor;
-import cn.breadnicecat.candycraftce.utils.tools.AccessorImpl;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -25,25 +23,21 @@ import java.util.function.Supplier;
  * <p>
  */
 public class CItemBuilderImpl {
-	@SuppressWarnings("unchecked")
-	public static <I extends Item> ItemEntry<I> register(ResourceLocation name, Supplier<I> sup) {
-		Accessor<I> ass = new AccessorImpl<>();
-		//适应Forge的注册模式
-		CandyCraftCE.hookPostBootstrap(() -> ass.set((I) Items.registerItem(name, sup.get())));
+	public static <I extends Item> ItemEntry<I> register(ResourceLocation name, @NotNull Supplier<I> sup) {
+		I i = Registry.register(BuiltInRegistries.ITEM, name, sup.get());
 		return new ItemEntry<>(name) {
 			@Override
 			public I getItem() {
-				return ass.get();
+				return i;
 			}
 		};
 	}
 
-	public static void registerTabEntry(Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> pos) {
-		//Item延后注册了
-		CandyCraftCE.hookPostBootstrap(() -> _registerTabEntry(tab, pos));
-	}
+//	public static void registerTabEntry(Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> pos) {
+//		_registerTabEntry(tab, pos);
+//	}
 
-	public static void _registerTabEntry(@NotNull Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> posSup) {
+	public static void registerTabEntry(@NotNull Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> posSup) {
 		var pos = posSup.mapBoth(Supplier::get, Supplier::get);
 		ItemGroupEvents.modifyEntriesEvent(tab.getFirst()).register(c -> {
 			if (!c.getContext().hasPermissions()) {

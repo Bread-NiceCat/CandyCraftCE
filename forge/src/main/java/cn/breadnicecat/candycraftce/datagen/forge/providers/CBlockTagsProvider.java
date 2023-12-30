@@ -1,14 +1,19 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.registration.block.BlockEntry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
+
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
 
 /**
  * Created in 2023/10/14 22:39
@@ -24,6 +29,11 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
+//		add(MINEABLE_WITH_PICKAXE);
+	}
 
+	private void add(TagKey<Block> tagKey, BlockEntry<?>... be) {
+		IntrinsicTagAppender<Block> tag = tag(tagKey);
+		receive(i -> tag.add(i.getBlock()), be);
 	}
 }

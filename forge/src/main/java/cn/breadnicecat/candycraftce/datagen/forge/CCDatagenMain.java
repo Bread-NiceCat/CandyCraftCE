@@ -36,9 +36,10 @@ public class CCDatagenMain {
 		CBlockTagsProvider blocktag = new CBlockTagsProvider(pack, lookup, efhelper);
 		generator.addProvider(evt.includeServer(), blocktag);
 		generator.addProvider(evt.includeServer(), new CItemTagsProvider(pack, lookup, blocktag.contentsGetter(), efhelper));
+		generator.addProvider(evt.includeServer(), new CLootTableProvider(pack));
 
 		generator.addProvider(evt.includeClient(), new CLanguageProvider(pack));
-		generator.addProvider(evt.includeClient(), new CBlockModelProvider(pack, efhelper));
+		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
 	}

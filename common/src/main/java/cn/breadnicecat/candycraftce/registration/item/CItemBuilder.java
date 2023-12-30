@@ -61,10 +61,10 @@ public class CItemBuilder<I extends Item> {
 		this.factory = factory;
 	}
 
-	public static CItemBuilder<BlockItem> block(BlockEntry<Block> block) {
-		String namespace = block.getID().getNamespace();
-		assertTrue(namespace.equals(CandyCraftCE.MOD_ID), () -> "wrong namespace, require equ " + CandyCraftCE.MOD_ID);
-		return create(namespace, (p) -> new BlockItem(block.getBlock(), p));
+	public static CItemBuilder<BlockItem> block(BlockEntry<? extends Block> block) {
+		ResourceLocation id = block.getID();
+		assertTrue(id.getNamespace().equals(CandyCraftCE.MOD_ID), () -> "wrong namespace: " + id.getNamespace() + ", require equ " + CandyCraftCE.MOD_ID);
+		return create(id.getPath(), (p) -> new BlockItem(block.getBlock(), p));
 	}
 
 

@@ -160,8 +160,11 @@ public class CItems {
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 
 	public static final ItemEntry<BlockItem> TEST_BLOCK = CItemBuilder.block(CBlocks.TEST_BLOCK)
-			.setProperties(new Properties().stacksTo(16).rarity(Rarity.EPIC))
+			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
+			.setCtab(false)
 			.save();
+
+	public static final ItemEntry<BlockItem> SUGAR_BLOCKITEM = CItemBuilder.block(CBlocks.SUGAR_BLOCK).save();
 
 
 	static {

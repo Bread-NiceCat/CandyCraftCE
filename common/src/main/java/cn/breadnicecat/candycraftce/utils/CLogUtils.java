@@ -18,15 +18,15 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.getCaller;
  */
 public class CLogUtils {
 	private static final HashMap<String, Logger> CACHE = new HashMap<>();
+	private static final HashMap<Class<?>, Logger> VALIDATOR = new HashMap<>();
 	private static final Marker STACK_TRACE_MARKER = MarkerFactory.getMarker("StackTrace");
 
 	public static Logger getModLogger() {
-		Class<?> caller = getCaller();
-		return getModLogger(caller);
+		return getModLogger(getCaller());
 	}
 
 	public static Logger getModLogger(Class<?> clazz) {
-		return getModLogger(clazz.getSimpleName());
+		return VALIDATOR.computeIfAbsent(clazz, (k) -> getModLogger(k.getSimpleName()));
 	}
 
 
@@ -35,19 +35,18 @@ public class CLogUtils {
 		return CACHE.computeIfAbsent(id, LoggerFactory::getLogger);
 	}
 
-	private static Logger getCallerModLogger() {
-		Class<?> caller = getCaller(4);
-		return getModLogger(caller);
-	}
 
 	public static Logger sign() {
-		Logger l = getCallerModLogger();
-		l.info("{} signed", getCaller().getName());
+		Class<?> caller = getCaller();
+		boolean dup = VALIDATOR.containsKey(caller);
+		Logger l = getModLogger(caller);
+		l.info("{} signed", caller.getName());
+		if (dup) l.warn("Duplicate sign for {}", caller.getName());
 		return l;
 	}
 
 	public static void printStackTrace() {
-		Logger logger = getCallerModLogger();
+		Logger logger = getModLogger(getCaller());
 		Thread thread = Thread.currentThread();
 		logger.info(STACK_TRACE_MARKER, thread.toString());
 		StackTraceElement[] stackTrace = thread.getStackTrace();

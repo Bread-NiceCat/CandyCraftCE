@@ -30,7 +30,7 @@ public class CandyCraftCEImpl {
 	}
 
 
-	private static <I> DeferredRegister<I> registerRegister(DeferredRegister<I> register) {
+	public static <I> DeferredRegister<I> registerRegister(DeferredRegister<I> register) {
 		register.register(FMLJavaModLoadingContext.get().getModEventBus());
 		return register;
 	}
