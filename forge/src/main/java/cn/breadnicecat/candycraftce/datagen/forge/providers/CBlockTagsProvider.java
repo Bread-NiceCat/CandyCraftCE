@@ -13,7 +13,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+import static cn.breadnicecat.candycraftce.registration.block.CBlockTags.CARAMEL_PORTAL_FRAME;
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
+import static net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL;
+import static net.minecraft.tags.BlockTags.PORTALS;
 
 /**
  * Created in 2023/10/14 22:39
@@ -29,7 +33,9 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
-//		add(MINEABLE_WITH_PICKAXE);
+		add(MINEABLE_WITH_SHOVEL, SUGAR_BLOCK);
+		add(CARAMEL_PORTAL_FRAME, SUGAR_BLOCK, CARAMEL_BLOCK);
+		add(PORTALS, CARAMEL_PORTAL);
 	}
 
 	private void add(TagKey<Block> tagKey, BlockEntry<?>... be) {

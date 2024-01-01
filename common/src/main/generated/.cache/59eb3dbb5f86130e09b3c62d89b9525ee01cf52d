@@ -1,3 +1,5 @@
-// 1.20.1	2023-12-31T00:01:22.8975062	Loot Tables
+// 1.20.1	2024-01-01T09:09:37.0937264	Loot Tables
+b2db237f05f4f15c9d4f6fc02d57811e854a657a data/candycraftce/loot_tables/blocks/caramel_block.json
+fef6782285cb3e641e70f9dc6024ab070be55434 data/candycraftce/loot_tables/blocks/caramel_portal.json
 f022896b0d56e895ef77c0f18bb83076dbcb8095 data/candycraftce/loot_tables/blocks/sugar_block.json
-76acfa4716975bc0eaab9f23db4ab7f7a24219d3 data/candycraftce/loot_tables/blocks/test.json
+15518cd57c206ab8360cdd1177393d6638dcd5a7 data/candycraftce/loot_tables/blocks/test.json

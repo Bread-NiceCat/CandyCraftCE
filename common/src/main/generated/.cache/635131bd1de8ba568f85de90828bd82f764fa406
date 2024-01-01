@@ -1,1 +1,4 @@
-// 1.20.1	2023-10-15T09:49:48.5147323	Tags for minecraft:block mod id candycraftce
+// 1.20.1	2024-01-01T09:09:37.0807274	Tags for minecraft:block mod id candycraftce
+cf5d266c009eeebfd376771338c175ff87a5c270 data/candycraftce/tags/blocks/caramel_portal_frame.json
+3dbe5721d1efd59d31f77e5fa9c0e0793403854e data/minecraft/tags/blocks/mineable/shovel.json
+47f5b6a1c72b6e8aa97d5cd3fa0068e55b368e17 data/minecraft/tags/blocks/portals.json

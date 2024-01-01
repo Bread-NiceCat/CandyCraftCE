@@ -3,7 +3,6 @@ package cn.breadnicecat.candycraftce.utils;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 
 import java.util.Random;
-import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -31,19 +30,6 @@ public class CommonUtils {
 		return probability(RANDOM, denominator);
 	}
 
-	/**
-	 * 不想分行写可以用这个
-	 * 可以用这个进行debug
-	 * 比如{@code CommonUtils.visit(this.getClass().getDeclaredField("SHAPE"),(s)->s.setAccessible(true),(s)->{try{s.set(this,Shapes.create(0d, 0d, 0d, 1d, 0.995d, 1d));}catch(Throwable e){e.printStackTrace();}})}
-	 */
-	@SafeVarargs
-	public static <T> T visit(T t, Consumer<T>... visitors) {
-		for (Consumer<T> visitor : visitors) {
-			visitor.accept(t);
-		}
-		return t;
-	}
-
 
 	public static Class<?> getCaller() {
 		return getCaller(4);//因为要再调用getCaller(int)所以要+1
@@ -69,19 +55,57 @@ public class CommonUtils {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
 
-	public static Runnable optional(Runnable runnable, BooleanSupplier... predicate) {
-		return predicate.length == 0 ? runnable : () -> {
-			for (BooleanSupplier supplier : predicate) {
-				if (!supplier.getAsBoolean()) return;
-			}
-			runnable.run();
-		};
+	/**
+	 * 让visitor依次拜访每个house
+	 */
+	@SafeVarargs
+	public static <I> I visit(I visitor, Consumer<I>... houses) {
+		for (Consumer<I> h : houses) {
+			h.accept(visitor);
+		}
+		return visitor;
 	}
 
+	/**
+	 * 依次让所有guest拜访house
+	 */
 	@SafeVarargs
 	public static <I> void receive(Consumer<I> house, I... guests) {
 		for (I guest : guests) {
 			house.accept(guest);
 		}
+	}
+
+	/**
+	 * 如果讨厌的object是两个candidate中的一个,那么就返回另外一个;
+	 * <p>
+	 * 如果不在两个candidate中,就返回preference
+	 * <p>
+	 * NOTE: 这里的"是"指的是 全等于(==)
+	 */
+	public static <E> E hate(E object, E candidate1, E candidate2, E preference) {
+		if (object == candidate1) {
+			return candidate2;
+		} else if (object == candidate2) {
+			return candidate1;
+		} else {
+			return preference;
+		}
+	}
+
+	/**
+	 * 顺反异构
+	 * <pre>
+	 * i1,i2==cis,trans -> r_cis
+	 * ii,i2==trans,cis -> r_trans
+	 * else -> r_default
+	 * </pre>
+	 */
+	public static <I, R> R cis_trans(I i1, I i2, I cis, I trans, Supplier<R> r_cis, Supplier<R> r_trans, Supplier<R> r_default) {
+		if (i1 == cis && i2 == trans) {
+			return r_cis == null ? null : r_cis.get();
+		} else if (i1 == trans && i2 == cis) {
+			return r_trans == null ? null : r_trans.get();
+		} else return r_default == null ? null : r_default.get();
 	}
 }

@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.registration.block.BlockEntry;
-import cn.breadnicecat.candycraftce.registration.block.CBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -14,8 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static cn.breadnicecat.candycraftce.registration.block.CBlocks.BLOCKS;
-import static cn.breadnicecat.candycraftce.registration.block.CBlocks.TEST_BLOCK;
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
 import static net.minecraft.world.item.Items.SUGAR;
 
@@ -40,10 +38,16 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		//dropSelf
 		{
 			receive(m -> dropSelf(m.getBlock()),
-					TEST_BLOCK
+					CARAMEL_BLOCK
 			);
 		}
-		add(CBlocks.SUGAR_BLOCK, createSingleItemTableWithSilkTouch(CBlocks.SUGAR_BLOCK.getBlock(), SUGAR, ConstantValue.exactly(4f)));
+		//None
+		{
+			receive(m -> add(m, noDrop()),
+					TEST_BLOCK, CARAMEL_PORTAL
+			);
+		}
+		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.getBlock(), SUGAR, ConstantValue.exactly(4f)));
 	}
 
 	private void add(BlockEntry<?> blo, LootTable.Builder b) {

@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce;
 
+import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.registration.block.CBlocks;
 import cn.breadnicecat.candycraftce.registration.item.CItems;
 import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
@@ -58,6 +59,7 @@ public final class CandyCraftCE {
 
 		CItems.init();
 		CBlocks.init();
+		CGameRules.init();
 		CSoundEvents.init();
 
 		bootstrapHooks.forEach(Runnable::run);

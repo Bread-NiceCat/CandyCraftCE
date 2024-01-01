@@ -164,7 +164,8 @@ public class CItems {
 			.setCtab(false)
 			.save();
 
-	public static final ItemEntry<BlockItem> SUGAR_BLOCKITEM = CItemBuilder.block(CBlocks.SUGAR_BLOCK).save();
+	public static final ItemEntry<BlockItem> SUGAR_BI = CItemBuilder.block(CBlocks.SUGAR_BLOCK).save();
+	public static final ItemEntry<BlockItem> CARAMEL_BI = CItemBuilder.block(CBlocks.CARAMEL_BLOCK).save();
 
 
 	static {
@@ -178,6 +179,7 @@ public class CItems {
 
 
 	public static void init() {
+		LOGGER.info("init");
 	}
 
 	private static <I> Function<Properties, I> higher(Supplier<I> sup) {

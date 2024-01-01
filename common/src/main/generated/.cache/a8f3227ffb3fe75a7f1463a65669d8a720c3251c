@@ -1,3 +1,7 @@
-// 1.20.1	2023-12-30T22:10:18.5803313	Block States: candycraftce
+// 1.20.1	2024-01-01T09:09:37.0867343	Block States: candycraftce
+71ec3698252f7d59f10cc64654a2ac2bf5ceacc9 assets/candycraftce/blockstates/caramel_block.json
 b46a398d8f75dc8f6cb7ffbb89a0956e508e23e8 assets/candycraftce/blockstates/sugar_block.json
+35a98ff01905d9f84737be20ed1c98ad94cea35d assets/candycraftce/models/block/caramel_block.json
 a581ab53188ab63f6b762bbb909b4f6eee89fa3c assets/candycraftce/models/block/sugar_block.json
+480bd591efb89b8a828317b046c438ba59e27a5a assets/candycraftce/models/item/caramel_block.json
+21ac6a0845019f68a00f983e001684b75b576ac6 assets/candycraftce/models/item/sugar_block.json

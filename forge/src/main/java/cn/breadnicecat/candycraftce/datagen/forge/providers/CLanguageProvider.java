@@ -119,6 +119,8 @@ public class CLanguageProvider implements DataProvider {
 		addItem(I_I_DEBUG, "I 爱 DEBUG !!!", null);
 
 		addBlockById(CBlocks.SUGAR_BLOCK, "糖块");
+		addBlockById(CBlocks.CARAMEL_PORTAL, "焦糖传送门");
+		addBlockById(CBlocks.CARAMEL_BLOCK, "焦糖块");
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {
