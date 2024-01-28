@@ -107,8 +107,7 @@ public class CItemBuilder<I extends Item> {
 		this.ctab = ctab;
 		return this;
 	}
-
-
+	
 	/**
 	 * @param tab 在此tab中的最前面
 	 */

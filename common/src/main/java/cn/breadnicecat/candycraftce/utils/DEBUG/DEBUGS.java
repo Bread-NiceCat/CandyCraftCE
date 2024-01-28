@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
@@ -25,12 +26,15 @@ public class DEBUGS {
 	public static final File PROJECT_ROOT = new File("").getAbsoluteFile().getParentFile();
 	public static final File TEST_CLASSES = new File(PROJECT_ROOT, "build/classes/java/test");
 	public static final File TEST_SRC_CODE = new File(PROJECT_ROOT, "src/test/java");
-
-	private static final Logger LOGGER = CLogUtils.getModLogger();
+	/**
+	 * 给idea的调试器eval存储数据的地方
+	 */
+	public static final HashMap<?, ?> EVAL = new HashMap<>();
+	private static final Logger LOGGER = CLogUtils.sign();
 
 	static {
 		LOGGER.warn("=".repeat(40));
-		LOGGER.warn("DEBUGS is using now!");
+		LOGGER.warn("DEBUGS ON!");
 		LOGGER.warn("=".repeat(40));
 		if (!IS_DEV) throw new IllegalStateException("Not in DEV");
 	}

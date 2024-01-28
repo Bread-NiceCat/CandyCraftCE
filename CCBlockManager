@@ -1,7 +1,8 @@
+//最后解决
 //keys
 HELPER.single(TELEPORTER, BlockTeleporter::new,
         LOOT_NONE, EXCLUDE_SUGARY_BLOCK, VTAG_MINEABLE_WITH_PICKAXE, RENDERER_TYPE_CUTOUT);
-//-
+//-------------------
 HELPER.single(SUGAR_BLOCK, BlockSugar::new, CCBlockManager::simpleBlockItem,
         MODEL_SIMPLE, VTAG_MINEABLE_WITH_SHOVEL, CANDYLAND_PORTAL_FRAME.getGroupId());
 HELPER.single(CARAMEL_BLOCK, () -> new BlockSugar(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,

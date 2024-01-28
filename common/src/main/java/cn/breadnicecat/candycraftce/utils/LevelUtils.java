@@ -9,6 +9,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Iterator;
+
 /**
  * @author <a href="https://gitee.com/Bread_NiceCat">Bread_NiceCat</a>
  * @date 2022/12/24 18:41
@@ -39,6 +41,22 @@ public class LevelUtils {
 			case SOUTH -> pos.south(distance);
 			case WEST -> pos.west(distance);
 			case EAST -> pos.east(distance);
+		};
+	}
+
+	public static Iterable<BlockPos> getNeighbourPos(BlockPos pos) {
+		return () -> new Iterator<>() {
+			int i = 0;
+
+			@Override
+			public boolean hasNext() {
+				return i < Direction.values().length;
+			}
+
+			@Override
+			public BlockPos next() {
+				return move(pos, Direction.values()[i++], 1);
+			}
 		};
 	}
 }

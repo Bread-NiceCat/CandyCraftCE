@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -49,6 +50,12 @@ public class CBlockBuilder<B extends Block> {
 	 */
 	public CBlockBuilder<B> setProperties(@NotNull Properties prop) {
 		this.properties = Objects.requireNonNull(prop);
+		return this;
+	}
+
+	public CBlockBuilder<B> setProperties(Block block, Consumer<Properties> modifier) {
+		this.properties = Properties.copy(block);
+		modifier.accept(properties);
 		return this;
 	}
 

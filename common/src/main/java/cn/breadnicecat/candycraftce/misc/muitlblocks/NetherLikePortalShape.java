@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static cn.breadnicecat.candycraftce.utils.LevelUtils.move;
@@ -101,7 +102,54 @@ public class NetherLikePortalShape {
 	}
 
 	public void forEachBlockInPortal(BiConsumer<Level, BlockPos> e) {
-		BlockPos.betweenClosed(this.bottomLeft, this.bottomLeft.relative(Direction.UP, this.height - 1).relative(this.rightDir, this.width - 1)).forEach((pos) -> e.accept(this.level, pos));
+		BlockPos.betweenClosed(this.bottomLeft, this.bottomLeft.relative(Direction.UP, this.height - 1).relative(this.rightDir, this.width - 1))
+				.forEach((pos) -> e.accept(this.level, pos));
+	}
+
+	public void forEachBlockOfFrame(BiConsumer<Level, BlockPos> e) {
+		/*  示意图(2x3)
+		 *  4 + # # +
+		 *  3 #     #
+		 *  2 #     #
+		 *  1 # b   #
+		 *  0 o # # +    -->rightDir
+		 *    0 1 2 3
+		 *
+		 *  图标
+		 *  +    :optional
+		 *  #    :required frame
+		 *  o :+ :ori
+		 *  b    :bottomLeft
+		 */
+		BlockPos ori = move(bottomLeft.below(), rightDir.getOpposite(), 1);
+		BlockPos.MutableBlockPos mpy0 = ori.mutable();
+		BlockPos.MutableBlockPos mpy1 = ori.mutable().move(0, height + 1, 0);
+		BlockPos.MutableBlockPos mph0 = ori.mutable();
+		BlockPos.MutableBlockPos mph1 = ori.mutable().move(rightDir, width + 1);
+		//                                  底层,顶层,左边,右边
+		BlockPos.MutableBlockPos[] mys = {mpy0, mpy1, mph0, mph1};
+
+		Consumer<BlockPos> con = (pos) -> {
+			BlockState state = level.getBlockState(pos);
+			if (isFrame.test(state)) {
+				e.accept(level, pos);
+			}
+		};
+		con.accept(ori);
+		for (int i = 0; i < mys.length; i++) {
+			var pos = mys[i];
+			if (i < 2) {
+				for (int ox = 0; ox < width + 2; ox++) {
+					con.accept(pos.move(rightDir));
+				}
+			} else {
+				for (int oh = 0; oh < height + 2; oh++) {
+					con.accept(pos.move(Direction.UP));
+				}
+			}
+
+		}
+
 	}
 
 	@Nullable
@@ -130,12 +178,14 @@ public class NetherLikePortalShape {
 	 * 测宽度使用,必须要贴底边和侧边
 	 */
 	private int getDistanceUntilEdgeAboveFrame(BlockPos pPos, Direction pDirection) {
-		//  ################
-		//  #              #
-		//  #              #
-		//  #              #
-		//  #@->           #<-(End Here)
-		//  ################
+		/*
+		  ################
+		  #              #
+		  #              #
+		  #              #
+		  #@->           #<-(End Here)
+		  ################
+		 */
 		BlockPos pos;
 		for (int i = 0; i <= MAX_WIDTH; ++i) {
 			pos = move(pPos, pDirection, i);

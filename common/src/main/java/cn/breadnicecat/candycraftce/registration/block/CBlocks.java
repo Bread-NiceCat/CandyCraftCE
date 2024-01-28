@@ -7,6 +7,7 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import org.slf4j.Logger;
 
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class CBlocks {
 //HELPER.single(CHOCOLATE_COBBLESTONE, () -> new Block(Properties.copy(Blocks.COBBLESTONE)), CCBlockManager::simpleBlockItem,
 //        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
 
-	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND).save();
+	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
 	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE).save();
 	public static final BlockEntry<CaramelPortal> CARAMEL_PORTAL = create("caramel_portal", CaramelPortal::new).setProperties(Blocks.NETHER_PORTAL).save();
 

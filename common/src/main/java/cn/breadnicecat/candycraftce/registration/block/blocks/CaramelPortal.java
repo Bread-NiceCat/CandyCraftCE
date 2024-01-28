@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -17,7 +16,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import org.jetbrains.annotations.Nullable;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
@@ -59,10 +57,7 @@ public class CaramelPortal extends NetherPortalBlock {
 					ServerLevel cl = server.getLevel(destination);
 					if (cl != null) {
 						if (entity instanceof LivingEntity livE) {
-							int x = pos.getX();
-							int z = pos.getZ();
-							//加载区块
-							cl.getChunkSource().getChunk(Mth.floor(x) >> 4, Mth.floor(z) >> 4, ChunkStatus.FULL, true);
+							//cn.breadnicecat.candycraftce.mixin.MixinEntity#findDimensionEntryPoint
 							if (livE.changeDimension(cl) instanceof LivingEntity newLivE) {
 								newLivE.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 16 * TickUtils.SEC_TO_TICK, 5));
 							}
