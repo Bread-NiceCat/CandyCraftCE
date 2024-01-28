@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=1": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=2": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=3": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=4": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=5": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=6": {
+      "model": "candycraftce:block/pudding_farmland"
+    },
+    "moisture=7": {
+      "model": "candycraftce:block/pudding_farmland_moist"
+    }
+  }
+}

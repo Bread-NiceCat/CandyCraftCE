@@ -1,6 +1,11 @@
 {
   "block.candycraftce.caramel_block": "焦糖块",
   "block.candycraftce.caramel_portal": "焦糖传送门",
+  "block.candycraftce.chocolate_cobblestone": "巧克力圆石",
+  "block.candycraftce.chocolate_stone": "巧克力石头",
+  "block.candycraftce.custard_pudding": "奶皮布丁",
+  "block.candycraftce.pudding": "布丁",
+  "block.candycraftce.pudding_farmland": "布丁耕地",
   "block.candycraftce.sugar_block": "糖块",
   "item.candycraftce.candied_cherry": "蜜饯樱桃",
   "item.candycraftce.candy_cane": "拐杖糖",

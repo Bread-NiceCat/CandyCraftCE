@@ -3,7 +3,6 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.ZhCnCLanguageProvider;
 import cn.breadnicecat.candycraftce.registration.block.BlockEntry;
-import cn.breadnicecat.candycraftce.registration.block.CBlocks;
 import cn.breadnicecat.candycraftce.registration.item.CCTab;
 import cn.breadnicecat.candycraftce.registration.item.ItemEntry;
 import net.minecraft.data.CachedOutput;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
 
 /**
@@ -117,10 +117,16 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(JELLY_CROWN, "果冻国王的皇冠");
 		addItemById(TRAMPOJELLY_BOOTS, "果冻靴子");
 		addItem(I_I_DEBUG, "I 爱 DEBUG !!!", null);
+		/*=======================Blocks=======================*/
+		addBlockById(SUGAR_BLOCK, "糖块");
+		addBlockById(CARAMEL_PORTAL, "焦糖传送门");
+		addBlockById(CARAMEL_BLOCK, "焦糖块");
+		addBlockById(CHOCOLATE_STONE, "巧克力石头");
+		addBlockById(CHOCOLATE_COBBLESTONE, "巧克力圆石");
+		addBlockById(PUDDING, "布丁");
+		addBlockById(CUSTARD_PUDDING, "奶皮布丁");
+		addBlockById(PUDDING_FARMLAND, "布丁耕地");
 
-		addBlockById(CBlocks.SUGAR_BLOCK, "糖块");
-		addBlockById(CBlocks.CARAMEL_PORTAL, "焦糖传送门");
-		addBlockById(CBlocks.CARAMEL_BLOCK, "焦糖块");
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {

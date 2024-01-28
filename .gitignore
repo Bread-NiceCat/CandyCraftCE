@@ -16,3 +16,5 @@ classes/
 .vscode
 .settings
 *.launch
+
+/candycraft-master.zip

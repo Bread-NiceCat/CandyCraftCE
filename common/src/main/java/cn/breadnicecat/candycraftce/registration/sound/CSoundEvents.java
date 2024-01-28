@@ -17,6 +17,7 @@ public final class CSoundEvents {
 	public static final SoundEntry CD_3 = register("cd-3");
 	public static final SoundEntry CD_4 = register("cd-4");
 	public static final SoundEntry CD_WWWOOOWWW = register("wwwooowww");
+
 	public static final SoundEntry JELLY_DIG = register("jelly_dig");
 	public static final SoundEntry JELLY_STEP = register("jelly_step");
 

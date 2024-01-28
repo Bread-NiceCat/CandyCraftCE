@@ -18,8 +18,12 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
- * ANY properties in this class SHOULD NOT be used when running release!
- * It's for DEBUG
+ * ANY memeber in this class SHOULD NOT be used when running release!
+ * It's for DEBUG only
+ * <p>
+ * <p>
+ * Warning: an exception will be thrown when invoke any memeber of this class
+ * if you're not in a development environment
  */
 @Deprecated(forRemoval = true)
 public class DEBUGS {

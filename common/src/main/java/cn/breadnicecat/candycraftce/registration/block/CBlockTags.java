@@ -15,6 +15,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CBlockTags {
 	public static final TagKey<Block> CARAMEL_PORTAL_FRAME = cbind("caramel_portal_frame");
+	public static final TagKey<Block> CANDY_PLANT_CAN_ON = cbind("candy_plant_can_on");
 
 	private static TagKey<Block> cbind(String name) {
 		return TagKey.create(Registries.BLOCK, prefix(name));

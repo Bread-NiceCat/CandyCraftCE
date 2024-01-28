@@ -16,7 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.CARAMEL_BLOCK;
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.utils.LevelUtils.getNeighbourPos;
 
 /**
@@ -28,7 +29,7 @@ import static cn.breadnicecat.candycraftce.utils.LevelUtils.getNeighbourPos;
  */
 public class SugarBlock extends FallingBlock {
 
-	private static final Predicate<BlockState> IS_FRAME = (b) -> b.is(CBlockTags.CARAMEL_PORTAL_FRAME) || b.is(TEST_BLOCK.getBlock());
+	private static final Predicate<BlockState> IS_FRAME = (b) -> b.is(CBlockTags.CARAMEL_PORTAL_FRAME);
 	private static final Predicate<BlockState> IS_EMPTY = blockState -> blockState.isAir() || blockState.is(Blocks.LAVA) || blockState.is(CARAMEL_PORTAL.getBlock());
 
 	public SugarBlock(Properties properties) {

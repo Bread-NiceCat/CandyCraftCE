@@ -2,6 +2,8 @@ package cn.breadnicecat.candycraftce.registration.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.registration.block.blocks.CaramelPortal;
+import cn.breadnicecat.candycraftce.registration.block.blocks.CustardPudding;
+import cn.breadnicecat.candycraftce.registration.block.blocks.PuddingFarm;
 import cn.breadnicecat.candycraftce.registration.block.blocks.SugarBlock;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static cn.breadnicecat.candycraftce.registration.block.CBlockBuilder.create;
+import static cn.breadnicecat.candycraftce.registration.sound.CSoundTypes.JELLY_FOOTSTEP;
 
 
 /**
@@ -34,8 +37,6 @@ public class CBlocks {
 
 	public static Map<ResourceLocation, BlockEntry<? extends Block>> BLOCKS = new HashMap<>();
 
-	public static final BlockEntry<Block> TEST_BLOCK = create("test").setProperties(Blocks.BEDROCK).save();
-
 //HELPER.single(CARAMEL_BLOCK, () -> new BlockSugar(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
 //        MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, CANDYLAND_PORTAL_FRAME.getGroupId(), LOOT_DROP_SELF);
 //HELPER.single(CARAMEL_PORTAL, BlockCandylandPortal::new,
@@ -49,6 +50,14 @@ public class CBlocks {
 	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
 	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE).save();
 	public static final BlockEntry<CaramelPortal> CARAMEL_PORTAL = create("caramel_portal", CaramelPortal::new).setProperties(Blocks.NETHER_PORTAL).save();
+
+	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE).save();
+	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE).save();
+
+	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT).save();
+	public static final BlockEntry<CustardPudding> CUSTARD_PUDDING = create("custard_pudding", CustardPudding::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY_FOOTSTEP)).save();
+	public static final BlockEntry<PuddingFarm> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarm::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY_FOOTSTEP)).save();
+
 
 	public static void init() {
 		LOGGER.info("init");

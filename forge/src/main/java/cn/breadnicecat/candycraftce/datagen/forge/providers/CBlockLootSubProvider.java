@@ -11,10 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.world.item.Items.SUGAR;
 
 /**
@@ -25,9 +24,9 @@ import static net.minecraft.world.item.Items.SUGAR;
  * <p>
  */
 public class CBlockLootSubProvider extends BlockLootSubProvider {
-	private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(
-			TEST_BLOCK
-	).map(BlockEntry::asItem).collect(Collectors.toSet());
+	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
+//		Stream.of(
+//	).map(BlockEntry::asItem).collect(Collectors.toSet());
 
 	public CBlockLootSubProvider() {
 		super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
@@ -35,19 +34,13 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 
 	@Override
 	protected void generate() {
-		//dropSelf
-		{
-			receive(m -> dropSelf(m.getBlock()),
-					CARAMEL_BLOCK
-			);
-		}
-		//None
-		{
-			receive(m -> add(m, noDrop()),
-					TEST_BLOCK, CARAMEL_PORTAL
-			);
-		}
+		accept(m -> dropSelf(m.getBlock()), CARAMEL_BLOCK, CHOCOLATE_COBBLESTONE, PUDDING);
+		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
+
 		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.getBlock(), SUGAR, ConstantValue.exactly(4f)));
+		otherWhenSilkTouch(CHOCOLATE_STONE.getBlock(), CHOCOLATE_COBBLESTONE.getBlock());
+		otherWhenSilkTouch(CUSTARD_PUDDING.getBlock(), PUDDING.getBlock());
+		dropOther(PUDDING_FARMLAND.getBlock(), PUDDING.getBlock());
 	}
 
 	private void add(BlockEntry<?> blo, LootTable.Builder b) {

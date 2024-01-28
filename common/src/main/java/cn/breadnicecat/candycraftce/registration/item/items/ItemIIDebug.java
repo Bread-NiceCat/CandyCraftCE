@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -58,23 +59,23 @@ public class ItemIIDebug extends Item {
 
 	@Override
 	public @NotNull InteractionResult useOn(UseOnContext pContext) {
+		Player player = pContext.getPlayer();
+		if (player == null || !player.isCreative()) {
+			return InteractionResult.FAIL;
+		}
 		Level level = pContext.getLevel();
 		if (level.isClientSide()) {
 			return InteractionResult.SUCCESS;
 		}
 		BlockPos pos = pContext.getClickedPos();
-		Player player = pContext.getPlayer();
 		ItemStack item = pContext.getItemInHand();
-		if (player != null) {
-			CompoundTag tag = item.getOrCreateTag();
-			int ord = getFunOrd(tag);
-			IIIDebugFunction fun = FUNCTIONS.get(ord);
-			String ord_s = String.valueOf(ord);
-			tag.getCompound(ord_s);
-			fun.onRightClickOn(level.getBlockState(pos), level, pos, player, item, tag);
-			return InteractionResult.CONSUME;
-		}
-		return InteractionResult.FAIL;
+		CompoundTag tag = item.getOrCreateTag();
+		int ord = getFunOrd(tag);
+		IIIDebugFunction fun = FUNCTIONS.get(ord);
+		String ord_s = String.valueOf(ord);
+		tag.getCompound(ord_s);
+		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, player, item, tag);
+		return InteractionResult.CONSUME;
 	}
 
 	public boolean canAttackBlock(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer) {
@@ -86,7 +87,7 @@ public class ItemIIDebug extends Item {
 
 			String key = String.valueOf(ord);
 			CompoundTag spec_tag = tag.getCompound(key);
-			fun.onLeftClickOn(pState, pLevel, pPos, pPlayer, item, spec_tag);
+			fun.onLeftClickOn(pState, (ServerLevel) pLevel, pPos, pPlayer, item, spec_tag);
 			tag.put(key, spec_tag);
 		}
 		return false;
@@ -120,24 +121,18 @@ public class ItemIIDebug extends Item {
 		}
 
 		@Override
-		public void onRightClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			int[] zero = nbt.getIntArray(ZERO);
-			if (zero.length != 0) {
+			if (zero.length == 0) {
 				zero = new int[]{0, 0, 0};
 			}
 			player.sendSystemMessage(NAME.copy().append(": 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
 		}
 
 		@Override
-		public void onLeftClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			int[] po;
-			if (player.isShiftKeyDown()) {
-				po = new int[]{0, 0, 0};
-				player.sendSystemMessage(NAME.copy().append(": 零点已清零").withStyle(ChatFormatting.DARK_GREEN));
-			} else {
-				po = new int[]{pos.getX(), pos.getY(), pos.getZ()};
-				player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(pos.toShortString())).withStyle(ChatFormatting.GREEN));
-			}
+		public void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+			int[] po = player.isShiftKeyDown() ? new int[]{0, 0, 0} : new int[]{pos.getX(), pos.getY(), pos.getZ()};
+			player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(pos.toShortString())).withStyle(ChatFormatting.GREEN));
 			nbt.putIntArray(ZERO, po);
 		}
 	};
@@ -149,11 +144,11 @@ public class ItemIIDebug extends Item {
 	public interface IIIDebugFunction {
 		Component getName();
 
-		default void onRightClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		default void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 
 
-		default void onLeftClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		default void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 
 		default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced) {

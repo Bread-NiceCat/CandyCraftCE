@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.registration.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.registration.block.CBlocks;
 import cn.breadnicecat.candycraftce.registration.item.items.ItemCaramelBow;
 import cn.breadnicecat.candycraftce.registration.item.items.ItemHoneycombArrow;
 import cn.breadnicecat.candycraftce.registration.item.items.ItemIIDebug;
@@ -21,7 +20,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.block;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.create;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
  * Created in 2023/8/9 10:22
@@ -159,13 +161,12 @@ public class CItems {
 
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 
-	public static final ItemEntry<BlockItem> TEST_BLOCK = CItemBuilder.block(CBlocks.TEST_BLOCK)
-			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
-			.setCtab(false)
-			.save();
-
-	public static final ItemEntry<BlockItem> SUGAR_BI = CItemBuilder.block(CBlocks.SUGAR_BLOCK).save();
-	public static final ItemEntry<BlockItem> CARAMEL_BI = CItemBuilder.block(CBlocks.CARAMEL_BLOCK).save();
+	static {
+		//BlockItems
+		accept(b -> block(b).save(),
+				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING, CUSTARD_PUDDING
+		);
+	}
 
 
 	static {

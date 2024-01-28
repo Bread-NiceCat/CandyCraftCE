@@ -1,5 +1,9 @@
-// 1.20.1	2024-01-01T09:09:37.0937264	Loot Tables
-b2db237f05f4f15c9d4f6fc02d57811e854a657a data/candycraftce/loot_tables/blocks/caramel_block.json
+// 1.20.1	2024-01-29T00:38:21.2724738	Loot Tables
+d11dae413eecf24ed3fdfaec3804b5e7625426fe data/candycraftce/loot_tables/blocks/caramel_block.json
 fef6782285cb3e641e70f9dc6024ab070be55434 data/candycraftce/loot_tables/blocks/caramel_portal.json
+7612fc5498fe70863579a497b407dab39b1b955b data/candycraftce/loot_tables/blocks/chocolate_cobblestone.json
+8b30bba048c8df10d4ae1c5e0998077914db4994 data/candycraftce/loot_tables/blocks/chocolate_stone.json
+26d24aee4381d44fbb814d5e07cf0ceed24f9560 data/candycraftce/loot_tables/blocks/custard_pudding.json
+1e7b7f8703f0d1be03469d31044c980421c9da39 data/candycraftce/loot_tables/blocks/pudding.json
+ce697807f4385d180057f9b582a4b722017d063c data/candycraftce/loot_tables/blocks/pudding_farmland.json
 f022896b0d56e895ef77c0f18bb83076dbcb8095 data/candycraftce/loot_tables/blocks/sugar_block.json
-15518cd57c206ab8360cdd1177393d6638dcd5a7 data/candycraftce/loot_tables/blocks/test.json

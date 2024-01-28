@@ -11,7 +11,7 @@ accessible method net/minecraft/world/item/HoeItem <init> (Lnet/minecraft/world/
 
 accessible method net/minecraft/world/level/GameRules$BooleanValue create (Z)Lnet/minecraft/world/level/GameRules$Type;
 
-accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
+#accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
 
 accessible field net/minecraft/world/item/CreativeModeTabs BUILDING_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs COLORED_BLOCKS Lnet/minecraft/resources/ResourceKey;

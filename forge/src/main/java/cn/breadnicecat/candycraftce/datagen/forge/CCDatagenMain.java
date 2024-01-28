@@ -47,7 +47,7 @@ public class CCDatagenMain {
 	private static void terminalHelper() {
 		Thread main = Thread.currentThread();
 		Thread helper = new Thread(() -> {
-			LOGGER.info("Thread Terminal Helper started!");
+			LOGGER.info("Thread {} started!", Thread.currentThread().getName());
 			while (main.isAlive()) {
 				try {
 					Thread.sleep(1000);
@@ -55,10 +55,14 @@ public class CCDatagenMain {
 					throw new RuntimeException(e);
 				}
 			}
-			LOGGER.info("main Thread terminated, prepare exit(0)!");
+			LOGGER.info("main Thread ended, preparing exit(0) in 5s!");
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
 			System.exit(0);
-		});
-		helper.setName("Terminal Helper");
+		}, "Process Terminator");
 		helper.setDaemon(true);
 		helper.start();
 	}

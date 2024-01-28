@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
  * Created in 2023/10/14 22:51
@@ -34,7 +34,7 @@ public class CItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		//generated
 		{
-			receive(((i) -> basicItem(i.getItem())),
+			accept(((i) -> basicItem(i.getItem())),
 					LICORICE,
 					HONEYCOMB,
 					HONEYCOMB_SHARD,
@@ -92,7 +92,7 @@ public class CItemModelProvider extends ItemModelProvider {
 		}
 		//handheld
 		{
-			receive(i -> handheldItem(i.getItem()),
+			accept(i -> handheldItem(i.getItem()),
 					MARSHMALLOW_SWORD,
 					MARSHMALLOW_SHOVEL,
 					MARSHMALLOW_PICKAXE,

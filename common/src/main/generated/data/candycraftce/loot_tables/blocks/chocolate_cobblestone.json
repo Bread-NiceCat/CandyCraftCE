@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "candycraftce:caramel_block"
+          "name": "candycraftce:chocolate_cobblestone"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "candycraftce:blocks/caramel_block"
+  "random_sequence": "candycraftce:blocks/chocolate_cobblestone"
 }

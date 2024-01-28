@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "candycraftce:caramel_block"
+          "name": "candycraftce:pudding"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "candycraftce:blocks/caramel_block"
+  "random_sequence": "candycraftce:blocks/pudding_farmland"
 }

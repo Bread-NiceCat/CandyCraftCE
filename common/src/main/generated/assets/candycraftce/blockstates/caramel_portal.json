@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "candycraftce:block/caramel_portal",
+      "y": 90
+    },
+    "axis=z": {
+      "model": "candycraftce:block/caramel_portal"
+    }
+  }
+}

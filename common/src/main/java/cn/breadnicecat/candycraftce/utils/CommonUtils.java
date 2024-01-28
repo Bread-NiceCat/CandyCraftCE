@@ -69,7 +69,7 @@ public class CommonUtils {
 	 * 让visitor依次拜访每个house
 	 */
 	@SafeVarargs
-	public static <I> I visit(I visitor, Consumer<I>... houses) {
+	public static <I> I apply(I visitor, Consumer<I>... houses) {
 		for (Consumer<I> h : houses) {
 			h.accept(visitor);
 		}
@@ -80,7 +80,7 @@ public class CommonUtils {
 	 * 依次让所有guest拜访house
 	 */
 	@SafeVarargs
-	public static <I> void receive(Consumer<I> house, I... guests) {
+	public static <I> void accept(Consumer<I> house, I... guests) {
 		for (I guest : guests) {
 			house.accept(guest);
 		}

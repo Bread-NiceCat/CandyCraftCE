@@ -13,9 +13,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+import static cn.breadnicecat.candycraftce.registration.block.CBlockTags.CANDY_PLANT_CAN_ON;
 import static cn.breadnicecat.candycraftce.registration.block.CBlockTags.CARAMEL_PORTAL_FRAME;
 import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.tags.BlockTags.*;
 
 /**
@@ -32,15 +33,15 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
-		add(MINEABLE_WITH_SHOVEL, SUGAR_BLOCK);
-		add(MINEABLE_WITH_PICKAXE, CARAMEL_BLOCK);
-
+		add(MINEABLE_WITH_SHOVEL, SUGAR_BLOCK, PUDDING, CUSTARD_PUDDING, PUDDING_FARMLAND);
 		add(CARAMEL_PORTAL_FRAME, CARAMEL_BLOCK, SUGAR_BLOCK);
+		add(CANDY_PLANT_CAN_ON, PUDDING, CUSTARD_PUDDING, PUDDING_FARMLAND);
 		add(PORTALS, CARAMEL_PORTAL);
+		add(MINEABLE_WITH_PICKAXE, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE);
 	}
 
 	private void add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 		IntrinsicTagAppender<Block> tag = tag(tagKey);
-		receive(i -> tag.add(i.getBlock()), be);
+		accept(i -> tag.add(i.getBlock()), be);
 	}
 }

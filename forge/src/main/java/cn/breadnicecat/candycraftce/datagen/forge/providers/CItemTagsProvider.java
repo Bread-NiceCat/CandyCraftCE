@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.registration.item.CItemTags.CANDY_ARROWS;
 import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.receive;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.tags.ItemTags.*;
 
 /**
@@ -57,7 +57,7 @@ public class CItemTagsProvider extends ItemTagsProvider {
 
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {
 		IntrinsicTagAppender<Item> tag = tag(tagKey);
-		receive(i -> tag.add(i.getItem()), ie);
+		accept(i -> tag.add(i.getItem()), ie);
 	}
 
 }

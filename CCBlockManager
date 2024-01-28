@@ -3,15 +3,6 @@
 HELPER.single(TELEPORTER, BlockTeleporter::new,
         LOOT_NONE, EXCLUDE_SUGARY_BLOCK, VTAG_MINEABLE_WITH_PICKAXE, RENDERER_TYPE_CUTOUT);
 //-------------------
-HELPER.single(SUGAR_BLOCK, BlockSugar::new, CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, VTAG_MINEABLE_WITH_SHOVEL, CANDYLAND_PORTAL_FRAME.getGroupId());
-HELPER.single(CARAMEL_BLOCK, () -> new BlockSugar(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, CANDYLAND_PORTAL_FRAME.getGroupId(), LOOT_DROP_SELF);
-
-HELPER.single(CHOCOLATE_STONE, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE);
-HELPER.single(CHOCOLATE_COBBLESTONE, () -> new Block(Properties.copy(Blocks.COBBLESTONE)), CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
 
 HELPER.single(PUDDING, () -> new Block(Properties.copy(Blocks.DIRT)), CCBlockManager::simpleBlockItem,
         MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
