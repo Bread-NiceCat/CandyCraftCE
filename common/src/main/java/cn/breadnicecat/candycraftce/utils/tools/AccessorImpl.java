@@ -15,7 +15,7 @@ public class AccessorImpl<T> implements Accessor<T> {
 	}
 
 	@Override
-	public void set(T t) {
+	public void accept(T t) {
 		value = t;
 	}
 }

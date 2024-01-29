@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.utils.tools;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -8,7 +9,7 @@ import java.util.function.Supplier;
  * <p>
  * Wisdom Util ;)
  */
-public interface Accessor<T> extends Setter<T>, Getter<T> {
+public interface Accessor<T> extends Consumer<T>, Supplier<T> {
 	default Supplier<T> frozen() {
 		return new Frozen<>(this);
 	}
@@ -26,7 +27,7 @@ public interface Accessor<T> extends Setter<T>, Getter<T> {
 		}
 
 		@Override
-		public void set(T t) {
+		public void accept(T t) {
 			throw new UnsupportedOperationException("frozen");
 		}
 

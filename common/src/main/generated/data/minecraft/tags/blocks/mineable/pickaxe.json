@@ -2,6 +2,11 @@
   "values": [
     "candycraftce:caramel_block",
     "candycraftce:chocolate_stone",
-    "candycraftce:chocolate_cobblestone"
+    "candycraftce:chocolate_cobblestone",
+    "candycraftce:candy_cane_block",
+    "candycraftce:candy_cane_wall",
+    "candycraftce:candy_cane_fence",
+    "candycraftce:candy_cane_slab",
+    "candycraftce:candy_cane_stairs"
   ]
 }

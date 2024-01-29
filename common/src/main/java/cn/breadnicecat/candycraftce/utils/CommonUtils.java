@@ -92,7 +92,6 @@ public class CommonUtils {
 	 * 如果不在两个candidate中,就返回default_value
 	 * <p>
 	 * == : equals, null safe
-	 * <p>
 	 */
 	public static <E> E hate(E object, E candidate1, E candidate2, E default_value) {
 		if (Objects.equals(object, candidate1)) {

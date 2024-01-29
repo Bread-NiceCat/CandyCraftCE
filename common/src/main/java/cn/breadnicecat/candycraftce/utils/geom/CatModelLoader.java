@@ -161,7 +161,7 @@ public class CatModelLoader {
 						for (Map.Entry<String, JsonElement> e3 : o.entrySet()) {
 							Float k = Float.valueOf(e3.getKey());
 							JsonArray v3 = as3(e3.getValue());
-							float[] f3 = a3toF3(v3);
+							float[] f3 = j3tof3(v3);
 							//角度转弧度
 							if (i == 1) {
 								deg2rad(f3);
@@ -188,7 +188,7 @@ public class CatModelLoader {
 	/**
 	 * a3f: array-3-float
 	 */
-	private static float[] a3toF3(JsonArray element) {
+	private static float[] j3tof3(JsonArray element) {
 		return new float[]{element.get(0).getAsFloat(), element.get(1).getAsFloat(), element.get(2).getAsFloat()};
 	}
 
@@ -202,6 +202,6 @@ public class CatModelLoader {
 			array.add(element);
 			return array;
 		}
-		throw new IllegalStateException("Unable to parse to a 3-D array: " + element);
+		throw new IllegalStateException("Unable to parse to a 3D array: " + element);
 	}
 }

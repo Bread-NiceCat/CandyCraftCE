@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
-public class UnmodifiableBNodes<K, V> {
+class UnmodifiableBNodes<K, V> {
 
 	private final Comparator<? super K> comparator;
 	private final List<Node<K, V>> nodes;

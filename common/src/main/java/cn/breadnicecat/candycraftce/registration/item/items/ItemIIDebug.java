@@ -99,10 +99,12 @@ public class ItemIIDebug extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced) {
-		int ord = getFunOrd(stack.getOrCreateTag());
+		CompoundTag root = stack.getOrCreateTag();
+		int ord = getFunOrd(root);
 		IIIDebugFunction fun = FUNCTIONS.get(ord);
 		tooltips.add(CUR_FUN.copy().append(fun.getName()));
-		fun.appendHoverText(stack, level, tooltips, isAdvanced);
+		CompoundTag nbt = root.getCompound(String.valueOf(ord));
+		fun.appendHoverText(stack, level, tooltips, isAdvanced, nbt);
 	}
 
 	private int getFunOrd(CompoundTag tag) {
@@ -122,10 +124,7 @@ public class ItemIIDebug extends Item {
 
 		@Override
 		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			int[] zero = nbt.getIntArray(ZERO);
-			if (zero.length == 0) {
-				zero = new int[]{0, 0, 0};
-			}
+			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
 			player.sendSystemMessage(NAME.copy().append(": 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
 		}
 
@@ -134,6 +133,12 @@ public class ItemIIDebug extends Item {
 			int[] po = player.isShiftKeyDown() ? new int[]{0, 0, 0} : new int[]{pos.getX(), pos.getY(), pos.getZ()};
 			player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(pos.toShortString())).withStyle(ChatFormatting.GREEN));
 			nbt.putIntArray(ZERO, po);
+		}
+
+		@Override
+		public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
+			tooltips.add(Component.literal("当前零点: " + Arrays.toString(zero)));
 		}
 	};
 	//============================================================//
@@ -151,14 +156,7 @@ public class ItemIIDebug extends Item {
 		default void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 
-		default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced) {
-		}
-
-		static List<Component> tips(String... line) {
-			return Arrays.stream(line)
-					.map(Component::literal)
-					.map(i -> (Component) i.withStyle(ChatFormatting.YELLOW))
-					.toList();
+		default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
 		}
 	}
 }

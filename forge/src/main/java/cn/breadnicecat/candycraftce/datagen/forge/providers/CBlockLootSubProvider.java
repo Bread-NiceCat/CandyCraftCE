@@ -34,8 +34,11 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 
 	@Override
 	protected void generate() {
-		accept(m -> dropSelf(m.getBlock()), CARAMEL_BLOCK, CHOCOLATE_COBBLESTONE, PUDDING);
-		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
+		accept(m -> dropSelf(m.getBlock()),
+				CARAMEL_BLOCK, CHOCOLATE_COBBLESTONE, PUDDING,
+				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS);
+		accept(m -> add(m, noDrop()),
+				CARAMEL_PORTAL);
 
 		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.getBlock(), SUGAR, ConstantValue.exactly(4f)));
 		otherWhenSilkTouch(CHOCOLATE_STONE.getBlock(), CHOCOLATE_COBBLESTONE.getBlock());

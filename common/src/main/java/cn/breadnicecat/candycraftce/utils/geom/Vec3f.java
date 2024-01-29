@@ -6,5 +6,5 @@ package cn.breadnicecat.candycraftce.utils.geom;
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  */
-public record Vec3f(float x, float y, float z) {
+record Vec3f(float x, float y, float z) {
 }

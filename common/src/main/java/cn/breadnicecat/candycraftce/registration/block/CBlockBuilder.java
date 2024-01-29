@@ -6,12 +6,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -26,8 +27,8 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CBlockBuilder<B extends Block> {
 	private final String name;
 	private Function<Properties, B> factory;
-	public Properties properties = Properties.of();
-	public boolean ctab = true;
+	//	private Either<Properties, Supplier<Properties>> properties;
+	private Supplier<Properties> properties;
 
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {
 		return new CBlockBuilder<>(name, factory);
@@ -44,29 +45,43 @@ public class CBlockBuilder<B extends Block> {
 	}
 
 
-	/**
-	 * 新的Properties
-	 * 注:默认直接是新的Properties
-	 */
+	public CBlockBuilder<B> setProperties(@NotNull Supplier<Properties> supplier) {
+		this.properties = supplier;
+		return this;
+	}
+
 	public CBlockBuilder<B> setProperties(@NotNull Properties prop) {
-		this.properties = Objects.requireNonNull(prop);
+		setProperties(() -> prop);
 		return this;
 	}
 
-	public CBlockBuilder<B> setProperties(Block block, Consumer<Properties> modifier) {
-		this.properties = Properties.copy(block);
-		modifier.accept(properties);
+	public CBlockBuilder<B> setProperties(Supplier<Block> blockSupplier, @Nullable Consumer<Properties> modifier) {
+		setProperties(() -> {
+			Properties prop = Properties.copy(blockSupplier.get());
+			return (modifier == null ? prop : apply(prop, modifier));
+		});
 		return this;
 	}
 
-	public CBlockBuilder<B> setProperties(Block block) {
-		this.properties = Properties.copy(block);
+	public CBlockBuilder<B> setProperties(Block block, @Nullable Consumer<Properties> modifier) {
+		setProperties(() -> block, modifier);
 		return this;
 	}
 
 
 	public BlockEntry<B> save() {
-		BlockEntry<B> entry = register(name, () -> factory.apply(properties));
+
+		BlockEntry<B> entry = register(name, () -> {
+//			AccessorImpl<Properties> accessor = new AccessorImpl<>();
+//			if (properties == null) {
+//				accessor.accept(Properties.of());
+//			} else {
+//				properties.ifLeft(accessor).mapRight(Supplier::get).ifRight(accessor);
+//			}
+//			return factory.apply(Objects.requireNonNull(accessor.get()));
+			return factory.apply(properties == null ? Properties.of() : properties.get());
+
+		});
 		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}

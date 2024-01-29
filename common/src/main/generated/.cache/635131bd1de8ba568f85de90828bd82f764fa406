@@ -1,6 +1,8 @@
-// 1.20.1	2024-01-29T00:38:21.2354764	Tags for minecraft:block mod id candycraftce
+// 1.20.1	2024-01-29T16:15:15.747136	Tags for minecraft:block mod id candycraftce
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/blocks/candy_plant_can_on.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/blocks/caramel_portal_frame.json
-84b93688c88ce00380cc077f67345ceabe71fdb2 data/minecraft/tags/blocks/mineable/pickaxe.json
+0d98ad5b6ad6d103c471bc2ad0e8dae9f8f7af17 data/minecraft/tags/blocks/fences.json
+989f6d4b603006be97f84b4452e5a6f7c45f6b89 data/minecraft/tags/blocks/mineable/pickaxe.json
 277bdf7b6e0403ed139490f15690d8791d80702a data/minecraft/tags/blocks/mineable/shovel.json
 47f5b6a1c72b6e8aa97d5cd3fa0068e55b368e17 data/minecraft/tags/blocks/portals.json
+96037b8dbffc6d818e411f2855e866d8e4328af7 data/minecraft/tags/blocks/walls.json

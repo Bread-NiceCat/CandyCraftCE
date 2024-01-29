@@ -17,13 +17,13 @@ import java.util.Map;
  */
 
 
-public record ModelAnimation(cn.breadnicecat.candycraftce.utils.geom.ModelAnimation.LoopType type, float length,
+public record ModelAnimation(LoopType type, float length,
                              HashMap<String, BoneState> animation) {
-	public static class ModelMappings {
+	public static class ModelSnapshot {
 
 		private final ImmutableMap<String, ModelPart> parts;
 
-		private ModelMappings(ImmutableMap.Builder<String, ModelPart> parts) {
+		private ModelSnapshot(ImmutableMap.Builder<String, ModelPart> parts) {
 			this.parts = parts.build();
 		}
 
@@ -35,10 +35,10 @@ public record ModelAnimation(cn.breadnicecat.candycraftce.utils.geom.ModelAnimat
 			return parts.containsKey(s);
 		}
 
-		public static ModelMappings makeMappings(ModelPart root) {
+		public static ModelSnapshot createSnapshot(ModelPart root) {
 			ImmutableMap.Builder<String, ModelPart> builder = ImmutableMap.builder();
 			putAll(root, builder);
-			return new ModelMappings(builder);
+			return new ModelSnapshot(builder);
 		}
 
 		private static void putAll(ModelPart root, ImmutableMap.Builder<String, ModelPart> parts) {
@@ -56,7 +56,7 @@ public record ModelAnimation(cn.breadnicecat.candycraftce.utils.geom.ModelAnimat
 		}
 	}
 
-	public void pushAnim(ModelMappings mappings, float ageInTicks) {
+	public void pushAnim(ModelSnapshot mappings, float ageInTicks) {
 		float animTime = type.fix(ageInTicks * TickUtils.TICK_TO_SEC, length);
 		animation.keySet().forEach(k -> {
 			ModelPart part = mappings.get(k);

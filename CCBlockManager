@@ -4,12 +4,12 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
         LOOT_NONE, EXCLUDE_SUGARY_BLOCK, VTAG_MINEABLE_WITH_PICKAXE, RENDERER_TYPE_CUTOUT);
 //-------------------
 
-HELPER.single(PUDDING, () -> new Block(Properties.copy(Blocks.DIRT)), CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
-HELPER.single(CUSTARD_PUDDING, BlockCustardPudding::new, CCBlockManager::simpleBlockItem,
-        VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
-HELPER.single(PUDDING_FARMLAND, BlockPuddingFarmland::new,
-        VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
+        HELPER.single(PUDDING, () -> new Block(Properties.copy(Blocks.DIRT)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
+        HELPER.single(CUSTARD_PUDDING, BlockCustardPudding::new, CCBlockManager::simpleBlockItem,
+                VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
+        HELPER.single(PUDDING_FARMLAND, BlockPuddingFarmland::new,
+                VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
 
 
 HELPER.single(CANDY_CANE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,

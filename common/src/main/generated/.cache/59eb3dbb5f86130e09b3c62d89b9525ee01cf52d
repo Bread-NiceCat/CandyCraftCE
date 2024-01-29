@@ -1,4 +1,9 @@
-// 1.20.1	2024-01-29T00:38:21.2724738	Loot Tables
+// 1.20.1	2024-01-29T15:08:32.6931049	Loot Tables
+d5f698b09197b6c79a992e7b726f383effb68161 data/candycraftce/loot_tables/blocks/candy_cane_block.json
+f59e1e06f67db438227bcf5d75badf66a8ca5bb3 data/candycraftce/loot_tables/blocks/candy_cane_fence.json
+34f501338c8cb445289e333dfcd3bc622f0d646d data/candycraftce/loot_tables/blocks/candy_cane_slab.json
+3a7a84df899c38d924b5dc4ab854f681def1f123 data/candycraftce/loot_tables/blocks/candy_cane_stairs.json
+19b858dcfe67d09801fadb3ec4b44a462bffb4e2 data/candycraftce/loot_tables/blocks/candy_cane_wall.json
 d11dae413eecf24ed3fdfaec3804b5e7625426fe data/candycraftce/loot_tables/blocks/caramel_block.json
 fef6782285cb3e641e70f9dc6024ab070be55434 data/candycraftce/loot_tables/blocks/caramel_portal.json
 7612fc5498fe70863579a497b407dab39b1b955b data/candycraftce/loot_tables/blocks/chocolate_cobblestone.json

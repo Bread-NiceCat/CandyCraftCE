@@ -126,6 +126,12 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(PUDDING, "布丁");
 		addBlockById(CUSTARD_PUDDING, "奶皮布丁");
 		addBlockById(PUDDING_FARMLAND, "布丁耕地");
+		addBlockById(CANDY_CANE_BLOCK, "拐杖糖块");
+		addBlockById(CANDY_CANE_WALL, "拐杖糖墙");
+		addBlockById(CANDY_CANE_FENCE, "拐杖糖栅栏");
+		addBlockById(CANDY_CANE_SLAB, "拐杖糖台阶");
+		addBlockById(CANDY_CANE_STAIRS, "拐杖糖楼梯");
+
 
 	}
 
