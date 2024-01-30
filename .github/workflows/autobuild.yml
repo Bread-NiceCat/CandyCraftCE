@@ -37,13 +37,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: forge
-          path: build/buildJars/modJars/forge/*.jar
+          path: build/buildJars/modJars/forge
           if-no-files-found: error
 
       - name: upload fabric
         uses: actions/upload-artifact@v3
         with:
-          name: forge
-          path: build/buildJars/modJars/fabric/*.jar
+          name: fabric
+          path: build/buildJars/modJars/fabric
           if-no-files-found: error
 
