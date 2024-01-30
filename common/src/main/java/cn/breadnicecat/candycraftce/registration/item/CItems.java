@@ -8,6 +8,8 @@ import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.registration.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
@@ -20,6 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.block;
 import static cn.breadnicecat.candycraftce.registration.item.CItemBuilder.create;
@@ -37,7 +40,8 @@ public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 	static {
-		CandyCraftCE.hookMinecraftSetup(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
+		CandyCraftCE.hookPostBootstrap(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
+		if (isClient()) CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
 	}
 
 	public static Map<ResourceLocation, ItemEntry<? extends Item>> ITEMS = new HashMap<>();
@@ -171,16 +175,11 @@ public class CItems {
 		);
 	}
 
-
-	static {
-		if (CandyCraftCE.isClient()) {
-			CandyCraftCE.hookMinecraftSetup(() -> {
-				LOGGER.info("Loading CC Item Properties for CLIENT");
-				//@see net.minecraft.client.renderer.item.ItemProperties.<cinit>
-			});
-		}
+	@Environment(EnvType.CLIENT)
+	private static void declareItemProperties() {
+		LOGGER.info("Loading Item Properties...");
+		//@see net.minecraft.client.renderer.item.ItemProperties.<cinit>);
 	}
-
 
 	public static void init() {
 		LOGGER.info("init");

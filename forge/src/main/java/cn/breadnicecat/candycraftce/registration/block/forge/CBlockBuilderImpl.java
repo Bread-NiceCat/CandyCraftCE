@@ -23,7 +23,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 public class CBlockBuilderImpl {
 	public static final DeferredRegister<Block> REGISTER = CandyCraftCEImpl.createRegister(ForgeRegistries.BLOCKS);
 
-	public static <B extends Block> BlockEntry<B> register(@NotNull ResourceLocation name, Supplier<B> sup) {
+	public static <B extends Block> BlockEntry<B> _register(@NotNull ResourceLocation name, Supplier<B> sup) {
 		RegistryObject<B> object = REGISTER.register(name.getPath(), sup);
 		assertTrue(name.equals(object.getId()), "Unmatched ResourceLocation");
 		return new BlockEntry<>(name) {

@@ -36,11 +36,11 @@ public class CItemBuilderImpl {
 	public static final DeferredRegister<Item> REGISTER = CandyCraftCEImpl.createRegister(ForgeRegistries.ITEMS);
 	public static final Map<Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>>, Either<Supplier<ItemStack>, Supplier<ItemStack>>> EX_TABS = new HashMap<>();
 
-	public static <I extends Item> ItemEntry<I> register(ResourceLocation name, Supplier<I> sup) {
+	public static <I extends Item> ItemEntry<I> register(ResourceLocation id, Supplier<I> sup) {
 
-		RegistryObject<I> object = REGISTER.register(name.getPath(), sup);
-		assertTrue(name.equals(object.getId()), "Unmatched ResourceLocation");
-		return new ItemEntry<>(name) {
+		RegistryObject<I> object = REGISTER.register(id.getPath(), sup);
+		assertTrue(id.equals(object.getId()), () -> "Unmatched ResourceLocation: %s and %s".formatted(id, object.getId()));
+		return new ItemEntry<>(id) {
 			@Override
 			public I getItem() {
 				return object.get();

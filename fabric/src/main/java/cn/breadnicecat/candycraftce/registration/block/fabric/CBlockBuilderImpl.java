@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * <p>
  */
 public class CBlockBuilderImpl {
-	public static <B extends Block> BlockEntry<B> register(ResourceLocation name, @NotNull Supplier<B> sup) {
+	public static <B extends Block> BlockEntry<B> _register(ResourceLocation name, @NotNull Supplier<B> sup) {
 		B b = Registry.register(BuiltInRegistries.BLOCK, name, sup.get());
 		return new BlockEntry<>(name) {
 			@Override

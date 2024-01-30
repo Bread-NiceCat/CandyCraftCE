@@ -88,7 +88,7 @@ public class CBlockBuilder<B extends Block> {
 
 
 	public static <B extends Block> BlockEntry<B> register(String name, Supplier<B> sup) {
-		return register(prefix(name), sup);
+		return _register(prefix(name), sup);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class CBlockBuilder<B extends Block> {
 	 */
 	@Deprecated
 	@ExpectPlatform
-	private static <B extends Block> BlockEntry<B> register(ResourceLocation name, Supplier<B> sup) {
+	private static <B extends Block> BlockEntry<B> _register(ResourceLocation name, Supplier<B> sup) {
 		throw new AssertionError();
 	}
 

@@ -1,10 +1,8 @@
 package cn.breadnicecat.candycraftce.registration.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.registration.block.blocks.CaramelPortal;
-import cn.breadnicecat.candycraftce.registration.block.blocks.CustardPudding;
-import cn.breadnicecat.candycraftce.registration.block.blocks.PuddingFarm;
-import cn.breadnicecat.candycraftce.registration.block.blocks.SugarBlock;
+import cn.breadnicecat.candycraftce.registration.block.blocks.*;
+import cn.breadnicecat.candycraftce.registration.block.entity.CBlockEntities;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
@@ -40,12 +38,10 @@ public class CBlocks {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 	static {
-		CandyCraftCE.hookMinecraftSetup(() -> {
-			BLOCKS = Collections.unmodifiableMap(CBlocks.BLOCKS);
-			if (isClient()) {
-				declareRendererType();
-			}
-		});
+		CandyCraftCE.hookPostBootstrap(() -> BLOCKS = Collections.unmodifiableMap(CBlocks.BLOCKS));
+		if (isClient()) {
+			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
+		}
 	}
 
 	public static Map<ResourceLocation, BlockEntry<? extends Block>> BLOCKS = new HashMap<>();
@@ -67,16 +63,19 @@ public class CBlocks {
 	public static final BlockEntry<SlabBlock> CANDY_CANE_SLAB = slabBlock("candy_cane_slab").setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).save();
 
-	//HELPER.single(CANDY_CANE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-//        MODEL_COLUMN, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-//HELPER.single(CANDY_CANE_WALL, () -> new WallBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-//        VTAG_MINEABLE_WITH_PICKAXE, VTAG_WALLS, LOOT_DROP_SELF);
-//HELPER.single(CANDY_CANE_FENCE, () -> new FenceBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-//        VTAG_MINEABLE_WITH_PICKAXE, VTAG_FENCES, LOOT_DROP_SELF);
-//HELPER.single(CANDY_CANE_SLAB, () -> new SlabBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-//        LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-//HELPER.single(CANDY_CANE_STAIRS, () -> new StairBlock(CANDY_CANE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-//        LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	public static final BlockEntry<MarshmallowCraftingTable> MARSHMALLOW_CRAFTING_TABLE = create("marshmallow_crafting_table", MarshmallowCraftingTable::new).setProperties(Blocks.CRAFTING_TABLE, null).save();
+	public static final BlockEntry<?> LICORICE_FURNACE = create("licorice_furnace").setProperties(Blocks.FURNACE, null).save();
+//HELPER.single(MARSHMALLOW_CRAFTING_TABLE, BlockMarshmallowCraftingTable::new, CCBlockManager::simpleBlockItem,
+//        MODEL_COLUMN, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_AXE);
+//HELPER.single(LICORICE_FURNACE, BlockLicoriceFurnace::new, CCBlockManager::simpleBlockItem,
+//        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+//HELPER.single(CHOCOLATE_FURNACE, BlockChocolateFurnace::new, CCBlockManager::simpleBlockItem,
+//        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+//HELPER.single(SUGAR_FACTORY, BlockSugarFactory::new, CCBlockManager::simpleBlockItem,
+//        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+//HELPER.single(ADVANCED_SUGAR_FACTORY, BlockAdvancedSugarFactory::new, CCBlockManager::simpleBlockItem,
+//        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.getBlock(), RenderType.translucent()),
@@ -86,6 +85,7 @@ public class CBlocks {
 	}
 
 	public static void init() {
+		CBlockEntities.init();
 		LOGGER.info("init");
 	}
 
