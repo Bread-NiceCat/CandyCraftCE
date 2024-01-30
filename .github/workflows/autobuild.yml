@@ -24,15 +24,14 @@ jobs:
         with:
           arguments: build
           
+      - name: draw jars
+        run: ./gradlew drawJars
       - name: upload full
         uses: actions/upload-artifact@v3
         with:
           name: all
           path: build/buildJars
           if-no-files-found: error
-
-      - name: Draw Jars
-        run: ./gradlew drawJars
 
       - name: upload forge
         uses: actions/upload-artifact@v3
