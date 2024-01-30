@@ -12,16 +12,16 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
                 VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
 
 
-HELPER.single(CANDY_CANE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-        MODEL_COLUMN, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-HELPER.single(CANDY_CANE_WALL, () -> new WallBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-        VTAG_MINEABLE_WITH_PICKAXE, VTAG_WALLS, LOOT_DROP_SELF);
-HELPER.single(CANDY_CANE_FENCE, () -> new FenceBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-        VTAG_MINEABLE_WITH_PICKAXE, VTAG_FENCES, LOOT_DROP_SELF);
-HELPER.single(CANDY_CANE_SLAB, () -> new SlabBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-        LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-HELPER.single(CANDY_CANE_STAIRS, () -> new StairBlock(CANDY_CANE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-        LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+    HELPER.single(CANDY_CANE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
+            MODEL_COLUMN, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+    HELPER.single(CANDY_CANE_WALL, () -> new WallBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+            VTAG_MINEABLE_WITH_PICKAXE, VTAG_WALLS, LOOT_DROP_SELF);
+    HELPER.single(CANDY_CANE_FENCE, () -> new FenceBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+            VTAG_MINEABLE_WITH_PICKAXE, VTAG_FENCES, LOOT_DROP_SELF);
+    HELPER.single(CANDY_CANE_SLAB, () -> new SlabBlock(Properties.copy(CANDY_CANE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+            LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+    HELPER.single(CANDY_CANE_STAIRS, () -> new StairBlock(CANDY_CANE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+            LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
 HELPER.single(MARSHMALLOW_CRAFTING_TABLE, BlockMarshmallowCraftingTable::new, CCBlockManager::simpleBlockItem,
         MODEL_COLUMN, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_AXE);

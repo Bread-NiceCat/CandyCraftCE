@@ -46,7 +46,11 @@ public class ItemIIDebug extends Item {
 			//切换模式
 			CompoundTag tag = item.getOrCreateTag();
 			int ord = getFunOrd(tag);
-			if (++ord >= FUNCTIONS.size()) {
+			if (player.isShiftKeyDown()) {
+				if (--ord < 0) {
+					ord = FUNCTIONS.size() - 1;
+				}
+			} else if (++ord >= FUNCTIONS.size()) {
 				ord = 0;
 			}
 			IIIDebugFunction fun = FUNCTIONS.get(ord);
@@ -73,8 +77,9 @@ public class ItemIIDebug extends Item {
 		int ord = getFunOrd(tag);
 		IIIDebugFunction fun = FUNCTIONS.get(ord);
 		String ord_s = String.valueOf(ord);
-		tag.getCompound(ord_s);
-		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, player, item, tag);
+		CompoundTag nbt = tag.getCompound(ord_s);
+		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, player, item, nbt);
+		tag.put(ord_s, nbt);
 		return InteractionResult.CONSUME;
 	}
 
@@ -85,10 +90,10 @@ public class ItemIIDebug extends Item {
 			int ord = getFunOrd(tag);
 			IIIDebugFunction fun = FUNCTIONS.get(ord);
 
-			String key = String.valueOf(ord);
-			CompoundTag spec_tag = tag.getCompound(key);
-			fun.onLeftClickOn(pState, (ServerLevel) pLevel, pPos, pPlayer, item, spec_tag);
-			tag.put(key, spec_tag);
+			String ord_s = String.valueOf(ord);
+			CompoundTag nbt = tag.getCompound(ord_s);
+			fun.onLeftClickOn(pState, (ServerLevel) pLevel, pPos, pPlayer, item, nbt);
+			tag.put(ord_s, nbt);
 		}
 		return false;
 	}
@@ -131,14 +136,14 @@ public class ItemIIDebug extends Item {
 		@Override
 		public void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			int[] po = player.isShiftKeyDown() ? new int[]{0, 0, 0} : new int[]{pos.getX(), pos.getY(), pos.getZ()};
-			player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(pos.toShortString())).withStyle(ChatFormatting.GREEN));
 			nbt.putIntArray(ZERO, po);
+			player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(Arrays.toString(po))).withStyle(ChatFormatting.GREEN));
 		}
 
 		@Override
 		public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
-			tooltips.add(Component.literal("当前零点: " + Arrays.toString(zero)));
+			tooltips.add(Component.literal("当前零点: " + Arrays.toString(zero)).withStyle(ChatFormatting.GREEN));
 		}
 	};
 	//============================================================//

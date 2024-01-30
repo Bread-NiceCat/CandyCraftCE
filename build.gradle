@@ -18,6 +18,7 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+        Locale.getDefault()
         var aliyun = maven { url = "https://maven.aliyun.com/repository/public" }
         remove(aliyun)
         addFirst(aliyun)
@@ -50,11 +51,42 @@ subprojects {
         }
     }
 }
+//for github work flow
+//================================================================//
+tasks.register("drawJars", {
+    def outDir = new File("build/buildJars")
+    outDir.mkdirs()
+    def dir1 = new File(outDir, "modJars")
+    dir1.mkdir()
+    def dir2 = new File(outDir, "sourceJars")
+    dir2.mkdir()
+    def dir3 = new File(outDir, "devShadowJars")
+    dir3.mkdir()
+    def modName = "${rootProject.archivesBaseName}-${rootProject.mod_version}"
+    copy(new File("fabric/build/libs/${modName}.jar"), new File(dir1, "fabric/${modName}.jar"))
+    copy(new File("forge/build/libs/${modName}.jar"), new File(dir1, "forge/${modName}.jar"))
+    copy(new File("fabric/build/libs/${modName}-sources.jar"), new File(dir2, "fabric/${modName}-sources.jar"))
+    copy(new File("forge/build/libs/${modName}-sources.jar"), new File(dir2, "forge/${modName}-sources.jar"))
+    copy(new File("fabric/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "fabric/${modName}-dev-shadow.jar"))
+    copy(new File("forge/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "forge/${modName}-dev-shadow.jar"))
+})
 
-
-println("=".repeat(40))
+private static def copy(File from, File to) {
+    println "Copying $from -> $to"
+    from.withInputStream { i ->
+        def toDir = to.getParentFile()
+        toDir?.mkdirs()
+        to.withOutputStream {
+            i.transferTo it
+        }
+    }
+}
+//================================================================//
+//declare repositories
+println("=".repeat(64))
 println("here in project $project.name")
 println("repo here=>")
 getRepositories().forEach { println it.url }
 println("repo end")
-println("=".repeat(40))
+println("=".repeat(64))
+//================================================================//

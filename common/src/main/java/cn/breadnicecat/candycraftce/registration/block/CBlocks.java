@@ -82,7 +82,6 @@ public class CBlocks {
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.getBlock(), RenderType.translucent()),
 				CARAMEL_PORTAL);
 //		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.getBlock(), RenderType.cutout()),
-//				CANDY_CANE_SLAB, CANDY_CANE_STAIRS
 //		);
 	}
 
