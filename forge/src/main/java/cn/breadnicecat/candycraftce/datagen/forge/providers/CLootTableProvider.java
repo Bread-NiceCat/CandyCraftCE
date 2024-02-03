@@ -15,7 +15,7 @@ import java.util.Map;
  * Created in 2023/12/30 21:36
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class CLootTableProvider extends LootTableProvider {

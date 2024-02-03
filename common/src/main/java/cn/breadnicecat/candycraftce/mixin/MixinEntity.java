@@ -23,7 +23,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.cis_trans;
  * Created in 2024/1/1 9:28
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 @Mixin(Entity.class)
@@ -48,7 +48,7 @@ public abstract class MixinEntity {
 	private void findDimensionEntryPoint(@NotNull ServerLevel destination, CallbackInfoReturnable<PortalInfo> cir) {
 		ResourceKey<Level> curDim = level.dimension();
 		if (destination.dimension() == CDims.THE_DUNGEON) {
-			//暂行方案，在切换维度时应该使用moveTo方法设置坐标
+			//TODO 暂行方案，在切换维度时应该使用moveTo方法设置坐标
 			cir.setReturnValue(new PortalInfo(Vec3.ZERO, Vec3.ZERO, getXRot(), getYRot()));
 		}
 		//只支持 糖果<=>主世界

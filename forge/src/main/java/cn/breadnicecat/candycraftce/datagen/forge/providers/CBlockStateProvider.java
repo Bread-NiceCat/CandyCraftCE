@@ -1,8 +1,9 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.registration.block.blocks.CaramelPortal;
-import cn.breadnicecat.candycraftce.registration.block.blocks.PuddingFarm;
+import cn.breadnicecat.candycraftce.block.blocks.CaramelPortal;
+import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnace;
+import cn.breadnicecat.candycraftce.block.blocks.PuddingFarm;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -19,14 +20,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 
-import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
  * Created in 2023/10/14 22:47
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class CBlockStateProvider extends BlockStateProvider {
@@ -42,21 +43,21 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//(_)type : textureName
 
 		//cubeAll : *
-		accept((b) -> simpleBlockWithItem(b.getBlock(), cubeAll(b.getBlock())),
+		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING
 		);
 		//column : *_side *_end
 		accept(b -> {
 			String name = b.getName();
-			simpleBlockWithItem(b.getBlock(), models().cubeColumn(name, modLoc("block/" + name + "_side"), modLoc("block/" + name + "_end")));
-		}, CANDY_CANE_BLOCK);
+			simpleBlockWithItem(b.get(), models().cubeColumn(name, modLoc("block/" + name + "_side"), modLoc("block/" + name + "_end")));
+		}, CANDY_CANE_BLOCK, MARSHMALLOW_CRAFTING_TABLE);
 		//wall : *
 		{
 			mapping("block/" + CANDY_CANE_WALL.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
 		}
 		accept(b -> {
 					ResourceLocation texture = modLoc("block/" + b.getName());
-					wallBlock(b.getBlock(), texture);
+					wallBlock(b.get(), texture);
 					itemModels().wallInventory(b.getName(), texture);
 				},
 				CANDY_CANE_WALL);
@@ -66,7 +67,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		}
 		accept(b -> {
 					ResourceLocation texture = modLoc("block/" + b.getName());
-					fenceBlock(b.getBlock(), texture);
+					fenceBlock(b.get(), texture);
 					itemModels().fenceInventory(b.getName(), texture);
 				},
 				CANDY_CANE_FENCE);
@@ -80,7 +81,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		accept(b -> {
 			ResourceLocation side = modLoc("block/" + b.getName() + "_side");
 			ResourceLocation end = modLoc("block/" + b.getName() + "_end");
-			stairsBlock(b.getBlock(), side, end, end);
+			stairsBlock(b.get(), side, end, end);
 			itemModels().stairs(b.getName(), side, end, end);
 		}, CANDY_CANE_STAIRS);
 		//slab : *_side, *_end
@@ -99,10 +100,24 @@ public class CBlockStateProvider extends BlockStateProvider {
 			BlockModelBuilder slab = models().slab(name, side, end, end);
 			BlockModelBuilder slabTop = models().slabTop(name + "_top", side, end, end);
 			BlockModelBuilder full = models().cubeColumn(name + "_full", side, end);
-			SlabBlock block = b.getBlock();
+			SlabBlock block = b.get();
 			slabBlock(block, slab, slabTop, full);
 			simpleBlockItem(block, slab);
 		}, CANDY_CANE_SLAB);
+		//================================//
+		//盐甘草糖熔炉
+		{
+			String name = LICORICE_FURNACE.getName();
+			ResourceLocation side = modLoc("block/licorice_furnace_side");
+			ResourceLocation front_on = modLoc("block/licorice_furnace_front_on");
+			ResourceLocation front_off = modLoc("block/licorice_furnace_front_off");
+			ResourceLocation top = modLoc("block/licorice_furnace_top");
+			ResourceLocation bottom = modLoc("block/licorice_block");
+			BlockModelBuilder on = models().orientableWithBottom(name, side, front_on, bottom, top);
+			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
+			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnace.LIT) ? on : off);
+			simpleBlockItem(LICORICE_FURNACE.get(), off);
+		}
 		//奶皮布丁
 		{
 			String name = CUSTARD_PUDDING.getName();
@@ -110,12 +125,12 @@ public class CBlockStateProvider extends BlockStateProvider {
 					modLoc("block/" + name + "_side"),
 					modLoc("block/" + PUDDING.getName()),
 					modLoc("block/" + name + "_top"));
-			Block block = CUSTARD_PUDDING.getBlock();
+			Block block = CUSTARD_PUDDING.get();
 			simpleBlockWithItem(block, common);
 		}
 		//布丁耕地
 		{
-			Block block = PUDDING_FARMLAND.getBlock();
+			Block block = PUDDING_FARMLAND.get();
 			String name = PUDDING_FARMLAND.getName();
 			String base = PUDDING.getName();
 			BlockModelBuilder land = models().withExistingParent(name, "block/template_farmland")
@@ -130,7 +145,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//传送门
 		{
 			String name = CARAMEL_PORTAL.getName();
-			CaramelPortal block = CARAMEL_PORTAL.getBlock();
+			CaramelPortal block = CARAMEL_PORTAL.get();
 			ResourceLocation tex = blockTexture(block);
 			BlockModelBuilder model = models().withExistingParent("block/" + name, "block/nether_portal_ew")
 					.texture("portal", tex)

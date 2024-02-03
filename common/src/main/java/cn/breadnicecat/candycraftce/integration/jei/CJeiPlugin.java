@@ -13,7 +13,7 @@
 // * Created in 2023/9/30 15:44
 // * Project: candycraftce
 // *
-// * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+// * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
 // */
 //@JeiPlugin
 //public class CJeiPlugin implements IModPlugin {

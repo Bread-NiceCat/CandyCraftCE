@@ -16,7 +16,7 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
  * Created in 2023/7/29 15:23
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  * ANY memeber in this class SHOULD NOT be used when running release!
  * It's for DEBUG only

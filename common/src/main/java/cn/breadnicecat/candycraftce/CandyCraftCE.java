@@ -1,9 +1,12 @@
 package cn.breadnicecat.candycraftce;
 
+import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
+import cn.breadnicecat.candycraftce.gui.block.CMenus;
+import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
-import cn.breadnicecat.candycraftce.registration.block.CBlocks;
-import cn.breadnicecat.candycraftce.registration.item.CItems;
-import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
+import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
+import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.util.profiling.jfr.Environment;
 import org.slf4j.Logger;
@@ -54,13 +57,19 @@ public final class CandyCraftCE {
 
 		LOGGER.info("=".repeat(50));
 		LOGGER.info(MOD_ID + " Running in " + getEnvironment() + " with " + getPlatform());
-		if (IS_DEV) LOGGER.warn("Here running IDE mode!If you're not a developer, Please report the issue!");
+		if (IS_DEV) {
+			LOGGER.warn("Hey! Here's running in IDE mode!");
+			LOGGER.warn("If you 're not a developer, Please report this issue!");
+		}
 		LOGGER.info("=".repeat(50));
 
 		CItems.init();
+		CMenus.init();
 		CBlocks.init();
 		CGameRules.init();
+		CRecipeTypes.init();
 		CSoundEvents.init();
+		CBlockEntities.init();
 
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
@@ -106,10 +115,6 @@ public final class CandyCraftCE {
 		return preBootstrap && !postBootstrap;
 	}
 
-	/**
-	 * @deprecated 应当淡化平台理念
-	 */
-	@Deprecated
 	public enum ModPlatform {
 		FORGE, FABRIC, QUILT//Quilt兼容Fabric,不单独开发
 	}

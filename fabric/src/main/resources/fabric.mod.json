@@ -9,8 +9,8 @@
 	"Star_Ocean_Sama(Texture)"
   ],
   "contact": {
-	"homepage": "https://github.com/BreadNiceCat/CandyCraft",
-	"sources": "https://github.com/BreadNiceCat/CandyCraft"
+	"homepage": "https://github.com/Bread-Nicecat/CandyCraft",
+	"sources": "https://github.com/Bread-Nicecat/CandyCraft"
   },
   "mixins": [
 	"candycraftce.mixins.json",
@@ -21,7 +21,6 @@
   "environment": "*",
   "entrypoints": {
 	"fabric-datagen": [
-	  "cn.breadnicecat.candycraftce.datagen.fabric.CCDatagenFabric"
 	],
 	"main": [
 	  "cn.breadnicecat.candycraftce.fabric.CandyCraftCEImpl"

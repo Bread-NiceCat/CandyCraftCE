@@ -2,7 +2,9 @@ package cn.breadnicecat.candycraftce.utils;
 
 import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.Objects;
 import java.util.Random;
@@ -15,7 +17,6 @@ import java.util.function.Supplier;
  * 非mc特有
  */
 public class CommonUtils {
-
 
 	public static final Random RANDOM = new Random();
 
@@ -118,5 +119,17 @@ public class CommonUtils {
 		} else if (Objects.equals(i1, trans) && Objects.equals(i2, cis)) {
 			return r_trans == null ? null : r_trans.get();
 		} else return r_default == null ? null : r_default.get();
+	}
+
+	public static <T> T impossible() {
+		throw new AssertionError("impossible");
+	}
+
+	public static void logInit(Logger logger) {
+		logger.info("init");
+	}
+
+	public static <T> T make(@NotNull Supplier<T> factory) {
+		return factory.get();
 	}
 }

@@ -22,6 +22,7 @@ loom {
         data {
             data()
             name("Forge Data Generator")
+
             programArgs "--all", "--mod", "candycraftce"
             programArgs "--output", generatedResources.absolutePath
             programArgs "--existing", new File(project(":common").getProjectDir(), "/src/main/resources").absolutePath
@@ -29,6 +30,11 @@ loom {
         client {
             vmArg "-Dmixin.debug.export=true"
 //            vmArg "-Dmixin.debug.verbose=true"
+        }
+    }
+    if (Boolean.parseBoolean(enable_jbr)) {
+        runs.forEach {
+            it.vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
     }
 }
@@ -40,24 +46,19 @@ configurations {
     developmentForge.extendsFrom common
 }
 
-repositories {
-    flatDir {
-        dir "libs"
-        content {
-            includeGroup "local"
-        }
-    }
-}
-
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
 //    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
 
-    modRuntimeOnly "local:appleskin-forge-mc1.20.1:2.5.0"
-    modRuntimeOnly "local:BetterTags-1.20.1:1.1"
-    modImplementation "local:jei-1.20.1-forge:15.2.0.25-local"
+    modRuntimeOnly("curse.maven:appleskin-248787:4770828")
+
+    modRuntimeOnly("native:BetterTags-1.20.1:1.1")
+
+    modCompileOnly("mezz.jei:jei-1.20.1-forge-api:15.2.0.25") { transitive false }
+    modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.25") { transitive false }
+
     modImplementation "curse.maven:jade-324717:4801177"
 
 

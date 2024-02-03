@@ -11,6 +11,11 @@ accessible method net/minecraft/world/item/AxeItem <init> (Lnet/minecraft/world/
 accessible method net/minecraft/world/item/HoeItem <init> (Lnet/minecraft/world/item/Tier;IFLnet/minecraft/world/item/Item$Properties;)V
 #BlockEntities
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+#Menu
+accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
+#Screen
+accessible class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
+accessible method net/minecraft/client/gui/screens/MenuScreens register (Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
 #GameRules
 accessible method net/minecraft/world/level/GameRules$BooleanValue create (Z)Lnet/minecraft/world/level/GameRules$Type;
 #CreativeTabs

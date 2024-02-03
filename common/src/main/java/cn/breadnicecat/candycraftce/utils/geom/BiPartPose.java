@@ -7,7 +7,7 @@ import net.minecraft.client.model.geom.PartPose;
  * Created in 2023/8/25 23:16
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 public class BiPartPose extends PartPose {
 	private final float xScale, yScale, zScale;

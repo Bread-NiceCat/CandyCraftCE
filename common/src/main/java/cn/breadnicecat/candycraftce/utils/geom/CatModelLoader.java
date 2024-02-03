@@ -26,7 +26,7 @@ import java.util.zip.GZIPInputStream;
  * Created in 2023/8/24 20:29
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 @Environment(EnvType.CLIENT)
 public class CatModelLoader {

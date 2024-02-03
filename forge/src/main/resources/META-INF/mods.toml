@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-issueTrackerURL = "https://github.com/BreadNiceCat/CandyCraft/issues"
+issueTrackerURL = "https://github.com/Bread-Nicecat/CandyCraft/issues"
 license = "GNU GPL v3"
 
 [[mods]]

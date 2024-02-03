@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
  * Created in 2023/12/31 10:06
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class CDims {

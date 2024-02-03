@@ -14,7 +14,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.getCaller;
  * Created in 2023/8/22 21:58
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 public class CLogUtils {
 	private static final HashMap<String, Logger> CACHE = new HashMap<>();

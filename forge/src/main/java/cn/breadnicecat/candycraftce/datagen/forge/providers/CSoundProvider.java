@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.registration.sound.CSoundEvents;
-import cn.breadnicecat.candycraftce.registration.sound.SoundEntry;
+import cn.breadnicecat.candycraftce.sound.CSoundEvents;
+import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -16,7 +16,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * Created in 2023/10/14 21:07
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class CSoundProvider extends SoundDefinitionsProvider {

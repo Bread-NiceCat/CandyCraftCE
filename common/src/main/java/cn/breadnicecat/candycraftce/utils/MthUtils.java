@@ -4,7 +4,7 @@ package cn.breadnicecat.candycraftce.utils;
  * Created in 2023/8/26 0:07
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 public class MthUtils {
 	/**

@@ -25,7 +25,6 @@ public class CandyCraftCEImpl {
 
 	public static final Dist dist = Objects.requireNonNull(FMLEnvironment.dist);
 
-	@SuppressWarnings("deprecation")
 	public CandyCraftCEImpl() {
 		CandyCraftCE.runBootstrap(dist == Dist.CLIENT ? Environment.CLIENT : Environment.SERVER, ModPlatform.FORGE);
 	}

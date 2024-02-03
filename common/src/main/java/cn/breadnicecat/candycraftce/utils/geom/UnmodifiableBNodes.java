@@ -8,7 +8,7 @@ import java.util.*;
  * Created in 2023/4/15 10:22
  * Project: fantasticfighting
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 class UnmodifiableBNodes<K, V> {
 

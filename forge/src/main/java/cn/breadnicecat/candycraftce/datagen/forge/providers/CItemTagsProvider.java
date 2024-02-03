@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.registration.item.CItemTags;
-import cn.breadnicecat.candycraftce.registration.item.ItemEntry;
+import cn.breadnicecat.candycraftce.item.CItemTags;
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-import static cn.breadnicecat.candycraftce.registration.item.CItemTags.CANDY_ARROWS;
-import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
+import static cn.breadnicecat.candycraftce.item.CItemTags.CANDY_ARROWS;
+import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.tags.ItemTags.*;
 
@@ -24,7 +24,7 @@ import static net.minecraft.tags.ItemTags.*;
  * Created in 2023/9/9 21:39
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 public class CItemTagsProvider extends ItemTagsProvider {
 	public CItemTagsProvider(PackOutput arg, CompletableFuture<HolderLookup.Provider> completableFuture, CompletableFuture<TagLookup<Block>> completableFuture2, @Nullable ExistingFileHelper existingFileHelper) {
@@ -57,7 +57,7 @@ public class CItemTagsProvider extends ItemTagsProvider {
 
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {
 		IntrinsicTagAppender<Item> tag = tag(tagKey);
-		accept(i -> tag.add(i.getItem()), ie);
+		accept(i -> tag.add(i.get()), ie);
 	}
 
 }

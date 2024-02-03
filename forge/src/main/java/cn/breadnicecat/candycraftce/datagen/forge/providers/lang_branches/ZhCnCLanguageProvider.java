@@ -8,7 +8,7 @@ import net.minecraftforge.common.data.LanguageProvider;
  * Created in 2023/12/30 14:08
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class ZhCnCLanguageProvider extends LanguageProvider {
@@ -18,6 +18,5 @@ public class ZhCnCLanguageProvider extends LanguageProvider {
 
 	@Override
 	protected void addTranslations() {
-
 	}
 }

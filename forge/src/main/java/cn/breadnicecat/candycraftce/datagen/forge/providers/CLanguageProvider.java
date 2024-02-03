@@ -1,10 +1,10 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
+import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.ZhCnCLanguageProvider;
-import cn.breadnicecat.candycraftce.registration.block.BlockEntry;
-import cn.breadnicecat.candycraftce.registration.item.CCTab;
-import cn.breadnicecat.candycraftce.registration.item.ItemEntry;
+import cn.breadnicecat.candycraftce.item.CCTab;
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import static cn.breadnicecat.candycraftce.registration.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
+import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.item.CItems.*;
 
 /**
  * Created in 2023/8/22 21:05
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  * 只生成en_us,剩下的手动补全
  */
@@ -131,6 +131,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CANDY_CANE_FENCE, "拐杖糖栅栏");
 		addBlockById(CANDY_CANE_SLAB, "拐杖糖台阶");
 		addBlockById(CANDY_CANE_STAIRS, "拐杖糖楼梯");
+		addBlockById(MARSHMALLOW_CRAFTING_TABLE, "棉花软糖工作台");
+		addBlockById(LICORICE_FURNACE, "盐甘草糖熔炉");
 
 
 	}
@@ -140,7 +142,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 
 	public void addItem(ItemEntry<?> ie, String en_us, String zh_cn) {
-		add(ie.getItem().getDescriptionId(), en_us, zh_cn);
+		add(ie.get().getDescriptionId(), en_us, zh_cn);
 	}
 
 	public void addBlockById(BlockEntry<?> be, String zh_cn) {
@@ -148,7 +150,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 
 	public void addItem(BlockEntry<?> be, String en_us, String zh_cn) {
-		add(be.getBlock().getDescriptionId(), en_us, zh_cn);
+		add(be.get().getDescriptionId(), en_us, zh_cn);
 	}
 
 	public void add(String key, String en_us, String zh_cn) {

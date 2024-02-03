@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Created in 2023/8/22 20:57
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCDatagenMain {
@@ -37,6 +37,7 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeServer(), blocktag);
 		generator.addProvider(evt.includeServer(), new CItemTagsProvider(pack, lookup, blocktag.contentsGetter(), efhelper));
 		generator.addProvider(evt.includeServer(), new CLootTableProvider(pack));
+		generator.addProvider(evt.includeServer(), new CRecipeProvider(pack));
 
 		generator.addProvider(evt.includeClient(), new CLanguageProvider(pack));
 		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));

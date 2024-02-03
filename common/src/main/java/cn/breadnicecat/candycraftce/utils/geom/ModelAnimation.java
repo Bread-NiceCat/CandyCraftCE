@@ -13,7 +13,7 @@ import java.util.Map;
  * Project: candycraftce
  *
  * @param animation key:bone_name
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 
 
@@ -57,7 +57,7 @@ public record ModelAnimation(LoopType type, float length,
 	}
 
 	public void pushAnim(ModelSnapshot mappings, float ageInTicks) {
-		float animTime = type.fix(ageInTicks * TickUtils.TICK_TO_SEC, length);
+		float animTime = type.fix(ageInTicks * TickUtils.TICK2SEC, length);
 		animation.keySet().forEach(k -> {
 			ModelPart part = mappings.get(k);
 			BiPartPose reactive = load(k, animTime);

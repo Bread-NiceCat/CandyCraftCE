@@ -15,6 +15,9 @@ dependencies {
 //    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
     implementation 'org.codehaus.groovy:groovy:3.0.19'
+
+    modCompileOnly ("mezz.jei:jei-1.20.1-common-api:15.2.0.25" )
+    modRuntimeOnly ("mezz.jei:jei-1.20.1-common:15.2.0.25" )
 }
 
 sourceSets {

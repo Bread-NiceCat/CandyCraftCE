@@ -4,7 +4,7 @@ plugins {
 }
 
 architectury {
-    minecraft = rootProject.minecraft_version
+    minecraft = minecraft_version
 }
 
 allprojects {
@@ -13,22 +13,31 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = rootProject.archives_base_name
-    version = rootProject.mod_version
-    group = rootProject.maven_group
+    archivesBaseName = archives_base_name
+    version = mod_version
+    group = maven_group
 
     repositories {
-        Locale.getDefault()
+        //Faster Repo For Chinese
         var aliyun = maven { url = "https://maven.aliyun.com/repository/public" }
-        remove(aliyun)
-        addFirst(aliyun)
-        maven { url = "https://download.mcbbs.net/assets/" }
-        maven { url = 'https://maven.parchmentmc.org' }
+        if (Boolean.parseBoolean(enable_cn_repo)) {
+            remove(aliyun)
+            addFirst(aliyun)
+//        maven { url = "https://download.mcbbs.net/assets/" }
+        }
+        //================
+        flatDir {
+            dir rootProject.file("libs")
+            content { includeGroup "native" }
+        }
+
         maven { url = "https://modmaven.dev" }
         maven {
-            url "https://www.cursemaven.com"
+            url "https://cursemaven.com"
             content { includeGroup "curse.maven" }
         }
+        maven { url = 'https://maven.parchmentmc.org' }
+
     }
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
@@ -40,20 +49,20 @@ allprojects {
     }
 }
 subprojects {
-
     apply plugin: "dev.architectury.loom"
 
     dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:${rootProject.parchment_version}")
+            parchment("org.parchmentmc.data:${parchment_version}")
         }
+
     }
 }
 //for github work flow
 //================================================================//
-tasks.register("drawJars", {
+tasks.register("drawJar", {
     def outDir = new File("build/buildJars")
     outDir.mkdirs()
     def dir1 = new File(outDir, "modJars")
@@ -62,7 +71,7 @@ tasks.register("drawJars", {
     dir2.mkdir()
     def dir3 = new File(outDir, "devShadowJars")
     dir3.mkdir()
-    def modName = "${rootProject.archivesBaseName}-${rootProject.mod_version}"
+    def modName = "${archivesBaseName}-${mod_version}"
     copy(new File("fabric/build/libs/${modName}.jar"), new File(dir1, "fabric/${modName}.jar"))
     copy(new File("forge/build/libs/${modName}.jar"), new File(dir1, "forge/${modName}.jar"))
     copy(new File("fabric/build/libs/${modName}-sources.jar"), new File(dir2, "fabric/${modName}-sources.jar"))
@@ -72,21 +81,30 @@ tasks.register("drawJars", {
 })
 
 private static def copy(File from, File to) {
-    println "Copying $from -> $to"
     from.withInputStream { i ->
         def toDir = to.getParentFile()
         toDir?.mkdirs()
         to.withOutputStream {
             i.transferTo it
         }
+        println "Copy $from -> $to"
     }
 }
 //================================================================//
+
 //declare repositories
 println("=".repeat(64))
 println("here in project $project.name")
 println("repo here=>")
-getRepositories().forEach { println it.url }
+getRepositories().forEach { it ->
+    try {
+        if (it instanceof FlatDirectoryArtifactRepository) {
+            println it.dirs
+        } else println it.url
+    } catch (Exception ignored) {
+        println it
+    }
+}
 println("repo end")
 println("=".repeat(64))
 //================================================================//

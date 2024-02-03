@@ -13,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static cn.breadnicecat.candycraftce.registration.item.CItems.*;
+import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
  * Created in 2023/10/14 22:51
  * Project: candycraftce
  *
- * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
+ * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
 public class CItemModelProvider extends ItemModelProvider {
@@ -34,7 +34,7 @@ public class CItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		//generated
 		{
-			accept(((i) -> basicItem(i.getItem())),
+			accept(((i) -> basicItem(i.get())),
 					LICORICE,
 					HONEYCOMB,
 					HONEYCOMB_SHARD,
@@ -92,7 +92,7 @@ public class CItemModelProvider extends ItemModelProvider {
 		}
 		//handheld
 		{
-			accept(i -> handheldItem(i.getItem()),
+			accept(i -> handheldItem(i.get()),
 					MARSHMALLOW_SWORD,
 					MARSHMALLOW_SHOVEL,
 					MARSHMALLOW_PICKAXE,

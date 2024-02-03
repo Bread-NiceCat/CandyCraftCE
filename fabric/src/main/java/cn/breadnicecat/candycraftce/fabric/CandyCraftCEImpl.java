@@ -14,7 +14,6 @@ public class CandyCraftCEImpl implements ModInitializer {
 
 	private static final EnvType envType = Objects.requireNonNull(FabricLoaderImpl.InitHelper.get().getEnvironmentType());
 
-	@SuppressWarnings("deprecation")
 	public CandyCraftCEImpl() {
 		CandyCraftCE.runBootstrap(envType == EnvType.CLIENT ? Environment.CLIENT : Environment.SERVER, CandyCraftCE.ModPlatform.FABRIC);
 	}
