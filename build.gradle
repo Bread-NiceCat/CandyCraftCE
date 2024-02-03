@@ -62,7 +62,7 @@ subprojects {
 }
 //for github work flow
 //================================================================//
-tasks.register("drawJar", {
+tasks.register("drawJars", {
     def outDir = new File("build/buildJars")
     outDir.mkdirs()
     def dir1 = new File(outDir, "modJars")
