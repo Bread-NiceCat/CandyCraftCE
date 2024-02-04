@@ -7,6 +7,10 @@
     "candycraftce:candy_cane_wall",
     "candycraftce:candy_cane_fence",
     "candycraftce:candy_cane_slab",
-    "candycraftce:candy_cane_stairs"
+    "candycraftce:candy_cane_stairs",
+    "candycraftce:licorice_furnace",
+    "candycraftce:chocolate_furnace",
+    "candycraftce:sugar_factory",
+    "candycraftce:advanced_sugar_factory"
   ]
 }

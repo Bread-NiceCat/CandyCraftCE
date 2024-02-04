@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.block.blocks;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
@@ -10,6 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -25,11 +28,25 @@ public class LicoriceFurnace extends AbstractFurnaceBlock {
 	}
 
 	@Override
-	protected void openContainer(Level level, BlockPos pos, Player player) {
+	protected void openContainer(@NotNull Level level, BlockPos pos, Player player) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof LicoriceFurnaceBE fbe) {
 			player.openMenu(fbe);
 		}
+	}
+
+	@Override
+	public void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
+		if (state.is(newState.getBlock())) {
+			return;
+		}
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (!level.isClientSide() && blockEntity instanceof LicoriceFurnaceBE be) {
+			Containers.dropContents(level, pos, be);
+			be.dropExp(Vec3.atCenterOf(pos));
+			level.updateNeighbourForOutputSignal(pos, this);
+		}
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Nullable
@@ -41,8 +58,8 @@ public class LicoriceFurnace extends AbstractFurnaceBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-		return (lvl, pos, stat1, be) -> {
-			if (!lvl.isClientSide && be instanceof LicoriceFurnaceBE licoriceBE) {
+		return level.isClientSide() ? null : (lvl, pos, stat1, be) -> {
+			if (be instanceof LicoriceFurnaceBE licoriceBE) {
 				licoriceBE.serverTick();
 			}
 		};

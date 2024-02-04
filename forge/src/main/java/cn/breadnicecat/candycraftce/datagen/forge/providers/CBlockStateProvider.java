@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.CaramelPortal;
+import cn.breadnicecat.candycraftce.block.blocks.ChocolateFurnace;
 import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnace;
 import cn.breadnicecat.candycraftce.block.blocks.PuddingFarm;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
@@ -44,7 +45,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 
 		//cubeAll : *
 		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
-				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING
+				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
+				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -117,6 +119,18 @@ public class CBlockStateProvider extends BlockStateProvider {
 			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
 			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnace.LIT) ? on : off);
 			simpleBlockItem(LICORICE_FURNACE.get(), off);
+		}
+		{
+			String name = CHOCOLATE_FURNACE.getName();
+			ResourceLocation side = modLoc("block/chocolate_furnace_side");
+			ResourceLocation front_on = modLoc("block/chocolate_furnace_front_on");
+			ResourceLocation front_off = modLoc("block/chocolate_furnace_front_off");
+			ResourceLocation top = modLoc("block/chocolate_furnace_top");
+			ResourceLocation bottom = modLoc("block/chocolate_stone");
+			BlockModelBuilder on = models().orientableWithBottom(name, side, front_on, bottom, top);
+			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
+			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnace.LIT) ? on : off);
+			simpleBlockItem(CHOCOLATE_FURNACE.get(), off);
 		}
 		//奶皮布丁
 		{

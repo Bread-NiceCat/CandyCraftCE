@@ -1,6 +1,8 @@
 package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.item.CItemBuilder;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -29,6 +31,7 @@ public class CBlockBuilder<B extends Block> {
 	private Function<Properties, B> factory;
 	//	private Either<Properties, Supplier<Properties>> properties;
 	private Supplier<Properties> properties;
+	private boolean withBlockItem;
 
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {
 		return new CBlockBuilder<>(name, factory);
@@ -55,7 +58,7 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 
-	public CBlockBuilder<B> setProperties(Supplier<Block> blockSupplier, @Nullable Consumer<Properties> modifier) {
+	public CBlockBuilder<B> setProperties(Supplier<? extends Block> blockSupplier, @Nullable Consumer<Properties> modifier) {
 		setProperties(() -> {
 			Properties prop = Properties.copy(blockSupplier.get());
 			return (modifier == null ? prop : apply(prop, modifier));
@@ -68,20 +71,14 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 
+	public CBlockBuilder<B> simpleBlockItem() {
+		withBlockItem = true;
+		return this;
+	}
 
 	public BlockEntry<B> save() {
-
-		BlockEntry<B> entry = register(name, () -> {
-//			AccessorImpl<Properties> accessor = new AccessorImpl<>();
-//			if (properties == null) {
-//				accessor.accept(Properties.of());
-//			} else {
-//				properties.ifLeft(accessor).mapRight(Supplier::get).ifRight(accessor);
-//			}
-//			return factory.apply(Objects.requireNonNull(accessor.get()));
-			return factory.apply(properties == null ? Properties.of() : properties.get());
-
-		});
+		BlockEntry<B> entry = register(name, () -> factory.apply(properties == null ? Properties.of() : properties.get()));
+		if (withBlockItem) CItemBuilder.block(entry).save();
 		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}
@@ -97,7 +94,7 @@ public class CBlockBuilder<B extends Block> {
 	@Deprecated
 	@ExpectPlatform
 	private static <B extends Block> BlockEntry<B> _register(ResourceLocation name, Supplier<B> sup) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 
 

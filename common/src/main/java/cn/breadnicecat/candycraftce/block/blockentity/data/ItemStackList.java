@@ -43,6 +43,34 @@ public class ItemStackList extends NonNullList<ItemStack> {
 		return ContainerHelper.removeItem(this, index, amount);
 	}
 
+	/**
+	 * @return false->未插入 true->插入部分或全部
+	 */
+	public boolean insert(int index, ItemStack item) {
+		ItemStack cur = get(index);
+		if (item.isEmpty()) {//不能插空
+			return false;
+		}
+		if (cur.isEmpty()) {//若空则直接放入
+			set(index, item);
+			item.setCount(0);
+			return true;
+		}
+		int left = cur.getMaxStackSize() - cur.getCount();//能插的最大数量
+		if (left != 0 && ItemStack.isSameItemSameTags(cur, item)) {
+			int itemCnt = item.getCount();
+			if (left >= itemCnt) {//剩余 >= 外来
+				cur.grow(itemCnt);
+				item.shrink(itemCnt);//0
+			} else {
+				cur.grow(left);//max
+				item.shrink(left);
+			}
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public ItemStack remove(int i) {
 		return set(i, EMPTY);

@@ -24,10 +24,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
-import static cn.breadnicecat.candycraftce.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.item.CItemBuilder.block;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
  * Created in 2023/8/9 10:22
@@ -166,17 +163,6 @@ public class CItems {
 
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 
-	static {
-		//BlockItems
-		accept(b -> block(b).save(),
-				SUGAR_BLOCK, CARAMEL_BLOCK,
-				CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE,
-				PUDDING, CUSTARD_PUDDING,
-				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS,
-				MARSHMALLOW_CRAFTING_TABLE, LICORICE_FURNACE
-		);
-	}
-
 	@Environment(EnvType.CLIENT)
 	private static void declareItemProperties() {
 		LOGGER.info("Loading Item Properties...");
@@ -239,11 +225,11 @@ public class CItems {
 	//平台差异
 	@ExpectPlatform
 	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 
 	@ExpectPlatform
 	private static RecordItem _record_wwwooowww(int analog, SoundEntry evt, Properties prop, int lengthInSeconds, String nameInGame, String musicName) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 }

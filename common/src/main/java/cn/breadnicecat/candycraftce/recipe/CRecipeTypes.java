@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.recipe;
 
+import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
@@ -17,6 +18,7 @@ public class CRecipeTypes {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 	public static final RecipeTypeEntry<SugarFurnaceRecipe> SUGAR_FURNACE_TYPE = register("sugar_furnace", SugarFurnaceRecipe.Serializer::new);
+	public static final RecipeTypeEntry<SugarFactoryRecipe> SUGAR_FACTORY_TYPE = register("sugar_factory", SugarFactoryRecipe.Serializer::new);
 
 
 	public static <T extends Recipe<?>> RecipeTypeEntry<T> register(String name, Supplier<RecipeSerializerExt<T>> serializer) {

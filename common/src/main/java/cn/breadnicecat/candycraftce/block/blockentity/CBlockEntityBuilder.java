@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import com.mojang.datafixers.types.Type;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
@@ -64,6 +65,6 @@ public class CBlockEntityBuilder<B extends BlockEntity> {
 	@ExpectPlatform
 	@Deprecated
 	private static <B extends BlockEntity> BlockEntityEntry<B> _register(ResourceLocation name, Supplier<BlockEntityType<B>> b) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 }

@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.item;
 
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -27,7 +28,7 @@ public class CCTab {
 
 	@ExpectPlatform
 	private static ResourceKey<CreativeModeTab> register(String key, Function<CreativeModeTab.Builder, CreativeModeTab> builder) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 
 	public static void add(Supplier<ItemStack> stack) {

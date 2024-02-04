@@ -23,7 +23,7 @@ import java.util.function.Supplier;
  * <p>
  */
 public class CItemBuilderImpl {
-	public static <I extends Item> ItemEntry<I> register(ResourceLocation name, @NotNull Supplier<I> sup) {
+	public static <I extends Item> ItemEntry<I> _register(ResourceLocation name, @NotNull Supplier<I> sup) {
 		I i = Registry.register(BuiltInRegistries.ITEM, name, sup.get());
 		return new ItemEntry<>(name) {
 			@Override

@@ -22,16 +22,16 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  */
 public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurnaceMenu> {
 	public static final ResourceLocation LICORICE = prefixGUITex("gui_licorice_furnace");
-	protected ResourceLocation furnaceGUI;
+	protected ResourceLocation guiStyle;
 
 	public LicoriceFurnaceScreen(LicoriceFurnaceMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
-		furnaceGUI = LICORICE;
+		guiStyle = LICORICE;
 	}
 
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-		guiGraphics.blit(furnaceGUI, leftPos, topPos, 0, 0, 176, 166);
+		guiGraphics.blit(guiStyle, leftPos, topPos, 0, 0, 176, 166);
 		//燃料条
 		int litTime = menu.containerData.get(LicoriceFurnaceBE.LIT_TIME_DATA);
 		int litTimeTotal = menu.containerData.get(LicoriceFurnaceBE.LIT_TIME_TOTAL_DATA);
@@ -39,14 +39,14 @@ public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurna
 			int p = litTime > litTimeTotal ? 14 : (int) (14f * litTime / litTimeTotal);//渲染高度
 			//反向渲染
 			int k = 14 - p;//未渲染高度
-			guiGraphics.blit(furnaceGUI, leftPos + 57, topPos + 37 + k, 176, k, 14, p);
+			guiGraphics.blit(guiStyle, leftPos + 57, topPos + 37 + k, 176, k, 14, p);
 		}
 		//进度条
 		int ticked = menu.containerData.get(TICKED_DATA);
 		int tickedTotal = menu.containerData.get(TICKED_TOTAL_DATA);
 		if (ticked > 0) {
 			int w = (int) (22f * ticked / tickedTotal);
-			guiGraphics.blit(furnaceGUI, leftPos + 80, topPos + 35, 176, 14, w, 16);
+			guiGraphics.blit(guiStyle, leftPos + 80, topPos + 35, 176, 14, w, 16);
 		}
 	}
 

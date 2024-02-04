@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -144,7 +145,7 @@ public class CItemBuilder<I extends Item> {
 
 
 	public static <I extends Item> ItemEntry<I> register(String name, Supplier<I> sup) {
-		return register(prefix(name), sup);
+		return _register(prefix(name), sup);
 	}
 
 	/**
@@ -152,8 +153,8 @@ public class CItemBuilder<I extends Item> {
 	 */
 	@Deprecated
 	@ExpectPlatform
-	private static <I extends Item> ItemEntry<I> register(ResourceLocation name, Supplier<I> sup) {
-		throw new AssertionError();
+	private static <I extends Item> ItemEntry<I> _register(ResourceLocation name, Supplier<I> sup) {
+		return CommonUtils.impossible();
 	}
 
 	/**
@@ -162,7 +163,7 @@ public class CItemBuilder<I extends Item> {
 	 */
 	@ExpectPlatform
 	public static void registerTabEntry(Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> pos) {
-		throw new AssertionError();
+		CommonUtils.impossible();
 	}
 
 }

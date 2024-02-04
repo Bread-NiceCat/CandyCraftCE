@@ -45,32 +45,30 @@ public class CBlocks {
 	}
 
 	public static Map<ResourceLocation, BlockEntry<? extends Block>> BLOCKS = new HashMap<>();
-	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
+	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).simpleBlockItem().save();
 
-	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE, null).save();
+	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE, null).simpleBlockItem().save();
 	public static final BlockEntry<CaramelPortal> CARAMEL_PORTAL = create("caramel_portal", CaramelPortal::new).setProperties(Blocks.NETHER_PORTAL, null).save();
 
-	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE, null).save();
-	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE, null).save();
+	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE, null).simpleBlockItem().save();
+	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE, null).simpleBlockItem().save();
 
-	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, null).save();
-	public static final BlockEntry<CustardPudding> CUSTARD_PUDDING = create("custard_pudding", CustardPudding::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY_FOOTSTEP)).save();
-	public static final BlockEntry<PuddingFarm> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarm::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY_FOOTSTEP)).save();
+	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, null).simpleBlockItem().save();
+	public static final BlockEntry<CustardPudding> CUSTARD_PUDDING = create("custard_pudding", CustardPudding::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY_FOOTSTEP)).simpleBlockItem().save();
+	public static final BlockEntry<PuddingFarm> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarm::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY_FOOTSTEP)).simpleBlockItem().save();
 
-	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(Blocks.STONE, null).save();
-	public static final BlockEntry<WallBlock> CANDY_CANE_WALL = wallBlock("candy_cane_wall").setProperties(CANDY_CANE_BLOCK, null).save();
-	public static final BlockEntry<FenceBlock> CANDY_CANE_FENCE = fenceBlock("candy_cane_fence").setProperties(CANDY_CANE_BLOCK, null).save();
-	public static final BlockEntry<SlabBlock> CANDY_CANE_SLAB = slabBlock("candy_cane_slab").setProperties(CANDY_CANE_BLOCK, null).save();
-	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).save();
+	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(Blocks.STONE, null).simpleBlockItem().save();
+	public static final BlockEntry<WallBlock> CANDY_CANE_WALL = wallBlock("candy_cane_wall").setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();
+	public static final BlockEntry<FenceBlock> CANDY_CANE_FENCE = fenceBlock("candy_cane_fence").setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();
+	public static final BlockEntry<SlabBlock> CANDY_CANE_SLAB = slabBlock("candy_cane_slab").setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();
+	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();
 
-	public static final BlockEntry<MarshmallowCraftingTable> MARSHMALLOW_CRAFTING_TABLE = create("marshmallow_crafting_table", MarshmallowCraftingTable::new).setProperties(Blocks.CRAFTING_TABLE, null).save();
-	public static final BlockEntry<LicoriceFurnace> LICORICE_FURNACE = create("licorice_furnace", LicoriceFurnace::new).setProperties(Blocks.FURNACE, null).save();
-//HELPER.single(MARSHMALLOW_CRAFTING_TABLE, BlockMarshmallowCraftingTable::new, CCBlockManager::simpleBlockItem,
-//        MODEL_COLUMN, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_AXE);
-//HELPER.single(LICORICE_FURNACE, BlockLicoriceFurnace::new, CCBlockManager::simpleBlockItem,
-//        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
-//HELPER.single(CHOCOLATE_FURNACE, BlockChocolateFurnace::new, CCBlockManager::simpleBlockItem,
-//        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+	public static final BlockEntry<MarshmallowCraftingTable> MARSHMALLOW_CRAFTING_TABLE = create("marshmallow_crafting_table", MarshmallowCraftingTable::new).setProperties(Blocks.CRAFTING_TABLE, null).simpleBlockItem().save();
+	public static final BlockEntry<LicoriceFurnace> LICORICE_FURNACE = create("licorice_furnace", LicoriceFurnace::new).setProperties(Blocks.FURNACE, null).simpleBlockItem().save();
+	public static final BlockEntry<ChocolateFurnace> CHOCOLATE_FURNACE = create("chocolate_furnace", ChocolateFurnace::new).setProperties(LICORICE_FURNACE, null).simpleBlockItem().save();
+	public static final BlockEntry<SugarFactory> SUGAR_FACTORY = create("sugar_factory", SugarFactory::new).setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();
+	public static final BlockEntry<AdvancedSugarFactory> ADVANCED_SUGAR_FACTORY = create("advanced_sugar_factory", AdvancedSugarFactory::new).setProperties(SUGAR_FACTORY, null).simpleBlockItem().save();
+
 //HELPER.single(SUGAR_FACTORY, BlockSugarFactory::new, CCBlockManager::simpleBlockItem,
 //        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
 //HELPER.single(ADVANCED_SUGAR_FACTORY, BlockAdvancedSugarFactory::new, CCBlockManager::simpleBlockItem,
@@ -108,6 +106,6 @@ public class CBlocks {
 	//  Platform difference
 	@ExpectPlatform
 	public static StairBlock _stairBlock(Supplier<BlockState> base, Properties p) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 }

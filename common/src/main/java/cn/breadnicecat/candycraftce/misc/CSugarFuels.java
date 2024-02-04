@@ -12,7 +12,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 public class CSugarFuels {
 	public static final Object2IntOpenHashMap<Item> FUELS = apply(new Object2IntOpenHashMap<>(), (m) -> {
 		m.put(PEZ.get(), 1000);
-	});
+	});//TODO 数据包?不，直接写代码里
 
 	public static boolean isFuel(Item item) {
 		return item != Items.AIR && FUELS.containsKey(item);

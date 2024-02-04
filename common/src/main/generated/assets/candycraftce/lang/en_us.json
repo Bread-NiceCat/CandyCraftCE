@@ -1,4 +1,5 @@
 {
+  "block.candycraftce.advanced_sugar_factory": "Advanced Sugar Factory",
   "block.candycraftce.candy_cane_block": "Candy Cane Block",
   "block.candycraftce.candy_cane_fence": "Candy Cane Fence",
   "block.candycraftce.candy_cane_slab": "Candy Cane Slab",
@@ -14,6 +15,7 @@
   "block.candycraftce.pudding": "Pudding",
   "block.candycraftce.pudding_farmland": "Pudding Farmland",
   "block.candycraftce.sugar_block": "Sugar Block",
+  "block.candycraftce.sugar_factory": "Sugar Factory",
   "item.candycraftce.candied_cherry": "Candied Cherry",
   "item.candycraftce.candy_cane": "Candy Cane",
   "item.candycraftce.caramel_bow": "Caramel Bow",

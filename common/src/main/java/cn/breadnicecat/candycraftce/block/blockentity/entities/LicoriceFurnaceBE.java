@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.block.blockentity.data.CContainerData;
+import cn.breadnicecat.candycraftce.block.blockentity.data.CDataAccessors;
 import cn.breadnicecat.candycraftce.block.blockentity.data.ItemStackList;
 import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnace;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
@@ -13,7 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -54,7 +54,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 //	private final RecipeManager.CachedCheck<?, ?> CACHE = RecipeManager.createCheck(RECIPE_TYPE);
 
 	private ItemStackList items = new ItemStackList(3);
-	private int exp;
+	private float exp;
 	private int litTime;
 
 	private int litTimeTotal;
@@ -66,7 +66,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	private SugarFurnaceRecipe recipeUsed = null;
 	private RecipeManager.CachedCheck<LicoriceFurnaceBE, SugarFurnaceRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FURNACE_TYPE.get());
 
-	public final CContainerData data = new CContainerData(
+	public final CDataAccessors data = new CDataAccessors(
 			LambdaAccessor.of(() -> this.ticked, (t) -> this.ticked = t),
 			LambdaAccessor.of(() -> this.tickedTotal, (t) -> this.tickedTotal = t),
 			LambdaAccessor.of(() -> this.litTime, (t) -> this.litTime = t),
@@ -84,8 +84,6 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 
 	public void serverTick() {
 		boolean isLit = litTime > 0;
-		boolean changed = false;
-		ItemStack resultItem = ItemStack.EMPTY;
 		//检查工作状态(配方,燃料,输出)
 		check:
 		{
@@ -97,7 +95,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			//检查配方
 			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
 				//寻找新配方
-				Optional<SugarFurnaceRecipe> recipe = findRecipe();
+				Optional<SugarFurnaceRecipe> recipe = quickCheck.getRecipeFor(this, level);
 				if (recipe.isEmpty()) {
 					recipeUsed = null;
 					break check;
@@ -105,15 +103,16 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 					recipeUsed = recipe.get();
 				}
 			}
-			
+
 			//检查输出 输出堵塞
 			ItemStack out = items.get(OUTPUT_SLOT);
-			resultItem = recipeUsed.getResultItem(level.registryAccess());
-			if (!out.isEmpty() && (out.getCount() >= out.getMaxStackSize() || !out.is(resultItem.getItem()))) {
+			ItemStack resultItem = recipeUsed.getResultItem(level.registryAccess());
+			if (!out.isEmpty() && (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize() || !out.is(resultItem.getItem()))) {
 				recipeUsed = null;
 			}
 		}
 		//方块更新
+		boolean changed = false;
 		if (isLit) {
 			litTime--;
 			changed = true;
@@ -140,14 +139,10 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			ticked = Math.max(ticked - 2, 0);
 			changed = true;
 		} else if (recipeUsed != null) {
-			ticked++;
 			//已经完成
-			if (ticked >= tickedTotal) {
-				items.get(INPUT_SLOT).shrink(1);
-				ItemStack stack = items.get(OUTPUT_SLOT);
-				if (stack.isEmpty()) {
-					items.set(OUTPUT_SLOT, resultItem);
-				} else stack.grow(1);
+			if (++ticked >= tickedTotal) {
+				items.extract(INPUT_SLOT, 1);
+				items.insert(OUTPUT_SLOT, recipeUsed.assemble(this, level.registryAccess()));
 				exp += recipeUsed.getExp();
 				ticked = 0;
 			}
@@ -160,9 +155,6 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		if (changed) setChanged();
 	}
 
-	private Optional<SugarFurnaceRecipe> findRecipe() {
-		return quickCheck.getRecipeFor(this, level);
-	}
 
 	@Override
 	public @NotNull Component getDisplayName() {
@@ -175,16 +167,16 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		return new LicoriceFurnaceMenu(i, inventory, this, data);
 	}
 
-	public void awardExp(ServerPlayer sp) {
-		Vec3 vec3 = sp.position();
-		ExperienceOrb orb = new ExperienceOrb(sp.level(), vec3.x, vec3.y, vec3.z, exp);
-		this.exp = 0;
-		sp.level().addFreshEntity(orb);
+	public void dropExp(Vec3 pos) {
+		ExperienceOrb orb = new ExperienceOrb(level, pos.x, pos.y, pos.z, Mth.floor(exp));
+		this.exp = 0f;
+		level.addFreshEntity(orb);
 	}
+
 
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
-		tag.putInt("exp", exp);
+		tag.putFloat("exp", exp);
 		tag.putInt("litTime", litTime);
 		tag.putInt("litTimeTotal", litTimeTotal);
 		tag.putInt("ticked", ticked);
@@ -195,7 +187,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 
 	@Override
 	public void load(CompoundTag tag) {
-		exp = tag.getInt("exp");
+		exp = tag.getFloat("exp");
 		ticked = tag.getInt("ticked");
 		litTime = tag.getInt("litTime");
 		tickedTotal = tag.getInt("tickedTotal");

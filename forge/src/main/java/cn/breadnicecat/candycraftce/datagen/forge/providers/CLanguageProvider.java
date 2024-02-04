@@ -133,7 +133,9 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CANDY_CANE_STAIRS, "拐杖糖楼梯");
 		addBlockById(MARSHMALLOW_CRAFTING_TABLE, "棉花软糖工作台");
 		addBlockById(LICORICE_FURNACE, "盐甘草糖熔炉");
-
+		addBlockById(CHOCOLATE_FURNACE, "巧克力熔炉");
+		addBlockById(SUGAR_FACTORY, "制糖机");
+		addBlockById(ADVANCED_SUGAR_FACTORY, "高级制糖机");
 
 	}
 

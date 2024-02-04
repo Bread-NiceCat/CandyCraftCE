@@ -1,8 +1,9 @@
 {
   "type": "candycraftce:sugar_furnace",
-  "exp": 0,
   "ingredient": {
     "item": "candycraftce:cranfish"
   },
-  "result": "candycraftce:cranfish_cooked"
+  "result": {
+    "item": "candycraftce:cranfish_cooked"
+  }
 }

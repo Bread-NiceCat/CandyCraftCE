@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.entity;
 
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
@@ -99,14 +100,14 @@ public class CEntities {
 
 		@ExpectPlatform
 		private static void registerAttribute(EntityType<? extends LivingEntity> type, Supplier<AttributeSupplier.Builder> attr) {
-			throw new AssertionError();
+			CommonUtils.impossible();
 		}
 
 		//TODO CEntities.Client
 //		@Environment(EnvType.CLIENT)
 //		@ExpectPlatform
 //		private static <E extends Entity> void registerRenderer(EntityType<? extends E> type, EntityRendererProvider<E> factory) {
-//			throw new AssertionError();
+//		return 	CommonUtils.impossible();
 //		}
 //		@Environment(EnvType.CLIENT)
 //		private static final Map<Supplier<ModelLayerLocation>, Supplier<LayerDefinition>> LAYER_DEFINITIONS = new HashMap<>();
@@ -119,7 +120,7 @@ public class CEntities {
 //		@Environment(EnvType.CLIENT)
 //		@ExpectPlatform
 //		private static void registerLayer(ModelLayerLocation loc, Supplier<LayerDefinition> definition) {
-//			throw new AssertionError();
+//			return  CommonUtils.impossible();
 //		}
 	}
 }

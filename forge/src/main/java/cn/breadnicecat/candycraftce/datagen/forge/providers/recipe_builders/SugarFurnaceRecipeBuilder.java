@@ -23,7 +23,8 @@ import java.util.function.Consumer;
 public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 	private Item result;
 	private Ingredient ingredient;
-	private int xp;
+	private float exp;
+	private int count = 1;
 
 	private SugarFurnaceRecipeBuilder() {
 	}
@@ -42,8 +43,13 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 		return this;
 	}
 
-	public SugarFurnaceRecipeBuilder xp(int exp) {
-		this.xp = exp;
+	public SugarFurnaceRecipeBuilder exp(float exp) {
+		this.exp = exp;
+		return this;
+	}
+
+	public SugarFurnaceRecipeBuilder count(int count) {
+		this.count = count;
 		return this;
 	}
 
@@ -66,7 +72,8 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 
 		@Override
 		public void serializeRecipeData(@NotNull JsonObject json) {
-			getType().toJson(json, new SugarFurnaceRecipe(id, result, ingredient, xp));
+			if (count < 1) throw new IllegalArgumentException("Count > 0");
+			getType().toJson(json, new SugarFurnaceRecipe(id, ingredient, result, count, exp));
 		}
 
 		@Override

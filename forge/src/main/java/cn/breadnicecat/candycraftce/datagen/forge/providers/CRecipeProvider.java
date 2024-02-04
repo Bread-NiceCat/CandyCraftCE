@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
+import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_BLOCK;
+import static cn.breadnicecat.candycraftce.block.CBlocks.SUGAR_BLOCK;
 import static cn.breadnicecat.candycraftce.item.CItems.CRANFISH;
 import static cn.breadnicecat.candycraftce.item.CItems.CRANFISH_COOKED;
 
@@ -31,5 +33,6 @@ public class CRecipeProvider extends RecipeProvider {
 	@Override
 	protected void buildRecipes(@NotNull Consumer<FinishedRecipe> writer) {
 		SugarFurnaceRecipeBuilder.builder().result(CRANFISH_COOKED).ingredient(Ingredient.of(CRANFISH)).save(writer, nameCache);
+		SugarFurnaceRecipeBuilder.builder().result(CARAMEL_BLOCK).ingredient(Ingredient.of(SUGAR_BLOCK)).save(writer, nameCache);
 	}
 }

@@ -24,6 +24,6 @@ public class CGameRules {
 
 	@ExpectPlatform
 	public static <T extends GameRules.Value<T>> GameRules.Key<T> register(String name, GameRules.Category category, GameRules.Type<T> type) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 }

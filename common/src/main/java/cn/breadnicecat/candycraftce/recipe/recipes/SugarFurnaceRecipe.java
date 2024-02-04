@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.recipe.recipes;
 
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
+import cn.breadnicecat.candycraftce.utils.ItemUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,18 +17,22 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static net.minecraft.core.registries.BuiltInRegistries.ITEM;
 
 public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 	private final ResourceLocation id;
 	private final Item result;
 	private final Ingredient ingredient;
-	private final int exp;
+	private final int count;
+	private final float exp;
 
-	public SugarFurnaceRecipe(ResourceLocation id, Item result, Ingredient ingredient, int exp) {
+	public SugarFurnaceRecipe(ResourceLocation id, Ingredient ingredient, Item result, int count, float exp) {
 		this.id = id;
 		this.result = result;
 		this.ingredient = ingredient;
+		assertTrue(count > 0, "Count > 0");
+		this.count = count;
 		this.exp = exp;
 	}
 
@@ -36,13 +41,19 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 		return ingredient.test(container.getItem(LicoriceFurnaceBE.INPUT_SLOT));
 	}
 
-	public int getExp() {
+	public float getExp() {
 		return exp;
+	}
+
+	public int getCount() {
+		return count;
 	}
 
 	@Override
 	public @NotNull ItemStack assemble(LicoriceFurnaceBE container, RegistryAccess registryAccess) {
-		return result.getDefaultInstance();
+		ItemStack stack = result.getDefaultInstance();
+		stack.setCount(count);
+		return stack;
 	}
 
 	@Override
@@ -74,30 +85,39 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 
 		@Override
 		public void toJson(JsonObject object, SugarFurnaceRecipe recipe) {
-			object.addProperty("result", ITEM.getKey(recipe.result).toString());
+			JsonObject result = new JsonObject();
+			result.addProperty("item", ItemUtils.getKey(recipe.result).toString());
 			object.add("ingredient", recipe.ingredient.toJson());
-			if (recipe.exp != 0) object.addProperty("exp", recipe.exp);
+			if (recipe.exp != 0f) object.addProperty("exp", recipe.exp);
+			if (recipe.count != 1) result.addProperty("count", recipe.count);
+			object.add("result", result);
 		}
 
 		@Override
-		public @NotNull SugarFurnaceRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
-			return new SugarFurnaceRecipe(recipeId, ITEM.get(new ResourceLocation(serializedRecipe.get("result").getAsString())),
-					Ingredient.fromJson(serializedRecipe.get("ingredient")),
-					serializedRecipe.has("exp") ? serializedRecipe.get("exp").getAsInt() : 0);
+		public @NotNull SugarFurnaceRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+			JsonObject result = json.get("result").getAsJsonObject();
+			return new SugarFurnaceRecipe(recipeId,
+					Ingredient.fromJson(json.get("ingredient")),
+					ItemUtils.getItem(result.get("item")),
+					result.has("count") ? result.get("count").getAsInt() : 1,
+					json.has("exp") ? json.get("exp").getAsFloat() : 0f);
 		}
 
 		@Override
 		public @NotNull SugarFurnaceRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-			return new SugarFurnaceRecipe(recipeId, buffer.readById(ITEM),
+			return new SugarFurnaceRecipe(recipeId,
 					Ingredient.fromNetwork(buffer),
-					buffer.readVarInt());
+					buffer.readById(ITEM),
+					buffer.readVarInt(),
+					buffer.readFloat());
 		}
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, SugarFurnaceRecipe recipe) {
 			buffer.writeId(ITEM, recipe.result);
 			recipe.ingredient.toNetwork(buffer);
-			buffer.writeVarInt(recipe.exp);
+			buffer.writeVarInt(recipe.count);
+			buffer.writeFloat(recipe.exp);
 		}
 	}
 

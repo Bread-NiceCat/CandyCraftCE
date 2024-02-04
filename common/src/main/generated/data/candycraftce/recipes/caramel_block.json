@@ -1,0 +1,9 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "ingredient": {
+    "item": "candycraftce:sugar_block"
+  },
+  "result": {
+    "item": "candycraftce:caramel_block"
+  }
+}

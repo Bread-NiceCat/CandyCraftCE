@@ -1,4 +1,5 @@
 {
+  "block.candycraftce.advanced_sugar_factory": "高级制糖机",
   "block.candycraftce.candy_cane_block": "拐杖糖块",
   "block.candycraftce.candy_cane_fence": "拐杖糖栅栏",
   "block.candycraftce.candy_cane_slab": "拐杖糖台阶",
@@ -14,6 +15,7 @@
   "block.candycraftce.pudding": "布丁",
   "block.candycraftce.pudding_farmland": "布丁耕地",
   "block.candycraftce.sugar_block": "糖块",
+  "block.candycraftce.sugar_factory": "制糖机",
   "item.candycraftce.candied_cherry": "蜜饯樱桃",
   "item.candycraftce.candy_cane": "拐杖糖",
   "item.candycraftce.caramel_bow": "焦糖弓",

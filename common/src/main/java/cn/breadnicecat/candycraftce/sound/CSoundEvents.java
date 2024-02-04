@@ -25,7 +25,7 @@ public final class CSoundEvents {
 
 	@ExpectPlatform
 	private static SoundEntry register(String evtName) {
-		throw new AssertionError();
+		return CommonUtils.impossible();
 	}
 
 	public static void init() {

@@ -2,6 +2,9 @@ package cn.breadnicecat.candycraftce.utils;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -17,4 +20,11 @@ public class ItemUtils {
 		return ItemStack.CODEC.decode(JsonOps.INSTANCE, element).get().orThrow().getFirst();
 	}
 
+	public static Item getItem(JsonElement element) {
+		return BuiltInRegistries.ITEM.get(new ResourceLocation(element.getAsString()));
+	}
+
+	public static ResourceLocation getKey(Item i) {
+		return BuiltInRegistries.ITEM.getKey(i);
+	}
 }
