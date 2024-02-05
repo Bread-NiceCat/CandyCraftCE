@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
+import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.data.CDataAccessors;
 import cn.breadnicecat.candycraftce.block.blockentity.data.ItemStackList;
@@ -51,7 +52,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	public static final int COMMON_TYPE = 1;
 	public static final int SUGARY_TYPE = 2;
 
-	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("_sugary"), Ingredient.of(), Items.SUGAR, 1, false);
+	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("__sugary__"), Ingredient.of(CBlocks.SUGAR_BLOCK), Items.SUGAR, 1, false);
 
 	protected static final int COMMON_TICKED_TOTAL = 10 * TickUtils.SEC2TICK;
 
@@ -103,7 +104,6 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 					} else {
 						recipeUsed = null;
 					}
-					break check;
 				} else {
 					recipeUsed = opt.get();
 				}
@@ -119,7 +119,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 
 		//更新
 		if (recipeUsed != null) {
-			if (++ticked > tickedTotal) {
+			if (tickedTotal != 0 && ++ticked > tickedTotal) {
 				ticked = 0;
 				items.extract(INPUT_SLOT, 1);
 				items.insert(OUTPUT_SLOT, recipeUsed.assemble(this, level.registryAccess()));

@@ -52,7 +52,7 @@ public class ItemStackList extends NonNullList<ItemStack> {
 			return false;
 		}
 		if (cur.isEmpty()) {//若空则直接放入
-			set(index, item);
+			set(index, item.copy());
 			item.setCount(0);
 			return true;
 		}

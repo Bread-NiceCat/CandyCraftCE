@@ -115,8 +115,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 			ResourceLocation front_off = modLoc("block/licorice_furnace_front_off");
 			ResourceLocation top = modLoc("block/licorice_furnace_top");
 			ResourceLocation bottom = modLoc("block/licorice_block");
-			BlockModelBuilder on = models().orientableWithBottom(name, side, front_on, bottom, top);
 			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
+			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
 			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnace.LIT) ? on : off);
 			simpleBlockItem(LICORICE_FURNACE.get(), off);
 		}
@@ -127,8 +127,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 			ResourceLocation front_off = modLoc("block/chocolate_furnace_front_off");
 			ResourceLocation top = modLoc("block/chocolate_furnace_top");
 			ResourceLocation bottom = modLoc("block/chocolate_stone");
-			BlockModelBuilder on = models().orientableWithBottom(name, side, front_on, bottom, top);
 			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
+			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
 			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnace.LIT) ? on : off);
 			simpleBlockItem(CHOCOLATE_FURNACE.get(), off);
 		}

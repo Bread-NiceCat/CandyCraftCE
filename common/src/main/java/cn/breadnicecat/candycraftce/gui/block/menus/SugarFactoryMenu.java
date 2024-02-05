@@ -28,22 +28,24 @@ public class SugarFactoryMenu extends AbstractContainerMenu {
 	public final Container container;
 	public final ContainerData data;
 
+
 	protected SugarFactoryMenu(MenuType<?> type, int id, Inventory inventory, Container container, ContainerData data) {
 		super(type, id);
 		this.inventory = inventory;
 		this.container = container;
 		this.data = data;
+		int by = 84;
 		//player inv
 		for (int i = 0; i < 3; ++i) {
 			for (int k = 0; k < 9; ++k) {
-				this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
+				this.addSlot(new Slot(inventory, k + i * 9 + 9, 7 + k * 18, 33 + i * 18));
 			}
 		}
 		for (int i = 0; i < 9; ++i) {
-			this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
+			this.addSlot(new Slot(inventory, i, 7 + i * 18, 33 + 58));
 		}
-		addSlot(new Slot(container, SugarFactoryBE.INPUT_SLOT, 7, 58));
-		addSlot(new ResultSlot(container, SugarFactoryBE.INPUT_SLOT, 151, 58));
+		addSlot(new Slot(container, SugarFactoryBE.INPUT_SLOT, 7, 7));
+		addSlot(new ResultSlot(container, SugarFactoryBE.OUTPUT_SLOT, 151, 7));
 		addDataSlots(data);
 	}
 
@@ -57,11 +59,10 @@ public class SugarFactoryMenu extends AbstractContainerMenu {
 
 	@Override
 	public @NotNull ItemStack quickMoveStack(Player player, int index) {
-		ItemStack item = container.getItem(index);
 		if (index >= INV_START && index <= INV_END) {
-			moveItemStackTo(item, INPUT_SLOT, INPUT_SLOT + 1, false);
+			moveItemStackTo(slots.get(index).getItem(), INPUT_SLOT, INPUT_SLOT + 1, false);
 		} else {
-			moveItemStackTo(item, INV_START, INV_END + 1, false);
+			moveItemStackTo(slots.get(index).getItem(), INV_START, INV_END + 1, false);
 		}
 		return ItemStack.EMPTY;
 	}

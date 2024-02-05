@@ -55,7 +55,7 @@ public class CBlocks {
 
 	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, null).simpleBlockItem().save();
 	public static final BlockEntry<CustardPudding> CUSTARD_PUDDING = create("custard_pudding", CustardPudding::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY_FOOTSTEP)).simpleBlockItem().save();
-	public static final BlockEntry<PuddingFarm> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarm::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY_FOOTSTEP)).simpleBlockItem().save();
+	public static final BlockEntry<PuddingFarm> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarm::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY_FOOTSTEP)).save();
 
 	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(Blocks.STONE, null).simpleBlockItem().save();
 	public static final BlockEntry<WallBlock> CANDY_CANE_WALL = wallBlock("candy_cane_wall").setProperties(CANDY_CANE_BLOCK, null).simpleBlockItem().save();

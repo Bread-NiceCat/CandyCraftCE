@@ -28,12 +28,15 @@ public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu
 
 	@Override
 	protected void init() {
+		imageWidth = 174;
+		imageHeight = 114;
 		super.init();
-		topPos += 51;
+		titleLabelY = -9;
 	}
 
 	@Override
 	protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+		renderBackground(graphics);
 		graphics.blit(style, leftPos, topPos, 0, 0, 174, 114);
 		int ticked = menu.data.get(TICKED_DATA_SLOT);
 		int tickedTotal = menu.data.get(TICKED_TOTAL_DATA_SLOT);
@@ -53,6 +56,6 @@ public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu
 
 	@Override
 	protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-		graphics.drawString(font, title, titleLabelX, titleLabelY + 36, titleColor);
+		graphics.drawString(font, title, titleLabelX, titleLabelY, titleColor);
 	}
 }
