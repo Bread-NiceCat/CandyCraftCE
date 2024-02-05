@@ -1,11 +1,11 @@
-package cn.breadnicecat.candycraftce.datagen.forge.providers.recipe_builders;
+package cn.breadnicecat.candycraftce.datagen.forge.providers.recipes;
 
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
-import com.google.gson.JsonObject;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -26,21 +26,26 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 	private float exp;
 	private int count = 1;
 
-	private SugarFurnaceRecipeBuilder() {
-	}
-
-	public static SugarFurnaceRecipeBuilder builder() {
-		return new SugarFurnaceRecipeBuilder();
-	}
-
-	public SugarFurnaceRecipeBuilder result(ItemLike result) {
+	private SugarFurnaceRecipeBuilder(ItemLike result) {
 		this.result = result.asItem();
-		return this;
 	}
+
+	public static SugarFurnaceRecipeBuilder builder(ItemLike result) {
+		return new SugarFurnaceRecipeBuilder(result);
+	}
+
 
 	public SugarFurnaceRecipeBuilder ingredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 		return this;
+	}
+
+	public SugarFurnaceRecipeBuilder ingredient(ItemLike ingredient) {
+		return ingredient(Ingredient.of(ingredient));
+	}
+
+	public SugarFurnaceRecipeBuilder ingredient(TagKey<Item> ingredient) {
+		return ingredient(Ingredient.of(ingredient));
 	}
 
 	public SugarFurnaceRecipeBuilder exp(float exp) {
@@ -63,17 +68,11 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 		consumer.accept(new Result(recipeId));
 	}
 
-	private class Result extends CFinishedRecipeBase {
+	private class Result extends CFinishedRecipeBase<SugarFurnaceRecipe> {
 
 
 		public Result(ResourceLocation id) {
-			super(id);
-		}
-
-		@Override
-		public void serializeRecipeData(@NotNull JsonObject json) {
-			if (count < 1) throw new IllegalArgumentException("Count > 0");
-			getType().toJson(json, new SugarFurnaceRecipe(id, ingredient, result, count, exp));
+			super(new SugarFurnaceRecipe(id, ingredient, result, count, exp));
 		}
 
 		@Override

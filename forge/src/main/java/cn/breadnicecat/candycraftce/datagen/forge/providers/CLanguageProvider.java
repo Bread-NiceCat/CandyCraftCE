@@ -1,17 +1,17 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.block.BlockEntry;
-import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.EnUsCLanguageProvider;
-import cn.breadnicecat.candycraftce.datagen.forge.providers.lang_branches.ZhCnCLanguageProvider;
+import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.EnUsCLanguageProvider;
+import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.ZhCnCLanguageProvider;
 import cn.breadnicecat.candycraftce.item.CCTab;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import cn.breadnicecat.candycraftce.misc.CGameRules;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -40,6 +40,7 @@ public class CLanguageProvider implements DataProvider {
 
 	protected void addTranslations() {
 		add(CCTab.TITLE_KEY, "CandyCraft CE", "糖果世界非官方版");
+		add(CGameRules.CARAMEL_PORTAL_WORKS.getDescriptionId(), "Enable Caramel Portal Teleport Player.", "允许焦糖传送门传送玩家");
 		addItemById(LICORICE, "盐甘草糖");
 		addItemById(HONEYCOMB, "蜜蜡");
 		addItemById(HONEYCOMB_SHARD, "蜜蜡碎片");
@@ -64,13 +65,13 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(JELLY_SENTRY_KEY, "果冻守卫的钥匙");
 		addItemById(JELLY_BOSS_KEY, "果冻国王的钥匙");
 		addItem(RECORD_1, "Jelly Queen's Secret Record", "果冻皇后的私藏唱片");
-		add("item.candycraftce.record_1.desc", "Caution & Crisis C418 - Sweden (Caution & Crisis Remix)", null);
+		add(RECORD_1.get().getDescriptionId() + ".desc", "Caution & Crisis C418 - Sweden (Caution & Crisis Remix)", null);
 		addItem(RECORD_2, "Suguard's Secret Record", "姜饼人守卫的私藏唱片");
-		add("item.candycraftce.record_2.desc", "Jakim - Every", null);
+		add(RECORD_2.get().getDescriptionId() + ".desc", "Jakim - Every", null);
 		addItem(RECORD_3, "Rainbow Record", "彩虹唱片");
-		add("item.candycraftce.record_3.desc", "Jean Jacques Perrey - Brazilian Flower", null);
+		add(RECORD_3.get().getDescriptionId() + ".desc", "Jean Jacques Perrey - Brazilian Flower", null);
 		addItem(RECORD_4, "Licorice beetle's Secret Record", "盐甘草糖甲虫的私藏唱片");
-		add("item.candycraftce.record_4.desc", "Little End - Rain travel in the MineCraft", null);
+		add(RECORD_4.get().getDescriptionId() + ".desc", "Little End - Rain travel in the MineCraft", null);
 		addItemById(GINGERBREAD_EMBLEM, "姜饼人徽章");
 		addItemById(JELLY_EMBLEM, "果冻徽章");
 		addItemById(SKY_EMBLEM, "天空徽章");
@@ -177,16 +178,14 @@ public class CLanguageProvider implements DataProvider {
 		return modifyById(sb.substring(0, sb.length() - 1));
 	}
 
-	private static String modifyById(String byId) {
+	private static String modifyById(@NotNull String byId) {
 		return byId.replace("Pez", "PEZ");
 	}
 
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
 		addTranslations();
-		ArrayList<CompletableFuture<?>> ar = new ArrayList<>(subs.size());
-		subs.forEach(m -> ar.add(m.run(output)));
-		return CompletableFuture.allOf(ar.toArray(new CompletableFuture[0]));
+		return CompletableFuture.allOf(subs.stream().map(m -> m.run(output)).toArray(CompletableFuture[]::new));
 	}
 
 	@Override

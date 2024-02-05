@@ -2,9 +2,11 @@ package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import org.jetbrains.annotations.NotNull;
@@ -29,9 +31,8 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CBlockBuilder<B extends Block> {
 	private final String name;
 	private Function<Properties, B> factory;
-	//	private Either<Properties, Supplier<Properties>> properties;
 	private Supplier<Properties> properties;
-	private boolean withBlockItem;
+	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
 
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {
 		return new CBlockBuilder<>(name, factory);
@@ -72,13 +73,27 @@ public class CBlockBuilder<B extends Block> {
 	}
 
 	public CBlockBuilder<B> simpleBlockItem() {
-		withBlockItem = true;
+		simpleBlockItem(null);
+		return this;
+	}
+
+	public CBlockBuilder<B> simpleBlockItem(@Nullable Consumer<CItemBuilder<? extends BlockItem>> modifier) {
+		blockItem((t) -> {
+			CItemBuilder<BlockItem> builder = CItemBuilder.block(t);
+			if (modifier != null) modifier.accept(builder);
+			return builder.save();
+		});
+		return this;
+	}
+
+	public CBlockBuilder<B> blockItem(Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item) {
+		this.item = item;
 		return this;
 	}
 
 	public BlockEntry<B> save() {
 		BlockEntry<B> entry = register(name, () -> factory.apply(properties == null ? Properties.of() : properties.get()));
-		if (withBlockItem) CItemBuilder.block(entry).save();
+		if (item != null) item.apply(entry);
 		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}

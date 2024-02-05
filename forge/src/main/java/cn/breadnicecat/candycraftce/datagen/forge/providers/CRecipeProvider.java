@@ -1,11 +1,10 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
-import cn.breadnicecat.candycraftce.datagen.forge.providers.recipe_builders.SugarFurnaceRecipeBuilder;
+import cn.breadnicecat.candycraftce.datagen.forge.providers.recipes.SugarFurnaceRecipeBuilder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -32,7 +31,7 @@ public class CRecipeProvider extends RecipeProvider {
 
 	@Override
 	protected void buildRecipes(@NotNull Consumer<FinishedRecipe> writer) {
-		SugarFurnaceRecipeBuilder.builder().result(CRANFISH_COOKED).ingredient(Ingredient.of(CRANFISH)).save(writer, nameCache);
-		SugarFurnaceRecipeBuilder.builder().result(CARAMEL_BLOCK).ingredient(Ingredient.of(SUGAR_BLOCK)).save(writer, nameCache);
+		SugarFurnaceRecipeBuilder.builder(CRANFISH_COOKED).ingredient(CRANFISH).save(writer, nameCache);
+		SugarFurnaceRecipeBuilder.builder(CARAMEL_BLOCK).ingredient(SUGAR_BLOCK).save(writer, nameCache);
 	}
 }

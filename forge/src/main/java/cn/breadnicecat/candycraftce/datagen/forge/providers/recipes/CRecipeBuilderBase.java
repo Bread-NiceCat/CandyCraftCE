@@ -1,11 +1,13 @@
-package cn.breadnicecat.candycraftce.datagen.forge.providers.recipe_builders;
+package cn.breadnicecat.candycraftce.datagen.forge.providers.recipes;
 
+import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,17 +47,24 @@ public abstract class CRecipeBuilderBase implements RecipeBuilder {
 		save(writer, recipeId);
 	}
 
-	static abstract class CFinishedRecipeBase implements FinishedRecipe {
-		public final ResourceLocation id;
+	static abstract class CFinishedRecipeBase<R extends Recipe<?>> implements FinishedRecipe {
+		private final R recipe;
 
-		public CFinishedRecipeBase(ResourceLocation id) {
-			this.id = id;
+		public CFinishedRecipeBase(R recipe) {
+			this.recipe = recipe;
 		}
 
+		@Override
+		public abstract @NotNull RecipeSerializerExt<R> getType();
+
+		@Override
+		public void serializeRecipeData(@NotNull JsonObject json) {
+			getType().toJson(json, recipe);
+		}
 
 		@Override
 		public @NotNull ResourceLocation getId() {
-			return id;
+			return recipe.getId();
 		}
 
 
