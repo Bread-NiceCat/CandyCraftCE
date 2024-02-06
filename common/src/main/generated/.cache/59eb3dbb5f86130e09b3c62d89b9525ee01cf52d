@@ -1,5 +1,6 @@
-// 1.20.1	2024-02-05T00:47:59.819795	Loot Tables
+// 1.20.1	2024-02-06T13:58:36.9887851	Loot Tables
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
+4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
 d5f698b09197b6c79a992e7b726f383effb68161 data/candycraftce/loot_tables/blocks/candy_cane_block.json
 f59e1e06f67db438227bcf5d75badf66a8ca5bb3 data/candycraftce/loot_tables/blocks/candy_cane_fence.json
 34f501338c8cb445289e333dfcd3bc622f0d646d data/candycraftce/loot_tables/blocks/candy_cane_slab.json
@@ -11,6 +12,7 @@ fef6782285cb3e641e70f9dc6024ab070be55434 data/candycraftce/loot_tables/blocks/ca
 d857b93b3699b6e00ea0070b2a33e5b3384d13a1 data/candycraftce/loot_tables/blocks/chocolate_furnace.json
 8b30bba048c8df10d4ae1c5e0998077914db4994 data/candycraftce/loot_tables/blocks/chocolate_stone.json
 26d24aee4381d44fbb814d5e07cf0ceed24f9560 data/candycraftce/loot_tables/blocks/custard_pudding.json
+eef157490d7281c148e7ef73d9d099f4d19841a4 data/candycraftce/loot_tables/blocks/licorice_block.json
 af40f0676a4d089063eae0e10f29f9ef04478d6b data/candycraftce/loot_tables/blocks/licorice_furnace.json
 877c0b69a0e9127c725daad1fcd484b9f3e4af6d data/candycraftce/loot_tables/blocks/marshmallow_crafting_table.json
 1e7b7f8703f0d1be03469d31044c980421c9da39 data/candycraftce/loot_tables/blocks/pudding.json

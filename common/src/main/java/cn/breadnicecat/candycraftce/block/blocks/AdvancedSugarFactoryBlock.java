@@ -7,19 +7,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Created in 2024/2/3
+ * Created in 2024/2/4
  * Project: candycraftce
  *
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class ChocolateFurnace extends LicoriceFurnace {
-	public ChocolateFurnace(Properties properties) {
+public class AdvancedSugarFactoryBlock extends SugarFactoryBlock {
+	public AdvancedSugarFactoryBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return CBlockEntities.CHOCOLATE_FURNACE_BE.create(pos, state);
+		return CBlockEntities.ADVANCED_SUGAR_FACTORY_BE.create(pos, state);
 	}
 }

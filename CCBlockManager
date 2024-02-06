@@ -23,16 +23,16 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
     HELPER.single(CANDY_CANE_STAIRS, () -> new StairBlock(CANDY_CANE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
             LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
-HELPER.single(MARSHMALLOW_CRAFTING_TABLE, BlockMarshmallowCraftingTable::new, CCBlockManager::simpleBlockItem,
-        MODEL_COLUMN, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_AXE);
-HELPER.single(LICORICE_FURNACE, BlockLicoriceFurnace::new, CCBlockManager::simpleBlockItem,
-        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
-HELPER.single(CHOCOLATE_FURNACE, BlockChocolateFurnace::new, CCBlockManager::simpleBlockItem,
-        MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
-HELPER.single(SUGAR_FACTORY, BlockSugarFactory::new, CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
-HELPER.single(ADVANCED_SUGAR_FACTORY, BlockAdvancedSugarFactory::new, CCBlockManager::simpleBlockItem,
-        MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+    HELPER.single(MARSHMALLOW_CRAFTING_TABLE, BlockMarshmallowCraftingTable::new, CCBlockManager::simpleBlockItem,
+            MODEL_COLUMN, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_AXE);
+    HELPER.single(LICORICE_FURNACE, BlockLicoriceFurnace::new, CCBlockManager::simpleBlockItem,
+            MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+    HELPER.single(CHOCOLATE_FURNACE, BlockChocolateFurnace::new, CCBlockManager::simpleBlockItem,
+            MODEL_SP_FURNACE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+    HELPER.single(SUGAR_FACTORY, BlockSugarFactory::new, CCBlockManager::simpleBlockItem,
+            MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
+    HELPER.single(ADVANCED_SUGAR_FACTORY, BlockAdvancedSugarFactory::new, CCBlockManager::simpleBlockItem,
+            MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
 //树苗
 HELPER.batch((n, a) -> new BlockCandySapling((AbstractTreeGrower) a[0]), (n, b, a) -> simpleBlockItem(b),
                 MODEL_CROSS, VTAG_SAPLINGS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)

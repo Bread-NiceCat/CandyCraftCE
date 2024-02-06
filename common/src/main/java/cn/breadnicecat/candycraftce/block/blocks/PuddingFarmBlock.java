@@ -20,11 +20,11 @@ import org.jetbrains.annotations.Nullable;
  * @see FarmBlock [Vanilla Copy]
  * @see cn.breadnicecat.candycraftce.mixin.MixinFarmBlock [Mixin]
  */
-public class PuddingFarm extends FarmBlock {
+public class PuddingFarmBlock extends FarmBlock {
 
-	public static final Block DIRT_LIKE = CustardPudding.DIRT_LIKE;
+	public static final Block DIRT_LIKE = CustardPuddingBlock.DIRT_LIKE;
 
-	public PuddingFarm(Properties properties) {
+	public PuddingFarmBlock(Properties properties) {
 		super(properties);
 	}
 

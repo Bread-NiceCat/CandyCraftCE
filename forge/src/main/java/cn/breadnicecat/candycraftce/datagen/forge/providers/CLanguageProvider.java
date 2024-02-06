@@ -137,6 +137,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CHOCOLATE_FURNACE, "巧克力熔炉");
 		addBlockById(SUGAR_FACTORY, "制糖机");
 		addBlockById(ADVANCED_SUGAR_FACTORY, "高级制糖机");
+		addBlockById(LICORICE_BLOCK, "盐甘草糖块");
+		addBlockById(ALCHEMY_MIXER, "炼金搅拌器");
 
 	}
 
@@ -185,7 +187,9 @@ public class CLanguageProvider implements DataProvider {
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
 		addTranslations();
-		return CompletableFuture.allOf(subs.stream().map(m -> m.run(output)).toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(subs.stream()
+				.map(m -> m.run(output))
+				.toArray(CompletableFuture[]::new));
 	}
 
 	@Override

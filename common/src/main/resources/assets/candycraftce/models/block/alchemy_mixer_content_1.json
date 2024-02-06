@@ -1,0 +1,15 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"content": "candycraftce:block/grenadine_static"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 4, 12],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#content"}
+			}
+		}
+	]
+}

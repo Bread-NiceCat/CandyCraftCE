@@ -27,8 +27,8 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class CaramelPortal extends NetherPortalBlock {
-	public CaramelPortal(Properties properties) {
+public class CaramelPortalBlock extends NetherPortalBlock {
+	public CaramelPortalBlock(Properties properties) {
 		super(properties);
 	}
 

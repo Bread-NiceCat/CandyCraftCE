@@ -14,11 +14,11 @@ import java.util.function.Predicate;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class ItemCaramelBow extends BowItem {
+public class CaramelBowItem extends BowItem {
 
 	public static final Predicate<ItemStack> CANDY_ARROW_ONLY = itemStack -> itemStack.is(CItemTags.CANDY_ARROWS);
 
-	public ItemCaramelBow(Properties properties) {
+	public CaramelBowItem(Properties properties) {
 		super(properties);
 	}
 

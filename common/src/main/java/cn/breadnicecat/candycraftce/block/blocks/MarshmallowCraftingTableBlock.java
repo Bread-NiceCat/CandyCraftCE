@@ -19,10 +19,10 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class MarshmallowCraftingTable extends CraftingTableBlock {
+public class MarshmallowCraftingTableBlock extends CraftingTableBlock {
 	private Component title;
 
-	public MarshmallowCraftingTable(Properties properties) {
+	public MarshmallowCraftingTableBlock(Properties properties) {
 		super(properties);
 	}
 

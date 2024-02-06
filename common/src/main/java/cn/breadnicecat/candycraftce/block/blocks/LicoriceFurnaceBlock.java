@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class LicoriceFurnace extends AbstractFurnaceBlock {
-	public LicoriceFurnace(Properties properties) {
+public class LicoriceFurnaceBlock extends AbstractFurnaceBlock {
+	public LicoriceFurnaceBlock(Properties properties) {
 		super(properties);
 	}
 

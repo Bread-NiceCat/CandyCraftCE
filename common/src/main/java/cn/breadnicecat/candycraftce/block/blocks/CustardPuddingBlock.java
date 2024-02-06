@@ -19,10 +19,10 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.PUDDING;
  * <p>
  * @see net.minecraft.world.level.block.SpreadingSnowyDirtBlock
  */
-public class CustardPudding extends Block {
+public class CustardPuddingBlock extends Block {
 	public static final Block DIRT_LIKE = PUDDING.get();
 
-	public CustardPudding(Properties properties) {
+	public CustardPuddingBlock(Properties properties) {
 		super(properties);
 	}
 

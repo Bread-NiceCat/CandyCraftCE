@@ -11,8 +11,10 @@ import cn.breadnicecat.candycraftce.utils.TickUtils;
 import cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -88,7 +90,6 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	}
 
 	public void serverTick() {
-		boolean changed = false;
 		check:
 		{
 			if (items.isEmpty(INPUT_SLOT)) {
@@ -107,17 +108,17 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 				} else {
 					recipeUsed = opt.get();
 				}
-				changed |= recipeType != (recipeType = getRecipeType(recipeUsed))
-						| tickedTotal != (tickedTotal = getTickedTimeTotal(recipeUsed));
 			}
 			//判断输出 输出阻塞
 			ItemStack output = items.get(OUTPUT_SLOT);
-			if (output.getCount() + recipeUsed.count > output.getMaxStackSize()) {
+			if (recipeUsed != null && output.getCount() + recipeUsed.count > output.getMaxStackSize()) {
 				recipeUsed = null;
 			}
 		}
 
 		//更新
+		boolean changed = recipeType != (recipeType = getRecipeType(recipeUsed))
+				| tickedTotal != (tickedTotal = getTickedTimeTotal(recipeUsed));
 		if (recipeUsed != null) {
 			if (tickedTotal != 0 && ++ticked > tickedTotal) {
 				ticked = 0;
@@ -132,6 +133,22 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 
 		if (changed) setChanged();
 
+	}
+
+	@Override
+	public void load(CompoundTag tag) {
+		super.load(tag);
+		ContainerHelper.loadAllItems(tag.getCompound("items"), items);
+		ticked = tag.getInt("ticked");
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
+		CompoundTag items = new CompoundTag();
+		ContainerHelper.saveAllItems(items, this.items);
+		tag.put("items", items);
+		tag.putInt("ticked", ticked);
 	}
 
 	protected int getRecipeType(@Nullable SugarFactoryRecipe recipe) {

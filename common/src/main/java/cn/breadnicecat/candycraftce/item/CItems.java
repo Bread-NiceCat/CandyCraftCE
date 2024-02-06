@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.item.items.ItemCaramelBow;
-import cn.breadnicecat.candycraftce.item.items.ItemHoneycombArrow;
-import cn.breadnicecat.candycraftce.item.items.ItemIIDebug;
+import cn.breadnicecat.candycraftce.item.items.CaramelBowItem;
+import cn.breadnicecat.candycraftce.item.items.HoneycombArrowItem;
+import cn.breadnicecat.candycraftce.item.items.IIDebugItem;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -105,8 +105,8 @@ public class CItems {
 	public static final ItemEntry<Item> SUGUARD_EMBLEM = create("suguard_emblem").save();
 //	HELPER.single(FORK, ItemFork::new, HANDHELD);
 
-	public static final ItemEntry<ItemHoneycombArrow> HONEYCOMB_ARROW = create("honeycomb_arrow", ItemHoneycombArrow::new).save();
-	public static final ItemEntry<ItemCaramelBow> CARAMEL_BOW = create("caramel_bow", ItemCaramelBow::new).save();
+	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
+	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).save();
 //HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
 
 	/*工具*/
@@ -156,7 +156,7 @@ public class CItems {
 	public static final ItemEntry<ArmorItem> JELLY_CROWN = createHelmet("jelly_crown", CArmorMaterials.JELLY_CROWN).save();
 	public static final ItemEntry<ArmorItem> TRAMPOJELLY_BOOTS = createBoots("trampojelly_boots", CArmorMaterials.TRAMPOJELLY_BOOTS)
 			.save();
-	public static final ItemEntry<ItemIIDebug> I_I_DEBUG = create("i_i_debug", higher(ItemIIDebug::new))
+	public static final ItemEntry<IIDebugItem> I_I_DEBUG = create("i_i_debug", higher(IIDebugItem::new))
 			.setTab(CreativeModeTabs.OP_BLOCKS)
 			.setCtab(false)
 			.save();

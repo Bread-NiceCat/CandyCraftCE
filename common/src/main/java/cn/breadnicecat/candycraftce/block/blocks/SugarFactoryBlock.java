@@ -26,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class SugarFactory extends Block implements EntityBlock {
-	public SugarFactory(Properties properties) {
+public class SugarFactoryBlock extends Block implements EntityBlock {
+	public SugarFactoryBlock(Properties properties) {
 		super(properties);
 	}
 

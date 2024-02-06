@@ -29,12 +29,12 @@ import java.util.List;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
-public class ItemIIDebug extends Item {
+public class IIDebugItem extends Item {
 
 	private final String FUN_ORD = "fun_ord";
 	private final Component CUR_FUN = Component.literal("当前模式: ").withStyle(ChatFormatting.LIGHT_PURPLE);
 
-	public ItemIIDebug() {
+	public IIDebugItem() {
 		super(new Properties().stacksTo(1).rarity(Rarity.EPIC));
 	}
 

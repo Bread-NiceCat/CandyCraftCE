@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.block.blockentity.entities;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.data.CDataAccessors;
 import cn.breadnicecat.candycraftce.block.blockentity.data.ItemStackList;
-import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnace;
+import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnaceBlock;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
 import cn.breadnicecat.candycraftce.misc.CSugarFuels;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
@@ -127,6 +127,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 				changed = true;
 			}
 		}
+//:: 原版在无燃料燃烧状态下状态下不会主动从燃烧状态(lit=true)变成非燃烧状态
 		//燃料耗尽
 		if (litTime < 1) {
 			isLit = false;
@@ -149,7 +150,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			changed = true;
 		}
 		//更新状态 燃烧状态有改变
-		if (isLit != getBlockState().getValue(LicoriceFurnace.LIT)) {
+		if (isLit != getBlockState().getValue(LicoriceFurnaceBlock.LIT)) {
 			level.setBlock(worldPosition, getBlockState().setValue(FurnaceBlock.LIT, isLit), 2);
 		}
 		if (changed) setChanged();
@@ -168,31 +169,32 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	}
 
 	public void dropExp(Vec3 pos) {
-		ExperienceOrb orb = new ExperienceOrb(level, pos.x, pos.y, pos.z, Mth.floor(exp));
-		this.exp = 0f;
-		level.addFreshEntity(orb);
+		if (exp > 0f) {
+			ExperienceOrb orb = new ExperienceOrb(level, pos.x, pos.y, pos.z, Mth.floor(exp));
+			this.exp = 0f;
+			setChanged();
+			level.addFreshEntity(orb);
+		}
 	}
 
 
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
+		ContainerHelper.saveAllItems(tag, this.items);
 		tag.putFloat("exp", exp);
 		tag.putInt("litTime", litTime);
 		tag.putInt("litTimeTotal", litTimeTotal);
 		tag.putInt("ticked", ticked);
-		tag.putInt("tickedTotal", tickedTotal);
-		ContainerHelper.saveAllItems(tag, this.items);
 		super.saveAdditional(tag);
 	}
 
 	@Override
 	public void load(CompoundTag tag) {
-		exp = tag.getFloat("exp");
-		ticked = tag.getInt("ticked");
-		litTime = tag.getInt("litTime");
-		tickedTotal = tag.getInt("tickedTotal");
-		litTimeTotal = tag.getInt("litTimeTotal");
 		ContainerHelper.loadAllItems(tag, this.items);
+		exp = tag.getFloat("exp");
+		litTime = tag.getInt("litTime");
+		litTimeTotal = tag.getInt("litTimeTotal");
+		ticked = tag.getInt("ticked");
 		super.load(tag);
 	}
 

@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class ItemHoneycombArrow extends ArrowItem {
-	public ItemHoneycombArrow(Properties properties) {
+public class HoneycombArrowItem extends ArrowItem {
+	public HoneycombArrowItem(Properties properties) {
 		super(properties);
 	}
 

@@ -1,10 +1,7 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.block.blocks.CaramelPortal;
-import cn.breadnicecat.candycraftce.block.blocks.ChocolateFurnace;
-import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnace;
-import cn.breadnicecat.candycraftce.block.blocks.PuddingFarm;
+import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -12,10 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -46,7 +40,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//cubeAll : *
 		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
-				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY
+				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, LICORICE_BLOCK
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -107,29 +101,51 @@ public class CBlockStateProvider extends BlockStateProvider {
 			simpleBlockItem(block, slab);
 		}, CANDY_CANE_SLAB);
 		//================================//
+		//炼金搅拌器
+		{
+			String name = ALCHEMY_MIXER.getName();
+			AlchemyMixerBlock block = ALCHEMY_MIXER.get();
+			ModelFile base = existModelFile(modLoc("block/" + name));
+
+			MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+					.part().modelFile(base)
+					.addModel()
+					.end()
+
+					.part().modelFile(existModelFile(modLoc("block/" + name + "_rope")))
+					.addModel().condition(AlchemyMixerBlock.HANGING, true)
+					.end();
+			for (int i = 1; i < 5; i++) {
+				builder.part().modelFile(existModelFile(modLoc("block/" + name + "_content_" + i)))
+						.addModel()
+						.condition(AlchemyMixerBlock.LEVEL, i)
+						.end();
+			}
+			simpleBlockItem(block, base);
+		}
 		//盐甘草糖熔炉
 		{
 			String name = LICORICE_FURNACE.getName();
-			ResourceLocation side = modLoc("block/licorice_furnace_side");
-			ResourceLocation front_on = modLoc("block/licorice_furnace_front_on");
-			ResourceLocation front_off = modLoc("block/licorice_furnace_front_off");
-			ResourceLocation top = modLoc("block/licorice_furnace_top");
-			ResourceLocation bottom = modLoc("block/licorice_block");
+			ResourceLocation side = modLoc("block/" + name + "_side");
+			ResourceLocation front_on = modLoc("block/" + name + "_front_on");
+			ResourceLocation front_off = modLoc("block/" + name + "_front_off");
+			ResourceLocation top = modLoc("block/" + name + "_top");
+			ResourceLocation bottom = blockTexture(LICORICE_BLOCK.get());
 			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
 			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
-			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnace.LIT) ? on : off);
+			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnaceBlock.LIT) ? on : off);
 			simpleBlockItem(LICORICE_FURNACE.get(), off);
 		}
 		{
 			String name = CHOCOLATE_FURNACE.getName();
-			ResourceLocation side = modLoc("block/chocolate_furnace_side");
-			ResourceLocation front_on = modLoc("block/chocolate_furnace_front_on");
-			ResourceLocation front_off = modLoc("block/chocolate_furnace_front_off");
-			ResourceLocation top = modLoc("block/chocolate_furnace_top");
-			ResourceLocation bottom = modLoc("block/chocolate_stone");
+			ResourceLocation side = modLoc("block/" + name + "_side");
+			ResourceLocation front_on = modLoc("block/" + name + "_front_on");
+			ResourceLocation front_off = modLoc("block/" + name + "_front_off");
+			ResourceLocation top = modLoc("block/" + name + "_top");
+			ResourceLocation bottom = blockTexture(CHOCOLATE_STONE.get());
 			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
 			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
-			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnace.LIT) ? on : off);
+			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnaceBlock.LIT) ? on : off);
 			simpleBlockItem(CHOCOLATE_FURNACE.get(), off);
 		}
 		//奶皮布丁
@@ -154,12 +170,12 @@ public class CBlockStateProvider extends BlockStateProvider {
 					.texture("dirt", modLoc("block/" + base))
 					.texture("top", modLoc("block/" + name + "_top_moist"));
 			getVariantBuilder(block).forAllStates((s) ->
-					ConfiguredModel.builder().modelFile(s.getValue(PuddingFarm.MOISTURE) >= PuddingFarm.MAX_MOISTURE ? land_moist : land).build());
+					ConfiguredModel.builder().modelFile(s.getValue(PuddingFarmBlock.MOISTURE) >= PuddingFarmBlock.MAX_MOISTURE ? land_moist : land).build());
 		}
 		//传送门
 		{
 			String name = CARAMEL_PORTAL.getName();
-			CaramelPortal block = CARAMEL_PORTAL.get();
+			CaramelPortalBlock block = CARAMEL_PORTAL.get();
 			ResourceLocation tex = blockTexture(block);
 			BlockModelBuilder model = models().withExistingParent("block/" + name, "block/nether_portal_ew")
 					.texture("portal", tex)
