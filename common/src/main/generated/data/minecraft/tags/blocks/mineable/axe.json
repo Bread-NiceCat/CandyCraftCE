@@ -1,5 +1,11 @@
 {
   "values": [
-    "candycraftce:marshmallow_crafting_table"
+    "candycraftce:marshmallow_crafting_table",
+    "candycraftce:marshmallow_log",
+    "candycraftce:dark_marshmallow_log",
+    "candycraftce:light_marshmallow_log",
+    "candycraftce:marshmallow_planks",
+    "candycraftce:light_marshmallow_planks",
+    "candycraftce:dark_marshmallow_planks"
   ]
 }

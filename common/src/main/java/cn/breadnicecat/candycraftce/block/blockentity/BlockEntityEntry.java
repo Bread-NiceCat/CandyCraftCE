@@ -27,8 +27,5 @@ public abstract class BlockEntityEntry<B extends BlockEntity> extends RegistryEn
 	public B create(BlockPos pos, BlockState state) {
 		return this.get().create(pos, state);
 	}
-
-	public String getName() {
-		return id.getPath();
-	}
+	
 }

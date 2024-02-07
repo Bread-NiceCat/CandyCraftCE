@@ -139,6 +139,18 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(ADVANCED_SUGAR_FACTORY, "高级制糖机");
 		addBlockById(LICORICE_BLOCK, "盐甘草糖块");
 		addBlockById(ALCHEMY_MIXER, "炼金搅拌器");
+		addBlockById(MARSHMALLOW_LOG, "棉花软糖原木");
+		addBlockById(LIGHT_MARSHMALLOW_LOG, "浅色棉花软糖原木");
+		addBlockById(DARK_MARSHMALLOW_LOG, "深色棉花软糖原木");
+		addBlockById(MARSHMALLOW_PLANKS, "棉花软糖木板");
+		addBlockById(LIGHT_MARSHMALLOW_PLANKS, "浅色棉花软糖木板");
+		addBlockById(CHOCOLATE_LEAVES, "巧克力树叶");
+		addBlockById(WHITE_CHOCOLATE_LEAVES, "白巧克力树叶");
+		addBlockById(CARAMEL_LEAVES, "焦糖树叶");
+		addBlockById(CANDIED_CHERRY_LEAVES, "蜜饯樱桃树叶");
+		addBlockById(MAGIC_SUGAR_LEAVES, "魔法糖树叶");
+		addBlockById(HONEYCOMB_TORCH, "蜜蜡火把");
+
 
 	}
 

@@ -12,9 +12,5 @@ public abstract class RecipeTypeEntry<R extends Recipe<?>> extends RegistryEntry
 		super(id);
 	}
 
-	public String getName() {
-		return id.getPath();
-	}
-
 	public abstract RecipeSerializerExt<R> getSerializer();
 }

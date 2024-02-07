@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "candycraftce:block/marshmallow_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "candycraftce:block/marshmallow_log"
+    },
+    "axis=z": {
+      "model": "candycraftce:block/marshmallow_log_horizontal",
+      "x": 90
+    }
+  }
+}

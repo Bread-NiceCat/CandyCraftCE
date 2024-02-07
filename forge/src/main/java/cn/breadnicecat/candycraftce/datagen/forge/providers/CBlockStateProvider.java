@@ -6,16 +6,17 @@ import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.NetherPortalBlock;
-import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
@@ -36,11 +37,13 @@ public class CBlockStateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		//(_)type : textureName
-
+		mappings = new HashMap<>();//makes mappings enabled
 		//cubeAll : *
 		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
-				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, LICORICE_BLOCK
+				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, LICORICE_BLOCK, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
+				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
+				MAGIC_SUGAR_LEAVES
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -48,59 +51,86 @@ public class CBlockStateProvider extends BlockStateProvider {
 			simpleBlockWithItem(b.get(), models().cubeColumn(name, modLoc("block/" + name + "_side"), modLoc("block/" + name + "_end")));
 		}, CANDY_CANE_BLOCK, MARSHMALLOW_CRAFTING_TABLE);
 		//wall : *
-		{
+		zone(() -> {
 			mapping("block/" + CANDY_CANE_WALL.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
-		}
-		accept(b -> {
-					ResourceLocation texture = modLoc("block/" + b.getName());
-					wallBlock(b.get(), texture);
-					itemModels().wallInventory(b.getName(), texture);
-				},
-				CANDY_CANE_WALL);
+			accept(b -> {
+						ResourceLocation texture = modLoc("block/" + b.getName());
+						wallBlock(b.get(), texture);
+						itemModels().wallInventory(b.getName(), texture);
+					},
+					CANDY_CANE_WALL);
+		});
 		//fence : *
-		{
+		zone(() -> {
 			mapping("block/" + CANDY_CANE_FENCE.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
-		}
-		accept(b -> {
-					ResourceLocation texture = modLoc("block/" + b.getName());
-					fenceBlock(b.get(), texture);
-					itemModels().fenceInventory(b.getName(), texture);
-				},
-				CANDY_CANE_FENCE);
+			accept(b -> {
+						ResourceLocation texture = modLoc("block/" + b.getName());
+						fenceBlock(b.get(), texture);
+						itemModels().fenceInventory(b.getName(), texture);
+					},
+					CANDY_CANE_FENCE);
+		});
 		//stair : *_side *_end
-		{
-			String stair = CANDY_CANE_STAIRS.getName();
-			String block = CANDY_CANE_BLOCK.getName();
-			mapping("block/" + stair + "_side", "block/" + block + "_side");
-			mapping("block/" + stair + "_end", "block/" + block + "_end");
-		}
-		accept(b -> {
-			ResourceLocation side = modLoc("block/" + b.getName() + "_side");
-			ResourceLocation end = modLoc("block/" + b.getName() + "_end");
-			stairsBlock(b.get(), side, end, end);
-			itemModels().stairs(b.getName(), side, end, end);
-		}, CANDY_CANE_STAIRS);
+		zone(() -> {
+			{
+				String stair = CANDY_CANE_STAIRS.getName();
+				String block = CANDY_CANE_BLOCK.getName();
+				mapping("block/" + stair + "_side", "block/" + block + "_side");
+				mapping("block/" + stair + "_end", "block/" + block + "_end");
+			}
+			accept(b -> {
+				ResourceLocation side = modLoc("block/" + b.getName() + "_side");
+				ResourceLocation end = modLoc("block/" + b.getName() + "_end");
+				stairsBlock(b.get(), side, end, end);
+				itemModels().stairs(b.getName(), side, end, end);
+			}, CANDY_CANE_STAIRS);
+		});
 		//slab : *_side, *_end
-		{
+		zone(() -> {
 			{
 				String slab = CANDY_CANE_SLAB.getName();
 				String block = CANDY_CANE_BLOCK.getName();
 				mapping("block/" + slab + "_side", "block/" + block + "_side");
 				mapping("block/" + slab + "_end", "block/" + block + "_end");
 			}
-		}
+			accept(b -> {
+				String name = b.getName();
+				ResourceLocation side = modLoc("block/" + name + "_side");
+				ResourceLocation end = modLoc("block/" + name + "_end");
+				BlockModelBuilder slab = models().slab(name, side, end, end);
+				BlockModelBuilder slabTop = models().slabTop(name + "_top", side, end, end);
+				BlockModelBuilder full = models().cubeColumn(name + "_full", side, end);
+				SlabBlock block = b.get();
+				slabBlock(block, slab, slabTop, full);
+				simpleBlockItem(block, slab);
+			}, CANDY_CANE_SLAB);
+		});
+		//log *, *_top
 		accept(b -> {
-			String name = b.getName();
-			ResourceLocation side = modLoc("block/" + name + "_side");
-			ResourceLocation end = modLoc("block/" + name + "_end");
-			BlockModelBuilder slab = models().slab(name, side, end, end);
-			BlockModelBuilder slabTop = models().slabTop(name + "_top", side, end, end);
-			BlockModelBuilder full = models().cubeColumn(name + "_full", side, end);
-			SlabBlock block = b.get();
-			slabBlock(block, slab, slabTop, full);
-			simpleBlockItem(block, slab);
-		}, CANDY_CANE_SLAB);
+			RotatedPillarBlock block = b.get();
+			logBlock(block);
+			simpleBlockItem(block, existModelFile(block));
+		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
+
 		//================================//
+		mappings = Map.of();//makes mapping disabled
+		{
+			String torchName = HONEYCOMB_TORCH.getName();
+			String wallName = WALL_HONEYCOMB_TORCH.getName();
+			TorchBlock torchBlock = HONEYCOMB_TORCH.get();
+			Item torchItem = torchBlock.asItem();
+			WallTorchBlock wallBlock = WALL_HONEYCOMB_TORCH.get();
+
+			ResourceLocation tex = modLoc("block/" + torchName);
+
+			BlockModelBuilder torchModel = models().withExistingParent(torchName, "block/template_torch")
+					.texture("torch", tex);
+			BlockModelBuilder wallModel = models().withExistingParent(wallName, "block/template_torch_wall")
+					.texture("torch", tex);
+			simpleBlock(torchBlock, torchModel);
+			horizontalBlock(wallBlock, wallModel, 90);
+			itemModels().withExistingParent(HONEYCOMB_TORCH_ITEM.getName(), "item/generated").texture("layer0", tex);
+		}
 		//炼金搅拌器
 		{
 			String name = ALCHEMY_MIXER.getName();
@@ -189,24 +219,38 @@ public class CBlockStateProvider extends BlockStateProvider {
 		}
 	}
 
-	public static final HashMap<ResourceLocation, ResourceLocation> MAPPINGS = new HashMap<>();
+	public Map<ResourceLocation, ResourceLocation> mappings = Map.of();
+
+
+	/**
+	 * 局部映射
+	 */
+	public void zone(Runnable m) {
+		Map<ResourceLocation, ResourceLocation> global = mappings;
+		if (!(global instanceof HashMap<ResourceLocation, ResourceLocation>)) {
+			throw new IllegalStateException("Not a valid mapping map");
+		}
+		mappings = new HashMap<>();
+		m.run();
+		mappings = global;
+	}
 
 	@Override
 	public ResourceLocation modLoc(String name) {
 		ResourceLocation loc = super.modLoc(name);
-		return MAPPINGS.getOrDefault(loc, loc);
+		return mappings.getOrDefault(loc, loc);
 	}
 
 	@Override
 	public ResourceLocation mcLoc(String name) {
 		ResourceLocation loc = super.mcLoc(name);
-		return MAPPINGS.getOrDefault(loc, loc);
+		return mappings.getOrDefault(loc, loc);
 	}
 
 	@Override
 	public ResourceLocation blockTexture(Block block) {
 		ResourceLocation loc = super.blockTexture(block);
-		return MAPPINGS.getOrDefault(loc, loc);
+		return mappings.getOrDefault(loc, loc);
 	}
 
 	public ModelFile.ExistingModelFile existModelFile(Block block) {
@@ -223,7 +267,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 	 * @see #modLoc(String)
 	 */
 	private void mapping(ResourceLocation from, ResourceLocation to) {
-		MAPPINGS.put(from, to);
+		mappings.put(from, to);
 	}
 
 	private void mapping(String from, String to) {

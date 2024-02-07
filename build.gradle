@@ -87,7 +87,7 @@ private static def copy(File from, File to) {
         to.withOutputStream {
             i.transferTo it
         }
-        println "Copy $from -> $to"
+        println "Copied $from -> $to"
     }
 }
 //================================================================//

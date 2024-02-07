@@ -46,6 +46,7 @@ public class CBlockBuilder<B extends Block> {
 	protected CBlockBuilder(String name, Function<Properties, B> factory) {
 		this.name = name;
 		this.factory = factory;
+		this.simpleBlockItem(null);
 	}
 
 
@@ -72,8 +73,8 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 
-	public CBlockBuilder<B> simpleBlockItem() {
-		simpleBlockItem(null);
+	public CBlockBuilder<B> noBlockItem() {
+		this.item = null;
 		return this;
 	}
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "candycraftce:block/honeycomb_torch"
+  }
+}

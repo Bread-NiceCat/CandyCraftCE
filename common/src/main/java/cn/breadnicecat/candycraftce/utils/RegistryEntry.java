@@ -22,6 +22,10 @@ public class RegistryEntry {
 		return id;
 	}
 
+	public String getName() {
+		return id.getPath();
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;

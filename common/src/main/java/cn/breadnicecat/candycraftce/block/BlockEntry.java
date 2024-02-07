@@ -27,10 +27,6 @@ public abstract class BlockEntry<B extends Block> extends RegistryEntry implemen
 		return this.get().defaultBlockState();
 	}
 
-	public String getName() {
-		return id.getPath();
-	}
-
 	@Override
 	public @NotNull Item asItem() {
 		return this.get().asItem();

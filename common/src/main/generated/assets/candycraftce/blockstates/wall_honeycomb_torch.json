@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "candycraftce:block/wall_honeycomb_torch"
+    },
+    "facing=north": {
+      "model": "candycraftce:block/wall_honeycomb_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "candycraftce:block/wall_honeycomb_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "candycraftce:block/wall_honeycomb_torch",
+      "y": 180
+    }
+  }
+}

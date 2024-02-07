@@ -1,8 +1,10 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
+import cn.breadnicecat.candycraftce.block.CBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -20,19 +22,24 @@ public class CandySaplingBlock extends SaplingBlock {
 	protected CandySaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
+	
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
-		return super.isValidBonemealTarget(level, pos, state, isClient);
+		return false;
 	}
 
 	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return super.isBonemealSuccess(level, random, pos, state);
+		return false;
 	}
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		super.performBonemeal(level, random, pos, state);
+	}
+
+	@Override
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.is(CBlockTags.CANDY_PLANT_CAN_ON);
 	}
 }

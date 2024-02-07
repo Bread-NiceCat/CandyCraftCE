@@ -11,6 +11,7 @@ import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
@@ -24,6 +25,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
+import static cn.breadnicecat.candycraftce.block.CBlocks.HONEYCOMB_TORCH;
+import static cn.breadnicecat.candycraftce.block.CBlocks.WALL_HONEYCOMB_TORCH;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
 
 /**
@@ -108,6 +111,9 @@ public class CItems {
 	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
 	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).save();
 //HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
+
+	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
+
 
 	/*工具*/
 	//MARSHMALLOW
