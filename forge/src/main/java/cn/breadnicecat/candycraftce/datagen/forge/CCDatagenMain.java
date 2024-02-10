@@ -26,7 +26,7 @@ public class CCDatagenMain {
 
 	@SubscribeEvent
 	public static void onInitializeDataGenerator(GatherDataEvent evt) {
-		terminalHelper();
+		launchTerminalHelper();
 		LOGGER.warn("RUNNING DATAGEN ENVIRONMENT");
 		ExistingFileHelper efhelper = evt.getExistingFileHelper();
 		DataGenerator generator = evt.getGenerator();
@@ -46,7 +46,11 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
 	}
 
-	private static void terminalHelper() {
+	/**
+	 * Arch 会启动几个非daemon的线程，导致运行完毕后无法正常退出
+	 * 此线程通过在main线程运行终止后执行exit(0)来解决此问题
+	 */
+	private static void launchTerminalHelper() {
 		Thread main = Thread.currentThread();
 		Thread helper = new Thread(() -> {
 			LOGGER.info("Thread {} started!", Thread.currentThread().getName());
@@ -57,7 +61,7 @@ public class CCDatagenMain {
 					throw new RuntimeException(e);
 				}
 			}
-			LOGGER.info("main Thread ended, preparing exit(0) in 5s!");
+			LOGGER.info("main Thread ended, preparing exit(0) after 5s!");
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {

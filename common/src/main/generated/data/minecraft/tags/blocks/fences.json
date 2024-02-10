@@ -1,5 +1,8 @@
 {
   "values": [
-    "candycraftce:candy_cane_fence"
+    "candycraftce:candy_cane_fence",
+    "candycraftce:marshmallow_fence",
+    "candycraftce:light_marshmallow_fence",
+    "candycraftce:dark_marshmallow_fence"
   ]
 }

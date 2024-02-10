@@ -1,7 +1,7 @@
 //最后解决
 //keys
 HELPER.single(TELEPORTER, BlockTeleporter::new,
-        LOOT_NONE, EXCLUDE_SUGARY_BLOCK, VTAG_MINEABLE_WITH_PICKAXE, RENDERER_TYPE_CUTOUT);
+    LOOT_NONE, EXCLUDE_SUGARY_BLOCK, VTAG_MINEABLE_WITH_PICKAXE, RENDERER_TYPE_CUTOUT);
 
         HELPER.single(PUDDING, () -> new Block(Properties.copy(Blocks.DIRT)), CCBlockManager::simpleBlockItem,
                 MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_SHOVEL, CANDY_PLANT_CAN_PLACE_ON.getGroupId());
@@ -32,14 +32,14 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
                 MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
         HELPER.single(ADVANCED_SUGAR_FACTORY, BlockAdvancedSugarFactory::new, CCBlockManager::simpleBlockItem,
                 MODEL_SIMPLE, LOOT_DROP_SELF, VTAG_MINEABLE_WITH_PICKAXE);
-//树苗
-HELPER.batch((n, a) -> new BlockCandySapling((AbstractTreeGrower) a[0]), (n, b, a) -> simpleBlockItem(b),
-                MODEL_CROSS, VTAG_SAPLINGS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-        .addElement(CHOCOLATE_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
-        .addElement(WHITE_CHOCOLATE_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
-        .addElement(CARAMEL_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
-        .addElement(CANDIED_CHERRY_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
-        .register();
+        //树苗
+        HELPER.batch((n, a) -> new BlockCandySapling((AbstractTreeGrower) a[0]), (n, b, a) -> simpleBlockItem(b),
+                        MODEL_CROSS, VTAG_SAPLINGS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+                .addElement(CHOCOLATE_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
+                .addElement(WHITE_CHOCOLATE_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
+                .addElement(CARAMEL_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
+                .addElement(CANDIED_CHERRY_SAPLING, CCTreeGrowers.CHOCOLATE_TREE_GROWER)
+                .register();
         //原木
         HELPER.batch((n, a) -> new RotatedPillarBlock(Properties.copy(Blocks.OAK_LOG)), (n, b, a) -> simpleBlockItem(b),
                         MODEL_LOG, VTAG_LOGS, VTAG_MINEABLE_WITH_AXE, CItemTags.MARSHMALLOW_LOG.getGroupId(), LOOT_DROP_SELF)
@@ -84,19 +84,19 @@ HELPER.batch((n, a) -> new BlockCandySapling((AbstractTreeGrower) a[0]), (n, b, 
                 MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
 
 
-    HELPER.single(LICORICE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(LICORICE_SLAB, () -> new SlabBlock(Properties.copy(LICORICE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-            MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(LICORICE_STAIRS, () -> new StairBlock(LICORICE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-            MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        HELPER.single(LICORICE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(LICORICE_SLAB, () -> new SlabBlock(Properties.copy(LICORICE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+                MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        HELPER.single(LICORICE_STAIRS, () -> new StairBlock(LICORICE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+                MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
-    HELPER.single(LICORICE_BRICK, () -> new Block(Properties.copy(Blocks.STONE_BRICKS)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(LICORICE_BRICK_SLAB, () -> new SlabBlock(Properties.copy(LICORICE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-            MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(LICORICE_BRICK_STAIRS, () -> new StairBlock(LICORICE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-            MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        HELPER.single(LICORICE_BRICK, () -> new Block(Properties.copy(Blocks.STONE_BRICKS)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(LICORICE_BRICK_SLAB, () -> new SlabBlock(Properties.copy(LICORICE_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+                MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        HELPER.single(LICORICE_BRICK_STAIRS, () -> new StairBlock(LICORICE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+                MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
     HELPER.single(NOUGAT_BLOCK, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
             MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);

@@ -17,6 +17,7 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_SHARD;
 import static cn.breadnicecat.candycraftce.item.CItems.NOUGAT_POWDER;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static net.minecraft.world.item.Items.SUGAR;
 
 /**
@@ -41,13 +42,16 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				CARAMEL_BLOCK, CHOCOLATE_COBBLESTONE, PUDDING,
 				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS,
 				MARSHMALLOW_CRAFTING_TABLE, LICORICE_FURNACE, CHOCOLATE_FURNACE, SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY,
-				LICORICE_BLOCK, ALCHEMY_MIXER, MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG,
+				ALCHEMY_MIXER, MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG,
 				MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS, DARK_MARSHMALLOW_PLANKS, HONEYCOMB_TORCH,
-				JELLY_ORE, LICORICE_ORE, PEZ_ORE, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
-				CANDIED_CHERRY_SAPLING
+				JELLY_ORE, LICORICE_ORE, PEZ_ORE, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
+				LICORICE_BLOCK, LICORICE_BRICK, LICORICE_WALL, LICORICE_BRICK_WALL, LICORICE_SLAB, LICORICE_BRICK_SLAB, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
+				MARSHMALLOW_FENCE, LIGHT_MARSHMALLOW_FENCE, DARK_MARSHMALLOW_FENCE, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
+				DARK_MARSHMALLOW_SLAB, MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS
 		);
 		accept(m -> add(m, noDrop()),
-				CARAMEL_PORTAL, WALL_HONEYCOMB_TORCH
+				CARAMEL_PORTAL
+				//
 				, MAGIC_LEAVES
 		);
 		add(CHOCOLATE_LEAVES.get(), createLeavesDrops(CHOCOLATE_LEAVES.get(), CHOCOLATE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
@@ -64,6 +68,11 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 
 	private void add(BlockEntry<?> blo, LootTable.Builder b) {
 		add(blo.get(), b);
+	}
+
+	@Override
+	protected void add(Block block, LootTable.@NotNull Builder builder) {
+		assertTrue(this.map.put(block.getLootTable(), builder) == null, () -> "Duplicate LootTable for " + block);
 	}
 
 	@Override

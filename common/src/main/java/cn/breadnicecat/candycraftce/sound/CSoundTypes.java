@@ -14,7 +14,7 @@ import static cn.breadnicecat.candycraftce.sound.CSoundEvents.JELLY_DIG;
  * <p>
  */
 public class CSoundTypes {
-	public static final SoundType JELLY_FOOTSTEP = create(0.7F, 0.6F, JELLY_DIG);
+	public static final SoundType JELLY = create(0.7F, 0.6F, JELLY_DIG);
 
 	public static SoundType create(float volumeIn, float pitchIn, SoundEntry general) {
 		return create(volumeIn, pitchIn, general, general, general, general, general);

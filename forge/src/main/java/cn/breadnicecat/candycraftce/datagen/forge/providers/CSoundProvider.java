@@ -32,8 +32,8 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 		asMusicDisc(CSoundEvents.CD_3, prefix("cd-3"));
 		asMusicDisc(CSoundEvents.CD_4, prefix("cd-4"));
 		asMusicDisc(CSoundEvents.CD_WWWOOOWWW, prefix("wwwooowww"));
-		asStepSound(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
-		asBreakSound(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
+		simple(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
+		simple(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
 	}
 
 	public void asStepSound(SoundEntry sound, ResourceLocation... soundLocs) {
@@ -55,11 +55,20 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public void withSubtitle(SoundEntry sound, String subtitle, ResourceLocation... soundLocs) {
-		SoundDefinition definition = SoundDefinition.definition().subtitle(subtitle);
-		for (ResourceLocation loc : soundLocs) {
-			definition.with(SoundDefinition.Sound.sound(loc, SoundDefinition.SoundType.EVENT));
-		}
+		SoundDefinition definition = base(soundLocs).subtitle(subtitle);
 		add(sound, definition);
+	}
+
+	public void simple(SoundEntry sound, ResourceLocation... soundLocs) {
+		add(sound, base(soundLocs));
+	}
+
+	public SoundDefinition base(ResourceLocation... soundLocs) {
+		SoundDefinition definition = SoundDefinition.definition();
+		for (ResourceLocation loc : soundLocs) {
+			definition.with(SoundDefinition.Sound.sound(loc, SoundDefinition.SoundType.SOUND));
+		}
+		return definition;
 	}
 
 	public void add(SoundEntry sound, @NotNull SoundDefinition definition) {

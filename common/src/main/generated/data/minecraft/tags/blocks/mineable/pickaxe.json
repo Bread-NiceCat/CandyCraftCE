@@ -17,6 +17,14 @@
     "candycraftce:nougat_ore",
     "candycraftce:licorice_ore",
     "candycraftce:honeycomb_ore",
-    "candycraftce:pez_ore"
+    "candycraftce:pez_ore",
+    "candycraftce:licorice_block",
+    "candycraftce:licorice_brick",
+    "candycraftce:licorice_wall",
+    "candycraftce:licorice_brick_wall",
+    "candycraftce:licorice_slab",
+    "candycraftce:licorice_brick_slab",
+    "candycraftce:licorice_stairs",
+    "candycraftce:licorice_brick_stairs"
   ]
 }

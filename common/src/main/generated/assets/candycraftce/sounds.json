@@ -33,37 +33,17 @@
   },
   "jelly_dig": {
     "sounds": [
-      {
-        "type": "event",
-        "name": "candycraftce:jelly1"
-      },
-      {
-        "type": "event",
-        "name": "candycraftce:jelly2"
-      }
-    ],
-    "subtitle": "subtitles.block.generic.break"
+      "candycraftce:jelly1",
+      "candycraftce:jelly2"
+    ]
   },
   "jelly_step": {
     "sounds": [
-      {
-        "type": "event",
-        "name": "candycraftce:jelly1"
-      },
-      {
-        "type": "event",
-        "name": "candycraftce:jelly2"
-      },
-      {
-        "type": "event",
-        "name": "candycraftce:jelly3"
-      },
-      {
-        "type": "event",
-        "name": "candycraftce:jelly4"
-      }
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
+      "candycraftce:jelly1",
+      "candycraftce:jelly2",
+      "candycraftce:jelly3",
+      "candycraftce:jelly4"
+    ]
   },
   "wwwooowww": {
     "sounds": [

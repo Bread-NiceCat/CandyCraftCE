@@ -2,22 +2,27 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
+import com.google.common.collect.Sets;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 
 /**
  * Created in 2023/10/14 22:47
@@ -27,6 +32,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
  * <p>
  */
 public class CBlockStateProvider extends BlockStateProvider {
+	private static final Logger LOGGER = CLogUtils.getModLogger();
 	private final ExistingFileHelper exFileHelper;
 
 	public CBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -41,9 +47,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//cubeAll : *
 		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
-				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, LICORICE_BLOCK, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
+				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE
+				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -53,22 +59,27 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//wall : *
 		zone(() -> {
 			mapping("block/" + CANDY_CANE_WALL.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
+			mapping("block/" + LICORICE_WALL.getName(), "block/" + LICORICE_BLOCK.getName());
+			mapping("block/" + LICORICE_BRICK_WALL.getName(), "block/" + LICORICE_BRICK.getName());
 			accept(b -> {
 						ResourceLocation texture = modLoc("block/" + b.getName());
 						wallBlock(b.get(), texture);
 						itemModels().wallInventory(b.getName(), texture);
 					},
-					CANDY_CANE_WALL);
+					CANDY_CANE_WALL, LICORICE_WALL, LICORICE_BRICK_WALL);
 		});
 		//fence : *
 		zone(() -> {
 			mapping("block/" + CANDY_CANE_FENCE.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
+			mapping(blockTexture(MARSHMALLOW_FENCE.get()), blockTexture(MARSHMALLOW_PLANKS.get()));
+			mapping(blockTexture(LIGHT_MARSHMALLOW_FENCE.get()), blockTexture(LIGHT_MARSHMALLOW_PLANKS.get()));
+			mapping(blockTexture(DARK_MARSHMALLOW_FENCE.get()), blockTexture(DARK_MARSHMALLOW_PLANKS.get()));
 			accept(b -> {
 						ResourceLocation texture = modLoc("block/" + b.getName());
 						fenceBlock(b.get(), texture);
 						itemModels().fenceInventory(b.getName(), texture);
 					},
-					CANDY_CANE_FENCE);
+					CANDY_CANE_FENCE, MARSHMALLOW_FENCE, LIGHT_MARSHMALLOW_FENCE, DARK_MARSHMALLOW_FENCE);
 		});
 		//stair : *_side *_end
 		zone(() -> {
@@ -78,12 +89,22 @@ public class CBlockStateProvider extends BlockStateProvider {
 				mapping("block/" + stair + "_side", "block/" + block + "_side");
 				mapping("block/" + stair + "_end", "block/" + block + "_end");
 			}
+			BiConsumer<String, String> consumer = (stair, block) -> {
+				mapping("block/" + stair + "_side", "block/" + block);
+				mapping("block/" + stair + "_end", "block/" + block);
+			};
+			consumer.accept(LICORICE_STAIRS.getName(), LICORICE_BLOCK.getName());
+			consumer.accept(LICORICE_BRICK_STAIRS.getName(), LICORICE_BRICK.getName());
+			consumer.accept(MARSHMALLOW_STAIRS.getName(), MARSHMALLOW_PLANKS.getName());
+			consumer.accept(LIGHT_MARSHMALLOW_STAIRS.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
+			consumer.accept(DARK_MARSHMALLOW_STAIRS.getName(), DARK_MARSHMALLOW_PLANKS.getName());
 			accept(b -> {
-				ResourceLocation side = modLoc("block/" + b.getName() + "_side");
-				ResourceLocation end = modLoc("block/" + b.getName() + "_end");
-				stairsBlock(b.get(), side, end, end);
-				itemModels().stairs(b.getName(), side, end, end);
-			}, CANDY_CANE_STAIRS);
+						ResourceLocation side = modLoc("block/" + b.getName() + "_side");
+						ResourceLocation end = modLoc("block/" + b.getName() + "_end");
+						stairsBlock(b.get(), side, end, end);
+						itemModels().stairs(b.getName(), side, end, end);
+					}, CANDY_CANE_STAIRS, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
+					MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS);
 		});
 		//slab : *_side, *_end
 		zone(() -> {
@@ -93,17 +114,28 @@ public class CBlockStateProvider extends BlockStateProvider {
 				mapping("block/" + slab + "_side", "block/" + block + "_side");
 				mapping("block/" + slab + "_end", "block/" + block + "_end");
 			}
+			BiConsumer<String, String> consumer = (slab, block) -> {
+				String ori = "block/" + block;
+				mapping("block/" + slab + "_side", ori);
+				mapping("block/" + slab + "_end", ori);
+			};
+			consumer.accept(LICORICE_SLAB.getName(), LICORICE_BLOCK.getName());
+			consumer.accept(LICORICE_BRICK_SLAB.getName(), LICORICE_BRICK.getName());
+			consumer.accept(MARSHMALLOW_SLAB.getName(), MARSHMALLOW_PLANKS.getName());
+			consumer.accept(LIGHT_MARSHMALLOW_SLAB.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
+			consumer.accept(DARK_MARSHMALLOW_SLAB.getName(), DARK_MARSHMALLOW_PLANKS.getName());
 			accept(b -> {
-				String name = b.getName();
-				ResourceLocation side = modLoc("block/" + name + "_side");
-				ResourceLocation end = modLoc("block/" + name + "_end");
-				BlockModelBuilder slab = models().slab(name, side, end, end);
-				BlockModelBuilder slabTop = models().slabTop(name + "_top", side, end, end);
-				BlockModelBuilder full = models().cubeColumn(name + "_full", side, end);
-				SlabBlock block = b.get();
-				slabBlock(block, slab, slabTop, full);
-				simpleBlockItem(block, slab);
-			}, CANDY_CANE_SLAB);
+						String name = b.getName();
+						ResourceLocation side = modLoc("block/" + name + "_side");
+						ResourceLocation end = modLoc("block/" + name + "_end");
+						BlockModelBuilder slab = models().slab(name, side, end, end);
+						BlockModelBuilder slabTop = models().slabTop(name + "_top", side, end, end);
+						BlockModelBuilder full = models().cubeColumn(name + "_full", side, end);
+						SlabBlock block = b.get();
+						slabBlock(block, slab, slabTop, full);
+						simpleBlockItem(block, slab);
+					}, CANDY_CANE_SLAB, LICORICE_SLAB, LICORICE_BRICK_SLAB, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
+					DARK_MARSHMALLOW_SLAB);
 		});
 		//log *, *_top
 		accept(b -> {
@@ -118,15 +150,13 @@ public class CBlockStateProvider extends BlockStateProvider {
 			simpleBlock(block, models().cross(name, cross));
 			itemModels().withExistingParent(name, "item/generated").texture("layer0", cross);
 		}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING);
-		//================================//
+		/*================CUSTOM PART================*/
 		mappings = Map.of();//makes mapping disabled
 		{
 			String torchName = HONEYCOMB_TORCH.getName();
 			String wallName = WALL_HONEYCOMB_TORCH.getName();
 			TorchBlock torchBlock = HONEYCOMB_TORCH.get();
-			Item torchItem = torchBlock.asItem();
 			WallTorchBlock wallBlock = WALL_HONEYCOMB_TORCH.get();
-
 			ResourceLocation tex = modLoc("block/" + torchName);
 
 			BlockModelBuilder torchModel = models().withExistingParent(torchName, "block/template_torch")
@@ -236,9 +266,46 @@ public class CBlockStateProvider extends BlockStateProvider {
 		if (!(global instanceof HashMap<ResourceLocation, ResourceLocation>)) {
 			throw new IllegalStateException("Not a valid mapping map");
 		}
-		mappings = new HashMap<>();
+		var bs = new HashSet<>();
+		mappings = new HashMap<>() {
+			@Override
+			public ResourceLocation get(Object key) {
+				ResourceLocation v = super.get(key);
+				if (v != null) {
+					LOGGER.info("mapping: " + key + "\t->\t" + v);
+					bs.add(key);
+				}
+				return v;
+			}
+
+			@Override
+			public ResourceLocation getOrDefault(Object key, ResourceLocation defaultValue) {
+				ResourceLocation v = get(key);
+				return v != null ? v : defaultValue;
+			}
+		};
 		m.run();
+		if (bs.size() != mappings.size()) {
+			Sets.SetView<Object> view = Sets.difference(new HashSet<>(mappings.keySet()), bs);
+			throw new IllegalStateException("Never used mappings in zone:\n" + view);
+		}
 		mappings = global;
+	}
+
+	@Override
+	public VariantBlockStateBuilder getVariantBuilder(Block b) {
+		checkDuplicate(b);
+		return super.getVariantBuilder(b);
+	}
+
+	@Override
+	public MultiPartBlockStateBuilder getMultipartBuilder(Block b) {
+		checkDuplicate(b);
+		return super.getMultipartBuilder(b);
+	}
+
+	private void checkDuplicate(Block b) {
+		assertTrue(!registeredBlocks.containsKey(b), "Duplicate model for " + b);
 	}
 
 	@Override
@@ -269,14 +336,15 @@ public class CBlockStateProvider extends BlockStateProvider {
 
 	/**
 	 * 贴图位置映射
+	 * ori->dest
 	 *
 	 * @see #modLoc(String)
 	 */
-	private void mapping(ResourceLocation from, ResourceLocation to) {
-		mappings.put(from, to);
+	private void mapping(ResourceLocation ori, ResourceLocation dest) {
+		assertTrue(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
 	}
 
-	private void mapping(String from, String to) {
-		mapping(super.modLoc(from), super.modLoc(to));
+	private void mapping(String ori, String dest) {
+		mapping(super.modLoc(ori), super.modLoc(dest));
 	}
 }

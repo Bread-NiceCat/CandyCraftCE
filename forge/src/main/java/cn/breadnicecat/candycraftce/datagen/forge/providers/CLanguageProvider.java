@@ -12,11 +12,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 
 /**
  * Created in 2023/8/22 21:05
@@ -30,6 +32,7 @@ public class CLanguageProvider implements DataProvider {
 	private final EnUsCLanguageProvider enProv;
 	private final ZhCnCLanguageProvider zhProv;
 	private final Set<LanguageProvider> subs;
+	private final Set<String> existKeys = new HashSet<>();
 
 	public CLanguageProvider(PackOutput output) {
 		subs = Set.of(
@@ -137,7 +140,6 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CHOCOLATE_FURNACE, "巧克力熔炉");
 		addBlockById(SUGAR_FACTORY, "制糖机");
 		addBlockById(ADVANCED_SUGAR_FACTORY, "高级制糖机");
-		addBlockById(LICORICE_BLOCK, "盐甘草糖块");
 		addBlockById(ALCHEMY_MIXER, "炼金搅拌器");
 		addBlockById(MARSHMALLOW_LOG, "棉花软糖原木");
 		addBlockById(LIGHT_MARSHMALLOW_LOG, "浅色棉花软糖原木");
@@ -159,8 +161,23 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(WHITE_CHOCOLATE_SAPLING, "白巧克力树苗");
 		addBlockById(CARAMEL_SAPLING, "焦糖树苗");
 		addBlockById(CANDIED_CHERRY_SAPLING, "蜜饯樱桃树苗");
-
-
+		addBlockById(LICORICE_BLOCK, "盐甘草糖块");
+		addBlockById(LICORICE_WALL, "盐甘草糖墙");
+		addBlockById(LICORICE_SLAB, "盐甘草糖台阶");
+		addBlockById(LICORICE_STAIRS, "盐甘草糖楼梯");
+		addBlockById(LICORICE_BRICK, "盐甘草糖砖");
+		addBlockById(LICORICE_BRICK_WALL, "盐甘草糖砖墙");
+		addBlockById(LICORICE_BRICK_SLAB, "盐甘草糖砖台阶");
+		addBlockById(LICORICE_BRICK_STAIRS, "盐甘草糖砖楼梯");
+		addBlockById(MARSHMALLOW_FENCE, "棉花软糖栅栏");
+		addBlockById(LIGHT_MARSHMALLOW_FENCE, "浅色棉花软糖栅栏");
+		addBlockById(DARK_MARSHMALLOW_FENCE, "深色棉花软糖栅栏");
+		addBlockById(MARSHMALLOW_SLAB, "棉花软糖台阶");
+		addBlockById(LIGHT_MARSHMALLOW_SLAB, "浅色棉花软糖台阶");
+		addBlockById(DARK_MARSHMALLOW_SLAB, "深色棉花软糖台阶");
+		addBlockById(MARSHMALLOW_STAIRS, "棉花软糖楼梯");
+		addBlockById(LIGHT_MARSHMALLOW_STAIRS, "浅色棉花软糖楼梯");
+		addBlockById(DARK_MARSHMALLOW_STAIRS, "深色棉花软糖楼梯");
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {
@@ -180,6 +197,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 
 	public void add(String key, String en_us, String zh_cn) {
+		assertTrue(existKeys.add(key), () -> "Duplicate key: " + key);
 		enProv.add(key, en_us);
 		zhProv.add(key, zh_cn);
 	}
@@ -215,6 +233,6 @@ public class CLanguageProvider implements DataProvider {
 
 	@Override
 	public @NotNull String getName() {
-		return "CandyCraft CE Language Provider";
+		return "CandyCraftCE Languages";
 	}
 }

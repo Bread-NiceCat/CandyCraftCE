@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "candycraftce:block/light_marshmallow_planks",
+    "side": "candycraftce:block/light_marshmallow_planks"
+  }
+}

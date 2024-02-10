@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"body": "candycraftce:block/pez_pot"
+		"body": "candycraftce:block/alchemy_mixer"
 	},
 	"elements": [
 		{

@@ -6,6 +6,15 @@
     "candycraftce:light_marshmallow_log",
     "candycraftce:marshmallow_planks",
     "candycraftce:light_marshmallow_planks",
-    "candycraftce:dark_marshmallow_planks"
+    "candycraftce:dark_marshmallow_planks",
+    "candycraftce:marshmallow_fence",
+    "candycraftce:light_marshmallow_fence",
+    "candycraftce:dark_marshmallow_fence",
+    "candycraftce:marshmallow_slab",
+    "candycraftce:light_marshmallow_slab",
+    "candycraftce:dark_marshmallow_slab",
+    "candycraftce:marshmallow_stairs",
+    "candycraftce:light_marshmallow_stairs",
+    "candycraftce:dark_marshmallow_stairs"
   ]
 }

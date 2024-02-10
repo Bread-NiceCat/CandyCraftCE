@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "candycraftce:block/licorice_brick_slab"
+    },
+    "type=double": {
+      "model": "candycraftce:block/licorice_brick_slab_full"
+    },
+    "type=top": {
+      "model": "candycraftce:block/licorice_brick_slab_top"
+    }
+  }
+}
