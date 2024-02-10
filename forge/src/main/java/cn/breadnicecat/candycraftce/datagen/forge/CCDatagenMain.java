@@ -38,6 +38,7 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeServer(), new CItemTagsProvider(pack, lookup, blocktag.contentsGetter(), efhelper));
 		generator.addProvider(evt.includeServer(), new CLootTableProvider(pack));
 		generator.addProvider(evt.includeServer(), new CRecipeProvider(pack));
+		generator.addProvider(evt.includeServer(), new CDatapackBuiltinEntriesProvider(pack, lookup));
 
 		generator.addProvider(evt.includeClient(), new CLanguageProvider(pack));
 		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));

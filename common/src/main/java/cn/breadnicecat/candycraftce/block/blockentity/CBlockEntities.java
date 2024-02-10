@@ -5,7 +5,6 @@ import cn.breadnicecat.candycraftce.block.blockentity.entities.ChocolateFurnaceB
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFactoryBE;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import org.slf4j.Logger;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
@@ -27,7 +26,6 @@ public class CBlockEntities {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 
 

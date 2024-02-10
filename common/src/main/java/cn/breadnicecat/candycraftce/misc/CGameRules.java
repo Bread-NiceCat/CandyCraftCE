@@ -19,7 +19,6 @@ public class CGameRules {
 	public static final GameRules.Key<GameRules.BooleanValue> CARAMEL_PORTAL_WORKS = register("doCaramelPortalWorks", GameRules.Category.UPDATES, GameRules.BooleanValue.create(true));
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 
 	@ExpectPlatform

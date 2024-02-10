@@ -12,6 +12,11 @@
     "candycraftce:chocolate_furnace",
     "candycraftce:sugar_factory",
     "candycraftce:advanced_sugar_factory",
-    "candycraftce:alchemy_mixer"
+    "candycraftce:alchemy_mixer",
+    "candycraftce:jelly_ore",
+    "candycraftce:nougat_ore",
+    "candycraftce:licorice_ore",
+    "candycraftce:honeycomb_ore",
+    "candycraftce:pez_ore"
   ]
 }

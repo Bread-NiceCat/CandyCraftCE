@@ -176,7 +176,6 @@ public class CItems {
 	}
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 
 	private static <I> Function<Properties, I> higher(Supplier<I> sup) {

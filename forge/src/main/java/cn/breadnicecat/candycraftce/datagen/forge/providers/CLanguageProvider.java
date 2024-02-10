@@ -148,8 +148,17 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(WHITE_CHOCOLATE_LEAVES, "白巧克力树叶");
 		addBlockById(CARAMEL_LEAVES, "焦糖树叶");
 		addBlockById(CANDIED_CHERRY_LEAVES, "蜜饯樱桃树叶");
-		addBlockById(MAGIC_SUGAR_LEAVES, "魔法糖树叶");
+		addBlockById(MAGIC_LEAVES, "魔法树叶");
 		addBlockById(HONEYCOMB_TORCH, "蜜蜡火把");
+		addBlockById(JELLY_ORE, "果冻矿石");
+		addBlockById(NOUGAT_ORE, "牛轧糖矿石");
+		addBlockById(LICORICE_ORE, "盐甘草糖矿石");
+		addBlockById(HONEYCOMB_ORE, "蜜蜡矿石");
+		addBlockById(PEZ_ORE, "皮礼士糖矿石");
+		addBlockById(CHOCOLATE_SAPLING, "巧克力树苗");
+		addBlockById(WHITE_CHOCOLATE_SAPLING, "白巧克力树苗");
+		addBlockById(CARAMEL_SAPLING, "焦糖树苗");
+		addBlockById(CANDIED_CHERRY_SAPLING, "蜜饯樱桃树苗");
 
 
 	}

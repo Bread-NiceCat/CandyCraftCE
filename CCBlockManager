@@ -64,24 +64,24 @@ HELPER.batch((n, a) -> new BlockCandySapling((AbstractTreeGrower) a[0]), (n, b, 
                 .addElement(MAGIC_LEAVES)
                 .register();
 
-    //火把
-    HELPER.single(HONEYCOMB_TORCH, () -> new TorchBlock(Properties.copy(Blocks.TORCH), ParticleTypes.FLAME),
-            LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(WALL_HONEYCOMB_TORCH, () -> new WallTorchBlock(Properties.copy(Blocks.WALL_TORCH).lootFrom(HONEYCOMB_TORCH), ParticleTypes.FLAME),
-            LOOT_NONE, RENDERER_TYPE_CUTOUT, EXCLUDE_AUTO_GENERATE_LANG);
-    HELPER.BLOCKITEM_HELPER.single(HONEYCOMB_TORCH, () -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.getBlock(), WALL_HONEYCOMB_TORCH.getBlock(), defaultItemProperties()),
-            EXCLUDE_AUTO_GENERATE_LANG);
-    //矿物
-    HELPER.single(JELLY_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(NOUGAT_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_ORE), UniformInt.of(1, 5)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE);
-    HELPER.single(LICORICE_ORE, () -> new OreBlock(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(HONEYCOMB_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_ORE), UniformInt.of(0, 3)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE);
-    HELPER.single(PEZ_ORE, () -> new OreBlock(Properties.copy(Blocks.DIAMOND_ORE)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        //火把
+        HELPER.single(HONEYCOMB_TORCH, () -> new TorchBlock(Properties.copy(Blocks.TORCH), ParticleTypes.FLAME),
+                LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        HELPER.single(WALL_HONEYCOMB_TORCH, () -> new WallTorchBlock(Properties.copy(Blocks.WALL_TORCH).lootFrom(HONEYCOMB_TORCH), ParticleTypes.FLAME),
+                LOOT_NONE, RENDERER_TYPE_CUTOUT, EXCLUDE_AUTO_GENERATE_LANG);
+        HELPER.BLOCKITEM_HELPER.single(HONEYCOMB_TORCH, () -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.getBlock(), WALL_HONEYCOMB_TORCH.getBlock(), defaultItemProperties()),
+                EXCLUDE_AUTO_GENERATE_LANG);
+        //矿物
+        HELPER.single(JELLY_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(NOUGAT_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_ORE), UniformInt.of(1, 5)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE);
+        HELPER.single(LICORICE_ORE, () -> new OreBlock(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(HONEYCOMB_ORE, () -> new OreBlock(Properties.copy(Blocks.IRON_ORE), UniformInt.of(0, 3)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_STONE_TOOL, VTAG_MINEABLE_WITH_PICKAXE);
+        HELPER.single(PEZ_ORE, () -> new OreBlock(Properties.copy(Blocks.DIAMOND_ORE)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
 
 
     HELPER.single(LICORICE_BLOCK, () -> new Block(Properties.copy(Blocks.STONE)), CCBlockManager::simpleBlockItem,

@@ -29,6 +29,5 @@ public final class CSoundEvents {
 	}
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 }

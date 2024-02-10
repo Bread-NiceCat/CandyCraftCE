@@ -7,12 +7,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_SHARD;
+import static cn.breadnicecat.candycraftce.item.CItems.NOUGAT_POWDER;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.world.item.Items.SUGAR;
 
@@ -39,15 +42,21 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS,
 				MARSHMALLOW_CRAFTING_TABLE, LICORICE_FURNACE, CHOCOLATE_FURNACE, SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY,
 				LICORICE_BLOCK, ALCHEMY_MIXER, MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG,
-				MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS, DARK_MARSHMALLOW_PLANKS, HONEYCOMB_TORCH
+				MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS, DARK_MARSHMALLOW_PLANKS, HONEYCOMB_TORCH,
+				JELLY_ORE, LICORICE_ORE, PEZ_ORE, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
+				CANDIED_CHERRY_SAPLING
 		);
 		accept(m -> add(m, noDrop()),
 				CARAMEL_PORTAL, WALL_HONEYCOMB_TORCH
-				//TEMP
-				, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES, MAGIC_SUGAR_LEAVES
+				, MAGIC_LEAVES
 		);
-
-		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.get(), SUGAR, ConstantValue.exactly(4f)));
+		add(CHOCOLATE_LEAVES.get(), createLeavesDrops(CHOCOLATE_LEAVES.get(), CHOCOLATE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		add(WHITE_CHOCOLATE_LEAVES.get(), createLeavesDrops(WHITE_CHOCOLATE_LEAVES.get(), WHITE_CHOCOLATE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		add(CARAMEL_LEAVES.get(), createLeavesDrops(CARAMEL_LEAVES.get(), CARAMEL_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		add(CANDIED_CHERRY_LEAVES.get(), createLeavesDrops(CANDIED_CHERRY_LEAVES.get(), CANDIED_CHERRY_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		add(NOUGAT_ORE, createSingleItemTable(NOUGAT_POWDER, UniformGenerator.between(2, 5)));
+		add(HONEYCOMB_ORE, createSingleItemTable(HONEYCOMB_SHARD, UniformGenerator.between(2, 5)));
+		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.get(), SUGAR, ConstantValue.exactly(4)));
 		otherWhenSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get());
 		otherWhenSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get());
 		dropOther(PUDDING_FARMLAND.get(), PUDDING.get());

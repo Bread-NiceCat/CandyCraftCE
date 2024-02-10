@@ -14,12 +14,12 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CBlockTags {
-	public static final TagKey<Block> CARAMEL_PORTAL_FRAME = cbind("caramel_portal_frame");
-	public static final TagKey<Block> CANDY_PLANT_CAN_ON = cbind("candy_plant_can_on");
-	public static final TagKey<Block> CANDY_LOGS = cbind("candy_logs");
-	public static final TagKey<Block> CANDY_PLANKS = cbind("candy_planks");
+	public static final TagKey<Block> CARAMEL_PORTAL_FRAME = bind("caramel_portal_frame");
+	public static final TagKey<Block> CANDY_PLANT_CAN_ON = bind("candy_plant_can_on");
+	public static final TagKey<Block> CANDY_LOGS = bind("candy_logs");
+	public static final TagKey<Block> CANDY_PLANKS = bind("candy_planks");
 
-	private static TagKey<Block> cbind(String name) {
+	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, prefix(name));
 	}
 }

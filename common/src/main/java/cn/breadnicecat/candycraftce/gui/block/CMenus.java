@@ -37,7 +37,6 @@ public class CMenus {
 	public static final MenuEntry<AdvancedSugarFactoryMenu> ADVANCED_SUGAR_FACTORY_MENU = register(ADVANCED_SUGAR_FACTORY_BE.getName(), AdvancedSugarFactoryMenu::new);
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 
 	@Environment(EnvType.CLIENT)

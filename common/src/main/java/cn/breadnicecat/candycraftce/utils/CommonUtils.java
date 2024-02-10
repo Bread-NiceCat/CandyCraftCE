@@ -4,7 +4,6 @@ import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 import java.util.Objects;
 import java.util.Random;
@@ -122,12 +121,12 @@ public class CommonUtils {
 	}
 
 	public static <T> T impossible() {
-		throw new AssertionError("impossible");
+		throw new AssertionError("impossible code block, it's a BUG, please submit the issue");
 	}
 
-	public static void logInit(Logger logger) {
-		logger.info("init");
-	}
+//	public static void onInit(Logger logger) {
+//		logger.info("init");
+//	}
 
 	public static <T> T make(@NotNull Supplier<T> factory) {
 		return factory.get();

@@ -18,4 +18,7 @@ public class CDims {
 	//	public static final ResourceKey<Level> CANDYLAND = ResourceKey.create(Registries.DIMENSION, ResourceUtils.prefix("candyland"));
 	public static final ResourceKey<Level> CANDYLAND = Level.END;
 	public static final ResourceKey<Level> THE_DUNGEON = ResourceKey.create(Registries.DIMENSION, ResourceUtils.prefix("the_dungeon"));
+
+	public static void init() {
+	}
 }

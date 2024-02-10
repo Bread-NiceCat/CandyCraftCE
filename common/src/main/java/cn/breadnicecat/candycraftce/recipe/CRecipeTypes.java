@@ -37,6 +37,5 @@ public class CRecipeTypes {
 	}
 
 	public static void init() {
-		CommonUtils.logInit(LOGGER);
 	}
 }

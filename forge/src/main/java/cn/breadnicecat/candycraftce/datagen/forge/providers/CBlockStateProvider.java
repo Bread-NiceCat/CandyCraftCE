@@ -43,7 +43,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
 				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, LICORICE_BLOCK, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-				MAGIC_SUGAR_LEAVES
+				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -111,7 +111,13 @@ public class CBlockStateProvider extends BlockStateProvider {
 			logBlock(block);
 			simpleBlockItem(block, existModelFile(block));
 		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
-
+		accept(b -> {
+			SaplingBlock block = b.get();
+			ResourceLocation cross = blockTexture(block);
+			String name = b.getName();
+			simpleBlock(block, models().cross(name, cross));
+			itemModels().withExistingParent(name, "item/generated").texture("layer0", cross);
+		}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING);
 		//================================//
 		mappings = Map.of();//makes mapping disabled
 		{
@@ -183,7 +189,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			String name = CUSTARD_PUDDING.getName();
 			BlockModelBuilder common = models().cubeBottomTop(name,
 					modLoc("block/" + name + "_side"),
-					modLoc("block/" + PUDDING.getName()),
+					blockTexture(PUDDING.get()),
 					modLoc("block/" + name + "_top"));
 			Block block = CUSTARD_PUDDING.get();
 			simpleBlockWithItem(block, common);

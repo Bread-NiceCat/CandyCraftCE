@@ -1,5 +1,9 @@
 {
   "values": [
-    "candycraftce:magic_sugar_leaves"
+    "candycraftce:white_chocolate_leaves",
+    "candycraftce:magic_leaves",
+    "candycraftce:chocolate_leaves",
+    "candycraftce:caramel_leaves",
+    "candycraftce:candied_cherry_leaves"
   ]
 }

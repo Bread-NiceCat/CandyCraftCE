@@ -22,7 +22,7 @@ public class CandySaplingBlock extends SaplingBlock {
 	protected CandySaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
-	
+
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
@@ -42,4 +42,5 @@ public class CandySaplingBlock extends SaplingBlock {
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(CBlockTags.CANDY_PLANT_CAN_ON);
 	}
+
 }

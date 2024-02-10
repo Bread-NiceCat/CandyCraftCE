@@ -4,6 +4,7 @@ import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.gui.block.CMenus;
 import cn.breadnicecat.candycraftce.item.CItems;
+import cn.breadnicecat.candycraftce.level.CDims;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
@@ -63,6 +64,8 @@ public final class CandyCraftCE {
 		}
 		LOGGER.info("=".repeat(50));
 
+		//防止链式调用未进行导致某些类不会被初始化，不计顺序
+		CDims.init();
 		CItems.init();
 		CMenus.init();
 		CBlocks.init();
@@ -70,7 +73,6 @@ public final class CandyCraftCE {
 		CRecipeTypes.init();
 		CSoundEvents.init();
 		CBlockEntities.init();
-
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
 
