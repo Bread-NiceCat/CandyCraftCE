@@ -3,6 +3,10 @@
     "candycraftce:jelly_ore",
     "candycraftce:nougat_ore",
     "candycraftce:pez_ore",
-    "candycraftce:alchemy_mixer"
+    "candycraftce:alchemy_mixer",
+    "candycraftce:nougat_block",
+    "candycraftce:nougat_head",
+    "candycraftce:honeycomb_block",
+    "candycraftce:pez_block"
   ]
 }

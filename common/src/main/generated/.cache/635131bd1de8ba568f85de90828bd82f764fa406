@@ -1,16 +1,17 @@
-// 1.20.1	2024-02-10T23:55:23.5058259	Tags for minecraft:block mod id candycraftce
+// 1.20.1	2024-02-13T10:55:00.0062881	Tags for minecraft:block mod id candycraftce
 96fde7f4b4cef4e4bcceca56752e1815e702f18d data/candycraftce/tags/blocks/candy_logs.json
 a2a5036f2c6edbf2fd36f31af4a321ee79da4a9b data/candycraftce/tags/blocks/candy_planks.json
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/blocks/candy_plant_can_on.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/blocks/caramel_portal_frame.json
+e2f51ab5e1647ef130148f4533afba97f4cfce61 data/minecraft/tags/blocks/climbable.json
 4fc00cb442e2166900e5cee7d1650aef7b680f27 data/minecraft/tags/blocks/fences.json
 7ebb2682cb13ff47e9161e060975e281c25bc215 data/minecraft/tags/blocks/leaves.json
 96fde7f4b4cef4e4bcceca56752e1815e702f18d data/minecraft/tags/blocks/logs.json
-94b0c69d2336fa736ff6c7a593e6315c7c589853 data/minecraft/tags/blocks/mineable/axe.json
-5133f757f7da7a6a5f09a3700693072946fc372f data/minecraft/tags/blocks/mineable/pickaxe.json
+73b34c3145334cac8770b42b135eb4def227e681 data/minecraft/tags/blocks/mineable/axe.json
+40610e1a10ac920ea35319105b25cba7ed1b3582 data/minecraft/tags/blocks/mineable/pickaxe.json
 277bdf7b6e0403ed139490f15690d8791d80702a data/minecraft/tags/blocks/mineable/shovel.json
-41bd7ecf43761d965f84cc7c9696bf5f35e4a127 data/minecraft/tags/blocks/needs_iron_tool.json
-afe28f0d00bb30f885cf381fe50732ad3eb908d9 data/minecraft/tags/blocks/needs_stone_tool.json
+ab55365bbde505b88fbea580fb974ce1c621149d data/minecraft/tags/blocks/needs_iron_tool.json
+0866c65b76df62f96902b02bafa7ef3c6c729b0d data/minecraft/tags/blocks/needs_stone_tool.json
 47f5b6a1c72b6e8aa97d5cd3fa0068e55b368e17 data/minecraft/tags/blocks/portals.json
 2746dfff36fbddda6810cd9f564b3319691394de data/minecraft/tags/blocks/slabs.json
 0263b7515039aa04024ab28ec1b517634d65861b data/minecraft/tags/blocks/walls.json

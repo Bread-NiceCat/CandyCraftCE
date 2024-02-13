@@ -18,9 +18,30 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class CandySaplingBlock extends SaplingBlock {
+public class CandySaplingBlock extends SaplingBlock implements ISugarTarget {
 	protected CandySaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
+	}
+
+
+	@Override
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.is(CBlockTags.CANDY_PLANT_CAN_ON);
+	}
+
+	@Override
+	public boolean isValidSugarTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+		return true;
+	}
+
+	@Override
+	public boolean isSugarSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state) {
+		return rand.nextFloat() < 0.45;
+	}
+
+	@Override
+	public void performSugar(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
+		advanceTree(level, pos, state, rand);
 	}
 
 
@@ -37,10 +58,4 @@ public class CandySaplingBlock extends SaplingBlock {
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 	}
-
-	@Override
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(CBlockTags.CANDY_PLANT_CAN_ON);
-	}
-
 }

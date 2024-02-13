@@ -49,7 +49,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 				SUGAR_BLOCK, CARAMEL_BLOCK, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, PUDDING,
 				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK
+				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
+				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -143,15 +144,34 @@ public class CBlockStateProvider extends BlockStateProvider {
 			logBlock(block);
 			simpleBlockItem(block, existModelFile(block));
 		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
+		//cross
 		accept(b -> {
-			SaplingBlock block = b.get();
-			ResourceLocation cross = blockTexture(block);
-			String name = b.getName();
-			simpleBlock(block, models().cross(name, cross));
-			itemModels().withExistingParent(name, "item/generated").texture("layer0", cross);
-		}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING);
+					Block block = b.get();
+					ResourceLocation cross = blockTexture(block);
+					String name = b.getName();
+					simpleBlock(block, models().cross(name, cross));
+					generatedItem(name, cross);
+				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
+				COTTON_CANDY_WEB
+		);
 		/*================CUSTOM PART================*/
 		mappings = Map.of();//makes mapping disabled
+		{
+			String name = MARSHMALLOW_LADDER.getName();
+			ResourceLocation tex = modLoc("block/" + name);
+			BlockModelBuilder m = models().withExistingParent(name, "block/ladder")
+					.texture("texture", tex)
+					.texture("particle", tex);
+			horizontalBlock(MARSHMALLOW_LADDER.get(), m);
+			generatedItem(name, tex);
+		}
+		//口香糖片
+		{
+			ChewingGumPuddleBlock block = CHEWING_GUM_PUDDLE.get();
+			simpleBlock(block, existModelFile(block));
+			generatedItem(CHEWING_GUM_PUDDLE.getName(), blockTexture(block));
+		}
+		//火把
 		{
 			String torchName = HONEYCOMB_TORCH.getName();
 			String wallName = WALL_HONEYCOMB_TORCH.getName();
@@ -165,7 +185,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					.texture("torch", tex);
 			simpleBlock(torchBlock, torchModel);
 			horizontalBlock(wallBlock, wallModel, 90);
-			itemModels().withExistingParent(HONEYCOMB_TORCH_ITEM.getName(), "item/generated").texture("layer0", tex);
+			generatedItem(HONEYCOMB_TORCH_ITEM.getName(), tex);
 		}
 		//炼金搅拌器
 		{
@@ -253,6 +273,14 @@ public class CBlockStateProvider extends BlockStateProvider {
 							.build()
 			);
 		}
+	}
+
+	private ItemModelBuilder generatedItem(String name, ResourceLocation... tex) {
+		ItemModelBuilder builder = itemModels().withExistingParent(name, "item/generated");
+		for (int i = 0; i < tex.length; i++) {
+			builder.texture("layer" + i, tex[i]);
+		}
+		return builder;
 	}
 
 	public Map<ResourceLocation, ResourceLocation> mappings = Map.of();

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/ladder",
+  "textures": {
+    "particle": "candycraftce:block/marshmallow_ladder",
+    "texture": "candycraftce:block/marshmallow_ladder"
+  }
+}

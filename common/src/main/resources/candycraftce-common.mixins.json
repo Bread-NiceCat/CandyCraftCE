@@ -8,6 +8,7 @@
   "mixins": [
 	"MixinEntity",
 	"MixinFarmBlock",
+	"MixinItem",
 	"MixinLivingEntity"
   ],
   "injectors": {

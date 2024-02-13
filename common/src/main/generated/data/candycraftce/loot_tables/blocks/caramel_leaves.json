@@ -126,7 +126,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "minecraft:stick"
+          "name": "candycraftce:marshmallow_stick"
         }
       ],
       "rolls": 1.0

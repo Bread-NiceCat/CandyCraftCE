@@ -1,16 +1,41 @@
+# Candycraft Community Edition
+
 <hr>
 
-# Candycraftce Unofficial
+## Languages
+
+[English][[简体中文]](README_cn.md)
 
 <hr>
 
 ## Licence
 
-#### GPLv3(GNU General Public License v3.0)
+The mod is distributed under [LGPLv3](LICENSE).
 
 <hr>
 
-## Linking
+## Download
 
-##### Official Repository(1.12.2-1.15.2):https://gitlab.com/Cryptic-Mushroom/Candycraftce-Archived/
+- Latest but **unstable**
+  version([Workflow](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
+- ~~Compile your self by following some steps [here](#compilation)~~
+
+<hr>
+
+## Compilation
+
+1. Simply execute the following command in project root directory:
+    1. `./gradlew build`
+    2. `./gradlew drawJars`
+2. Check products in `build/buildJars/modJars`
+
+***NOTE***: if `BUILD FAILED` or *Unable to download wrapper*, please refer to [Customized](#Customized)
+<hr>
+
+## Customized
+
+Due to the difference of location,you'll need to change some options.
+
+1. [gradle-wrapper.properties](gradle/wrapper/gradle-wrapper.properties) `distributionUrl`
+2. [gradle.properties](gradle.properties) `enable_jbr`,`enable_cn_repo`
 

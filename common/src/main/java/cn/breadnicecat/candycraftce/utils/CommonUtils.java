@@ -26,20 +26,6 @@ public class CommonUtils {
 		return random.nextInt(denominator + 1) == 0;
 	}
 
-	/**
-	 * @param denominator P=1/denominator
-	 */
-	public static boolean probability(Random random, int denominator) {
-		return random.nextInt(denominator + 1) == 0;
-	}
-
-	/**
-	 * @param denominator P=1/denominator
-	 */
-	public static boolean probability(int denominator) {
-		return probability(RANDOM, denominator);
-	}
-
 
 	public static Class<?> getCaller() {
 		return getCaller(4);//因为要再调用getCaller(int)所以要+1

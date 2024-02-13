@@ -98,27 +98,27 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
         HELPER.single(LICORICE_BRICK_STAIRS, () -> new StairBlock(LICORICE_BLOCK.getBlock().defaultBlockState(), Properties.copy(CANDY_CANE_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
                 MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
-    HELPER.single(NOUGAT_BLOCK, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(NOUGAT_HEAD, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(NOUGAT_BLOCK, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(NOUGAT_HEAD, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_IRON_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
 
-    HELPER.single(HONEYCOMB_BLOCK, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_DIAMOND_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
-    HELPER.single(HONEYCOMB_LAMP, () -> new Block(Properties.copy(Blocks.GLOWSTONE).strength(1F)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(HONEYCOMB_BLOCK, () -> new Block(Properties.copy(Blocks.IRON_BLOCK)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_DIAMOND_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(HONEYCOMB_LAMP, () -> new Block(Properties.copy(Blocks.GLOWSTONE).strength(1F)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
 
-    HELPER.single(PEZ_BLOCK, () -> new Block(Properties.copy(Blocks.DIAMOND_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, VTAG_NEEDS_DIAMOND_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
+        HELPER.single(PEZ_BLOCK, () -> new Block(Properties.copy(Blocks.DIAMOND_BLOCK)), CCBlockManager::simpleBlockItem,
+                MODEL_SIMPLE, VTAG_NEEDS_DIAMOND_TOOL, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF);
 
-    //蜘蛛网
-    HELPER.single(COTTON_CANDY_WEB, () -> new WebBlock(Properties.copy(Blocks.COBWEB)), CCBlockManager::simpleBlockItem,
-            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
-    HELPER.single(CHEWING_GUM_PUDDLE, BlockChewingGumPuddle::new, CCBlockManager::simpleBlockItem,
-            MODEL_EXIST, MODEL_EXCLUDE_ITEM, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    //梯子
-    HELPER.single(MARSHMALLOW_LADDER, () -> new LadderBlock(Properties.copy(Blocks.LADDER)), CCBlockManager::simpleBlockItem,
-            VTAG_CLIMBABLE, VTAG_MINEABLE_WITH_AXE, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        //蜘蛛网
+        HELPER.single(COTTON_CANDY_WEB, () -> new WebBlock(Properties.copy(Blocks.COBWEB)), CCBlockManager::simpleBlockItem,
+                MODEL_CROSS, RENDERER_TYPE_CUTOUT);
+        HELPER.single(CHEWING_GUM_PUDDLE, BlockChewingGumPuddle::new, CCBlockManager::simpleBlockItem,
+                MODEL_EXIST, MODEL_EXCLUDE_ITEM, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+        //梯子
+        HELPER.single(MARSHMALLOW_LADDER, () -> new LadderBlock(Properties.copy(Blocks.LADDER)), CCBlockManager::simpleBlockItem,
+                VTAG_CLIMBABLE, VTAG_MINEABLE_WITH_AXE, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
     //门
     HELPER.batch((n, b) -> new DoorBlock(Properties.copy(Blocks.OAK_DOOR)), CCBlockManager::simpleBlockItem,
                     MODEL_SP_DOOR, LOOT_SP_DOOR, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)

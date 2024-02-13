@@ -1,6 +1,5 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -27,7 +26,7 @@ public class CaramelSaplingBlock extends CandySaplingBlock {
 		super(new AbstractTreeGrower() {
 			@Override
 			protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return CommonUtils.probability(random, 20) ? CARAMEL_FANCY_TREE : CARAMEL_TREE;
+				return random.nextFloat() < 0.1 ? CARAMEL_FANCY_TREE : CARAMEL_TREE;
 			}
 		}, properties);
 	}

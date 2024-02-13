@@ -86,13 +86,18 @@ public class CBlocks {
 	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(STONE, null).save();
 	public static final BlockEntry<Block> LICORICE_BLOCK = create("licorice_block").setProperties(Blocks.COAL_BLOCK, null).save();
 	public static final BlockEntry<Block> LICORICE_BRICK = create("licorice_brick").setProperties(LICORICE_BLOCK, null).save();
+	public static final BlockEntry<Block> NOUGAT_BLOCK = create("nougat_block").setProperties(IRON_BLOCK, null).save();
+	public static final BlockEntry<Block> NOUGAT_HEAD = create("nougat_head").setProperties(NOUGAT_BLOCK, null).save();
+	public static final BlockEntry<Block> HONEYCOMB_BLOCK = create("honeycomb_block").setProperties(IRON_BLOCK, null).save();
+	public static final BlockEntry<Block> HONEYCOMB_LAMP = create("honeycomb_lamp").setProperties(GLOWSTONE, p -> p.strength(1.5f)).save();
+	public static final BlockEntry<Block> PEZ_BLOCK = create("pez_block").setProperties(DIAMOND_BLOCK, p -> p.strength(1.5f)).save();
 
 	public static final BlockEntry<MarshmallowCraftingTableBlock> MARSHMALLOW_CRAFTING_TABLE = create("marshmallow_crafting_table", MarshmallowCraftingTableBlock::new).setProperties(Blocks.CRAFTING_TABLE, null).save();
 	public static final BlockEntry<LicoriceFurnaceBlock> LICORICE_FURNACE = create("licorice_furnace", LicoriceFurnaceBlock::new).setProperties(Blocks.FURNACE, null).save();
 	public static final BlockEntry<ChocolateFurnaceBlock> CHOCOLATE_FURNACE = create("chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(LICORICE_FURNACE, null).save();
 	public static final BlockEntry<SugarFactoryBlock> SUGAR_FACTORY = create("sugar_factory", SugarFactoryBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<AdvancedSugarFactoryBlock> ADVANCED_SUGAR_FACTORY = create("advanced_sugar_factory", AdvancedSugarFactoryBlock::new).setProperties(SUGAR_FACTORY, null).save();
-	////TODO AlchemyMixer functions
+	//TODO AlchemyMixer functions
 	public static final BlockEntry<AlchemyMixerBlock> ALCHEMY_MIXER = create("alchemy_mixer", AlchemyMixerBlock::new).setProperties(ANVIL, null).save();
 
 	public static final BlockEntry<FenceBlock> MARSHMALLOW_FENCE = create("marshmallow_fence", FenceBlock::new).setProperties(MARSHMALLOW_PLANKS, null).save();
@@ -118,7 +123,10 @@ public class CBlocks {
 	public static final BlockEntry<StairBlock> LICORICE_STAIRS = stairBlock("licorice_stairs", LICORICE_BLOCK::defaultBlockState).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_BRICK_STAIRS = stairBlock("licorice_brick_stairs", LICORICE_BRICK::defaultBlockState).setProperties(LICORICE_BRICK, null).save();
 
-	//invisible
+	public static final BlockEntry<WebBlock> COTTON_CANDY_WEB = create("cotton_candy_web", WebBlock::new).setProperties(COBWEB, null).save();
+	public static final BlockEntry<ChewingGumPuddleBlock> CHEWING_GUM_PUDDLE = create("chewing_gum_puddle", ChewingGumPuddleBlock::new).setProperties(SLIME_BLOCK, Properties::noCollission).save();
+	public static final BlockEntry<LadderBlock> MARSHMALLOW_LADDER = create("marshmallow_ladder", LadderBlock::new).setProperties(LADDER, null).save();
+
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
 	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
 	public static final BlockEntry<TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(p, ParticleTypes.FLAME)).setProperties(Blocks.TORCH, null).noBlockItem().save();
@@ -130,7 +138,7 @@ public class CBlocks {
 				CARAMEL_PORTAL, ALCHEMY_MIXER);
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
-				CANDIED_CHERRY_SAPLING);
+				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER);
 	}
 
 	public static void init() {

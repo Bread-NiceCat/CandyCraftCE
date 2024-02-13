@@ -13,7 +13,6 @@ loom {
     forge {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
         mixinConfig "candycraftce-common.mixins.json"
         mixinConfig "candycraftce.mixins.json"
     }
@@ -55,6 +54,8 @@ dependencies {
     modRuntimeOnly("curse.maven:appleskin-248787:4770828")
 
     modRuntimeOnly("native:BetterTags-1.20.1:1.1")
+    modRuntimeOnly("native:IconRenderer-Forge-1.20.1:1.1.0")
+    modRuntimeOnly("native:recipedumper:4.0-Forge")
 
     modCompileOnly("mezz.jei:jei-1.20.1-forge-api:15.2.0.25") { transitive false }
     modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.25") { transitive false }
@@ -79,17 +80,12 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier = "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
-}
-
-jar {
-    classifier "dev"
 }
 
 sourcesJar {
@@ -107,13 +103,8 @@ components.java {
 publishing {
     publications {
         mavenForge(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
+            artifactId = archives_base_name + "-" + project.name
             from components.java
         }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
     }
 }
