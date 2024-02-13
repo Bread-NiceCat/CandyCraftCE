@@ -17,4 +17,5 @@ classes/
 .settings
 *.launch
 
+.architectury-transformer/*.log
 /candycraft-master.zip
