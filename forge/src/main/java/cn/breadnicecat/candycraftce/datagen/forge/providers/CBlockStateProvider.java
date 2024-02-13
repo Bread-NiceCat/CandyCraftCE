@@ -154,6 +154,25 @@ public class CBlockStateProvider extends BlockStateProvider {
 				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
 				COTTON_CANDY_WEB
 		);
+		//door
+		accept(b -> {
+			String name = b.getName();
+			doorBlock(b.get(), modLoc("block/" + name + "_bottom"), modLoc("block/" + name + "_top"));
+			itemModels().basicItem(b.getID());
+		}, MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
+		//fence_gate ( * = #_fence_gate ) -> # || *
+		zone(() -> {
+			mapping(blockTexture(MARSHMALLOW_FENCE_GATE.get()), blockTexture(MARSHMALLOW_PLANKS.get()));
+			mapping(blockTexture(LIGHT_MARSHMALLOW_FENCE_GATE.get()), blockTexture(LIGHT_MARSHMALLOW_PLANKS.get()));
+			mapping(blockTexture(DARK_MARSHMALLOW_FENCE_GATE.get()), blockTexture(DARK_MARSHMALLOW_PLANKS.get()));
+			accept(b -> {
+				FenceGateBlock block = b.get();
+				ResourceLocation tex = blockTexture(block);
+				fenceGateBlock(block, tex);
+				itemModels().fenceGate(b.getName(), tex);
+			}, MARSHMALLOW_FENCE_GATE, LIGHT_MARSHMALLOW_FENCE_GATE, DARK_MARSHMALLOW_FENCE_GATE);
+		});
+
 		/*================CUSTOM PART================*/
 		mappings = Map.of();//makes mapping disabled
 		{

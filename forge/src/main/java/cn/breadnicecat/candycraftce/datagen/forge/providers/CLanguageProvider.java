@@ -186,6 +186,13 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(COTTON_CANDY_WEB, "棉花糖网");
 		addBlockById(CHEWING_GUM_PUDDLE, "口香糖片");
 		addBlockById(MARSHMALLOW_LADDER, "棉花软糖梯子");
+		addBlockById(MARSHMALLOW_DOOR, "棉花软糖门");
+		addBlockById(LIGHT_MARSHMALLOW_DOOR, "浅色棉花软糖门");
+		addBlockById(DARK_MARSHMALLOW_DOOR, "深色棉花软糖门");
+		addBlockById(MARSHMALLOW_FENCE_GATE, "棉花软糖栅栏门");
+		addBlockById(LIGHT_MARSHMALLOW_FENCE_GATE, "浅色棉花软糖栅栏门");
+		addBlockById(DARK_MARSHMALLOW_FENCE_GATE, "深色棉花软糖栅栏门");
+
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {

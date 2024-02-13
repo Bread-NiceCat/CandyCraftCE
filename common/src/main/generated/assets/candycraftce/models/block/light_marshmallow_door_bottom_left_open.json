@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "candycraftce:block/light_marshmallow_door_bottom",
+    "top": "candycraftce:block/light_marshmallow_door_top"
+  }
+}

@@ -119,38 +119,38 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
         //梯子
         HELPER.single(MARSHMALLOW_LADDER, () -> new LadderBlock(Properties.copy(Blocks.LADDER)), CCBlockManager::simpleBlockItem,
                 VTAG_CLIMBABLE, VTAG_MINEABLE_WITH_AXE, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    //门
-    HELPER.batch((n, b) -> new DoorBlock(Properties.copy(Blocks.OAK_DOOR)), CCBlockManager::simpleBlockItem,
-                    MODEL_SP_DOOR, LOOT_SP_DOOR, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
-            .addElement(MARSHMALLOW_DOOR)
-            .addElement(LIGHT_MARSHMALLOW_DOOR)
-            .addElement(DARK_MARSHMALLOW_DOOR)
-            .register();
-    HELPER.batch((n, b) -> new FenceBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
-                    MODEL_SP_PLANKS_FENCE, LOOT_DROP_SELF, VTAG_FENCES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
-            .addElement(MARSHMALLOW_FENCE)
-            .addElement(LIGHT_MARSHMALLOW_FENCE)
-            .addElement(DARK_MARSHMALLOW_FENCE)
-            .register();
-    HELPER.batch((n, b) -> new FenceGateBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
-                    MODEL_SP_PLANKS_FENCE_GATE, LOOT_DROP_SELF, VTAG_FENCE_GATES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
-            .addElement(MARSHMALLOW_FENCE_GATE)
-            .addElement(LIGHT_MARSHMALLOW_FENCE_GATE)
-            .addElement(DARK_MARSHMALLOW_FENCE_GATE)
-            .register();
-    HELPER.batch((n, a) -> new SlabBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-                    MODEL_SP_PLANKS_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-            .addElement(MARSHMALLOW_SLAB)
-            .addElement(LIGHT_MARSHMALLOW_SLAB)
-            .addElement(DARK_MARSHMALLOW_SLAB)
-            .register();
+         //门
+        HELPER.batch((n, b) -> new DoorBlock(Properties.copy(Blocks.OAK_DOOR)), CCBlockManager::simpleBlockItem,
+                        MODEL_SP_DOOR, LOOT_SP_DOOR, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+                .addElement(MARSHMALLOW_DOOR)
+                .addElement(LIGHT_MARSHMALLOW_DOOR)
+                .addElement(DARK_MARSHMALLOW_DOOR)
+                .register();
+        HELPER.batch((n, b) -> new FenceBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
+                        MODEL_SP_PLANKS_FENCE, LOOT_DROP_SELF, VTAG_FENCES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+                .addElement(MARSHMALLOW_FENCE)
+                .addElement(LIGHT_MARSHMALLOW_FENCE)
+                .addElement(DARK_MARSHMALLOW_FENCE)
+                .register();
+        HELPER.batch((n, b) -> new FenceGateBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
+                        MODEL_SP_PLANKS_FENCE_GATE, LOOT_DROP_SELF, VTAG_FENCE_GATES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+                .addElement(MARSHMALLOW_FENCE_GATE)
+                .addElement(LIGHT_MARSHMALLOW_FENCE_GATE)
+                .addElement(DARK_MARSHMALLOW_FENCE_GATE)
+                .register();
+            HELPER.batch((n, a) -> new SlabBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+                        MODEL_SP_PLANKS_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+                .addElement(MARSHMALLOW_SLAB)
+                .addElement(LIGHT_MARSHMALLOW_SLAB)
+                .addElement(DARK_MARSHMALLOW_SLAB)
+                .register();
 
-    HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
-                    MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-            .addElement(MARSHMALLOW_STAIRS, MARSHMALLOW_PLANKS)
-            .addElement(LIGHT_MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_PLANKS)
-            .addElement(DARK_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_PLANKS)
-            .register();
+        HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
+                        MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+                .addElement(MARSHMALLOW_STAIRS, MARSHMALLOW_PLANKS)
+                .addElement(LIGHT_MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_PLANKS)
+                .addElement(DARK_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_PLANKS)
+                .register();
 
     //果冻
     HELPER.batch((n, a) -> new BlockJelly((Float) a[0], (Float) a[1]), (n, b, a) -> simpleBlockItem(b),

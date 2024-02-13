@@ -15,6 +15,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import org.slf4j.Logger;
 
 import java.util.Collections;
@@ -123,10 +125,29 @@ public class CBlocks {
 	public static final BlockEntry<StairBlock> LICORICE_STAIRS = stairBlock("licorice_stairs", LICORICE_BLOCK::defaultBlockState).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_BRICK_STAIRS = stairBlock("licorice_brick_stairs", LICORICE_BRICK::defaultBlockState).setProperties(LICORICE_BRICK, null).save();
 
+	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
+
+	public static final BlockEntry<FenceGateBlock> MARSHMALLOW_FENCE_GATE = create("marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
+	public static final BlockEntry<FenceGateBlock> LIGHT_MARSHMALLOW_FENCE_GATE = create("light_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.BAMBOO)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
+	public static final BlockEntry<FenceGateBlock> DARK_MARSHMALLOW_FENCE_GATE = create("dark_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.DARK_OAK)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
+//  HELPER.batch((n, b) -> new FenceGateBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
+//                    MODEL_SP_PLANKS_FENCE_GATE, LOOT_DROP_SELF, VTAG_FENCE_GATES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+//            .addElement(MARSHMALLOW_FENCE_GATE)
+//            .addElement(LIGHT_MARSHMALLOW_FENCE_GATE)
+//            .addElement(DARK_MARSHMALLOW_FENCE_GATE)
+//            .register();
+
 	public static final BlockEntry<WebBlock> COTTON_CANDY_WEB = create("cotton_candy_web", WebBlock::new).setProperties(COBWEB, null).save();
 	public static final BlockEntry<ChewingGumPuddleBlock> CHEWING_GUM_PUDDLE = create("chewing_gum_puddle", ChewingGumPuddleBlock::new).setProperties(SLIME_BLOCK, Properties::noCollission).save();
 	public static final BlockEntry<LadderBlock> MARSHMALLOW_LADDER = create("marshmallow_ladder", LadderBlock::new).setProperties(LADDER, null).save();
 
+
+// HELPER.batch((n, b) -> new DoorBlock(Properties.copy(Blocks.OAK_DOOR)), CCBlockManager::simpleBlockItem,
+//                    MODEL_SP_DOOR, LOOT_SP_DOOR, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+
+	//=====Special=====
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
 	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
 	public static final BlockEntry<TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(p, ParticleTypes.FLAME)).setProperties(Blocks.TORCH, null).noBlockItem().save();
@@ -138,7 +159,8 @@ public class CBlocks {
 				CARAMEL_PORTAL, ALCHEMY_MIXER);
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
-				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER);
+				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
+				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR);
 	}
 
 	public static void init() {
