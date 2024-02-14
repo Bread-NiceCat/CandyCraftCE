@@ -184,43 +184,43 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
 	            .register();
 
 
-    //植物块
-    HELPER.batch((n, a) -> new Block(Properties.copy(Blocks.HAY_BLOCK)), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_SIMPLE, LOOT_DROP_SELF)
-            .addElement(MINT_BLOCK)
-            .addElement(RASPBERRY_BLOCK)
-            .addElement(BANANA_SEAWEEDS_BLOCK)
-            .addElement(COTTON_CANDY_BLOCK)
-            .register();
-    HELPER.single(CANDIED_CHERRY_SACK, () -> new Block(Properties.copy(Blocks.HAY_BLOCK)), CCBlockManager::simpleBlockItem,
-            MODEL_BOTTOM_TOP, LOOT_DROP_SELF);
-    HELPER.single(CHEWING_GUM_BLOCK, () -> new SlimeBlock(Properties.copy(Blocks.SLIME_BLOCK).strength(2.5F)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, LOOT_DROP_SELF);
+         //植物块
+	    HELPER.batch((n, a) -> new Block(Properties.copy(Blocks.HAY_BLOCK)), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_SIMPLE, LOOT_DROP_SELF)
+	            .addElement(MINT_BLOCK)
+	            .addElement(RASPBERRY_BLOCK)
+	            .addElement(BANANA_SEAWEEDS_BLOCK)
+	            .addElement(COTTON_CANDY_BLOCK)
+	            .register();
+	    HELPER.single(CANDIED_CHERRY_SACK, () -> new Block(Properties.copy(Blocks.HAY_BLOCK)), CCBlockManager::simpleBlockItem,
+	            MODEL_BOTTOM_TOP, LOOT_DROP_SELF);
+	    HELPER.single(CHEWING_GUM_BLOCK, () -> new SlimeBlock(Properties.copy(Blocks.SLIME_BLOCK).strength(2.5F)), CCBlockManager::simpleBlockItem,
+	            MODEL_SIMPLE, LOOT_DROP_SELF);
 
-    //棉花糖-其他
-    HELPER.single(COTTON_CANDY_SLAB, () -> new SlabBlock(Properties.copy(COTTON_CANDY_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-            MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(COTTON_CANDY_STAIRS, () -> new StairBlock(COTTON_CANDY_BLOCK.getBlock().defaultBlockState(), Properties.copy(COTTON_CANDY_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
-            MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	    //棉花糖-其他
+	    HELPER.single(COTTON_CANDY_SLAB, () -> new SlabBlock(Properties.copy(COTTON_CANDY_BLOCK.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+	            MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	    HELPER.single(COTTON_CANDY_STAIRS, () -> new StairBlock(COTTON_CANDY_BLOCK.getBlock().defaultBlockState(), Properties.copy(COTTON_CANDY_BLOCK.getBlock())), CCBlockManager::simpleBlockItem,
+	            MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 
-    //甜草
-    HELPER.batch((n, a) -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)) {
-                        private String descriptionIdBuf;
+	    //甜草
+	    HELPER.batch((n, a) -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)) {
+	                        private String descriptionIdBuf;
 
-                        //解决名字后带数字问题
-                        @Override
-                        public @NotNull String getDescriptionId() {
-                            return descriptionIdBuf == null
-                                    ? descriptionIdBuf = Util.makeDescriptionId("block", ResourceUtils.prefix("sweet_grass"))
-                                    : descriptionIdBuf;
-                        }
-                    }, (n, b, a) -> simpleBlockItem(b),
-                    MODEL_CROSS, LOOT_DROP_SELF_WHEN_SILK_TOUCH_OR_SHEARS, RENDERER_TYPE_CUTOUT, EXCLUDE_AUTO_GENERATE_LANG)
-            .addElement(SWEET_GRASS_0)
-            .addElement(SWEET_GRASS_1)
-            .addElement(SWEET_GRASS_2)
-            .addElement(SWEET_GRASS_3)
-            .register();
+	                        //解决名字后带数字问题
+	                        @Override
+	                        public @NotNull String getDescriptionId() {
+	                            return descriptionIdBuf == null
+	                                    ? descriptionIdBuf = Util.makeDescriptionId("block", ResourceUtils.prefix("sweet_grass"))
+	                                    : descriptionIdBuf;
+	                        }
+	                    }, (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_CROSS, LOOT_DROP_SELF_WHEN_SILK_TOUCH_OR_SHEARS, RENDERER_TYPE_CUTOUT, EXCLUDE_AUTO_GENERATE_LANG)
+	            .addElement(SWEET_GRASS_0)
+	            .addElement(SWEET_GRASS_1)
+	            .addElement(SWEET_GRASS_2)
+	            .addElement(SWEET_GRASS_3)
+	            .register();
     //水生植物
     HELPER.batch((n, a) -> new BlockCandyWaterPlant(Properties.of(Material.WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)), (n, b, a) -> simpleBlockItem(b),
                     MODEL_CROSS, LOOT_DROP_SELF_WHEN_SILK_TOUCH_OR_SHEARS, RENDERER_TYPE_CUTOUT)

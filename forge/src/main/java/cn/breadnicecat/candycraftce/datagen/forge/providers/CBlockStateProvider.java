@@ -53,8 +53,21 @@ public class CBlockStateProvider extends BlockStateProvider {
 				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
 				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
-				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS
+				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
+				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK
 		);
+		//cubeBottomTop *_side *_bottom *_top
+		zone(() -> {
+			mapping(modLoc("block/" + CUSTARD_PUDDING.getName() + "_bottom"), blockTexture(PUDDING.get()));
+			accept(b -> {
+				String name = b.getName();
+				BlockModelBuilder common = models().cubeBottomTop(name,
+						modLoc("block/" + name + "_side"),
+						modLoc("block/" + name + "_bottom"),
+						modLoc("block/" + name + "_top"));
+				simpleBlockWithItem(b.get(), common);
+			}, CUSTARD_PUDDING, CANDIED_CHERRY_SACK);
+		});
 		//column : *_side *_end
 		accept(b -> {
 			String name = b.getName();
@@ -102,13 +115,15 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(MARSHMALLOW_STAIRS.getName(), MARSHMALLOW_PLANKS.getName());
 			consumer.accept(LIGHT_MARSHMALLOW_STAIRS.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_STAIRS.getName(), DARK_MARSHMALLOW_PLANKS.getName());
+			consumer.accept(COTTON_CANDY_STAIRS.getName(), COTTON_CANDY_BLOCK.getName());
 			accept(b -> {
 						ResourceLocation side = modLoc("block/" + b.getName() + "_side");
 						ResourceLocation end = modLoc("block/" + b.getName() + "_end");
 						stairsBlock(b.get(), side, end, end);
 						itemModels().stairs(b.getName(), side, end, end);
 					}, CANDY_CANE_STAIRS, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
-					MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS);
+					MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS,
+					COTTON_CANDY_STAIRS);
 		});
 		//slab : *_side, *_end
 		zone(() -> {
@@ -128,6 +143,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(MARSHMALLOW_SLAB.getName(), MARSHMALLOW_PLANKS.getName());
 			consumer.accept(LIGHT_MARSHMALLOW_SLAB.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_SLAB.getName(), DARK_MARSHMALLOW_PLANKS.getName());
+			consumer.accept(COTTON_CANDY_SLAB.getName(), COTTON_CANDY_BLOCK.getName());
 			accept(b -> {
 						String name = b.getName();
 						ResourceLocation side = modLoc("block/" + name + "_side");
@@ -139,7 +155,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 						slabBlock(block, slab, slabTop, full);
 						simpleBlockItem(block, slab);
 					}, CANDY_CANE_SLAB, LICORICE_SLAB, LICORICE_BRICK_SLAB, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
-					DARK_MARSHMALLOW_SLAB);
+					DARK_MARSHMALLOW_SLAB, COTTON_CANDY_SLAB);
 		});
 		//log *, *_top
 		accept(b -> {
@@ -155,7 +171,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 					simpleBlock(block, models().cross(name, cross));
 					generatedItem(name, cross);
 				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
-				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES
+				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES,
+				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3
 		);
 		//door *_bottom *_top
 		accept(b -> {
@@ -283,16 +300,6 @@ public class CBlockStateProvider extends BlockStateProvider {
 			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
 			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnaceBlock.LIT) ? on : off);
 			simpleBlockItem(CHOCOLATE_FURNACE.get(), off);
-		}
-		//奶皮布丁
-		{
-			String name = CUSTARD_PUDDING.getName();
-			BlockModelBuilder common = models().cubeBottomTop(name,
-					modLoc("block/" + name + "_side"),
-					blockTexture(PUDDING.get()),
-					modLoc("block/" + name + "_top"));
-			Block block = CUSTARD_PUDDING.get();
-			simpleBlockWithItem(block, common);
 		}
 		//布丁耕地
 		{

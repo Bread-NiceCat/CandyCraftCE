@@ -10,6 +10,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
@@ -62,11 +63,15 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK, CHEWING_GUM_PUDDLE, MARSHMALLOW_LADDER,
 				MARSHMALLOW_FENCE_GATE, LIGHT_MARSHMALLOW_FENCE_GATE, DARK_MARSHMALLOW_FENCE_GATE,
 				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY, SUGAR_SPIKES, CRANBERRY_SPIKES,
-				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS,
-				CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE
+				MINT_BLOCK, RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CANDIED_CHERRY_SACK, CHEWING_GUM_BLOCK,
+				COTTON_CANDY_STAIRS, COTTON_CANDY_SLAB, SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3
 		);
 		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
 		accept(m -> add(m, createDoorTable(m.get())), MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
+		//drop when SilkTouch || Shear
+		accept(m -> add(m, createSilkTouchOrShearsDispatchTable(m.get(), EmptyLootItem.emptyItem())),
+				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE);
+
 		add(COTTON_CANDY_WEB, createSilkTouchOrShearsDispatchTable(COTTON_CANDY_WEB.get(), LootItem.lootTableItem(COTTON_CANDY).when(LootItemRandomChanceCondition.randomChance(1 / 6f))));
 		add(MAGIC_LEAVES, createCandyLeavesDrops(MAGIC_LEAVES.get(), SUGAR, NORMAL_LEAVES_SAPLING_CHANCES));
 		add(CHOCOLATE_LEAVES, createCandyLeavesDrops(CHOCOLATE_LEAVES.get(), CHOCOLATE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));

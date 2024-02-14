@@ -208,6 +208,15 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CARAMEL_GLASS_PANE, "焦糖玻璃板");
 		addBlockById(ROUND_CARAMEL_GLASS_PANE, "圆形焦糖玻璃");
 		addBlockById(DIAMOND_CARAMEL_GLASS_PANE, "钻石形焦糖玻璃");
+		addBlockById(MINT_BLOCK, "水生薄荷块");
+		addBlockById(RASPBERRY_BLOCK, "水生树莓块");
+		addBlockById(CHEWING_GUM_BLOCK, "口香糖块");
+		addBlockById(BANANA_SEAWEEDS_BLOCK, "香蕉海草块");
+		addBlockById(COTTON_CANDY_BLOCK, "棉花糖块");
+		addBlockById(CANDIED_CHERRY_SACK, "蜜饯樱桃块");
+		addBlockById(COTTON_CANDY_SLAB, "棉花糖台阶");
+		addBlockById(COTTON_CANDY_STAIRS, "棉花糖楼梯");
+		addBlockById(SWEET_GRASS_0, "甜草");
 	}
 
 	/**
