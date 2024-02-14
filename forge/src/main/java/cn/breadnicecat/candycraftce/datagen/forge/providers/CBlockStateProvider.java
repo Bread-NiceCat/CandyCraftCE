@@ -23,6 +23,7 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.pathPostfix;
 
 /**
  * Created in 2023/10/14 22:47
@@ -50,7 +51,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
 				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
-				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK
+				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
+				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
+				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS
 		);
 		//column : *_side *_end
 		accept(b -> {
@@ -144,7 +147,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			logBlock(block);
 			simpleBlockItem(block, existModelFile(block));
 		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
-		//cross
+		//cross *
 		accept(b -> {
 					Block block = b.get();
 					ResourceLocation cross = blockTexture(block);
@@ -152,9 +155,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 					simpleBlock(block, models().cross(name, cross));
 					generatedItem(name, cross);
 				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
-				COTTON_CANDY_WEB
+				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES
 		);
-		//door
+		//door *_bottom *_top
 		accept(b -> {
 			String name = b.getName();
 			doorBlock(b.get(), modLoc("block/" + name + "_bottom"), modLoc("block/" + name + "_top"));
@@ -172,9 +175,37 @@ public class CBlockStateProvider extends BlockStateProvider {
 				itemModels().fenceGate(b.getName(), tex);
 			}, MARSHMALLOW_FENCE_GATE, LIGHT_MARSHMALLOW_FENCE_GATE, DARK_MARSHMALLOW_FENCE_GATE);
 		});
-
-		/*================CUSTOM PART================*/
+		//glass_pane * *_edge
+		zone(() -> {
+			mapping(blockTexture(CARAMEL_GLASS_PANE.get()), blockTexture(CARAMEL_GLASS.get()));
+			mapping(blockTexture(ROUND_CARAMEL_GLASS_PANE.get()), blockTexture(ROUND_CARAMEL_GLASS.get()));
+			mapping(blockTexture(DIAMOND_CARAMEL_GLASS_PANE.get()), blockTexture(DIAMOND_CARAMEL_GLASS.get()));
+			ResourceLocation edge = modLoc("block/caramel_glass_pane_edge");
+			accept(b -> {
+				mapping(modLoc("block/" + b.getName() + "_edge"), edge);
+			}, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE);
+			accept(b -> {
+				IronBarsBlock block = b.get();
+				ResourceLocation pane = blockTexture(block);
+				paneBlock(block, pane, modLoc("block/" + b.getName() + "_edge"));
+				generatedItem(b.getName(), pane);
+			}, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE);
+		});
 		mappings = Map.of();//makes mapping disabled
+		/*================CUSTOM PART================*/
+		{
+			String name = SENSITIVE_JELLY.getName();
+			SensitiveJellyBlock block = SENSITIVE_JELLY.get();
+			ResourceLocation texture = blockTexture(block);
+			BlockModelBuilder simple = models().cubeAll(name, texture);
+			BlockModelBuilder active = models().cubeAll(name + "_powered", pathPostfix(texture, "_powered"));
+
+			getVariantBuilder(block)
+					.forAllStates(s -> ConfiguredModel.builder()
+							.modelFile(s.getValue(SensitiveJellyBlock.POWERED) ? active : simple)
+							.build());
+			simpleBlockItem(block, simple);
+		}
 		{
 			String name = MARSHMALLOW_LADDER.getName();
 			ResourceLocation tex = modLoc("block/" + name);

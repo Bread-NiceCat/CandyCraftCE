@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers.builtins;
 
+import cn.breadnicecat.candycraftce.level.CConfiguredFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import java.util.OptionalInt;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.*;
 
 /**
  * Created in 2024/2/9 19:32
@@ -27,7 +27,7 @@ import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.*;
  * @see net.minecraft.data.worldgen.features.TreeFeatures#bootstrap(net.minecraft.data.worldgen.BootstapContext)
  * <p>
  */
-public class CConfiguredFeaturesData {
+public class CConfiguredFeaturesData extends CConfiguredFeatures {
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		FeatureUtils.register(context, CHOCOLATE_TREE, Feature.TREE, createOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
 		FeatureUtils.register(context, WHITE_CHOCOLATE_TREE, Feature.TREE, createOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());

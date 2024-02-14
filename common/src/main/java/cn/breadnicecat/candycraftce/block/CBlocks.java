@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
+import cn.breadnicecat.candycraftce.block.blocks.JellyBlock.JellyType;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -119,33 +120,54 @@ public class CBlocks {
 	public static final BlockEntry<SlabBlock> LICORICE_BRICK_SLAB = create("licorice_brick_slab", SlabBlock::new).setProperties(LICORICE_BRICK, null).save();
 
 	public static final BlockEntry<StairBlock> MARSHMALLOW_STAIRS = stairBlock("marshmallow_stairs", MARSHMALLOW_PLANKS::defaultBlockState).setProperties(MARSHMALLOW_PLANKS, null).save();
+
 	public static final BlockEntry<StairBlock> LIGHT_MARSHMALLOW_STAIRS = stairBlock("light_marshmallow_stairs", LIGHT_MARSHMALLOW_PLANKS::defaultBlockState).setProperties(LIGHT_MARSHMALLOW_PLANKS, null).save();
+
 	public static final BlockEntry<StairBlock> DARK_MARSHMALLOW_STAIRS = stairBlock("dark_marshmallow_stairs", DARK_MARSHMALLOW_PLANKS::defaultBlockState).setProperties(DARK_MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_STAIRS = stairBlock("licorice_stairs", LICORICE_BLOCK::defaultBlockState).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_BRICK_STAIRS = stairBlock("licorice_brick_stairs", LICORICE_BRICK::defaultBlockState).setProperties(LICORICE_BRICK, null).save();
-
 	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
+
 	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
 	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
-
 	public static final BlockEntry<FenceGateBlock> MARSHMALLOW_FENCE_GATE = create("marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
+
 	public static final BlockEntry<FenceGateBlock> LIGHT_MARSHMALLOW_FENCE_GATE = create("light_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.BAMBOO)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
 	public static final BlockEntry<FenceGateBlock> DARK_MARSHMALLOW_FENCE_GATE = create("dark_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.DARK_OAK)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
-//  HELPER.batch((n, b) -> new FenceGateBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
-//                    MODEL_SP_PLANKS_FENCE_GATE, LOOT_DROP_SELF, VTAG_FENCE_GATES, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
-//            .addElement(MARSHMALLOW_FENCE_GATE)
-//            .addElement(LIGHT_MARSHMALLOW_FENCE_GATE)
-//            .addElement(DARK_MARSHMALLOW_FENCE_GATE)
-//            .register();
-
 	public static final BlockEntry<WebBlock> COTTON_CANDY_WEB = create("cotton_candy_web", WebBlock::new).setProperties(COBWEB, null).save();
+
 	public static final BlockEntry<ChewingGumPuddleBlock> CHEWING_GUM_PUDDLE = create("chewing_gum_puddle", ChewingGumPuddleBlock::new).setProperties(SLIME_BLOCK, Properties::noCollission).save();
 	public static final BlockEntry<LadderBlock> MARSHMALLOW_LADDER = create("marshmallow_ladder", LadderBlock::new).setProperties(LADDER, null).save();
 
+	public static final BlockEntry<JellyBlock> TRAMPOJELLY = create("trampojelly", (p) -> new JellyBlock(p, JellyType.GREEN)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
+	public static final BlockEntry<JellyBlock> RED_TRAMPOJELLY = create("red_trampojelly", (p) -> new JellyBlock(p, JellyType.RED)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
+	public static final BlockEntry<JellyBlock> SOFT_TRAMPOJELLY = create("soft_trampojelly", (p) -> new JellyBlock(p, JellyType.SOFT)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
+	public static final BlockEntry<JellyBlock> JELLY_SHOCK_ABSORBER = create("jelly_shock_absorber", (p) -> new JellyBlock(p, JellyType.BLUE)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
+	public static final BlockEntry<SensitiveJellyBlock> SENSITIVE_JELLY = create("sensitive_jelly", SensitiveJellyBlock::new).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
 
-// HELPER.batch((n, b) -> new DoorBlock(Properties.copy(Blocks.OAK_DOOR)), CCBlockManager::simpleBlockItem,
-//                    MODEL_SP_DOOR, LOOT_SP_DOOR, VTAG_MINEABLE_WITH_AXE, RENDERER_TYPE_CUTOUT)
+	public static final BlockEntry<SpikesBlock> SUGAR_SPIKES = create("sugar_spikes", SpikesBlock::new).setProperties(PEZ_BLOCK, Properties::noCollission).save();
+	public static final BlockEntry<SpikesBlock> CRANBERRY_SPIKES = create("cranberry_spikes", SpikesBlock::new).setProperties(SUGAR_SPIKES, null).save();
+
+	public static final BlockEntry<GlassBlock> CARAMEL_GLASS = create("caramel_glass", GlassBlock::new).setProperties(GLASS, null).save();
+	public static final BlockEntry<GlassBlock> ROUND_CARAMEL_GLASS = create("round_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
+	public static final BlockEntry<GlassBlock> DIAMOND_CARAMEL_GLASS = create("diamond_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
+
+	public static final BlockEntry<IronBarsBlock> CARAMEL_GLASS_PANE = create("caramel_glass_pane", IronBarsBlock::new).setProperties(GLASS_PANE, null).save();
+	public static final BlockEntry<IronBarsBlock> ROUND_CARAMEL_GLASS_PANE = create("round_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
+	public static final BlockEntry<IronBarsBlock> DIAMOND_CARAMEL_GLASS_PANE = create("diamond_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
+//    HELPER.batch((n, a) -> new GlassBlock(Properties.copy(Blocks.GLASS)), (n, b, a) -> simpleBlockItem(b),
+//                    MODEL_SIMPLE, CItemTags.CARAMEL_GLASS.getGroupId(), LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
+//            .addElement(CARAMEL_GLASS)
+//            .addElement(ROUND_CARAMEL_GLASS)
+//            .addElement(DIAMOND_CARAMEL_GLASS)
+//            .register();
+//    HELPER.batch((n, a) -> new IronBarsBlock(Properties.copy(Blocks.GLASS_PANE)), (n, b, a) -> simpleBlockItem(b),
+//                    MODEL_SP_CARAMEL_PANE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
+//            .addElement(CARAMEL_GLASS_PANE)
+//            .addElement(ROUND_CARAMEL_GLASS_PANE)
+//            .addElement(DIAMOND_CARAMEL_GLASS_PANE)
+//            .register();
 
 	//=====Special=====
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
@@ -156,19 +178,19 @@ public class CBlocks {
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.translucent()),
-				CARAMEL_PORTAL, ALCHEMY_MIXER);
+				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY);
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
-				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR);
+				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, SUGAR_SPIKES, CRANBERRY_SPIKES,
+				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE);
 	}
 
 	public static void init() {
 	}
 
 
-	//Typical
-	public static CBlockBuilder<StairBlock> stairBlock(String name, Supplier<BlockState> base) {
+	private static CBlockBuilder<StairBlock> stairBlock(String name, Supplier<BlockState> base) {
 		return create(name, p -> _stairBlock(base, p));
 	}
 

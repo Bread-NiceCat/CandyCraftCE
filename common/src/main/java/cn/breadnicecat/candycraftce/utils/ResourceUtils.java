@@ -41,11 +41,11 @@ public class ResourceUtils {
 	}
 
 	public static ResourceLocation pathPrefix(ResourceLocation raw, String prefix) {
-		return pathExtend(raw, prefix, "");
+		return new ResourceLocation(raw.getNamespace(), prefix + raw.getPath());
 	}
 
 	public static ResourceLocation pathPostfix(ResourceLocation raw, String postfix) {
-		return pathExtend(raw, "", postfix);
+		return new ResourceLocation(raw.getNamespace(), raw.getPath() + postfix);
 	}
 
 

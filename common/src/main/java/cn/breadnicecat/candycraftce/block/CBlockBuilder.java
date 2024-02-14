@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
+import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -12,6 +13,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -33,6 +36,11 @@ public class CBlockBuilder<B extends Block> {
 	private Function<Properties, B> factory;
 	private Supplier<Properties> properties;
 	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
+	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
+
+	static {
+		CItems.hookBlockItems(items);
+	}
 
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {
 		return new CBlockBuilder<>(name, factory);
@@ -94,7 +102,7 @@ public class CBlockBuilder<B extends Block> {
 
 	public BlockEntry<B> save() {
 		BlockEntry<B> entry = register(name, () -> factory.apply(properties == null ? Properties.of() : properties.get()));
-		if (item != null) item.apply(entry);
+		if (item != null) items.add(() -> item.apply(entry));//把block都排到最后去
 		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}

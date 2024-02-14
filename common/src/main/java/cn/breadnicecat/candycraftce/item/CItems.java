@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -39,6 +40,7 @@ import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
+	private static List<Supplier<ItemEntry<?>>> blockItems;
 
 	static {
 		CandyCraftCE.hookPostBootstrap(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
@@ -169,6 +171,11 @@ public class CItems {
 
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 
+	static {
+		blockItems.forEach(Supplier::get);
+		blockItems.clear();
+	}
+
 	@Environment(EnvType.CLIENT)
 	private static void declareItemProperties() {
 		LOGGER.info("Loading Item Properties...");
@@ -178,17 +185,21 @@ public class CItems {
 	public static void init() {
 	}
 
+	public static void hookBlockItems(List<Supplier<ItemEntry<?>>> items) {
+		blockItems = items;
+	}
+
 	private static <I> Function<Properties, I> higher(Supplier<I> sup) {
 		return (p) -> sup.get();
 	}
-
 	//===========模板===========
+
 	private static CItemBuilder<RecordItem> createRecord(String name, int analog, SoundEntry evt, int lengthInSeconds) {
 		return create(name, (p) -> _recordItem(analog, evt, p, lengthInSeconds))
 				.setProperties(new Properties().stacksTo(1));
 	}
-
 	//工具
+
 	private static CItemBuilder<SwordItem> createSword(String name, Tier tier, int baseDamage, float baseSpeed) {
 		return create(name, (p) -> new SwordItem(tier, baseDamage, baseSpeed, p));
 	}
@@ -208,8 +219,8 @@ public class CItems {
 	private static CItemBuilder<HoeItem> createHoe(String name, Tier tier, int baseDamage, float baseSpeed) {
 		return create(name, (p) -> new HoeItem(tier, baseDamage, baseSpeed, p));
 	}
-
 	//盔甲
+
 	private static CItemBuilder<ArmorItem> createHelmet(String name, ArmorMaterial material) {
 		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.HELMET, p));
 	}
@@ -226,8 +237,8 @@ public class CItems {
 		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.BOOTS, p));
 	}
 
-
 	//平台差异
+
 	@ExpectPlatform
 	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
 		return CommonUtils.impossible();

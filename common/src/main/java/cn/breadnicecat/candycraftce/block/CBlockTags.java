@@ -18,6 +18,7 @@ public class CBlockTags {
 	public static final TagKey<Block> CANDY_PLANT_CAN_ON = bind("candy_plant_can_on");
 	public static final TagKey<Block> CANDY_LOGS = bind("candy_logs");
 	public static final TagKey<Block> CANDY_PLANKS = bind("candy_planks");
+	public static final TagKey<Block> JELLY = bind("jelly");
 
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, prefix(name));

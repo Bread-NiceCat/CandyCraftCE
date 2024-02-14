@@ -138,12 +138,12 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
                 .addElement(LIGHT_MARSHMALLOW_FENCE_GATE)
                 .addElement(DARK_MARSHMALLOW_FENCE_GATE)
                 .register();
-            HELPER.batch((n, a) -> new SlabBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-                        MODEL_SP_PLANKS_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-                .addElement(MARSHMALLOW_SLAB)
-                .addElement(LIGHT_MARSHMALLOW_SLAB)
-                .addElement(DARK_MARSHMALLOW_SLAB)
-                .register();
+        HELPER.batch((n, a) -> new SlabBlock(Properties.copy(MARSHMALLOW_PLANKS.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+                    MODEL_SP_PLANKS_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+            .addElement(MARSHMALLOW_SLAB)
+            .addElement(LIGHT_MARSHMALLOW_SLAB)
+            .addElement(DARK_MARSHMALLOW_SLAB)
+            .register();
 
         HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(MARSHMALLOW_PLANKS.getBlock())), CCBlockManager::simpleBlockItem,
                         MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
@@ -152,36 +152,36 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
                 .addElement(DARK_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_PLANKS)
                 .register();
 
-    //果冻
-    HELPER.batch((n, a) -> new BlockJelly((Float) a[0], (Float) a[1]), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_TRANSLUCENT)
-            .addElement(TRAMPOJELLY, 2f, 0.2f)
-            .addElement(RED_TRAMPOJELLY, 3f, 0.1f)
-            .addElement(SOFT_TRAMPOJELLY, 2f, 0f)
-            .addElement(JELLY_SHOCK_ABSORBER, 0f, 0f)
-            .register();
-    HELPER.single(SENSITIVE_JELLY, BlockSensitiveJelly::new, CCBlockManager::simpleBlockItem,
-            VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_TRANSLUCENT);
+        //果冻
+	    HELPER.batch((n, a) -> new BlockJelly((Float) a[0], (Float) a[1]), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_SIMPLE, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_TRANSLUCENT)
+	            .addElement(TRAMPOJELLY, 2f, 0.2f)
+	            .addElement(RED_TRAMPOJELLY, 3f, 0.1f)
+	            .addElement(SOFT_TRAMPOJELLY, 2f, 0f)
+	            .addElement(JELLY_SHOCK_ABSORBER, 0f, 0f)
+	            .register();
+	    HELPER.single(SENSITIVE_JELLY, BlockSensitiveJelly::new, CCBlockManager::simpleBlockItem,
+	            VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_TRANSLUCENT);
 
-    //糖刺
-    HELPER.batch((n, a) -> new BlockSpikes(), CCBlockManager::simpleBlockItem,
-                    MODEL_CROSS, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-            .addElement(SUGAR_SPIKES)
-            .addElement(CRANBERRY_SPIKES)
-            .register();
-    //玻璃
-    HELPER.batch((n, a) -> new GlassBlock(Properties.copy(Blocks.GLASS)), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_SIMPLE, CItemTags.CARAMEL_GLASS.getGroupId(), LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
-            .addElement(CARAMEL_GLASS)
-            .addElement(ROUND_CARAMEL_GLASS)
-            .addElement(DIAMOND_CARAMEL_GLASS)
-            .register();
-    HELPER.batch((n, a) -> new IronBarsBlock(Properties.copy(Blocks.GLASS_PANE)), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_SP_CARAMEL_PANE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
-            .addElement(CARAMEL_GLASS_PANE)
-            .addElement(ROUND_CARAMEL_GLASS_PANE)
-            .addElement(DIAMOND_CARAMEL_GLASS_PANE)
-            .register();
+         //糖刺
+	    HELPER.batch((n, a) -> new BlockSpikes(), CCBlockManager::simpleBlockItem,
+	                    MODEL_CROSS, VTAG_MINEABLE_WITH_PICKAXE, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+	            .addElement(SUGAR_SPIKES)
+	            .addElement(CRANBERRY_SPIKES)
+	            .register();
+	    //玻璃
+	    HELPER.batch((n, a) -> new GlassBlock(Properties.copy(Blocks.GLASS)), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_SIMPLE, CItemTags.CARAMEL_GLASS.getGroupId(), LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
+	            .addElement(CARAMEL_GLASS)
+	            .addElement(ROUND_CARAMEL_GLASS)
+	            .addElement(DIAMOND_CARAMEL_GLASS)
+	            .register();
+	    HELPER.batch((n, a) -> new IronBarsBlock(Properties.copy(Blocks.GLASS_PANE)), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_SP_CARAMEL_PANE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_CUTOUT)
+	            .addElement(CARAMEL_GLASS_PANE)
+	            .addElement(ROUND_CARAMEL_GLASS_PANE)
+	            .addElement(DIAMOND_CARAMEL_GLASS_PANE)
+	            .register();
 
 
     //植物块

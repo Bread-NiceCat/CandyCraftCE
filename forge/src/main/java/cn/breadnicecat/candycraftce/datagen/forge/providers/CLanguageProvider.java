@@ -9,6 +9,7 @@ import cn.breadnicecat.candycraftce.misc.CGameRules;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +45,8 @@ public class CLanguageProvider implements DataProvider {
 	protected void addTranslations() {
 		add(CCTab.TITLE_KEY, "CandyCraft CE", "糖果世界非官方版");
 		add(CGameRules.CARAMEL_PORTAL_WORKS.getDescriptionId(), "Enable Caramel Portal Teleport Player.", "允许焦糖传送门传送玩家");
+		addDamage("step_on_spikes", "%s's feet was pierced.", "%s的脚被刺穿了");
+		addDamageBy("step_on_spikes", "%s's feet was accidentally pierced while he escapes from %s", "%s在逃离%s的时候不慎被尖刺刺穿了脚");
 		addItemById(LICORICE, "盐甘草糖");
 		addItemById(HONEYCOMB, "蜜蜡");
 		addItemById(HONEYCOMB_SHARD, "蜜蜡碎片");
@@ -192,7 +195,35 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(MARSHMALLOW_FENCE_GATE, "棉花软糖栅栏门");
 		addBlockById(LIGHT_MARSHMALLOW_FENCE_GATE, "浅色棉花软糖栅栏门");
 		addBlockById(DARK_MARSHMALLOW_FENCE_GATE, "深色棉花软糖栅栏门");
+		addBlockById(TRAMPOJELLY, "弹力果冻");
+		addBlockById(RED_TRAMPOJELLY, "红色弹力果冻");
+		addBlockById(SOFT_TRAMPOJELLY, "软弹力果冻");
+		addBlockById(JELLY_SHOCK_ABSORBER, "减震果冻");
+		addBlockById(SENSITIVE_JELLY, "敏感果冻");
+		addBlockById(SUGAR_SPIKES, "糖刺");
+		addBlockById(CRANBERRY_SPIKES, "蔓越莓刺");
+		addBlockById(CARAMEL_GLASS, "焦糖玻璃");
+		addBlockById(ROUND_CARAMEL_GLASS, "圆形焦糖玻璃");
+		addBlockById(DIAMOND_CARAMEL_GLASS, "钻石形焦糖玻璃");
+		addBlockById(CARAMEL_GLASS_PANE, "焦糖玻璃板");
+		addBlockById(ROUND_CARAMEL_GLASS_PANE, "圆形焦糖玻璃");
+		addBlockById(DIAMOND_CARAMEL_GLASS_PANE, "钻石形焦糖玻璃");
+	}
 
+	/**
+	 * 包含一个玩家名参数
+	 */
+	private void addDamage(String msgId, String en_us, String zh_cn) {
+		add("death.attack." + msgId, en_us, zh_cn);
+	}
+
+	/**
+	 * 受其他实体影响而死亡,另外包含一个参数：entity.getKillCredit().getDisplayName()
+	 *
+	 * @see net.minecraft.world.damagesource.DamageSource#getLocalizedDeathMessage(LivingEntity)
+	 */
+	private void addDamageBy(String msgId, String en_us, String zh_cn) {
+		add("death.attack." + msgId + ".player", en_us, zh_cn);
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {

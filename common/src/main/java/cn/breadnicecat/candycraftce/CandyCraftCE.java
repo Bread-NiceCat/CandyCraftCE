@@ -55,6 +55,8 @@ public final class CandyCraftCE {
 		preBootstrap = true;
 		CandyCraftCE.environment = Objects.requireNonNull(env);
 		CandyCraftCE.platform = Objects.requireNonNull(platform);
+		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
+		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
 
 		LOGGER.info("=".repeat(50));
 		LOGGER.info(MOD_ID + " Running in " + getEnvironment() + " with " + getPlatform());
@@ -64,7 +66,7 @@ public final class CandyCraftCE {
 		}
 		LOGGER.info("=".repeat(50));
 
-		//防止链式调用未进行导致某些类不会被初始化，不计顺序
+		//防止未进行链式调用导致某些类不会被初始化，不计顺序
 		CDims.init();
 		CItems.init();
 		CMenus.init();
@@ -76,6 +78,7 @@ public final class CandyCraftCE {
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
 
+		LOGGER.info("Loaded Successfully!");
 		postBootstrap = true;
 	}
 
