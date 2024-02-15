@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "candycraftce:block/candied_cherry_sack_top",
+    "side": "candycraftce:block/candied_cherry_sack_top"
+  }
+}

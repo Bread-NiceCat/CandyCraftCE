@@ -52,24 +52,34 @@ public class CBlocks {
 
 	public static Map<ResourceLocation, BlockEntry<? extends Block>> BLOCKS = new HashMap<>();
 
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_2 = create("sweet_grass_2", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_3 = create("sweet_grass_3", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<CandyWaterPlantBlock> MINT = create("mint", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
+	public static final BlockEntry<CandyWaterPlantBlock> ROPE_RASPBERRY = create("rope_raspberry", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
+	public static final BlockEntry<CandyWaterPlantBlock> BANANA_SEAWEED = create("banana_seaweed", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
+	//    //甜蜜花
+//    HELPER.single(FRAISE_TAGADA_FLOWER, () -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)), CCBlockManager::simpleBlockItem,
+//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+//    HELPER.single(GOLDEN_SUGAR_FLOWER, BlockGoldenSugarFlower::new, CCBlockManager::simpleBlockItem,
+//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+//    HELPER.single(ACID_MINT_FLOWER, BlockAcidMintFlower::new, CCBlockManager::simpleBlockItem,
+//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+
 	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
 	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE, null).save();
 
 	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).noBlockItem().save();
-	//TODO MAYPLACE WRONG
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null).save();
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null).save();
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_2 = create("sweet_grass_2", SweetGrassBlock::new).setProperties(POPPY, null).save();
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_3 = create("sweet_grass_3", SweetGrassBlock::new).setProperties(POPPY, null).save();
 
 	public static final BlockEntry<Block> MINT_BLOCK = create("mint_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> RASPBERRY_BLOCK = create("raspberry_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> BANANA_SEAWEEDS_BLOCK = create("banana_seaweeds_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> COTTON_CANDY_BLOCK = create("cotton_candy_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> CANDIED_CHERRY_SACK = create("candied_cherry_sack").setProperties(HAY_BLOCK, null).save();
-	public static final BlockEntry<SlimeBlock> CHEWING_GUM_BLOCK = create("chewing_gum_block", SlimeBlock::new).setProperties(SLIME_BLOCK, null).save();
+	public static final BlockEntry<Block> CHEWING_GUM_BLOCK = create("chewing_gum_block").setProperties(SLIME_BLOCK, p -> p.destroyTime(0.6F)).save();
 
 	public static final BlockEntry<ChocolateSaplingBlock> CHOCOLATE_SAPLING = create("chocolate_sapling", ChocolateSaplingBlock::new).setProperties(OAK_SAPLING, null).save();
 	public static final BlockEntry<WhiteChocolateSaplingBlock> WHITE_CHOCOLATE_SAPLING = create("white_chocolate_sapling", WhiteChocolateSaplingBlock::new).setProperties(CHOCOLATE_SAPLING, null).save();
@@ -124,21 +134,31 @@ public class CBlocks {
 	public static final BlockEntry<WallBlock> LICORICE_WALL = create("licorice_wall", WallBlock::new).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<WallBlock> LICORICE_BRICK_WALL = create("licorice_brick_wall", WallBlock::new).setProperties(LICORICE_BRICK, null).save();
 
+	public static final BlockEntry<SlabBlock> MINT_SLAB = create("mint_slab", SlabBlock::new).setProperties(MINT_BLOCK, null).save();
+	public static final BlockEntry<SlabBlock> RASPBERRY_SLAB = create("raspberry_slab", SlabBlock::new).setProperties(RASPBERRY_BLOCK, null).save();
+	public static final BlockEntry<SlabBlock> BANANA_SEAWEEDS_SLAB = create("banana_seaweeds_slab", SlabBlock::new).setProperties(BANANA_SEAWEEDS_BLOCK, null).save();
+	public static final BlockEntry<SlabBlock> COTTON_CANDY_SLAB = create("cotton_candy_slab", SlabBlock::new).setProperties(COTTON_CANDY_BLOCK, null).save();
+	public static final BlockEntry<SlabBlock> CANDIED_CHERRY_SLAB = create("candied_cherry_slab", SlabBlock::new).setProperties(CANDIED_CHERRY_SACK, null).save();
+	public static final BlockEntry<SlabBlock> CHEWING_GUM_SLAB = create("chewing_gum_slab", SlabBlock::new).setProperties(CHEWING_GUM_BLOCK, null).save();
 	public static final BlockEntry<SlabBlock> MARSHMALLOW_SLAB = create("marshmallow_slab", SlabBlock::new).setProperties(MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<SlabBlock> LIGHT_MARSHMALLOW_SLAB = create("light_marshmallow_slab", SlabBlock::new).setProperties(LIGHT_MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<SlabBlock> DARK_MARSHMALLOW_SLAB = create("dark_marshmallow_slab", SlabBlock::new).setProperties(DARK_MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<SlabBlock> CANDY_CANE_SLAB = create("candy_cane_slab", SlabBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<SlabBlock> LICORICE_SLAB = create("licorice_slab", SlabBlock::new).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<SlabBlock> LICORICE_BRICK_SLAB = create("licorice_brick_slab", SlabBlock::new).setProperties(LICORICE_BRICK, null).save();
-	public static final BlockEntry<SlabBlock> COTTON_CANDY_SLAB = create("cotton_candy_slab", SlabBlock::new).setProperties(COTTON_CANDY_BLOCK, null).save();
-	//TODO 植物块的slab和stairs
+
+	public static final BlockEntry<StairBlock> MINT_STAIRS = stairBlock("mint_stairs", MINT_BLOCK::defaultBlockState).setProperties(MINT_BLOCK, null).save();
+	public static final BlockEntry<StairBlock> RASPBERRY_STAIRS = stairBlock("raspberry_stairs", RASPBERRY_BLOCK::defaultBlockState).setProperties(RASPBERRY_BLOCK, null).save();
+	public static final BlockEntry<StairBlock> BANANA_SEAWEEDS_STAIRS = stairBlock("banana_seaweeds_stairs", BANANA_SEAWEEDS_BLOCK::defaultBlockState).setProperties(BANANA_SEAWEEDS_BLOCK, null).save();
+	public static final BlockEntry<StairBlock> COTTON_CANDY_STAIRS = stairBlock("cotton_candy_stairs", COTTON_CANDY_BLOCK::defaultBlockState).setProperties(COTTON_CANDY_BLOCK, null).save();
+	public static final BlockEntry<StairBlock> CANDIED_CHERRY_STAIRS = stairBlock("candied_cherry_stairs", CANDIED_CHERRY_SACK::defaultBlockState).setProperties(CANDIED_CHERRY_SACK, null).save();
+	public static final BlockEntry<StairBlock> CHEWING_GUM_STAIRS = stairBlock("chewing_gum_stairs", CHEWING_GUM_BLOCK::defaultBlockState).setProperties(CHEWING_GUM_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> MARSHMALLOW_STAIRS = stairBlock("marshmallow_stairs", MARSHMALLOW_PLANKS::defaultBlockState).setProperties(MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<StairBlock> LIGHT_MARSHMALLOW_STAIRS = stairBlock("light_marshmallow_stairs", LIGHT_MARSHMALLOW_PLANKS::defaultBlockState).setProperties(LIGHT_MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<StairBlock> DARK_MARSHMALLOW_STAIRS = stairBlock("dark_marshmallow_stairs", DARK_MARSHMALLOW_PLANKS::defaultBlockState).setProperties(DARK_MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_STAIRS = stairBlock("licorice_stairs", LICORICE_BLOCK::defaultBlockState).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_BRICK_STAIRS = stairBlock("licorice_brick_stairs", LICORICE_BRICK::defaultBlockState).setProperties(LICORICE_BRICK, null).save();
-	public static final BlockEntry<StairBlock> COTTON_CANDY_STAIRS = stairBlock("cotton_candy_stairs", COTTON_CANDY_BLOCK::defaultBlockState).setProperties(COTTON_CANDY_BLOCK, null).save();
 
 	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
 	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
@@ -184,7 +204,7 @@ public class CBlocks {
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
 				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, SUGAR_SPIKES, CRANBERRY_SPIKES,
 				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE,
-				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3
+				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED
 		);
 	}
 

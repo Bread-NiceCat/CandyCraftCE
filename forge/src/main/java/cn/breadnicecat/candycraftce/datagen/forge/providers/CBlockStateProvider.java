@@ -116,6 +116,11 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(LIGHT_MARSHMALLOW_STAIRS.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_STAIRS.getName(), DARK_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(COTTON_CANDY_STAIRS.getName(), COTTON_CANDY_BLOCK.getName());
+			consumer.accept(MINT_STAIRS.getName(), MINT_BLOCK.getName());
+			consumer.accept(RASPBERRY_STAIRS.getName(), RASPBERRY_BLOCK.getName());
+			consumer.accept(BANANA_SEAWEEDS_STAIRS.getName(), BANANA_SEAWEEDS_BLOCK.getName());
+			consumer.accept(CANDIED_CHERRY_STAIRS.getName(), CANDIED_CHERRY_SACK.getName() + "_top");
+			consumer.accept(CHEWING_GUM_STAIRS.getName(), CHEWING_GUM_BLOCK.getName());
 			accept(b -> {
 						ResourceLocation side = modLoc("block/" + b.getName() + "_side");
 						ResourceLocation end = modLoc("block/" + b.getName() + "_end");
@@ -123,7 +128,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 						itemModels().stairs(b.getName(), side, end, end);
 					}, CANDY_CANE_STAIRS, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
 					MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS,
-					COTTON_CANDY_STAIRS);
+					COTTON_CANDY_STAIRS, MINT_STAIRS, RASPBERRY_STAIRS, BANANA_SEAWEEDS_STAIRS,
+					CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS
+			);
 		});
 		//slab : *_side, *_end
 		zone(() -> {
@@ -144,6 +151,11 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(LIGHT_MARSHMALLOW_SLAB.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_SLAB.getName(), DARK_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(COTTON_CANDY_SLAB.getName(), COTTON_CANDY_BLOCK.getName());
+			consumer.accept(MINT_SLAB.getName(), MINT_BLOCK.getName());
+			consumer.accept(RASPBERRY_SLAB.getName(), RASPBERRY_BLOCK.getName());
+			consumer.accept(BANANA_SEAWEEDS_SLAB.getName(), BANANA_SEAWEEDS_BLOCK.getName());
+			consumer.accept(CANDIED_CHERRY_SLAB.getName(), CANDIED_CHERRY_SACK.getName() + "_top");
+			consumer.accept(CHEWING_GUM_SLAB.getName(), CHEWING_GUM_BLOCK.getName());
 			accept(b -> {
 						String name = b.getName();
 						ResourceLocation side = modLoc("block/" + name + "_side");
@@ -155,7 +167,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 						slabBlock(block, slab, slabTop, full);
 						simpleBlockItem(block, slab);
 					}, CANDY_CANE_SLAB, LICORICE_SLAB, LICORICE_BRICK_SLAB, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
-					DARK_MARSHMALLOW_SLAB, COTTON_CANDY_SLAB);
+					DARK_MARSHMALLOW_SLAB, COTTON_CANDY_SLAB, MINT_SLAB, RASPBERRY_SLAB,
+					BANANA_SEAWEEDS_SLAB, CANDIED_CHERRY_SLAB, CHEWING_GUM_SLAB);
 		});
 		//log *, *_top
 		accept(b -> {
@@ -172,7 +185,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					generatedItem(name, cross);
 				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
 				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES,
-				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3
+				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED
 		);
 		//door *_bottom *_top
 		accept(b -> {
@@ -210,6 +223,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		});
 		mappings = Map.of();//makes mapping disabled
 		/*================CUSTOM PART================*/
+		//敏感果冻
 		{
 			String name = SENSITIVE_JELLY.getName();
 			SensitiveJellyBlock block = SENSITIVE_JELLY.get();
@@ -223,6 +237,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 							.build());
 			simpleBlockItem(block, simple);
 		}
+		//梯子
 		{
 			String name = MARSHMALLOW_LADDER.getName();
 			ResourceLocation tex = modLoc("block/" + name);

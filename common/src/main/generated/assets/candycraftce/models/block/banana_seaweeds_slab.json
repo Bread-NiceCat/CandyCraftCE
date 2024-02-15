@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "candycraftce:block/banana_seaweeds_block",
+    "side": "candycraftce:block/banana_seaweeds_block",
+    "top": "candycraftce:block/banana_seaweeds_block"
+  }
+}

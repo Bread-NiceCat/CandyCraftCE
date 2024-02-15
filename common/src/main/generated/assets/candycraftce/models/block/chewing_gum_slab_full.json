@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "candycraftce:block/chewing_gum_block",
+    "side": "candycraftce:block/chewing_gum_block"
+  }
+}

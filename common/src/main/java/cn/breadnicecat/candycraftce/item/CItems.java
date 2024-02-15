@@ -45,6 +45,7 @@ public class CItems {
 	static {
 		CandyCraftCE.hookPostBootstrap(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
 		if (isClient()) CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
+		CCTab.add(Items.SUGAR::getDefaultInstance);
 	}
 
 	public static Map<ResourceLocation, ItemEntry<? extends Item>> ITEMS = new HashMap<>();

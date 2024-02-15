@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "candycraftce:block/candied_cherry_slab"
+    },
+    "type=double": {
+      "model": "candycraftce:block/candied_cherry_slab_full"
+    },
+    "type=top": {
+      "model": "candycraftce:block/candied_cherry_slab_top"
+    }
+  }
+}

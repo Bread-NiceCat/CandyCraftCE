@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "candycraftce:block/chewing_gum_slab"
+    },
+    "type=double": {
+      "model": "candycraftce:block/chewing_gum_slab_full"
+    },
+    "type=top": {
+      "model": "candycraftce:block/chewing_gum_slab_top"
+    }
+  }
+}

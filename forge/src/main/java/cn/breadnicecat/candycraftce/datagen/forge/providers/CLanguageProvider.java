@@ -217,6 +217,19 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(COTTON_CANDY_SLAB, "棉花糖台阶");
 		addBlockById(COTTON_CANDY_STAIRS, "棉花糖楼梯");
 		addBlockById(SWEET_GRASS_0, "甜草");
+		addBlockById(MINT_SLAB, "水生薄荷台阶");
+		addBlockById(RASPBERRY_SLAB, "水生树莓台阶");
+		addBlockById(BANANA_SEAWEEDS_SLAB, "香蕉海草台阶");
+		addBlockById(CANDIED_CHERRY_SLAB, "蜜饯樱桃台阶");
+		addBlockById(CHEWING_GUM_SLAB, "口香糖台阶");
+		addBlockById(MINT_STAIRS, "水生薄荷楼梯");
+		addBlockById(RASPBERRY_STAIRS, "水生树莓楼梯");
+		addBlockById(BANANA_SEAWEEDS_STAIRS, "香蕉海草楼梯");
+		addBlockById(CANDIED_CHERRY_STAIRS, "蜜饯樱桃楼梯");
+		addBlockById(CHEWING_GUM_STAIRS, "口香糖楼梯");
+		addBlockById(MINT, "水生薄荷");
+		addBlockById(ROPE_RASPBERRY, "绳状树莓");
+		addBlockById(BANANA_SEAWEED, "香蕉海草");
 	}
 
 	/**

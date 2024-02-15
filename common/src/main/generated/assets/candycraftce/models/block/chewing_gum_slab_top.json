@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "candycraftce:block/chewing_gum_block",
+    "side": "candycraftce:block/chewing_gum_block",
+    "top": "candycraftce:block/chewing_gum_block"
+  }
+}

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  */
 public class CandyWaterPlantBlock extends CandyPlantBlock implements LiquidBlockContainer {
-	protected CandyWaterPlantBlock(Properties properties) {
+	public CandyWaterPlantBlock(Properties properties) {
 		super(properties);
 	}
 

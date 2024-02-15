@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "candycraftce:block/raspberry_slab"
+    },
+    "type=double": {
+      "model": "candycraftce:block/raspberry_slab_full"
+    },
+    "type=top": {
+      "model": "candycraftce:block/raspberry_slab_top"
+    }
+  }
+}
