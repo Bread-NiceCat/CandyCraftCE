@@ -73,7 +73,7 @@ tasks.register("FatRunClient") {
 tasks.register('drawJars') {
     group = "build"
     doLast {
-        def outDir = new File("build/buildJars")
+        def outDir = new File(rootDir, "build/buildJars")
         outDir.eachDir { it.deleteDir() }
         def dir1 = new File(outDir, "modJars")
         dir1.mkdir()
