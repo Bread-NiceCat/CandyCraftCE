@@ -28,12 +28,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: forge
-          path: forge/build/libs/candycraftce-*.*.[[:digit:]].jar
+          path: forge/build/libs/candycraftce-*.*.[0-9]+.jar
           if-no-files-found: error
 
       - name: upload fabric
         uses: actions/upload-artifact@v3
         with:
           name: fabric
-          path: fabric/build/libs/candycraftce-*.*.[[:digit:]].jar
+          path: fabric/build/libs/candycraftce-*.*.[0-9]+.jar
           if-no-files-found: error
