@@ -35,7 +35,7 @@ public class CandySaplingBlock extends SaplingBlock implements ISugarTarget {
 	}
 
 	@Override
-	public boolean isSugarSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state) {
+	public boolean isSugarSuccess(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
 		return rand.nextFloat() < 0.45;
 	}
 

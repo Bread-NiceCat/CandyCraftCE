@@ -24,20 +24,19 @@ public interface ISugarTarget {
 	static boolean grow(ItemStack item, Level level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		if (state.getBlock() instanceof ISugarTarget target && target.isValidSugarTarget(level, pos, state, level.isClientSide)) {
-			if (!level.isClientSide) {
-				if (target.isSugarSuccess(level, level.random, pos, state)) {
-					target.performSugar((ServerLevel) level, level.random, pos, state);
-				}
+			if (level.isClientSide) return true;
+			if (target.isSugarSuccess((ServerLevel) level, level.random, pos, state)) {
+				target.performSugar((ServerLevel) level, level.random, pos, state);
 				item.shrink(1);
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
 
 	boolean isValidSugarTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient);
 
-	boolean isSugarSuccess(Level level, RandomSource rand, BlockPos pos, BlockState state);
+	boolean isSugarSuccess(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state);
 
 	void performSugar(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state);
 

@@ -6,7 +6,6 @@ plugins {
 architectury {
     minecraft = minecraft_version
 }
-
 allprojects {
     apply plugin: "java"
     apply plugin: "idea"
@@ -60,25 +59,37 @@ subprojects {
 
     }
 }
+
+tasks.register("FatRunClient") {
+    group = "run"
+    print "$name init"
+    Task client = project(":fabric").runClient
+    Task data = project(":forge").runData
+    dependsOn(client.mustRunAfter(data), data)
+}
+
 //for github work flow
 //================================================================//
-tasks.register("drawJars", {
-    def outDir = new File("build/buildJars")
-    outDir.mkdirs()
-    def dir1 = new File(outDir, "modJars")
-    dir1.mkdir()
-    def dir2 = new File(outDir, "sourceJars")
-    dir2.mkdir()
-    def dir3 = new File(outDir, "devShadowJars")
-    dir3.mkdir()
-    def modName = "${archivesBaseName}-${mod_version}"
-    copy(new File("fabric/build/libs/${modName}.jar"), new File(dir1, "fabric/${modName}.jar"))
-    copy(new File("forge/build/libs/${modName}.jar"), new File(dir1, "forge/${modName}.jar"))
-    copy(new File("fabric/build/libs/${modName}-sources.jar"), new File(dir2, "fabric/${modName}-sources.jar"))
-    copy(new File("forge/build/libs/${modName}-sources.jar"), new File(dir2, "forge/${modName}-sources.jar"))
-    copy(new File("fabric/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "fabric/${modName}-dev-shadow.jar"))
-    copy(new File("forge/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "forge/${modName}-dev-shadow.jar"))
-})
+tasks.register('drawJars') {
+    group = "build"
+    doLast {
+        def outDir = new File("build/buildJars")
+        outDir.eachDir { it.deleteDir() }
+        def dir1 = new File(outDir, "modJars")
+        dir1.mkdir()
+        def dir2 = new File(outDir, "sourceJars")
+        dir2.mkdir()
+        def dir3 = new File(outDir, "devShadowJars")
+        dir3.mkdir()
+        def modName = "${archives_base_name}-${mod_version}"
+        copy(new File("fabric/build/libs/${modName}.jar"), new File(dir1, "fabric/${modName}.jar"))
+        copy(new File("forge/build/libs/${modName}.jar"), new File(dir1, "forge/${modName}.jar"))
+        copy(new File("fabric/build/libs/${modName}-sources.jar"), new File(dir2, "fabric/${modName}-sources.jar"))
+        copy(new File("forge/build/libs/${modName}-sources.jar"), new File(dir2, "forge/${modName}-sources.jar"))
+        copy(new File("fabric/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "fabric/${modName}-dev-shadow.jar"))
+        copy(new File("forge/build/libs/${modName}-dev-shadow.jar"), new File(dir3, "forge/${modName}-dev-shadow.jar"))
+    }
+}
 
 private static def copy(File from, File to) {
     from.withInputStream { i ->

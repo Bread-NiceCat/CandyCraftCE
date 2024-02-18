@@ -32,11 +32,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CBlockBuilder<B extends Block> {
+	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
 	private final String name;
 	private Function<Properties, B> factory;
 	private Supplier<Properties> properties;
 	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
-	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
 
 	static {
 		CItems.hookBlockItems(items);

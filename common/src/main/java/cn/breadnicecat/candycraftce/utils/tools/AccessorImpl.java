@@ -9,6 +9,14 @@ package cn.breadnicecat.candycraftce.utils.tools;
 public class AccessorImpl<T> implements Accessor<T> {
 	T value;
 
+	public AccessorImpl() {
+
+	}
+
+	public AccessorImpl(T value) {
+		this.value = value;
+	}
+
 	@Override
 	public T get() {
 		return value;

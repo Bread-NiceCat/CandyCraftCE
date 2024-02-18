@@ -26,8 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
-import static cn.breadnicecat.candycraftce.block.CBlocks.HONEYCOMB_TORCH;
-import static cn.breadnicecat.candycraftce.block.CBlocks.WALL_HONEYCOMB_TORCH;
+import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
 
 /**
@@ -71,8 +70,8 @@ public class CItems {
 	public static final ItemEntry<Item> CRANFISH = create("cranfish").save();
 	public static final ItemEntry<Item> CRANFISH_COOKED = create("cranfish_cooked").save();
 	public static final ItemEntry<Item> CRANFISH_SCALE = create("cranfish_scale").save();
-	//HELPER.single(DRAGIBUS, () -> new ItemCustomNamedBlockItem(DRAGIBUS_CROPS.getBlock(), defaultItemProperties()),GENERATED);
-//HELPER.single(LOLLIPOP_SEEDS, () -> new ItemCustomNamedBlockItem(LOLLIPOP_STEM.getBlock(), defaultItemProperties()),GENERATED);
+	public static final ItemEntry<ItemNameBlockItem> DRAGIBUS = create("dragibus", (p) -> new ItemNameBlockItem(DRAGIBUS_CROPS.get(), p)).save();
+	public static final ItemEntry<ItemNameBlockItem> LOLLIPOP_SEEDS = create("lollipop_seeds", (p) -> new ItemNameBlockItem(LOLLIPOP_STEM.get(), p)).save();
 
 	/* 地牢门钥匙 */
 	public static final ItemEntry<Item> JELLY_SENTRY_KEY = create("jelly_sentry_key")

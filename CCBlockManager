@@ -221,20 +221,20 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
 	            .addElement(SWEET_GRASS_2)
 	            .addElement(SWEET_GRASS_3)
 	            .register();
-    //水生植物
-    HELPER.batch((n, a) -> new BlockCandyWaterPlant(Properties.of(Material.WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_CROSS, LOOT_DROP_SELF_WHEN_SILK_TOUCH_OR_SHEARS, RENDERER_TYPE_CUTOUT)
-            .addElement(MINT)
-            .addElement(ROPE_RASPBERRY)
-            .addElement(BANANA_SEAWEED)
-            .register();
-    //甜蜜花
-    HELPER.single(FRAISE_TAGADA_FLOWER, () -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)), CCBlockManager::simpleBlockItem,
-            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(GOLDEN_SUGAR_FLOWER, BlockGoldenSugarFlower::new, CCBlockManager::simpleBlockItem,
-            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    HELPER.single(ACID_MINT_FLOWER, BlockAcidMintFlower::new, CCBlockManager::simpleBlockItem,
-            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	    //水生植物
+	    HELPER.batch((n, a) -> new BlockCandyWaterPlant(Properties.of(Material.WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS)), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_CROSS, LOOT_DROP_SELF_WHEN_SILK_TOUCH_OR_SHEARS, RENDERER_TYPE_CUTOUT)
+	            .addElement(MINT)
+	            .addElement(ROPE_RASPBERRY)
+	            .addElement(BANANA_SEAWEED)
+	            .register();
+	    //甜蜜花
+	    HELPER.single(FRAISE_TAGADA_FLOWER, () -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)), CCBlockManager::simpleBlockItem,
+	            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	    HELPER.single(GOLDEN_SUGAR_FLOWER, BlockGoldenSugarFlower::new, CCBlockManager::simpleBlockItem,
+	            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	    HELPER.single(ACID_MINT_FLOWER, BlockAcidMintFlower::new, CCBlockManager::simpleBlockItem,
+	            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
     //作物
     HELPER.single(DRAGIBUS_CROPS, () -> new BlockCandyCrop(Properties.copy(Blocks.WHEAT), CItemEntries.DRAGIBUS),
             RENDERER_TYPE_CUTOUT

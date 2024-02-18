@@ -185,7 +185,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 					generatedItem(name, cross);
 				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
 				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES,
-				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED
+				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
+				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, LOLLIPOP_FRUIT
 		);
 		//door *_bottom *_top
 		accept(b -> {
@@ -223,6 +224,38 @@ public class CBlockStateProvider extends BlockStateProvider {
 		});
 		mappings = Map.of();//makes mapping disabled
 		/*================CUSTOM PART================*/
+		//Dragibus软糖
+		{
+			CandyCropBlock block = DRAGIBUS_CROPS.get();
+			String name = DRAGIBUS_CROPS.getName();
+			ConfiguredModel[] m0 = ConfiguredModel.builder().modelFile(models().crop(name + "_0", modLoc("block/" + name + "_0"))).build();
+			ConfiguredModel[] m1 = ConfiguredModel.builder().modelFile(models().crop(name + "_1", modLoc("block/" + name + "_1"))).build();
+			ConfiguredModel[] m2 = ConfiguredModel.builder().modelFile(models().crop(name + "_2", modLoc("block/" + name + "_2"))).build();
+			ConfiguredModel[] m3 = ConfiguredModel.builder().modelFile(models().crop(name + "_3", modLoc("block/" + name + "_3"))).build();
+			getVariantBuilder(block).forAllStates((bs) -> switch (block.getStage(bs)) {
+						case 0 -> m0;
+						case 1 -> m1;
+						case 2 -> m2;
+						case 3 -> m3;
+						default -> throw new IllegalArgumentException();
+					}
+			);
+		}
+		//棒棒糖
+		{
+			LollipopStemBlock block = LOLLIPOP_STEM.get();
+			String name = LOLLIPOP_STEM.getName();
+			ConfiguredModel[] m0 = ConfiguredModel.builder().modelFile(models().cross(name + "_0", modLoc("block/" + name + "_0"))).build();
+			ConfiguredModel[] m1 = ConfiguredModel.builder().modelFile(models().cross(name + "_1", modLoc("block/" + name + "_1"))).build();
+			ConfiguredModel[] m2 = ConfiguredModel.builder().modelFile(models().cross(name + "_2", modLoc("block/" + name + "_2"))).build();
+			getVariantBuilder(block).forAllStates((bs) -> switch (block.getStage(bs)) {
+						case 0 -> m0;
+						case 1 -> m1;
+						case 2 -> m2;
+						default -> throw new IllegalArgumentException();
+					}
+			);
+		}
 		//敏感果冻
 		{
 			String name = SENSITIVE_JELLY.getName();
@@ -329,6 +362,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					.texture("top", modLoc("block/" + name + "_top_moist"));
 			getVariantBuilder(block).forAllStates((s) ->
 					ConfiguredModel.builder().modelFile(s.getValue(PuddingFarmBlock.MOISTURE) >= PuddingFarmBlock.MAX_MOISTURE ? land_moist : land).build());
+			simpleBlockItem(block, land);
 		}
 		//传送门
 		{

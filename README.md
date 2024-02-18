@@ -16,9 +16,8 @@ The mod is distributed under [LGPLv3](LICENSE).
 
 ## Download
 
-- Latest but **unstable**
-  version([Workflow](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
-- ~~Compile your self by following some steps [here](#compilation)~~
+- Auto-built versions([Workflow](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
+- ~~Compile yourself by following some steps [here](#compilation)~~
 
 <hr>
 

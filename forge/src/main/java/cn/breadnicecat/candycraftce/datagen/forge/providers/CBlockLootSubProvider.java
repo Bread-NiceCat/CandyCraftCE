@@ -2,18 +2,21 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.item.CItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
@@ -39,6 +43,8 @@ import static net.minecraft.world.item.Items.SUGAR;
 public class CBlockLootSubProvider extends BlockLootSubProvider {
 	private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
 	private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
+	private static final Function<Block, LootItemCondition.Builder> AGE_IS_7 = b -> LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7));
+	;
 	private static final float[] NORMAL_LEAVES_STICK_CHANCES = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
 	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
 
@@ -65,7 +71,8 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY, SUGAR_SPIKES, CRANBERRY_SPIKES,
 				MINT_BLOCK, RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CANDIED_CHERRY_SACK, CHEWING_GUM_BLOCK,
 				MINT_SLAB, RASPBERRY_SLAB, BANANA_SEAWEEDS_SLAB, COTTON_CANDY_SLAB, CANDIED_CHERRY_SLAB, CHEWING_GUM_SLAB,
-				MINT_STAIRS, RASPBERRY_STAIRS, BANANA_SEAWEEDS_STAIRS, COTTON_CANDY_STAIRS, CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS
+				MINT_STAIRS, RASPBERRY_STAIRS, BANANA_SEAWEEDS_STAIRS, COTTON_CANDY_STAIRS, CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS,
+				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER
 		);
 		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
 		accept(m -> add(m, createDoorTable(m.get())), MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
@@ -73,11 +80,14 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		accept(m -> add(m, createSilkTouchOrShearsDispatchTable(m.get(), EmptyLootItem.emptyItem())),
 				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED
 		);
-		//
 		//SilkTouch
 		accept(m -> dropWhenSilkTouch(m.get()),
 				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE
 		);
+
+		add(DRAGIBUS_CROPS, (b) -> createCropDrops(b, DRAGIBUS.get(), DRAGIBUS.get(), AGE_IS_7.apply(b)));
+		add(LOLLIPOP_STEM, (b) -> createCropDrops(b, LOLLIPOP_SEEDS.get(), LOLLIPOP_SEEDS.get(), AGE_IS_7.apply(b)));
+		add(LOLLIPOP_FRUIT, createSingleItemTable(LOLLIPOP, UniformGenerator.between(2f, 6f)));
 		add(COTTON_CANDY_WEB, createSilkTouchOrShearsDispatchTable(COTTON_CANDY_WEB.get(), LootItem.lootTableItem(COTTON_CANDY).when(LootItemRandomChanceCondition.randomChance(1 / 6f))));
 		add(MAGIC_LEAVES, createCandyLeavesDrops(MAGIC_LEAVES.get(), SUGAR, NORMAL_LEAVES_SAPLING_CHANCES));
 		add(CHOCOLATE_LEAVES, createCandyLeavesDrops(CHOCOLATE_LEAVES.get(), CHOCOLATE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
@@ -91,6 +101,10 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		otherWhenSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get());
 		otherWhenSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get());
 		dropOther(PUDDING_FARMLAND.get(), PUDDING.get());
+	}
+
+	private <B extends Block> void add(BlockEntry<B> blo, Function<B, LootTable.Builder> fb) {
+		add(blo, fb.apply(blo.get()));
 	}
 
 	private void add(BlockEntry<?> blo, LootTable.Builder b) {

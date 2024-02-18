@@ -59,20 +59,28 @@ public class CBlocks {
 	public static final BlockEntry<CandyWaterPlantBlock> MINT = create("mint", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
 	public static final BlockEntry<CandyWaterPlantBlock> ROPE_RASPBERRY = create("rope_raspberry", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
 	public static final BlockEntry<CandyWaterPlantBlock> BANANA_SEAWEED = create("banana_seaweed", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save();
-	//    //甜蜜花
-//    HELPER.single(FRAISE_TAGADA_FLOWER, () -> new BlockCandyPlant(Properties.copy(Blocks.POPPY)), CCBlockManager::simpleBlockItem,
-//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-//    HELPER.single(GOLDEN_SUGAR_FLOWER, BlockGoldenSugarFlower::new, CCBlockManager::simpleBlockItem,
-//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-//    HELPER.single(ACID_MINT_FLOWER, BlockAcidMintFlower::new, CCBlockManager::simpleBlockItem,
-//            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
+	public static final BlockEntry<CandyPlantBlock> FRAISE_TAGADA_FLOWER = create("fraise_tagada_flower", CandyPlantBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<GoldenSugarFlowerBlock> GOLDEN_SUGAR_FLOWER = create("golden_sugar_flower", GoldenSugarFlowerBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<AcidMintFlowerBlock> ACID_MINT_FLOWER = create("acid_mint_flower", AcidMintFlowerBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<CandyCropBlock> DRAGIBUS_CROPS = create("dragibus_crops", CandyCropBlock::createL4).setProperties(WHEAT, null).noBlockItem().save();
+	public static final BlockEntry<LollipopStemBlock> LOLLIPOP_STEM = create("lollipop_stem", LollipopStemBlock::new).setProperties(WHEAT, null).noBlockItem().save();
+	public static final BlockEntry<LollipopFruit> LOLLIPOP_FRUIT = create("lollipop_fruit", LollipopFruit::new).setProperties(WHEAT, null).noBlockItem().save();
+
+	//    //作物
+//    HELPER.single(DRAGIBUS_CROPS, () -> new BlockCandyCrop(Properties.copy(Blocks.WHEAT), CItemEntries.DRAGIBUS),
+//            RENDERER_TYPE_CUTOUT
+//    );
+//    HELPER.single(LOLLIPOP_STEM, BlockLollipopStem::new,
+//            RENDERER_TYPE_CUTOUT);
+//    HELPER.single(LOLLIPOP_BLOCK, BlockLollipop::new,
+//            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
 
 	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
 	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE, null).save();
 
 	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save();
-	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).noBlockItem().save();
+	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).save();
 
 	public static final BlockEntry<Block> MINT_BLOCK = create("mint_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> RASPBERRY_BLOCK = create("raspberry_block").setProperties(HAY_BLOCK, null).save();
@@ -189,11 +197,12 @@ public class CBlocks {
 	public static final BlockEntry<IronBarsBlock> DIAMOND_CARAMEL_GLASS_PANE = create("diamond_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
 
 
-	//=====Special=====
-	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
 	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
 	public static final BlockEntry<TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(p, ParticleTypes.FLAME)).setProperties(Blocks.TORCH, null).noBlockItem().save();
 	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
+
+	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
+
 
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
@@ -204,7 +213,9 @@ public class CBlocks {
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
 				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, SUGAR_SPIKES, CRANBERRY_SPIKES,
 				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE,
-				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED
+				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
+				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER,
+				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT
 		);
 	}
 

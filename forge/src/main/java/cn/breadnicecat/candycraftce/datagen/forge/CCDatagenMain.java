@@ -2,6 +2,8 @@ package cn.breadnicecat.candycraftce.datagen.forge;
 
 import cn.breadnicecat.candycraftce.datagen.forge.providers.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.tools.Accessor;
+import cn.breadnicecat.candycraftce.utils.tools.SafeAccessor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -23,11 +25,12 @@ import java.util.concurrent.CompletableFuture;
 public class CCDatagenMain {
 
 	private static final Logger LOGGER = CLogUtils.sign();
+	private static final Accessor<Boolean> STATE = new SafeAccessor<>(false);
 
 	@SubscribeEvent
 	public static void onInitializeDataGenerator(GatherDataEvent evt) {
-		launchTerminalHelper();
 		LOGGER.warn("RUNNING DATAGEN ENVIRONMENT");
+		launchProcessTerminator();
 		ExistingFileHelper efhelper = evt.getExistingFileHelper();
 		DataGenerator generator = evt.getGenerator();
 		PackOutput pack = generator.getPackOutput();
@@ -44,13 +47,14 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
+		generator.addProvider(true, new CTerminalStateProvider(STATE));
 	}
 
 	/**
 	 * Arch 会启动几个非daemon的线程，导致运行完毕后无法正常退出
 	 * 此线程通过在main线程运行终止后执行exit(0)来解决此问题
 	 */
-	private static void launchTerminalHelper() {
+	public static void launchProcessTerminator() {
 		Thread main = Thread.currentThread();
 		Thread helper = new Thread(() -> {
 			LOGGER.info("Thread {} started!", Thread.currentThread().getName());
@@ -61,13 +65,21 @@ public class CCDatagenMain {
 					throw new RuntimeException(e);
 				}
 			}
-			LOGGER.info("main Thread ended, preparing exit(0) after 5s!");
+			LOGGER.info("Preparing exit after 5s!");
+			int status;
+			if (STATE.get()) {
+				LOGGER.info("status = 0");
+				status = 0;
+			} else {
+				LOGGER.warn("status = -1");
+				status = -1;
+			}
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
-			System.exit(0);
+			System.exit(status);
 		}, "Process Terminator");
 		helper.setDaemon(true);
 		helper.start();

@@ -16,7 +16,7 @@
 
 ## 下载
 
-- 最新但不稳定([工作流](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
+- 自动构建版([工作流](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
 - ~~通过[一些步骤](#编译)自己编译~~
 
 ## 编译

@@ -49,6 +49,8 @@ public class CItemModelProvider extends ItemModelProvider {
 					PEZ_DUST,
 					WAFFLE,
 					WAFFLE_NUGGET,
+					DRAGIBUS,
+					LOLLIPOP_SEEDS,
 					CANDIED_CHERRY,
 					CANDY_CANE,
 					CHEWING_GUM,

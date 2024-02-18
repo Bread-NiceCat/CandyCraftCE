@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "candycraftce:block/dragibus_crops_0"
+    },
+    "age=1": {
+      "model": "candycraftce:block/dragibus_crops_0"
+    },
+    "age=2": {
+      "model": "candycraftce:block/dragibus_crops_0"
+    },
+    "age=3": {
+      "model": "candycraftce:block/dragibus_crops_1"
+    },
+    "age=4": {
+      "model": "candycraftce:block/dragibus_crops_1"
+    },
+    "age=5": {
+      "model": "candycraftce:block/dragibus_crops_2"
+    },
+    "age=6": {
+      "model": "candycraftce:block/dragibus_crops_2"
+    },
+    "age=7": {
+      "model": "candycraftce:block/dragibus_crops_3"
+    }
+  }
+}
