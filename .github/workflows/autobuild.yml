@@ -24,27 +24,16 @@ jobs:
         with:
           arguments: build
 
-      - name: draw jars
-        run: ./gradlew drawJars
-
-      #      - name: upload full
-      #        uses: actions/upload-artifact@v3
-      #        with:
-      #          name: all
-      #          path: build/buildJars
-      #          if-no-files-found: error
-
       - name: upload forge
         uses: actions/upload-artifact@v3
         with:
           name: forge
-          path: build/buildJars/modJars/forge
+          path: forge/build/libs/candycraftce-*.*.*.jar
           if-no-files-found: error
 
       - name: upload fabric
         uses: actions/upload-artifact@v3
         with:
           name: fabric
-          path: build/buildJars/modJars/fabric
+          path: fabric/build/libs/candycraftce-*.*.*.jar
           if-no-files-found: error
-
