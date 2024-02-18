@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "candycraftce:block/strawberry_ice_cream"
+  }
+}

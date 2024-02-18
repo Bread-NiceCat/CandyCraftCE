@@ -54,7 +54,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
-				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK
+				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
+				ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM
 		);
 		//cubeBottomTop *_side *_bottom *_top
 		zone(() -> {
@@ -121,6 +122,10 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(BANANA_SEAWEEDS_STAIRS.getName(), BANANA_SEAWEEDS_BLOCK.getName());
 			consumer.accept(CANDIED_CHERRY_STAIRS.getName(), CANDIED_CHERRY_SACK.getName() + "_top");
 			consumer.accept(CHEWING_GUM_STAIRS.getName(), CHEWING_GUM_BLOCK.getName());
+			consumer.accept(ICE_CREAM_STAIRS.getName(), ICE_CREAM.getName());
+			consumer.accept(MINT_ICE_CREAM_STAIRS.getName(), MINT_ICE_CREAM.getName());
+			consumer.accept(STRAWBERRY_ICE_CREAM_STAIRS.getName(), STRAWBERRY_ICE_CREAM.getName());
+			consumer.accept(BLUEBERRY_ICE_CREAM_STAIRS.getName(), BLUEBERRY_ICE_CREAM.getName());
 			accept(b -> {
 						ResourceLocation side = modLoc("block/" + b.getName() + "_side");
 						ResourceLocation end = modLoc("block/" + b.getName() + "_end");
@@ -129,7 +134,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 					}, CANDY_CANE_STAIRS, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
 					MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS,
 					COTTON_CANDY_STAIRS, MINT_STAIRS, RASPBERRY_STAIRS, BANANA_SEAWEEDS_STAIRS,
-					CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS
+					CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS, ICE_CREAM_STAIRS,
+					MINT_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM_STAIRS
 			);
 		});
 		//slab : *_side, *_end
@@ -156,6 +162,10 @@ public class CBlockStateProvider extends BlockStateProvider {
 			consumer.accept(BANANA_SEAWEEDS_SLAB.getName(), BANANA_SEAWEEDS_BLOCK.getName());
 			consumer.accept(CANDIED_CHERRY_SLAB.getName(), CANDIED_CHERRY_SACK.getName() + "_top");
 			consumer.accept(CHEWING_GUM_SLAB.getName(), CHEWING_GUM_BLOCK.getName());
+			consumer.accept(ICE_CREAM_SLAB.getName(), ICE_CREAM.getName());
+			consumer.accept(MINT_ICE_CREAM_SLAB.getName(), MINT_ICE_CREAM.getName());
+			consumer.accept(STRAWBERRY_ICE_CREAM_SLAB.getName(), STRAWBERRY_ICE_CREAM.getName());
+			consumer.accept(BLUEBERRY_ICE_CREAM_SLAB.getName(), BLUEBERRY_ICE_CREAM.getName());
 			accept(b -> {
 						String name = b.getName();
 						ResourceLocation side = modLoc("block/" + name + "_side");
@@ -167,9 +177,16 @@ public class CBlockStateProvider extends BlockStateProvider {
 						slabBlock(block, slab, slabTop, full);
 						simpleBlockItem(block, slab);
 					}, CANDY_CANE_SLAB, LICORICE_SLAB, LICORICE_BRICK_SLAB, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
-					DARK_MARSHMALLOW_SLAB, COTTON_CANDY_SLAB, MINT_SLAB, RASPBERRY_SLAB,
-					BANANA_SEAWEEDS_SLAB, CANDIED_CHERRY_SLAB, CHEWING_GUM_SLAB);
+					DARK_MARSHMALLOW_SLAB, COTTON_CANDY_SLAB, MINT_SLAB, RASPBERRY_SLAB, BANANA_SEAWEEDS_SLAB, CANDIED_CHERRY_SLAB,
+					CHEWING_GUM_SLAB, ICE_CREAM_SLAB, MINT_ICE_CREAM_SLAB, STRAWBERRY_ICE_CREAM_SLAB, BLUEBERRY_ICE_CREAM_SLAB);
 		});
+		//trapdoor *
+		accept(b -> {
+			TrapDoorBlock block = b.get();
+			ResourceLocation tex = blockTexture(block);
+			trapdoorBlock(block, tex, true);
+			itemModels().trapdoorBottom(b.getName(), tex);
+		}, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR);
 		//log *, *_top
 		accept(b -> {
 			RotatedPillarBlock block = b.get();

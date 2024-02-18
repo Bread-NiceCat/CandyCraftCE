@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "candycraftce:block/blueberry_ice_cream",
+    "side": "candycraftce:block/blueberry_ice_cream",
+    "top": "candycraftce:block/blueberry_ice_cream"
+  }
+}

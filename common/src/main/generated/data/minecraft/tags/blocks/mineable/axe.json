@@ -19,9 +19,12 @@
     "candycraftce:marshmallow_door",
     "candycraftce:light_marshmallow_door",
     "candycraftce:dark_marshmallow_door",
+    "candycraftce:marshmallow_ladder",
     "candycraftce:marshmallow_fence_gate",
     "candycraftce:light_marshmallow_fence_gate",
     "candycraftce:dark_marshmallow_fence_gate",
-    "candycraftce:marshmallow_ladder"
+    "candycraftce:marshmallow_trapdoor",
+    "candycraftce:light_marshmallow_trapdoor",
+    "candycraftce:dark_marshmallow_trapdoor"
   ]
 }

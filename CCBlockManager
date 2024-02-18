@@ -235,14 +235,14 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
 	            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
 	    HELPER.single(ACID_MINT_FLOWER, BlockAcidMintFlower::new, CCBlockManager::simpleBlockItem,
 	            MODEL_CROSS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT);
-    //作物
-    HELPER.single(DRAGIBUS_CROPS, () -> new BlockCandyCrop(Properties.copy(Blocks.WHEAT), CItemEntries.DRAGIBUS),
-            RENDERER_TYPE_CUTOUT
-    );
-    HELPER.single(LOLLIPOP_STEM, BlockLollipopStem::new,
-            RENDERER_TYPE_CUTOUT);
-    HELPER.single(LOLLIPOP_BLOCK, BlockLollipop::new,
-            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
+	    //作物
+	    HELPER.single(DRAGIBUS_CROPS, () -> new BlockCandyCrop(Properties.copy(Blocks.WHEAT), CItemEntries.DRAGIBUS),
+	            RENDERER_TYPE_CUTOUT
+	    );
+	    HELPER.single(LOLLIPOP_STEM, BlockLollipopStem::new,
+	            RENDERER_TYPE_CUTOUT);
+	    HELPER.single(LOLLIPOP_BLOCK, BlockLollipop::new,
+	            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
 
     //冰淇淋
     HELPER.batch((n, a) -> new Block(Properties.copy(Blocks.SNOW_BLOCK)), (n, b, a) -> simpleBlockItem(b),

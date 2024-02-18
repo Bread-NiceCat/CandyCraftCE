@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "candycraftce:block/mint_ice_cream_slab"
+    },
+    "type=double": {
+      "model": "candycraftce:block/mint_ice_cream_slab_full"
+    },
+    "type=top": {
+      "model": "candycraftce:block/mint_ice_cream_slab_top"
+    }
+  }
+}

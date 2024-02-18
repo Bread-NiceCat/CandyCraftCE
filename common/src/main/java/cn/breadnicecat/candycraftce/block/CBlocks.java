@@ -81,7 +81,31 @@ public class CBlocks {
 	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).save();
-
+	public static final BlockEntry<Block> ICE_CREAM = create("ice_cream", Block::new).setProperties(SNOW_BLOCK, null).save();
+	public static final BlockEntry<Block> MINT_ICE_CREAM = create("mint_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
+	public static final BlockEntry<Block> STRAWBERRY_ICE_CREAM = create("strawberry_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
+	public static final BlockEntry<Block> BLUEBERRY_ICE_CREAM = create("blueberry_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
+	//    HELPER.batch((n, a) -> new SlabBlock(Properties.copy(ICE_CREAM.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+//                    MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+//            .addElement()
+//            .addElement()
+//            .addElement()
+//            .addElement()
+//            .register();
+//    HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(ICE_CREAM.getBlock())), CCBlockManager::simpleBlockItem,
+//                    MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+//            .addElement(ICE_CREAM_STAIRS, ICE_CREAM)
+//            .addElement(MINT_ICE_CREAM_STAIRS, MINT_ICE_CREAM)
+//            .addElement(STRAWBERRY_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM)
+//            .addElement(BLUEBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM)
+//            .register();
+//    HELPER.single(GRENADINE_BLOCK, () -> new HalfTransparentBlock(Properties.copy(Blocks.ICE)), CCBlockManager::simpleBlockItem,
+//            MODEL_SIMPLE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_TRANSLUCENT);
+//    //Barrier
+//    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_BRICK, () -> new Block(Properties.copy(Blocks.BEDROCK)), CCBlockManager::simpleBlockItem,
+//            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+//    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_LIGHT, () -> new Block(Properties.copy(Blocks.BEDROCK).lightLevel((b) -> 14)), CCBlockManager::simpleBlockItem,
+//            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
 	public static final BlockEntry<Block> MINT_BLOCK = create("mint_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> RASPBERRY_BLOCK = create("raspberry_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> BANANA_SEAWEEDS_BLOCK = create("banana_seaweeds_block").setProperties(HAY_BLOCK, null).save();
@@ -154,6 +178,10 @@ public class CBlocks {
 	public static final BlockEntry<SlabBlock> CANDY_CANE_SLAB = create("candy_cane_slab", SlabBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<SlabBlock> LICORICE_SLAB = create("licorice_slab", SlabBlock::new).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<SlabBlock> LICORICE_BRICK_SLAB = create("licorice_brick_slab", SlabBlock::new).setProperties(LICORICE_BRICK, null).save();
+	public static final BlockEntry<SlabBlock> ICE_CREAM_SLAB = create("ice_cream_slab", SlabBlock::new).setProperties(ICE_CREAM, null).save();
+	public static final BlockEntry<SlabBlock> MINT_ICE_CREAM_SLAB = create("mint_ice_cream_slab", SlabBlock::new).setProperties(MINT_ICE_CREAM, null).save();
+	public static final BlockEntry<SlabBlock> STRAWBERRY_ICE_CREAM_SLAB = create("strawberry_ice_cream_slab", SlabBlock::new).setProperties(STRAWBERRY_ICE_CREAM, null).save();
+	public static final BlockEntry<SlabBlock> BLUEBERRY_ICE_CREAM_SLAB = create("blueberry_ice_cream_slab", SlabBlock::new).setProperties(BLUEBERRY_ICE_CREAM, null).save();
 
 	public static final BlockEntry<StairBlock> MINT_STAIRS = stairBlock("mint_stairs", MINT_BLOCK::defaultBlockState).setProperties(MINT_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> RASPBERRY_STAIRS = stairBlock("raspberry_stairs", RASPBERRY_BLOCK::defaultBlockState).setProperties(RASPBERRY_BLOCK, null).save();
@@ -167,10 +195,17 @@ public class CBlocks {
 	public static final BlockEntry<StairBlock> CANDY_CANE_STAIRS = stairBlock("candy_cane_stairs", CANDY_CANE_BLOCK::defaultBlockState).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_STAIRS = stairBlock("licorice_stairs", LICORICE_BLOCK::defaultBlockState).setProperties(LICORICE_BLOCK, null).save();
 	public static final BlockEntry<StairBlock> LICORICE_BRICK_STAIRS = stairBlock("licorice_brick_stairs", LICORICE_BRICK::defaultBlockState).setProperties(LICORICE_BRICK, null).save();
+	public static final BlockEntry<StairBlock> ICE_CREAM_STAIRS = stairBlock("ice_cream_stairs", ICE_CREAM::defaultBlockState).setProperties(ICE_CREAM, null).save();
+	public static final BlockEntry<StairBlock> MINT_ICE_CREAM_STAIRS = stairBlock("mint_ice_cream_stairs", MINT_ICE_CREAM::defaultBlockState).setProperties(MINT_ICE_CREAM, null).save();
+	public static final BlockEntry<StairBlock> STRAWBERRY_ICE_CREAM_STAIRS = stairBlock("strawberry_ice_cream_stairs", STRAWBERRY_ICE_CREAM::defaultBlockState).setProperties(STRAWBERRY_ICE_CREAM, null).save();
+	public static final BlockEntry<StairBlock> BLUEBERRY_ICE_CREAM_STAIRS = stairBlock("blueberry_ice_cream_stairs", BLUEBERRY_ICE_CREAM::defaultBlockState).setProperties(BLUEBERRY_ICE_CREAM, null).save();
 
 	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
 	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
 	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<TrapDoorBlock> MARSHMALLOW_TRAPDOOR = create("marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
+	public static final BlockEntry<TrapDoorBlock> LIGHT_MARSHMALLOW_TRAPDOOR = create("light_marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
+	public static final BlockEntry<TrapDoorBlock> DARK_MARSHMALLOW_TRAPDOOR = create("dark_marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
 	public static final BlockEntry<FenceGateBlock> MARSHMALLOW_FENCE_GATE = create("marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
 	public static final BlockEntry<FenceGateBlock> LIGHT_MARSHMALLOW_FENCE_GATE = create("light_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.BAMBOO)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
 	public static final BlockEntry<FenceGateBlock> DARK_MARSHMALLOW_FENCE_GATE = create("dark_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.DARK_OAK)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
@@ -215,7 +250,7 @@ public class CBlocks {
 				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE,
 				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
 				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER,
-				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT
+				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
 		);
 	}
 

@@ -15,6 +15,7 @@ accessible method net/minecraft/world/level/block/WallTorchBlock <init> (Lnet/mi
 accessible method net/minecraft/world/level/block/LadderBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/DoorBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V
 accessible method net/minecraft/world/level/block/IronBarsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/TrapDoorBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V
 #BlockEntities
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 #Menu

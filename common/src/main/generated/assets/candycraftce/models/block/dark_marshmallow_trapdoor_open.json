@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_open",
+  "textures": {
+    "texture": "candycraftce:block/dark_marshmallow_trapdoor"
+  }
+}

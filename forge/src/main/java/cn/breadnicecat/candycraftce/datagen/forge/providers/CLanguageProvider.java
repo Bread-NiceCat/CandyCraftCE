@@ -238,6 +238,21 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(DRAGIBUS_CROPS, "多味珍珠糖作物");
 		addBlockById(LOLLIPOP_STEM, "棒棒糖茎");
 		addBlockById(LOLLIPOP_FRUIT, "棒棒糖果实");
+		addBlockById(ICE_CREAM, "冰淇淋");
+		addBlockById(MINT_ICE_CREAM, "薄荷冰淇淋");
+		addBlockById(STRAWBERRY_ICE_CREAM, "草莓冰淇淋");
+		addBlockById(BLUEBERRY_ICE_CREAM, "蓝莓冰淇淋");
+		addBlockById(ICE_CREAM_SLAB, "冰淇淋台阶");
+		addBlockById(MINT_ICE_CREAM_SLAB, "薄荷冰淇淋台阶");
+		addBlockById(STRAWBERRY_ICE_CREAM_SLAB, "草莓冰淇淋台阶");
+		addBlockById(BLUEBERRY_ICE_CREAM_SLAB, "蓝莓冰淇淋台阶");
+		addBlockById(ICE_CREAM_STAIRS, "冰淇淋楼梯");
+		addBlockById(MINT_ICE_CREAM_STAIRS, "薄荷冰淇淋楼梯");
+		addBlockById(STRAWBERRY_ICE_CREAM_STAIRS, "草莓冰淇淋楼梯");
+		addBlockById(BLUEBERRY_ICE_CREAM_STAIRS, "蓝莓冰淇淋楼梯");
+		addBlockById(MARSHMALLOW_TRAPDOOR, "棉花软糖活版门");
+		addBlockById(LIGHT_MARSHMALLOW_TRAPDOOR, "浅色棉花软糖活版门");
+		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
 	}
 
 	/**

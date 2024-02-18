@@ -3,6 +3,18 @@
     "candycraftce:sugar_block",
     "candycraftce:pudding",
     "candycraftce:custard_pudding",
-    "candycraftce:pudding_farmland"
+    "candycraftce:pudding_farmland",
+    "candycraftce:ice_cream",
+    "candycraftce:mint_ice_cream",
+    "candycraftce:strawberry_ice_cream",
+    "candycraftce:blueberry_ice_cream",
+    "candycraftce:ice_cream_slab",
+    "candycraftce:mint_ice_cream_slab",
+    "candycraftce:strawberry_ice_cream_slab",
+    "candycraftce:blueberry_ice_cream_slab",
+    "candycraftce:ice_cream_stairs",
+    "candycraftce:mint_ice_cream_stairs",
+    "candycraftce:strawberry_ice_cream_stairs",
+    "candycraftce:blueberry_ice_cream_stairs"
   ]
 }

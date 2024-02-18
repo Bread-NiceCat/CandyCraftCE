@@ -30,7 +30,6 @@ jobs:
           name: forge
           path: forge/build/libs/candycraftce-*.*.*[0-9].jar
           if-no-files-found: error
-          compression-level: 0
 
       - name: upload fabric
         uses: actions/upload-artifact@v4
@@ -38,4 +37,3 @@ jobs:
           name: fabric
           path: fabric/build/libs/candycraftce-*.*.*[0-9].jar
           if-no-files-found: error
-          compression-level: 0
