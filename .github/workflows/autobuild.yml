@@ -20,12 +20,12 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/gradle-build-action@v4
         with:
           arguments: build
 
       - name: upload forge
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: forge
           path: forge/build/libs/candycraftce-*.*.*[0-9].jar
