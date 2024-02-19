@@ -19,13 +19,12 @@
 - 自动构建版([工作流](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
 - ~~通过[一些步骤](#编译)自己编译~~
 
+<hr>
+
 ## 编译
 
-1. 在根目录下运行以下命令:
-    1. `./gradlew build`
-    2. `./gradlew drawJars`
-2. 在`build/buildJars/modJars`里面找到对应的mod文件
-
+1. 在根目录下运行命令:`./gradlew build`
+2. 编译好的mod文件将输出在中`${EngineName}\build\libs\candycraft-x.x.x.jar`
 ***注意***: 如果遇到 `BUILD FAILED` 或者 *无法下载wrapper*，请参阅[个性化](#个性化)
 
 <hr>
