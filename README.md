@@ -23,12 +23,11 @@ The mod is distributed under [LGPLv3](LICENSE).
 
 ## Compilation
 
-1. Simply execute the following command in project root directory:
-    1. `./gradlew build`
-    2. `./gradlew drawJars`
-2. Check products in `build/buildJars/modJars`
+1. Simply execute the command `./gradlew build` in project root directory
+2. Check products in `${EngineName}\build\libs\candycraft-x.x.x.jar`
 
 ***NOTE***: if `BUILD FAILED` or *Unable to download wrapper*, please refer to [Customized](#Customized)
+
 <hr>
 
 ## Customized
