@@ -1,9 +1,7 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
+import cn.breadnicecat.candycraftce.Bindings;
 import com.mojang.datafixers.types.Type;
-import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -59,12 +57,6 @@ public class CBlockEntityBuilder<B extends BlockEntity> {
 	}
 
 	public static <B extends BlockEntity> BlockEntityEntry<B> register(String name, Supplier<BlockEntityType<B>> b) {
-		return _register(prefix(name), b);
-	}
-
-	@ExpectPlatform
-	@Deprecated
-	private static <B extends BlockEntity> BlockEntityEntry<B> _register(ResourceLocation name, Supplier<BlockEntityType<B>> b) {
-		return CommonUtils.impossible();
+		return Bindings.registerBlockEntity(prefix(name), b);
 	}
 }

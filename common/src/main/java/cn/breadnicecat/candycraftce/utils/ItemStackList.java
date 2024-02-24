@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.block.blockentity.data;
+package cn.breadnicecat.candycraftce.utils;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.ContainerHelper;

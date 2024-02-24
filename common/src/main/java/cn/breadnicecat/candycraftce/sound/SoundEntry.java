@@ -13,15 +13,9 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class SoundEntry extends RegistryEntry {
-	private final Supplier<SoundEvent> entry;
+public abstract class SoundEntry extends RegistryEntry implements Supplier<SoundEvent> {
 
-	public SoundEntry(ResourceLocation name, Supplier<SoundEvent> entry) {
+	public SoundEntry(ResourceLocation name) {
 		super(name);
-		this.entry = entry;
-	}
-
-	public SoundEvent getSound() {
-		return entry.get();
 	}
 }

@@ -19,7 +19,7 @@ public class CSugarFuels {
 	}
 
 	public static boolean isFuel(@NotNull ItemStack stack) {
-		return !stack.isEmpty() && FUELS.containsKey(stack.getItem());
+		return isFuel(stack.getItem());
 	}
 
 	public static int getBurnDuration(Item item) {

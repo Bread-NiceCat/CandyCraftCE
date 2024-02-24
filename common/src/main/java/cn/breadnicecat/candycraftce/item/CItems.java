@@ -7,7 +7,6 @@ import cn.breadnicecat.candycraftce.item.items.IIDebugItem;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,6 +24,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.Bindings.impossibleCode;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
@@ -165,7 +165,6 @@ public class CItems {
 	public static final ItemEntry<ArmorItem> TRAMPOJELLY_BOOTS = createBoots("trampojelly_boots", CArmorMaterials.TRAMPOJELLY_BOOTS)
 			.save();
 	public static final ItemEntry<IIDebugItem> I_I_DEBUG = create("i_i_debug", higher(IIDebugItem::new))
-			.setTab(CreativeModeTabs.OP_BLOCKS)
 			.setCtab(false)
 			.save();
 
@@ -241,11 +240,11 @@ public class CItems {
 
 	@ExpectPlatform
 	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
-		return CommonUtils.impossible();
+		return impossibleCode();
 	}
 
 	@ExpectPlatform
 	private static RecordItem _record_wwwooowww(int analog, SoundEntry evt, Properties prop, int lengthInSeconds, String nameInGame, String musicName) {
-		return CommonUtils.impossible();
+		return impossibleCode();
 	}
 }

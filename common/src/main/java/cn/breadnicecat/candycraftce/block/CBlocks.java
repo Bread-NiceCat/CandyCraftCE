@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.block.blocks.JellyBlock.JellyType;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.Bindings.impossibleCode;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
@@ -265,6 +265,6 @@ public class CBlocks {
 	//Platform difference
 	@ExpectPlatform
 	public static StairBlock _stairBlock(Supplier<BlockState> base, Properties p) {
-		return CommonUtils.impossible();
+		return impossibleCode();
 	}
 }

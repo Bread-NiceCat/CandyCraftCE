@@ -72,7 +72,7 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public void add(SoundEntry sound, @NotNull SoundDefinition definition) {
-		add(sound.getSound(), definition);
+		add(sound.get(), definition);
 	}
 
 

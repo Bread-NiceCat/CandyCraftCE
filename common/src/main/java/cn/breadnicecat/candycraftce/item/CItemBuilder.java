@@ -1,30 +1,21 @@
 package cn.breadnicecat.candycraftce.item;
 
+import cn.breadnicecat.candycraftce.Bindings;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import com.mojang.datafixers.util.Either;
-import com.mojang.datafixers.util.Pair;
-import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
@@ -41,12 +32,6 @@ public class CItemBuilder<I extends Item> {
 	private Function<Properties, I> factory;
 	public Properties properties = new Properties();
 	public boolean ctab = true;
-
-	/**
-	 * 用法参见{@link #registerTabEntry(Pair, Either)}
-	 */
-	public Map<ResourceKey<CreativeModeTab>, Either<Supplier<ItemStack>, Supplier<ItemStack>>> ex_tabs = new HashMap<>();
-
 
 	public static <I extends Item> CItemBuilder<I> create(String name, Function<Properties, I> factory) {
 		return new CItemBuilder<>(name, factory);
@@ -109,61 +94,16 @@ public class CItemBuilder<I extends Item> {
 		return this;
 	}
 
-	/**
-	 * @param tab 在此tab中的最前面
-	 */
-	public CItemBuilder<I> setTabPrepend(ResourceKey<CreativeModeTab> tab) {
-		setTabAfter(tab, () -> ItemStack.EMPTY);
-		return this;
-	}
-
-	public CItemBuilder<I> setTab(ResourceKey<CreativeModeTab> tab) {
-		setTabBefore(tab, () -> ItemStack.EMPTY);
-		return this;
-	}
-
-	//Empty | i i i i | Empty
-	public CItemBuilder<I> setTabBefore(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> before) {
-		ex_tabs.put(tab, Either.left(before));
-		return this;
-	}
-
-	public CItemBuilder<I> setTabAfter(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> after) {
-		ex_tabs.put(tab, Either.right(after));
-		return this;
-	}
-
+//	public CItemBuilder<I> setTab(ResourceKey<CreativeModeTab> tab) {
+//		return this;
+//	}
 
 	public ItemEntry<I> save() {
-		ItemEntry<I> entry = register(name, () -> factory.apply(properties));
+		ItemEntry<I> entry = Bindings.registerItem(prefix(name), () -> factory.apply(properties));
 		assertTrue(CItems.ITEMS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
-
 		if (ctab) CCTab.add(entry);
-		ex_tabs.forEach((k, pos) -> registerTabEntry(Pair.of(k, entry::getDefaultInstance), pos));
 		return entry;
 	}
 
-
-	public static <I extends Item> ItemEntry<I> register(String name, Supplier<I> sup) {
-		return _register(prefix(name), sup);
-	}
-
-	/**
-	 * @deprecated 在forge环境中若name的命名空间非 {@link CandyCraftCE#MOD_ID} 则会报错
-	 */
-	@Deprecated
-	@ExpectPlatform
-	private static <I extends Item> ItemEntry<I> _register(ResourceLocation name, Supplier<I> sup) {
-		return CommonUtils.impossible();
-	}
-
-	/**
-	 * @param tab 目标Tab,此ItemStack
-	 * @param pos 位置,Left为前,Right为后。{@link ItemStack#EMPTY}为边界,Right即开头，Left即末尾
-	 */
-	@ExpectPlatform
-	public static void registerTabEntry(Pair<ResourceKey<CreativeModeTab>, Supplier<ItemStack>> tab, Either<Supplier<ItemStack>, Supplier<ItemStack>> pos) {
-		CommonUtils.impossible();
-	}
 
 }

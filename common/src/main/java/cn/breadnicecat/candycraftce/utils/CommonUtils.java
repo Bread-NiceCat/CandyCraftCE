@@ -1,12 +1,10 @@
 package cn.breadnicecat.candycraftce.utils;
 
-import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -17,18 +15,9 @@ import java.util.function.Supplier;
  */
 public class CommonUtils {
 
-	public static final Random RANDOM = new Random();
-
-	/**
-	 * @param denominator P=1/denominator
-	 */
-	public static boolean probability(RandomSource random, int denominator) {
-		return random.nextInt(denominator + 1) == 0;
-	}
-
 
 	public static Class<?> getCaller() {
-		return getCaller(4);//因为要再调用getCaller(int)所以要+1
+		return StackLocatorUtil.getCallerClass(3);//因为要再调用getCaller(int)所以要+1
 	}
 
 	/**
@@ -40,7 +29,7 @@ public class CommonUtils {
 
 
 	public static void assertTrue(boolean bool) {
-		assertTrue(bool, "assert true");
+		assertTrue(bool, "not true");
 	}
 
 	public static void assertTrue(boolean bool, String msg) {
@@ -105,14 +94,6 @@ public class CommonUtils {
 			return r_trans == null ? null : r_trans.get();
 		} else return r_default == null ? null : r_default.get();
 	}
-
-	public static <T> T impossible() {
-		throw new AssertionError("impossible code block, it's a BUG, please submit the issue");
-	}
-
-//	public static void onInit(Logger logger) {
-//		logger.info("init");
-//	}
 
 	public static <T> T make(@NotNull Supplier<T> factory) {
 		return factory.get();

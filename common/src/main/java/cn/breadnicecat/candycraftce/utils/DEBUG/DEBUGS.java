@@ -25,7 +25,6 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
  * Warning: an exception will be thrown when invoke any memeber of this class
  * if you're not in a development environment
  */
-@Deprecated(forRemoval = true)
 public class DEBUGS {
 	public static final File PROJECT_ROOT = new File("").getAbsoluteFile().getParentFile();
 	public static final File TEST_CLASSES = new File(PROJECT_ROOT, "build/classes/java/test");

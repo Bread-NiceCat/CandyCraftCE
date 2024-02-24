@@ -2,11 +2,11 @@ package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.block.blockentity.data.CDataAccessors;
-import cn.breadnicecat.candycraftce.block.blockentity.data.ItemStackList;
 import cn.breadnicecat.candycraftce.gui.block.menus.SugarFactoryMenu;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
+import cn.breadnicecat.candycraftce.utils.CDataAccessors;
+import cn.breadnicecat.candycraftce.utils.ItemStackList;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor;
 import net.minecraft.core.BlockPos;

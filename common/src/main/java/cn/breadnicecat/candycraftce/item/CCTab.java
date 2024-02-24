@@ -1,15 +1,16 @@
 package cn.breadnicecat.candycraftce.item;
 
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import cn.breadnicecat.candycraftce.Bindings;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.LinkedHashSet;
-import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
  * Created in 2023/8/9 13:36
@@ -20,22 +21,18 @@ import java.util.function.Supplier;
 public class CCTab {
 	public static final LinkedHashSet<Supplier<ItemStack>> ENTRIES = new LinkedHashSet<>();
 	public static final String TITLE_KEY = "itemGroup.candycraftce";
-	public static ResourceKey<CreativeModeTab> TAB_KEY = register("candycraftce", builder -> builder
+	public static final ResourceKey<CreativeModeTab> TAB = Bindings.registerTab(prefix("candycraftce"), builder -> builder
 			.title(Component.translatable(TITLE_KEY))
 			.icon(() -> CItems.PEZ.get().getDefaultInstance())
 			.displayItems((parameters, output) -> ENTRIES.stream().map(Supplier::get).forEach(output::accept))
 			.build());
 
-	@ExpectPlatform
-	private static ResourceKey<CreativeModeTab> register(String key, Function<CreativeModeTab.Builder, CreativeModeTab> builder) {
-		return CommonUtils.impossible();
-	}
 
 	public static void add(Supplier<ItemStack> stack) {
 		ENTRIES.add(stack);
 	}
 
-	public static void add(ItemEntry<?> item) {
-		add(item::getDefaultInstance);
+	public static void add(ItemLike item) {
+		add(() -> item.asItem().getDefaultInstance());
 	}
 }

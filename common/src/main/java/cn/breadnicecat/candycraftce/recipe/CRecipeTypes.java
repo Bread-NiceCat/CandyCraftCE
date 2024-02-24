@@ -1,10 +1,9 @@
 package cn.breadnicecat.candycraftce.recipe;
 
+import cn.breadnicecat.candycraftce.Bindings;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -23,17 +22,12 @@ public class CRecipeTypes {
 
 	public static <T extends Recipe<?>> RecipeTypeEntry<T> register(String name, Supplier<RecipeSerializerExt<T>> serializer) {
 		ResourceLocation id = prefix(name);
-		return _register(id, () -> new RecipeType<>() {
+		return Bindings.registerRecipe(id, () -> new RecipeType<>() {
 			@Override
 			public String toString() {
 				return id.toString();
 			}
 		}, serializer);
-	}
-
-	@ExpectPlatform
-	private static <T extends Recipe<?>> RecipeTypeEntry<T> _register(ResourceLocation id, Supplier<RecipeType<T>> rt, Supplier<RecipeSerializerExt<T>> serializer) {
-		return CommonUtils.impossible();
 	}
 
 	public static void init() {

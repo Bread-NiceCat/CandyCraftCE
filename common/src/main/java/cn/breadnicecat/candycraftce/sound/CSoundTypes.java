@@ -35,7 +35,6 @@ public class CSoundTypes {
 		 * @param volumeIn 响度
 		 * @param pitchIn  音调
 		 */
-		@SuppressWarnings("DataFlowIssue")
 		private LateinitSoundType(float volumeIn, float pitchIn, SoundEntry breakSoundIn, SoundEntry stepSoundIn, SoundEntry placeSoundIn, SoundEntry hitSoundIn, SoundEntry fallSoundIn) {
 			super(volumeIn, pitchIn, null, null, null, null, null);
 			this.breakSound = breakSoundIn;
@@ -48,31 +47,31 @@ public class CSoundTypes {
 		@NotNull
 		@Override
 		public SoundEvent getBreakSound() {
-			return breakSound.getSound();
+			return breakSound.get();
 		}
 
 		@NotNull
 		@Override
 		public SoundEvent getStepSound() {
-			return stepSound.getSound();
+			return stepSound.get();
 		}
 
 		@NotNull
 		@Override
 		public SoundEvent getPlaceSound() {
-			return placeSound.getSound();
+			return placeSound.get();
 		}
 
 		@NotNull
 		@Override
 		public SoundEvent getHitSound() {
-			return hitSound.getSound();
+			return hitSound.get();
 		}
 
 		@NotNull
 		@Override
 		public SoundEvent getFallSound() {
-			return fallSound.getSound();
+			return fallSound.get();
 		}
 	}
 

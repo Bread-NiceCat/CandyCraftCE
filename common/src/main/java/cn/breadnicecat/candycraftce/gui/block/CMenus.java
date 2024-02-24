@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.gui.block;
 
+import cn.breadnicecat.candycraftce.Bindings;
 import cn.breadnicecat.candycraftce.gui.block.menus.AdvancedSugarFactoryMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.ChocolateFurnaceMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
@@ -9,12 +10,9 @@ import cn.breadnicecat.candycraftce.gui.block.screens.ChocolateFurnaceScreen;
 import cn.breadnicecat.candycraftce.gui.block.screens.LicoriceFurnaceScreen;
 import cn.breadnicecat.candycraftce.gui.block.screens.SugarFactoryScreen;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import org.slf4j.Logger;
@@ -49,13 +47,8 @@ public class CMenus {
 	}
 
 	public static <M extends AbstractContainerMenu> MenuEntry<M> register(String key, MenuType.MenuSupplier<M> factory) {
-		return _register(prefix(key), factory);
+		return Bindings.registerMenu(prefix(key), factory);
 	}
 
-	@ExpectPlatform
-	@Deprecated
-	private static <M extends AbstractContainerMenu> MenuEntry<M> _register(ResourceLocation key, MenuType.MenuSupplier<M> factory) {
-		return CommonUtils.impossible();
-	}
 
 }

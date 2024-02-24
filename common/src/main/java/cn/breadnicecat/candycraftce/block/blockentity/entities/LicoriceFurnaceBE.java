@@ -1,13 +1,13 @@
 package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.block.blockentity.data.CDataAccessors;
-import cn.breadnicecat.candycraftce.block.blockentity.data.ItemStackList;
 import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnaceBlock;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
 import cn.breadnicecat.candycraftce.misc.CSugarFuels;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
+import cn.breadnicecat.candycraftce.utils.CDataAccessors;
+import cn.breadnicecat.candycraftce.utils.ItemStackList;
 import cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

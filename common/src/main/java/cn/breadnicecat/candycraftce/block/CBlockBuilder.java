@@ -1,12 +1,9 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.Bindings;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -109,17 +106,6 @@ public class CBlockBuilder<B extends Block> {
 
 
 	public static <B extends Block> BlockEntry<B> register(String name, Supplier<B> sup) {
-		return _register(prefix(name), sup);
+		return Bindings.registerBlock(prefix(name), sup);
 	}
-
-	/**
-	 * @deprecated 在forge环境中若name的命名空间非 {@link CandyCraftCE#MOD_ID} 则会报错
-	 */
-	@Deprecated
-	@ExpectPlatform
-	private static <B extends Block> BlockEntry<B> _register(ResourceLocation name, Supplier<B> sup) {
-		return CommonUtils.impossible();
-	}
-
-
 }
