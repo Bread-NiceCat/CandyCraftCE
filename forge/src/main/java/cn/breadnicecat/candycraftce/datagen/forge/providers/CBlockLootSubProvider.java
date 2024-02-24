@@ -77,7 +77,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				ICE_CREAM_STAIRS, MINT_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM_STAIRS,
 				MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
 		);
-		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
+		accept(m -> add(m, noDrop()), CARAMEL_PORTAL, JAWBREAKER_BRICK, JAWBREAKER_LIGHT);
 		accept(m -> add(m, createDoorTable(m.get())), MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
 		//SilkTouch || Shear
 		accept(m -> add(m, createSilkTouchOrShearsDispatchTable(m.get(), EmptyLootItem.emptyItem())),

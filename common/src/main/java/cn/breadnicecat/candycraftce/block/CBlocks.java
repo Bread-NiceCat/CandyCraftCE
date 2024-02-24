@@ -230,7 +230,14 @@ public class CBlocks {
 	public static final BlockEntry<IronBarsBlock> CARAMEL_GLASS_PANE = create("caramel_glass_pane", IronBarsBlock::new).setProperties(GLASS_PANE, null).save();
 	public static final BlockEntry<IronBarsBlock> ROUND_CARAMEL_GLASS_PANE = create("round_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
 	public static final BlockEntry<IronBarsBlock> DIAMOND_CARAMEL_GLASS_PANE = create("diamond_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
-
+	////Barrier
+	//	HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_BRICK, () -> new Block(Properties.copy(Blocks.BEDROCK)), CCBlockManager::simpleBlockItem,
+	//	        EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+	//	HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_LIGHT, () -> new Block(Properties.copy(Blocks.BEDROCK).lightLevel((b) -> 14)), CCBlockManager::simpleBlockItem,
+	//	        EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+	public static final BlockEntry<Block> JAWBREAKER_BRICK = create("jawbreaker_brick").setProperties(Blocks.BEDROCK, null).save();
+	public static final BlockEntry<Block> JAWBREAKER_LIGHT = create("jawbreaker_light").setProperties(JAWBREAKER_BRICK, p -> p.lightLevel(b -> 14)).save();
+//
 
 	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
 	public static final BlockEntry<TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(p, ParticleTypes.FLAME)).setProperties(Blocks.TORCH, null).noBlockItem().save();

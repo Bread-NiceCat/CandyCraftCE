@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-19T00:32:27.0938012	Loot Tables
+// 1.20.1	2024-02-24T22:01:00.0406967	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -60,6 +60,8 @@ db3487efe8d981d1d65a12a97f0f82ac3ec0c9d8 data/candycraftce/loot_tables/blocks/ho
 69686cefc391796f10babd99993a03fca43ba23a data/candycraftce/loot_tables/blocks/ice_cream.json
 b742691a8ea956db35708a77515f35444da4bbd8 data/candycraftce/loot_tables/blocks/ice_cream_slab.json
 821f3bb3492794b5ce01fff17f60a4780f3e28ea data/candycraftce/loot_tables/blocks/ice_cream_stairs.json
+c811f2f2b74bac370bb77a94ad0f4508630fa7b6 data/candycraftce/loot_tables/blocks/jawbreaker_brick.json
+80e8f0a3afb4addd60988cfd8bd98ed8ab625914 data/candycraftce/loot_tables/blocks/jawbreaker_light.json
 aa217805476ecb8ddc6be5e308cf044bb1d9b701 data/candycraftce/loot_tables/blocks/jelly_ore.json
 c935eb3c6f7691347ac503cb62a3d7d267e0505a data/candycraftce/loot_tables/blocks/jelly_shock_absorber.json
 eef157490d7281c148e7ef73d9d099f4d19841a4 data/candycraftce/loot_tables/blocks/licorice_block.json

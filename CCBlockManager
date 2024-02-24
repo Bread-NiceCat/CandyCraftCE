@@ -244,38 +244,38 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
 	    HELPER.single(LOLLIPOP_BLOCK, BlockLollipop::new,
 	            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
 
-    //冰淇淋
-    HELPER.batch((n, a) -> new Block(Properties.copy(Blocks.SNOW_BLOCK)), (n, b, a) -> simpleBlockItem(b),
-                    MODEL_SIMPLE, CItemTags.ICE_CREAM.getGroupId(), LOOT_DROP_SELF)
-            .addElement(ICE_CREAM)
-            .addElement(MINT_ICE_CREAM)
-            .addElement(STRAWBERRY_ICE_CREAM)
-            .addElement(BLUEBERRY_ICE_CREAM)
-            .register();
-    HELPER.batch((n, a) -> new SlabBlock(Properties.copy(ICE_CREAM.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-                    MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-            .addElement(ICE_CREAM_SLAB)
-            .addElement(MINT_ICE_CREAM_SLAB)
-            .addElement(STRAWBERRY_ICE_CREAM_SLAB)
-            .addElement(BLUEBERRY_ICE_CREAM_SLAB)
-            .register();
-    HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(ICE_CREAM.getBlock())), CCBlockManager::simpleBlockItem,
-                    MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-            .addElement(ICE_CREAM_STAIRS, ICE_CREAM)
-            .addElement(MINT_ICE_CREAM_STAIRS, MINT_ICE_CREAM)
-            .addElement(STRAWBERRY_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM)
-            .addElement(BLUEBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM)
-            .register();
-    HELPER.single(GRENADINE_BLOCK, () -> new HalfTransparentBlock(Properties.copy(Blocks.ICE)), CCBlockManager::simpleBlockItem,
-            MODEL_SIMPLE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_TRANSLUCENT);
-    //Barrier
-    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_BRICK, () -> new Block(Properties.copy(Blocks.BEDROCK)), CCBlockManager::simpleBlockItem,
-            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
-    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_LIGHT, () -> new Block(Properties.copy(Blocks.BEDROCK).lightLevel((b) -> 14)), CCBlockManager::simpleBlockItem,
-            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
-    //Portal
-    HELPER.single(CARAMEL_PORTAL, BlockCandylandPortal::new,
-            VTAG_PORTALS, LOOT_NONE, RENDERER_TYPE_TRANSLUCENT);
+	    //冰淇淋
+	    HELPER.batch((n, a) -> new Block(Properties.copy(Blocks.SNOW_BLOCK)), (n, b, a) -> simpleBlockItem(b),
+	                    MODEL_SIMPLE, CItemTags.ICE_CREAM.getGroupId(), LOOT_DROP_SELF)
+	            .addElement(ICE_CREAM)
+	            .addElement(MINT_ICE_CREAM)
+	            .addElement(STRAWBERRY_ICE_CREAM)
+	            .addElement(BLUEBERRY_ICE_CREAM)
+	            .register();
+	    HELPER.batch((n, a) -> new SlabBlock(Properties.copy(ICE_CREAM.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
+	                    MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+	            .addElement(ICE_CREAM_SLAB)
+	            .addElement(MINT_ICE_CREAM_SLAB)
+	            .addElement(STRAWBERRY_ICE_CREAM_SLAB)
+	            .addElement(BLUEBERRY_ICE_CREAM_SLAB)
+	            .register();
+	    HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(ICE_CREAM.getBlock())), CCBlockManager::simpleBlockItem,
+	                    MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
+	            .addElement(ICE_CREAM_STAIRS, ICE_CREAM)
+	            .addElement(MINT_ICE_CREAM_STAIRS, MINT_ICE_CREAM)
+	            .addElement(STRAWBERRY_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM)
+	            .addElement(BLUEBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM)
+	            .register();
+	    HELPER.single(GRENADINE_BLOCK, () -> new HalfTransparentBlock(Properties.copy(Blocks.ICE)), CCBlockManager::simpleBlockItem,
+	            MODEL_SIMPLE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_TRANSLUCENT);
+	//Barrier
+	HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_BRICK, () -> new Block(Properties.copy(Blocks.BEDROCK)), CCBlockManager::simpleBlockItem,
+	        EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+	HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_LIGHT, () -> new Block(Properties.copy(Blocks.BEDROCK).lightLevel((b) -> 14)), CCBlockManager::simpleBlockItem,
+	        EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+	    //Portal
+	    HELPER.single(CARAMEL_PORTAL, BlockCandylandPortal::new,
+	            VTAG_PORTALS, LOOT_NONE, RENDERER_TYPE_TRANSLUCENT);
 
     //FLUIDS
     HELPER.single(CFluidEntries.GRENADINE_STATIC, () -> new LiquidBlock(() -> (FlowingFluid) CFluidEntries.GRENADINE_STATIC.getFluid(), Properties.copy(Blocks.WATER)), CCBlockManager::simpleBlockItem, LOOT_NONE);

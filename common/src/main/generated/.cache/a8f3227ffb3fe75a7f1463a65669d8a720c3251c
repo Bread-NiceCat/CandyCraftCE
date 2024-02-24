@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-19T00:32:27.0798375	Block States: candycraftce
+// 1.20.1	2024-02-24T22:00:59.9788626	Block States: candycraftce
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets/candycraftce/blockstates/acid_mint_flower.json
 10f49f3c5dec148c98ea4b1a5cef5d1c3ba5354a assets/candycraftce/blockstates/advanced_sugar_factory.json
 9b8d41d642252aa7710f8db63ed7389792226e52 assets/candycraftce/blockstates/alchemy_mixer.json
@@ -60,6 +60,8 @@ ecbdd39c5340978588277739cdb3a67165fb135b assets/candycraftce/blockstates/honeyco
 96b3dadb9428fdfecacebbf2f77dcd40afc43bf9 assets/candycraftce/blockstates/ice_cream.json
 707da0840eb120f976088b6055922e5ab2a791c7 assets/candycraftce/blockstates/ice_cream_slab.json
 5097654c6ec60ff52f8c28565974b5c51b4101fd assets/candycraftce/blockstates/ice_cream_stairs.json
+51c74b4a9c3d416d50a6bab1d9c2ffccfdf71fa1 assets/candycraftce/blockstates/jawbreaker_brick.json
+95f0b0b522bfb15b2520b2660789599c29ca2eb4 assets/candycraftce/blockstates/jawbreaker_light.json
 a5052e9048e53e03274873e7d43e8e58f66b384b assets/candycraftce/blockstates/jelly_ore.json
 a5166c687d24a440891fe38e683909f68d392dd5 assets/candycraftce/blockstates/jelly_shock_absorber.json
 60538e3a53e41bcc93f13cf8ef3e4e1336d37947 assets/candycraftce/blockstates/licorice_block.json
@@ -250,6 +252,8 @@ f90599ffb2b359d6ebcb03df9c615e4c4a7e73ff assets/candycraftce/models/block/ice_cr
 a85ecdc176473b754a41d819045d3331123d9048 assets/candycraftce/models/block/ice_cream_stairs.json
 0a3d0f33977e8af68ace42756418414cd8fe1045 assets/candycraftce/models/block/ice_cream_stairs_inner.json
 e9313db1dd9ab77e17a40e6c9b3ff5af662d1147 assets/candycraftce/models/block/ice_cream_stairs_outer.json
+e421fdbbf5c73280e028e535f60d81d0c2499a63 assets/candycraftce/models/block/jawbreaker_brick.json
+2f8e3962e45277fbcf57fa2dc019ec2aa7e6f2aa assets/candycraftce/models/block/jawbreaker_light.json
 de5fea28166759bf9a92cffe59eaaa91223fb701 assets/candycraftce/models/block/jelly_ore.json
 a12bc5ae027ec744bcdf45609de596136c30a1d1 assets/candycraftce/models/block/jelly_shock_absorber.json
 28a9c23dd71b63c06a8aa800766cb52f9f1284cb assets/candycraftce/models/block/licorice_block.json
@@ -452,6 +456,8 @@ f4b01b0a1ab50efedbbc70e724a632ac1c007711 assets/candycraftce/models/item/honeyco
 adeac2256cf1847ee424813b25ab60f423d76042 assets/candycraftce/models/item/ice_cream.json
 cb1d1bec241046c877aedaf8e959b6ddb2386d9a assets/candycraftce/models/item/ice_cream_slab.json
 a85ecdc176473b754a41d819045d3331123d9048 assets/candycraftce/models/item/ice_cream_stairs.json
+dbe11ac04d7350c9d117bca2ece2e8ddec9fdfd3 assets/candycraftce/models/item/jawbreaker_brick.json
+d110141c1eb1e56b690b427ef27c5b4d06be057a assets/candycraftce/models/item/jawbreaker_light.json
 287aee66d5d86eb461a9fb0dffd848efb9aa8e6a assets/candycraftce/models/item/jelly_ore.json
 b9325c7bf3182d588b9f4bf064d20e332cbc24b8 assets/candycraftce/models/item/jelly_shock_absorber.json
 60bc6c06a99235ee95d83e6f2f4032c64be005c6 assets/candycraftce/models/item/licorice_block.json

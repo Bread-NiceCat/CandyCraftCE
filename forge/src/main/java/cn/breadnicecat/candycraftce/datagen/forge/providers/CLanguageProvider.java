@@ -123,7 +123,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(WATER_MASK, "水下面罩");
 		addItemById(JELLY_CROWN, "果冻国王的皇冠");
 		addItemById(TRAMPOJELLY_BOOTS, "果冻靴子");
-		addItemById(DRAGIBUS, "多味珍珠糖");
+		addItemById(DRAGIBUS, "彩虹糖");
 		addItemById(LOLLIPOP_SEEDS, "棒棒糖种子");
 		addItem(I_I_DEBUG, "I 爱 DEBUG !!!", null);
 		/*=======================Blocks=======================*/
@@ -235,7 +235,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(FRAISE_TAGADA_FLOWER, "果蜜花");
 		addBlockById(GOLDEN_SUGAR_FLOWER, "金糖果花");
 		addBlockById(ACID_MINT_FLOWER, "酸薄荷花");
-		addBlockById(DRAGIBUS_CROPS, "多味珍珠糖作物");
+		addBlockById(DRAGIBUS_CROPS, "彩虹糖作物");
 		addBlockById(LOLLIPOP_STEM, "棒棒糖茎");
 		addBlockById(LOLLIPOP_FRUIT, "棒棒糖果实");
 		addBlockById(ICE_CREAM, "冰淇淋");
@@ -253,6 +253,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(MARSHMALLOW_TRAPDOOR, "棉花软糖活版门");
 		addBlockById(LIGHT_MARSHMALLOW_TRAPDOOR, "浅色棉花软糖活版门");
 		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
+		addBlockById(JAWBREAKER_BRICK, "Jawbreaker硬糖砖");
+		addBlockById(JAWBREAKER_LIGHT, "Jawbreaker硬糖灯");
 	}
 
 	/**

@@ -62,7 +62,6 @@ subprojects {
 
 tasks.register("FatRunClient") {
     group = "run"
-    print "$name init"
     Task client = project(":fabric").runClient
     Task data = project(":forge").runData
     dependsOn(client.mustRunAfter(data), data)

@@ -27,6 +27,8 @@ import java.util.function.Supplier;
 /**
  * Created in 2024/2/24 14:16
  * Project: candycraftce
+ * <p>
+ * Common提供的抽象api，由各个引擎的-Impl类实现
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
