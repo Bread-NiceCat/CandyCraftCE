@@ -87,10 +87,11 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 		public void toJson(JsonObject object, SugarFurnaceRecipe recipe) {
 			JsonObject result = new JsonObject();
 			result.addProperty("item", ItemUtils.getKey(recipe.result).toString());
-			object.add("ingredient", recipe.ingredient.toJson());
 			if (recipe.exp != 0f) object.addProperty("exp", recipe.exp);
 			if (recipe.count != 1) result.addProperty("count", recipe.count);
 			object.add("result", result);
+
+			object.add("ingredient", recipe.ingredient.toJson());
 		}
 
 		@Override
@@ -114,8 +115,8 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, SugarFurnaceRecipe recipe) {
-			buffer.writeId(ITEM, recipe.result);
 			recipe.ingredient.toNetwork(buffer);
+			buffer.writeId(ITEM, recipe.result);
 			buffer.writeVarInt(recipe.count);
 			buffer.writeFloat(recipe.exp);
 		}
