@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.Bindings.impossibleCode;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 
 /**
  * Created in 2023/8/9 10:22

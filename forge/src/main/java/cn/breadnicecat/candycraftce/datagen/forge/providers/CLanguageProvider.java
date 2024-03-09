@@ -253,8 +253,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(MARSHMALLOW_TRAPDOOR, "棉花软糖活版门");
 		addBlockById(LIGHT_MARSHMALLOW_TRAPDOOR, "浅色棉花软糖活版门");
 		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
-		addBlockById(JAWBREAKER_BRICK, "Jawbreaker硬糖砖");
-		addBlockById(JAWBREAKER_LIGHT, "Jawbreaker硬糖灯");
+		addBlockById(JAWBREAKER_BRICK, "基岩硬糖砖");
+		addBlockById(JAWBREAKER_LIGHT, "基岩硬糖灯");
 	}
 
 	/**

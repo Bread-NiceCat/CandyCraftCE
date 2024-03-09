@@ -24,11 +24,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.Bindings.impossibleCode;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static net.minecraft.world.level.block.Blocks.*;
 
 

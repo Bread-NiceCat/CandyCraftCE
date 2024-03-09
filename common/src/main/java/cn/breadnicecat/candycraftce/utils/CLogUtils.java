@@ -20,7 +20,7 @@ public class CLogUtils {
 	private static final HashMap<String, Logger> CACHE = new HashMap<>();
 	private static final HashMap<Class<?>, Logger> VALIDATOR = new HashMap<>();
 	private static final Marker STACK_TRACE_MARKER = MarkerFactory.getMarker("StackTrace");
-
+	
 	public static Logger getModLogger() {
 		return getModLogger(getCaller());
 	}

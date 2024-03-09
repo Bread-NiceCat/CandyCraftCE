@@ -284,30 +284,3 @@ HELPER.single(TELEPORTER, BlockTeleporter::new,
     //		HELPER.single(STRUCTURE_POINT, BlockStructurePoint::new, (b) -> new BlockItem(b.get(), new Item.Properties()),
     //				LOOT_NONE, RENDERER_TYPE_TRANSLUCENT);
     ////============================
-
-    }
-
-    private static BlockItem simpleBlockItem(IEntryKey<Block> ignore, RegistryObject<Block> block, Object[] ignore2) {
-    return simpleBlockItem(block);
-    }
-
-    private static BlockItem simpleBlockItem(RegistryObject<Block> block) {
-    return new BlockItem(block.get(), defaultItemProperties());
-    }
-
-    public static void init() {
-    }
-
-    //================CLIENT ONLY==================//
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public static void onFMLClientSetup(FMLClientSetupEvent event) {
-    //rendererType
-    RenderType translucent = RenderType.translucent();//alpha=[0,255]
-    HELPER.getEntriesByGroup(RENDERER_TYPE_TRANSLUCENT).forEach(
-            (k, v) -> ItemBlockRenderTypes.setRenderLayer(HELPER.getEntry(k), translucent));
-    RenderType cutout = RenderType.cutoutMipped();//alpha=0|255
-    HELPER.getEntriesByGroup(RENDERER_TYPE_CUTOUT).forEach(
-            (k, v) -> ItemBlockRenderTypes.setRenderLayer(HELPER.getEntry(k), cutout));
-    }
-    }

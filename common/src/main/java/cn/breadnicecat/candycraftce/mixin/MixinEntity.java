@@ -44,6 +44,9 @@ public abstract class MixinEntity {
 	@Shadow
 	public abstract Level level();
 
+	@Shadow
+	public abstract Vec3 getDeltaMovement();
+
 	@Inject(method = "findDimensionEntryPoint", at = @At("HEAD"), cancellable = true)
 	private void findDimensionEntryPoint(@NotNull ServerLevel destination, CallbackInfoReturnable<PortalInfo> cir) {
 		ResourceKey<Level> curDim = level.dimension();
@@ -60,7 +63,7 @@ public abstract class MixinEntity {
 				() -> {
 					//回到主世界
 					BlockPos pos1 = destination.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, destination.getSharedSpawnPos());
-					return new PortalInfo(Vec3.atCenterOf(pos1), Vec3.ZERO, getXRot(), getYRot());
+					return new PortalInfo(Vec3.atCenterOf(pos1), getDeltaMovement(), getXRot(), getYRot());
 				},
 				null);
 

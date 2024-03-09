@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.sound;
 
-import cn.breadnicecat.candycraftce.Bindings;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.sounds.SoundEvent;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public final class CSoundEvents {
 	public static final SoundEntry JELLY_STEP = register("jelly_step");
 
 	private static SoundEntry register(String name) {
-		return Bindings.registerSoundEvent(prefix(name), SoundEvent::createVariableRangeEvent);
+		return EngineFeatures.get().registerSoundEvent(prefix(name), SoundEvent::createVariableRangeEvent);
 	}
 
 	public static void init() {

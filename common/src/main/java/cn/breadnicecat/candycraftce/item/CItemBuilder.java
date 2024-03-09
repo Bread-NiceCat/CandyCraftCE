@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.item;
 
-import cn.breadnicecat.candycraftce.Bindings;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodData;
@@ -99,7 +99,7 @@ public class CItemBuilder<I extends Item> {
 //	}
 
 	public ItemEntry<I> save() {
-		ItemEntry<I> entry = Bindings.registerItem(prefix(name), () -> factory.apply(properties));
+		ItemEntry<I> entry = EngineFeatures.get().registerItem(prefix(name), () -> factory.apply(properties));
 		assertTrue(CItems.ITEMS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		if (ctab) CCTab.add(entry);
 		return entry;

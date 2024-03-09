@@ -15,10 +15,10 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
-import static cn.breadnicecat.candycraftce.CandyCraftCE.mcSetupHooks;
 
 @Mod(MOD_ID)
 public class CandyCraftCEImpl {
@@ -26,7 +26,10 @@ public class CandyCraftCEImpl {
 	public static final Dist dist = Objects.requireNonNull(FMLEnvironment.dist);
 
 	public CandyCraftCEImpl() {
-		CandyCraftCE.runBootstrap(dist == Dist.CLIENT ? Environment.CLIENT : Environment.SERVER, ModPlatform.FORGE);
+		CandyCraftCE.bootstrap(dist == Dist.CLIENT ? Environment.CLIENT : Environment.SERVER,
+				ModPlatform.FORGE,
+				new ForgeFeatures()
+		);
 	}
 
 
@@ -43,19 +46,16 @@ public class CandyCraftCEImpl {
 		return registerRegister(DeferredRegister.create(key, MOD_ID));
 	}
 
-	public static Environment getEnvironment() {
-		return dist == Dist.CLIENT ? Environment.CLIENT : Environment.SERVER;
-	}
-
-	@Deprecated
-	public static ModPlatform getPlatform() {
-		return ModPlatform.FORGE;
-	}
+	public static LinkedList<Runnable> mcSetupHooks = new LinkedList<>();
 
 	@SubscribeEvent
 	public static void onFMLCommonSetup(FMLCommonSetupEvent setup) {
-		CLogUtils.getModLogger().info("hit McSetupHooks");
+		CLogUtils.getModLogger().info("hit mcSetupHooks");
 		mcSetupHooks.forEach(Runnable::run);
 		mcSetupHooks = null;
+	}
+
+	public static void hookMinecraftSetup(Runnable runnable) {
+		mcSetupHooks.add(runnable);
 	}
 }

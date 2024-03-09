@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.Bindings;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
@@ -36,6 +36,7 @@ public class CBlockBuilder<B extends Block> {
 	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
 
 	static {
+		//把block都排到最后去
 		CItems.hookBlockItems(items);
 	}
 
@@ -99,13 +100,13 @@ public class CBlockBuilder<B extends Block> {
 
 	public BlockEntry<B> save() {
 		BlockEntry<B> entry = register(name, () -> factory.apply(properties == null ? Properties.of() : properties.get()));
-		if (item != null) items.add(() -> item.apply(entry));//把block都排到最后去
+		if (item != null) items.add(() -> item.apply(entry));
 		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}
 
 
 	public static <B extends Block> BlockEntry<B> register(String name, Supplier<B> sup) {
-		return Bindings.registerBlock(prefix(name), sup);
+		return EngineFeatures.get().registerBlock(prefix(name), sup);
 	}
 }

@@ -1,7 +1,9 @@
 package cn.breadnicecat.candycraftce.fabric;
 
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.block.blockentity.BlockEntityEntry;
+import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.gui.block.MenuEntry;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
@@ -14,6 +16,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -36,15 +40,17 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class BindingsImpl {
+class FabricFeatures implements EngineFeatures {
 
-	public static ResourceKey<CreativeModeTab> registerTab(ResourceLocation id, Function<CreativeModeTab.Builder, CreativeModeTab> builder) {
+	@Override
+	public ResourceKey<CreativeModeTab> registerTab(ResourceLocation id, Function<CreativeModeTab.Builder, CreativeModeTab> builder) {
 		ResourceKey<CreativeModeTab> idk = ResourceKey.create(Registries.CREATIVE_MODE_TAB, id);
 		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, idk, builder.apply(FabricItemGroup.builder()));
 		return idk;
 	}
 
-	public static <I extends Item> ItemEntry<I> registerItem(ResourceLocation id, @NotNull Supplier<I> sup) {
+	@Override
+	public <I extends Item> ItemEntry<I> registerItem(ResourceLocation id, @NotNull Supplier<I> sup) {
 		I i = Registry.register(BuiltInRegistries.ITEM, id, sup.get());
 		return new ItemEntry<>(id) {
 			@Override
@@ -54,7 +60,8 @@ public class BindingsImpl {
 		};
 	}
 
-	public static <B extends Block> BlockEntry<B> registerBlock(ResourceLocation id, @NotNull Supplier<B> sup) {
+	@Override
+	public <B extends Block> BlockEntry<B> registerBlock(ResourceLocation id, @NotNull Supplier<B> sup) {
 		B b = Registry.register(BuiltInRegistries.BLOCK, id, sup.get());
 		return new BlockEntry<>(id) {
 			@Override
@@ -64,7 +71,8 @@ public class BindingsImpl {
 		};
 	}
 
-	public static <B extends BlockEntity> BlockEntityEntry<B> registerBlockEntity(ResourceLocation id, @NotNull Supplier<BlockEntityType<B>> b) {
+	@Override
+	public <B extends BlockEntity> BlockEntityEntry<B> registerBlockEntity(ResourceLocation id, @NotNull Supplier<BlockEntityType<B>> b) {
 		BlockEntityType<B> type = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, b.get());
 		return new BlockEntityEntry<>(id) {
 			@Override
@@ -74,7 +82,8 @@ public class BindingsImpl {
 		};
 	}
 
-	public static <M extends AbstractContainerMenu> MenuEntry<M> registerMenu(ResourceLocation key, MenuType.MenuSupplier<M> factory) {
+	@Override
+	public <M extends AbstractContainerMenu> MenuEntry<M> registerMenu(ResourceLocation key, MenuType.MenuSupplier<M> factory) {
 		MenuType<M> type = Registry.register(BuiltInRegistries.MENU, key, new MenuType<>(factory, FeatureFlagSet.of()));
 		return new MenuEntry<>(key) {
 			@Override
@@ -84,7 +93,8 @@ public class BindingsImpl {
 		};
 	}
 
-	public static <T extends Recipe<?>> RecipeTypeEntry<T> registerRecipe(ResourceLocation id, @NotNull Supplier<RecipeType<T>> rt, @NotNull Supplier<RecipeSerializerExt<T>> serializer) {
+	@Override
+	public <T extends Recipe<?>> RecipeTypeEntry<T> registerRecipe(ResourceLocation id, @NotNull Supplier<RecipeType<T>> rt, @NotNull Supplier<RecipeSerializerExt<T>> serializer) {
 		RecipeType<T> type = Registry.register(BuiltInRegistries.RECIPE_TYPE, id, rt.get());
 		RecipeSerializerExt<T> serial = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializer.get());
 		return new RecipeTypeEntry<>(id) {
@@ -100,12 +110,25 @@ public class BindingsImpl {
 		};
 	}
 
-	public static SoundEntry registerSoundEvent(ResourceLocation eventId, Function<ResourceLocation, SoundEvent> factory) {
-		SoundEvent event = Registry.register(BuiltInRegistries.SOUND_EVENT, eventId, factory.apply(eventId));
+	@Override
+	public SoundEntry registerSoundEvent(ResourceLocation eventId, Function<ResourceLocation, SoundEvent> factory) {
+		var event = Registry.register(BuiltInRegistries.SOUND_EVENT, eventId, factory.apply(eventId));
 		return new SoundEntry(eventId) {
 			@Override
 			public SoundEvent get() {
 				return event;
+			}
+		};
+	}
+
+
+	@Override
+	public <E extends Entity> EntityEntry<E> registerEntity(ResourceLocation id, Supplier<EntityType<E>> factory) {
+		var obj = Registry.register(BuiltInRegistries.ENTITY_TYPE, id, factory.get());
+		return new EntityEntry<>(id) {
+			@Override
+			public EntityType<E> get() {
+				return obj;
 			}
 		};
 	}

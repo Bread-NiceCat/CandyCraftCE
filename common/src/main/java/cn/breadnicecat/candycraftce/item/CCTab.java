@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.item;
 
-import cn.breadnicecat.candycraftce.Bindings;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,7 +21,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CCTab {
 	public static final LinkedHashSet<Supplier<ItemStack>> ENTRIES = new LinkedHashSet<>();
 	public static final String TITLE_KEY = "itemGroup.candycraftce";
-	public static final ResourceKey<CreativeModeTab> TAB = Bindings.registerTab(prefix("candycraftce"), builder -> builder
+	public static final ResourceKey<CreativeModeTab> TAB = EngineFeatures.get().registerTab(prefix("candycraftce"), builder -> builder
 			.title(Component.translatable(TITLE_KEY))
 			.icon(() -> CItems.PEZ.get().getDefaultInstance())
 			.displayItems((parameters, output) -> ENTRIES.stream().map(Supplier::get).forEach(output::accept))

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.recipe;
 
-import cn.breadnicecat.candycraftce.Bindings;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -22,7 +22,7 @@ public class CRecipeTypes {
 
 	public static <T extends Recipe<?>> RecipeTypeEntry<T> register(String name, Supplier<RecipeSerializerExt<T>> serializer) {
 		ResourceLocation id = prefix(name);
-		return Bindings.registerRecipe(id, () -> new RecipeType<>() {
+		return EngineFeatures.get().registerRecipe(id, () -> new RecipeType<>() {
 			@Override
 			public String toString() {
 				return id.toString();

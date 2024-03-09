@@ -29,11 +29,11 @@ public class CommonUtils {
 
 
 	public static void assertTrue(boolean bool) {
-		assertTrue(bool, "not true");
+		assertTrue(bool, "false");
 	}
 
 	public static void assertTrue(boolean bool, String msg) {
-		assertTrue(bool, () -> msg);
+		if (!bool) throw new IllegalStateException(msg);
 	}
 
 	public static void assertTrue(boolean bool, Supplier<String> msg) {
@@ -97,5 +97,9 @@ public class CommonUtils {
 
 	public static <T> T make(@NotNull Supplier<T> factory) {
 		return factory.get();
+	}
+
+	public static <T> T impossibleCode() {
+		throw new AssertionError("Impossible code invoked. It's a bug, please report it to us");
 	}
 }

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.gui.block;
 
-import cn.breadnicecat.candycraftce.Bindings;
+import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.gui.block.menus.AdvancedSugarFactoryMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.ChocolateFurnaceMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
@@ -47,7 +47,7 @@ public class CMenus {
 	}
 
 	public static <M extends AbstractContainerMenu> MenuEntry<M> register(String key, MenuType.MenuSupplier<M> factory) {
-		return Bindings.registerMenu(prefix(key), factory);
+		return EngineFeatures.get().registerMenu(prefix(key), factory);
 	}
 
 
