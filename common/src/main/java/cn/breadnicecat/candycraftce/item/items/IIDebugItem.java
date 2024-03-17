@@ -1,11 +1,16 @@
 package cn.breadnicecat.candycraftce.item.items;
 
+import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.utils.TickUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -22,6 +27,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
+import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFIG;
 
 /**
  * Created in 2023/7/30 14:12
@@ -33,6 +41,7 @@ public class IIDebugItem extends Item {
 
 	private final String FUN_ORD = "fun_ord";
 	private final Component CUR_FUN = Component.literal("当前模式: ").withStyle(ChatFormatting.LIGHT_PURPLE);
+	private final Component SWITCH_FUN = Component.literal("对空气 SHIFT+右键 切换模式").withStyle(ChatFormatting.YELLOW);
 
 	public IIDebugItem() {
 		super(new Properties().stacksTo(1).rarity(Rarity.EPIC));
@@ -78,7 +87,7 @@ public class IIDebugItem extends Item {
 		IIIDebugFunction fun = FUNCTIONS.get(ord);
 		String ord_s = String.valueOf(ord);
 		CompoundTag nbt = tag.getCompound(ord_s);
-		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, player, item, nbt);
+		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, pContext.getClickedFace(), player, item, nbt);
 		tag.put(ord_s, nbt);
 		return InteractionResult.CONSUME;
 	}
@@ -108,8 +117,14 @@ public class IIDebugItem extends Item {
 		int ord = getFunOrd(root);
 		IIIDebugFunction fun = FUNCTIONS.get(ord);
 		tooltips.add(CUR_FUN.copy().append(fun.getName()));
+		tooltips.add(SWITCH_FUN);
 		CompoundTag nbt = root.getCompound(String.valueOf(ord));
-		fun.appendHoverText(stack, level, tooltips, isAdvanced, nbt);
+		fun.appendExtraHoverText(stack, level, tooltips, isAdvanced, nbt);
+	}
+
+	@Override
+	public @NotNull Component getName(ItemStack stack) {
+		return super.getName(stack).copy().append("(").append(FUNCTIONS.get(getFunOrd(stack.getOrCreateTag())).getName()).append(")");
 	}
 
 	private int getFunOrd(CompoundTag tag) {
@@ -117,10 +132,9 @@ public class IIDebugItem extends Item {
 	}
 
 	//============================================================//
-	private static final IIIDebugFunction D_RELATIVE = new IIIDebugFunction() {
-
-		private static final String ZERO = "zero";
-		private static final Component NAME = Component.literal("[坐标测算]");
+	private static final IIIDebugFunction DF_DETECT_PORTAL = new IIIDebugFunction() {
+		private static final Component NAME = Component.literal("传送门测试");
+		private static final Component TEST = Component.literal("右键传送门框架检测").withStyle(ChatFormatting.YELLOW);
 
 		@Override
 		public Component getName() {
@@ -128,40 +142,81 @@ public class IIDebugItem extends Item {
 		}
 
 		@Override
-		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+			long stt = System.nanoTime();
+			Optional<VectorPortalShape> portal = Optional.empty();
+			if (CONFIG.isFrame(state)) {
+				portal = VectorPortalShape.findPortalOnFrame(level, pos, CONFIG);
+			}
+			float ttt = (System.nanoTime() - stt) / 1E6f;
+			if (portal.isPresent()) {
+				VectorPortalShape shape = portal.get();
+				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
+				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
+				player.sendSystemMessage(Component.literal(shape.toString()));
+			} else {
+				level.playSound(null, pos, SoundEvents.ENDER_DRAGON_AMBIENT, SoundSource.BLOCKS);
+				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(ChatFormatting.RED));
+			}
+			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt * TickUtils.MS2TICK + " tick)").withStyle(ChatFormatting.GOLD));
+		}
+
+		@Override
+		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+			tooltips.add(TEST);
+		}
+	};
+	private static final IIIDebugFunction DF_RELATIVE = new IIIDebugFunction() {
+
+		private static final String ZERO = "zero";
+		private static final Component NAME = Component.literal("坐标测算");
+		private static final Component SET = Component.literal("左键 调零").withStyle(ChatFormatting.YELLOW);
+		private static final Component RESET = Component.literal("SHIFT+左键 清除调零").withStyle(ChatFormatting.YELLOW);
+		private static final Component GET = Component.literal("右键 获取相对坐标").withStyle(ChatFormatting.YELLOW);
+
+		@Override
+		public Component getName() {
+			return NAME;
+		}
+
+		@Override
+		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
-			player.sendSystemMessage(NAME.copy().append(": 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
+			player.sendSystemMessage(NAME.copy().append(" 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
 		}
 
 		@Override
 		public void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			int[] po = player.isShiftKeyDown() ? new int[]{0, 0, 0} : new int[]{pos.getX(), pos.getY(), pos.getZ()};
 			nbt.putIntArray(ZERO, po);
-			player.sendSystemMessage(NAME.copy().append(": 调零: [%s]".formatted(Arrays.toString(po))).withStyle(ChatFormatting.GREEN));
+			player.sendSystemMessage(NAME.copy().append(" 调零: %s".formatted(Arrays.toString(po))).withStyle(ChatFormatting.GREEN));
 		}
 
 		@Override
-		public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+			tooltips.add(SET);
+			tooltips.add(RESET);
+			tooltips.add(GET);
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
 			tooltips.add(Component.literal("当前零点: " + Arrays.toString(zero)).withStyle(ChatFormatting.GREEN));
 		}
 	};
 	//============================================================//
 	public static final List<IIIDebugFunction> FUNCTIONS = Lists.newArrayList(
-			D_RELATIVE
+			DF_RELATIVE, DF_DETECT_PORTAL
 	);
 
 	public interface IIIDebugFunction {
 		Component getName();
 
-		default void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		default void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 
 
 		default void onLeftClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 
-		default void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		default void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
 		}
 	}
 }

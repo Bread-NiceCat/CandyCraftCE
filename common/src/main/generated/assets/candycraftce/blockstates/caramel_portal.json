@@ -1,11 +1,29 @@
 {
-  "variants": {
-    "axis=x": {
-      "model": "candycraftce:block/caramel_portal",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_x"
+      },
+      "when": {
+        "x": "true"
+      }
     },
-    "axis=z": {
-      "model": "candycraftce:block/caramel_portal"
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_x",
+        "y": 90
+      },
+      "when": {
+        "z": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_y"
+      },
+      "when": {
+        "y": "true"
+      }
     }
-  }
+  ]
 }

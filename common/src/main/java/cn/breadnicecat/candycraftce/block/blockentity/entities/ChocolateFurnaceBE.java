@@ -24,7 +24,7 @@ public class ChocolateFurnaceBE extends LicoriceFurnaceBE {
 	}
 
 	public ChocolateFurnaceBE(BlockPos blockPos, BlockState blockState) {
-		this(CBlockEntities.CHOCOLATE_FURNACE_BE.get(), blockPos, blockState, 15 * TickUtils.SEC2TICK);
+		this((BlockEntityType<?>) CBlockEntities.CHOCOLATE_FURNACE_BE.get(), blockPos, blockState, (int) (15 * TickUtils.SEC2TICK));
 	}
 
 	@Override

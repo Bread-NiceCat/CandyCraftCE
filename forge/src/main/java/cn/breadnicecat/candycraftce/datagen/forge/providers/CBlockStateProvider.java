@@ -5,7 +5,6 @@ import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import com.google.common.collect.Sets;
-import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -386,15 +385,14 @@ public class CBlockStateProvider extends BlockStateProvider {
 			String name = CARAMEL_PORTAL.getName();
 			CaramelPortalBlock block = CARAMEL_PORTAL.get();
 			ResourceLocation tex = blockTexture(block);
-			BlockModelBuilder model = models().withExistingParent("block/" + name, "block/nether_portal_ew")
+			String baseName = "block/" + name;
+			BlockModelBuilder x = models().withExistingParent(baseName + "_x", "block/nether_portal_ew")
 					.texture("portal", tex)
 					.texture("particle", tex);
-			getVariantBuilder(block).forAllStates(
-					state -> ConfiguredModel.builder()
-							.modelFile(model)
-							.rotationY(state.getValue(NetherPortalBlock.AXIS) == Direction.Axis.Z ? 0 : 90)
-							.build()
-			);
+			ModelFile.ExistingModelFile y = existModelFile(modLoc("block/caramel_portal_y"));
+			getMultipartBuilder(block).part().modelFile(x).addModel().condition(CaramelPortalBlock.X, true).end()
+					.part().modelFile(x).rotationY(90).addModel().condition(CaramelPortalBlock.Z, true).end()
+					.part().modelFile(y).addModel().condition(CaramelPortalBlock.Y, true).end();
 		}
 	}
 
@@ -413,18 +411,19 @@ public class CBlockStateProvider extends BlockStateProvider {
 	 * 局部映射
 	 */
 	public void zone(Runnable m) {
+		LOGGER.info("=".repeat(32) + "zone" + "=".repeat(32));
 		Map<ResourceLocation, ResourceLocation> global = mappings;
 		if (!(global instanceof HashMap<ResourceLocation, ResourceLocation>)) {
 			throw new IllegalStateException("Not a valid mapping map");
 		}
-		var bs = new HashSet<>();
-		mappings = new HashMap<>() {
+		var used = new HashSet<>();
+		mappings = new HashMap<>(global) {
 			@Override
 			public ResourceLocation get(Object key) {
 				ResourceLocation v = super.get(key);
 				if (v != null) {
 					LOGGER.info("mapping: " + key + "\t->\t" + v);
-					bs.add(key);
+					used.add(key);
 				}
 				return v;
 			}
@@ -436,8 +435,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 			}
 		};
 		m.run();
-		if (bs.size() != mappings.size()) {
-			Sets.SetView<Object> view = Sets.difference(new HashSet<>(mappings.keySet()), bs);
+		if (used.size() != mappings.size()) {
+			Sets.SetView<Object> view = Sets.difference(new HashSet<>(mappings.keySet()), used);
 			throw new IllegalStateException("Never used mappings in zone:\n" + view);
 		}
 		mappings = global;

@@ -56,7 +56,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 
 	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("__sugary__"), Ingredient.of(CBlocks.SUGAR_BLOCK), Items.SUGAR, 1, false);
 
-	protected static final int COMMON_TICKED_TOTAL = 10 * TickUtils.SEC2TICK;
+	protected static final int COMMON_TICKED_TOTAL = (int) (10 * TickUtils.SEC2TICK);
 
 	private ItemStackList items = new ItemStackList(2);
 	private int ticked;

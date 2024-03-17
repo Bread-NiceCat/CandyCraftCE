@@ -26,8 +26,8 @@ public class GoldenSugarFlowerBlock extends CandyPlantBlock {
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity living && level.random.nextFloat() < 0.1 / TickUtils.TICK_PER_SEC) {//每秒概率为0.1
 			//持续上效果的概率为1-0.9^2=0.19
-			living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 2 * TickUtils.SEC2TICK));
-			living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2 * TickUtils.SEC2TICK));
+			living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, (int) (2 * TickUtils.SEC2TICK)));
+			living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, (int) (2 * TickUtils.SEC2TICK)));
 		}
 	}
 }

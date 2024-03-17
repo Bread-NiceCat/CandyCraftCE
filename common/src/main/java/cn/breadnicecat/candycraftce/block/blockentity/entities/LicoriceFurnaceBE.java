@@ -79,7 +79,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	}
 
 	public LicoriceFurnaceBE(BlockPos blockPos, BlockState blockState) {
-		this(CBlockEntities.LICORICE_FURNACE_BE.get(), blockPos, blockState, 10 * SEC2TICK);
+		this(CBlockEntities.LICORICE_FURNACE_BE.get(), blockPos, blockState, (int) (10 * SEC2TICK));
 	}
 
 	public void serverTick() {

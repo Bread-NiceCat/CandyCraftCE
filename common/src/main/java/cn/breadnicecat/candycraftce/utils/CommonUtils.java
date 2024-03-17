@@ -4,8 +4,10 @@ import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 /**
@@ -38,6 +40,14 @@ public class CommonUtils {
 
 	public static void assertTrue(boolean bool, Supplier<String> msg) {
 		if (!bool) throw new IllegalStateException(msg.get());
+	}
+
+	public static <T> ArrayList<T> newList(int size, IntFunction<T> constructor) {
+		ArrayList<T> list = new ArrayList<>(size);
+		for (int i = 0; i < size; i++) {
+			list.add(constructor.apply(i));
+		}
+		return list;
 	}
 
 	/**

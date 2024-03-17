@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class AdvancedFactoryBE extends SugarFactoryBE {
 	public static final int ADVANCED_TYPE = 3;
-	public static final int ADVANCED_TICKED_TOTAL = 6 * TickUtils.SEC2TICK;
+	public static final int ADVANCED_TICKED_TOTAL = (int) (6 * TickUtils.SEC2TICK);
 
 	protected AdvancedFactoryBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
 		super(blockEntityType, blockPos, blockState);
