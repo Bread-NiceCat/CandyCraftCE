@@ -9,15 +9,12 @@
       }
     },
     "foliage_placer": {
-      "type": "minecraft:fancy_foliage_placer",
-      "height": 4,
-      "offset": 4,
-      "radius": 2
+      "type": "candycraftce:candied_cherry"
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "candycraftce:magic_leaves",
+        "Name": "candycraftce:candied_cherry_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -35,9 +32,9 @@
       "upper_size": 0
     },
     "trunk_placer": {
-      "type": "minecraft:fancy_trunk_placer",
-      "base_height": 3,
-      "height_rand_a": 11,
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 7,
+      "height_rand_a": 0,
       "height_rand_b": 0
     },
     "trunk_provider": {

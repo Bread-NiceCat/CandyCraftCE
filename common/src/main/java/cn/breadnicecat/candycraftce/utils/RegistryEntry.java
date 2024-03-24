@@ -1,6 +1,5 @@
 package cn.breadnicecat.candycraftce.utils;
 
-import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Objects;
@@ -24,14 +23,6 @@ public class RegistryEntry {
 
 	public String getName() {
 		return id.getPath();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) return true;
-		if (obj == null || obj.getClass() != this.getClass()) return false;
-		ItemEntry<?> that = (ItemEntry<?>) obj;
-		return Objects.equals(this.id, that.id);
 	}
 
 	@Override

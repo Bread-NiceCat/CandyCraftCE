@@ -9,6 +9,8 @@ import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.recipe.RecipeTypeEntry;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,20 +23,24 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.forge.CandyCraftCEImpl.createRegister;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.hookPostBootstrap;
+import static cn.breadnicecat.candycraftce.forge.CandyCraftCEImpl.registerRegister;
 
 /**
  * Created in 2024/2/24 14:21
@@ -44,19 +50,26 @@ import static cn.breadnicecat.candycraftce.forge.CandyCraftCEImpl.createRegister
  * <p>
  */
 class ForgeFeatures implements EngineFeatures {
-	public final DeferredRegister<Item> ITEMS = createRegister(ForgeRegistries.ITEMS);
-	public final DeferredRegister<CreativeModeTab> TABS = createRegister(Registries.CREATIVE_MODE_TAB);
-	public final DeferredRegister<Block> BLOCKS = createRegister(ForgeRegistries.BLOCKS);
-	public final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = createRegister(ForgeRegistries.BLOCK_ENTITY_TYPES);
-	public final DeferredRegister<MenuType<?>> MENUS = createRegister(ForgeRegistries.MENU_TYPES);
-	public final DeferredRegister<SoundEvent> SOUNDS = createRegister(ForgeRegistries.SOUND_EVENTS);
-	public final DeferredRegister<RecipeType<?>> RECIPES = createRegister(ForgeRegistries.RECIPE_TYPES);
-	public final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = createRegister(ForgeRegistries.RECIPE_SERIALIZERS);
-	public final DeferredRegister<EntityType<?>> ENTITIES = createRegister(ForgeRegistries.ENTITY_TYPES);
+
+
+	public static Map<ResourceKey<? extends Registry<?>>, DeferredRegister<?>> deferredRegisters = new HashMap<>();
+
+	static {
+		hookPostBootstrap(deferredRegisters::clear);
+	}
+
+	public static <I> DeferredRegister<I> getOrCreate(IForgeRegistry<I> type) {
+		return getOrCreate(type.getRegistryKey());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <I> DeferredRegister<I> getOrCreate(ResourceKey<? extends Registry<I>> key) {
+		return (DeferredRegister<I>) deferredRegisters.computeIfAbsent(key, (k) -> registerRegister(DeferredRegister.create(key, MOD_ID)));
+	}
 
 	@Override
 	public <I extends Item> ItemEntry<I> registerItem(@NotNull ResourceLocation id, Supplier<I> sup) {
-		RegistryObject<I> object = ITEMS.register(id.getPath(), sup);
+		RegistryObject<I> object = getOrCreate(ForgeRegistries.ITEMS).register(id.getPath(), sup);
 		return new ItemEntry<>(id) {
 			@Override
 			public I get() {
@@ -67,13 +80,13 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public ResourceKey<CreativeModeTab> registerTab(@NotNull ResourceLocation id, Function<CreativeModeTab.Builder, CreativeModeTab> builder) {
-		return TABS.register(id.getPath(), () -> builder.apply(CreativeModeTab.builder())).getKey();
+		return getOrCreate(Registries.CREATIVE_MODE_TAB).register(id.getPath(), () -> builder.apply(CreativeModeTab.builder())).getKey();
 	}
 
 
 	@Override
 	public <B extends Block> BlockEntry<B> registerBlock(@NotNull ResourceLocation id, Supplier<B> sup) {
-		RegistryObject<B> object = BLOCKS.register(id.getPath(), sup);
+		RegistryObject<B> object = getOrCreate(ForgeRegistries.BLOCKS).register(id.getPath(), sup);
 		return new BlockEntry<>(id) {
 			@Override
 			public B get() {
@@ -84,7 +97,7 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public <B extends BlockEntity> BlockEntityEntry<B> registerBlockEntity(ResourceLocation id, Supplier<BlockEntityType<B>> b) {
-		RegistryObject<BlockEntityType<B>> object = BLOCK_ENTITIES.register(id.getPath(), b);
+		RegistryObject<BlockEntityType<B>> object = getOrCreate(ForgeRegistries.BLOCK_ENTITY_TYPES).register(id.getPath(), b);
 		return new BlockEntityEntry<>(id) {
 			@Override
 			public BlockEntityType<B> get() {
@@ -95,7 +108,7 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public <M extends AbstractContainerMenu> MenuEntry<M> registerMenu(ResourceLocation id, MenuType.MenuSupplier<M> factory) {
-		RegistryObject<MenuType<M>> object = MENUS.register(id.getPath(), () -> new MenuType<>(factory, FeatureFlagSet.of()));
+		RegistryObject<MenuType<M>> object = getOrCreate(ForgeRegistries.MENU_TYPES).register(id.getPath(), () -> new MenuType<>(factory, FeatureFlagSet.of()));
 		return new MenuEntry<>(id) {
 			@Override
 			public MenuType<M> get() {
@@ -106,7 +119,7 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public SoundEntry registerSoundEvent(@NotNull ResourceLocation eventId, Function<ResourceLocation, SoundEvent> factory) {
-		RegistryObject<SoundEvent> object = SOUNDS.register(eventId.getPath(), () -> factory.apply(eventId));
+		RegistryObject<SoundEvent> object = getOrCreate(ForgeRegistries.SOUND_EVENTS).register(eventId.getPath(), () -> factory.apply(eventId));
 		return new SoundEntry(object.getId()) {
 			@Override
 			public SoundEvent get() {
@@ -117,8 +130,8 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public <T extends Recipe<?>> RecipeTypeEntry<T> registerRecipe(ResourceLocation id, Supplier<RecipeType<T>> rt, Supplier<RecipeSerializerExt<T>> serializer) {
-		RegistryObject<RecipeType<T>> object = RECIPES.register(id.getPath(), rt);
-		RegistryObject<RecipeSerializerExt<T>> object_s = RECIPE_SERIALIZERS.register(id.getPath(), serializer);
+		RegistryObject<RecipeType<T>> object = getOrCreate(ForgeRegistries.RECIPE_TYPES).register(id.getPath(), rt);
+		RegistryObject<RecipeSerializerExt<T>> object_s = getOrCreate(ForgeRegistries.RECIPE_SERIALIZERS).register(id.getPath(), serializer);
 		return new RecipeTypeEntry<>(id) {
 			@Override
 			public RecipeSerializerExt<T> getSerializer() {
@@ -134,13 +147,20 @@ class ForgeFeatures implements EngineFeatures {
 
 	@Override
 	public <E extends Entity> EntityEntry<E> registerEntity(ResourceLocation id, Supplier<EntityType<E>> factory) {
-		RegistryObject<EntityType<E>> object = ENTITIES.register(id.getPath(), factory);
+		RegistryObject<EntityType<E>> object = getOrCreate(ForgeRegistries.ENTITY_TYPES).register(id.getPath(), factory);
 		return new EntityEntry<>(object.getId()) {
 			@Override
 			public EntityType<E> get() {
 				return object.get();
 			}
 		};
+	}
+
+	@Override
+	public <T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, Supplier<T> value) {
+		return new SimpleEntry<>(key,
+				getOrCreate(registry.key()).register(key.getPath(), value)
+		);
 	}
 
 }

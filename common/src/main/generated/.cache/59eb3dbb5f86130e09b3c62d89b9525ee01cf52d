@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-24T22:01:00.0406967	Loot Tables
+// 1.20.1	2024-03-24T10:45:02.3996675	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -6,6 +6,8 @@ c707e60010e0bed108d49b50ae0c35409a37d818 data/candycraftce/loot_tables/blocks/ba
 d61ee8c8b47849e5ef24031195f4649ad5108e4f data/candycraftce/loot_tables/blocks/banana_seaweeds_block.json
 3c4009b3919c9a7b4ffb508ff8dcf3f11ba55936 data/candycraftce/loot_tables/blocks/banana_seaweeds_slab.json
 7600e14ed992f5d9c90e9511bf225bfca5a88c83 data/candycraftce/loot_tables/blocks/banana_seaweeds_stairs.json
+04be618d099d266e9d6ffdd017296137384bda14 data/candycraftce/loot_tables/blocks/black_chocolate_cobblestone.json
+af2497d6fdda47294543b2313a09042ff7170fe3 data/candycraftce/loot_tables/blocks/black_chocolate_stone.json
 e9367ba3315381cff08d4948e0c55bd1d1f5341a data/candycraftce/loot_tables/blocks/blueberry_ice_cream.json
 5ed619f00ca58d573b76dfce44afa6d7e1bc22f8 data/candycraftce/loot_tables/blocks/blueberry_ice_cream_slab.json
 44b765b8f34ea836b32bb9c1b7c3e2820f816bcc data/candycraftce/loot_tables/blocks/blueberry_ice_cream_stairs.json
@@ -129,5 +131,7 @@ b0db6d0c5dbd81a0970d1bfcbe5b91703f23eb88 data/candycraftce/loot_tables/blocks/su
 6995fc8e7d06b06f07c71eb0e7379a9e93946356 data/candycraftce/loot_tables/blocks/sweet_grass_2.json
 3b60627278ad1a677a442ac1317474d8a977d168 data/candycraftce/loot_tables/blocks/sweet_grass_3.json
 2baa0db3edd28adc07bf7023d93f4aeb6f242ca1 data/candycraftce/loot_tables/blocks/trampojelly.json
+fd119be93c16bdd283a37ed64f34f7f1a8758888 data/candycraftce/loot_tables/blocks/white_chocolate_cobblestone.json
 ad4dc3a69a93920bf8d6882a9a0647cf29ebfef7 data/candycraftce/loot_tables/blocks/white_chocolate_leaves.json
 f08aca35dbcfc1b48a5fa21f98d7325ac48ef6b6 data/candycraftce/loot_tables/blocks/white_chocolate_sapling.json
+cdf9506bcecb8a7e8da8ecf2e353c95a604334ce data/candycraftce/loot_tables/blocks/white_chocolate_stone.json

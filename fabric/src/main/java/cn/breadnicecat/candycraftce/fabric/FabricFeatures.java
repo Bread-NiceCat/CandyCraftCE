@@ -9,6 +9,7 @@ import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.recipe.RecipeTypeEntry;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -131,5 +132,11 @@ class FabricFeatures implements EngineFeatures {
 				return obj;
 			}
 		};
+	}
+
+	@Override
+	public <T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, @NotNull Supplier<T> value) {
+		T t = Registry.register(registry, key, value.get());
+		return new SimpleEntry<>(key, () -> t);
 	}
 }

@@ -2,6 +2,10 @@
   "values": [
     "candycraftce:chocolate_stone",
     "candycraftce:chocolate_cobblestone",
+    "candycraftce:black_chocolate_stone",
+    "candycraftce:black_chocolate_cobblestone",
+    "candycraftce:white_chocolate_stone",
+    "candycraftce:white_chocolate_cobblestone",
     "candycraftce:licorice_ore",
     "candycraftce:honeycomb_ore",
     "candycraftce:pez_ore",

@@ -8,6 +8,8 @@ import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.recipe.RecipeTypeEntry;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -52,6 +54,8 @@ public interface EngineFeatures {
 	SoundEntry registerSoundEvent(ResourceLocation eventId, Function<ResourceLocation, SoundEvent> factory);
 
 	<E extends Entity> EntityEntry<E> registerEntity(ResourceLocation id, Supplier<EntityType<E>> factory);
+
+	<T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, Supplier<T> value);
 
 	static EngineFeatures get() {
 		return CandyCraftCE.getFeatures();

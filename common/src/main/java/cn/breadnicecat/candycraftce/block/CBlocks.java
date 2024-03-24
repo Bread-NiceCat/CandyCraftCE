@@ -132,8 +132,15 @@ public class CBlocks {
 	public static final BlockEntry<LeavesBlock> CANDIED_CHERRY_LEAVES = create("candied_cherry_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> MAGIC_LEAVES = create("magic_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	//
+
+
 	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE, null).save();
+	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE = create("black_chocolate_stone").setProperties(CHOCOLATE_STONE, null).save();
+	public static final BlockEntry<Block> BLACK_CHOCOLATE_COBBLESTONE = create("black_chocolate_cobblestone").setProperties(CHOCOLATE_COBBLESTONE, null).save();
+	public static final BlockEntry<Block> WHITE_CHOCOLATE_STONE = create("white_chocolate_stone").setProperties(CHOCOLATE_STONE, null).save();
+	public static final BlockEntry<Block> WHITE_CHOCOLATE_COBBLESTONE = create("white_chocolate_cobblestone").setProperties(CHOCOLATE_COBBLESTONE, null).save();
+
 	public static final BlockEntry<DropExperienceBlock> JELLY_ORE = create("jelly_ore", DropExperienceBlock::new).setProperties(IRON_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> NOUGAT_ORE = create("nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> LICORICE_ORE = create("licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();

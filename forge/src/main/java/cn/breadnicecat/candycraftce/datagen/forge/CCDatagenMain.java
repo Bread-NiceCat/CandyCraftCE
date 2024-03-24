@@ -47,6 +47,7 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
+
 		generator.addProvider(true, new CTerminalStateProvider(STATE));
 	}
 
@@ -79,6 +80,7 @@ public class CCDatagenMain {
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
+			LOGGER.warn("bye");
 			System.exit(status);
 		}, "Process Terminator");
 		helper.setDaemon(true);

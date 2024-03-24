@@ -44,7 +44,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
 	private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
 	private static final Function<Block, LootItemCondition.Builder> AGE_IS_7 = b -> LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7));
-	;
+
 	private static final float[] NORMAL_LEAVES_STICK_CHANCES = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
 	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
 
@@ -57,7 +57,8 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	@Override
 	protected void generate() {
 		accept(m -> dropSelf(m.get()),
-				CARAMEL_BLOCK, CHOCOLATE_COBBLESTONE, PUDDING,
+				CARAMEL_BLOCK, PUDDING,
+				CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_COBBLESTONE,
 				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS,
 				MARSHMALLOW_CRAFTING_TABLE, LICORICE_FURNACE, CHOCOLATE_FURNACE, SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY,
 				ALCHEMY_MIXER, MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG,
@@ -102,6 +103,8 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		add(HONEYCOMB_ORE, createSingleItemTable(HONEYCOMB_SHARD, UniformGenerator.between(2, 5)));
 		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.get(), SUGAR, ConstantValue.exactly(4)));
 		otherWhenSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get());
+		otherWhenSilkTouch(BLACK_CHOCOLATE_STONE.get(), BLACK_CHOCOLATE_COBBLESTONE.get());
+		otherWhenSilkTouch(WHITE_CHOCOLATE_STONE.get(), WHITE_CHOCOLATE_COBBLESTONE.get());
 		otherWhenSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get());
 		dropOther(PUDDING_FARMLAND.get(), PUDDING.get());
 	}

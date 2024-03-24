@@ -3,8 +3,6 @@ package cn.breadnicecat.candycraftce.forge;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,7 +11,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -36,14 +33,6 @@ public class CandyCraftCEImpl {
 	public static <I> DeferredRegister<I> registerRegister(DeferredRegister<I> register) {
 		register.register(FMLJavaModLoadingContext.get().getModEventBus());
 		return register;
-	}
-
-	public static <I> DeferredRegister<I> createRegister(IForgeRegistry<I> type) {
-		return registerRegister(DeferredRegister.create(type, MOD_ID));
-	}
-
-	public static <I> DeferredRegister<I> createRegister(ResourceKey<? extends Registry<I>> key) {
-		return registerRegister(DeferredRegister.create(key, MOD_ID));
 	}
 
 	public static LinkedList<Runnable> mcSetupHooks = new LinkedList<>();

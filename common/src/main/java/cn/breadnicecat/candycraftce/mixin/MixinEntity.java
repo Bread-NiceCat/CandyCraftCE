@@ -50,7 +50,7 @@ public abstract class MixinEntity {
 	@Inject(method = "findDimensionEntryPoint", at = @At("HEAD"), cancellable = true)
 	private void findDimensionEntryPoint(@NotNull ServerLevel destination, CallbackInfoReturnable<PortalInfo> cir) {
 		ResourceKey<Level> curDim = level.dimension();
-		if (destination.dimension() == CDims.THE_DUNGEON) {
+		if (destination.dimension() == CDims.CANDYLAND) {
 			//TODO 暂行方案，在切换维度时应该使用moveTo方法设置坐标
 			cir.setReturnValue(new PortalInfo(Vec3.ZERO, Vec3.ZERO, getXRot(), getYRot()));
 		}

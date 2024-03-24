@@ -155,7 +155,7 @@ public class IIDebugItem extends Item {
 				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
 				player.sendSystemMessage(Component.literal(shape.toString()));
 			} else {
-				level.playSound(null, pos, SoundEvents.ENDER_DRAGON_AMBIENT, SoundSource.BLOCKS);
+				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
 				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(ChatFormatting.RED));
 			}
 			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt * TickUtils.MS2TICK + " tick)").withStyle(ChatFormatting.GOLD));

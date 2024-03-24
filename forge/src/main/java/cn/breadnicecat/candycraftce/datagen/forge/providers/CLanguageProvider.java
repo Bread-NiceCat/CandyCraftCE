@@ -132,6 +132,10 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CARAMEL_BLOCK, "焦糖块");
 		addBlockById(CHOCOLATE_STONE, "巧克力石头");
 		addBlockById(CHOCOLATE_COBBLESTONE, "巧克力圆石");
+		addBlockById(BLACK_CHOCOLATE_STONE, "黑色巧克力石头");
+		addBlockById(BLACK_CHOCOLATE_COBBLESTONE, "黑色巧克力圆石");
+		addBlockById(WHITE_CHOCOLATE_STONE, "白色巧克力石头");
+		addBlockById(WHITE_CHOCOLATE_COBBLESTONE, "白色巧克力圆石");
 		addBlockById(PUDDING, "布丁");
 		addBlockById(CUSTARD_PUDDING, "奶皮布丁");
 		addBlockById(PUDDING_FARMLAND, "布丁耕地");

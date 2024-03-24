@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.misc.muitlblocks;
 
 import cn.breadnicecat.candycraftce.utils.Axes;
-import cn.breadnicecat.candycraftce.utils.CacheableBlockGetter;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
@@ -81,28 +80,26 @@ public abstract class VectorPortalShape {
 	/**
 	 * @param pos 任意一格有效框架
 	 */
-	public static Optional<VectorPortalShape> findPortalOnFrame(Level level, BlockPos pos, PortalConfig config) {
-		try (CacheableBlockGetter getter = CacheableBlockGetter.create(level)) {
-			if (!config.isFrame(getter.getBlockState(pos))) return Optional.empty();
-			List<VectorPortalShape> parts = new LinkedList<>();
+	public static Optional<VectorPortalShape> findPortalOnFrame(BlockGetter getter, BlockPos pos, PortalConfig config) {
+		if (!config.isFrame(getter.getBlockState(pos))) return Optional.empty();
+		List<VectorPortalShape> parts = new LinkedList<>();
 
-			for (BlockPos neighbourPo : LevelUtils.getNeighbourPos(pos)) {
-				BlockState state = getter.getBlockState(neighbourPo);
-				if (config.isEmpty(state)) {
-					findPortal(level, neighbourPo, config).ifPresent(parts::add);
-				}
+		for (BlockPos neighbourPo : LevelUtils.getNeighbourPos(pos)) {
+			BlockState state = getter.getBlockState(neighbourPo);
+			if (config.isEmpty(state)) {
+				findPortal(getter, neighbourPo, config).ifPresent(parts::add);
 			}
-			return parts.isEmpty() ? Optional.empty() :
-					parts.size() == 1 ? Optional.of(parts.get(0)) : Optional.of(new Compound(parts));
 		}
+		return parts.isEmpty() ? Optional.empty() :
+				parts.size() == 1 ? Optional.of(parts.get(0)) : Optional.of(new Compound(parts));
 
 	}
 
 	/**
 	 * @param pos 传送门内的任意一格
 	 */
-	public static Optional<VectorPortalShape> findPortal(Level level, BlockPos pos, PortalConfig config) {
-		try (CacheableBlockGetter getter = CacheableBlockGetter.create(level)) {
+	public static Optional<VectorPortalShape> findPortal(BlockGetter getter, BlockPos pos, PortalConfig config) {
+		{
 			if (!config.isEmpty.test(getter.getBlockState(pos))) return Optional.empty();
 			List<Unit> units = new ArrayList<>(3);
 
