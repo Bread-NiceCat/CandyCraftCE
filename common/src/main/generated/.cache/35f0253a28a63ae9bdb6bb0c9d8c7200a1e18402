@@ -1,6 +1,7 @@
-// 1.20.1	2024-02-18T18:12:53.6397394	Item Models: candycraftce
+// 1.20.1	2024-04-05T12:31:44.912582	Item Models: candycraftce
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 3d18fd42d331d0e83b460f2554faf2e3778f6a64 assets/candycraftce/models/item/candy_cane.json
+740f903f84f861942744ed7f5bcc5df0ed6a232f assets/candycraftce/models/item/caramel_bucket.json
 5ceba7de0c9bc08b64adaf4eb0007c8e202acf1f assets/candycraftce/models/item/chewing_gum.json
 976bb1a372aeaae3b743edfc11c69c63eadf5f03 assets/candycraftce/models/item/chewing_gum_emblem.json
 36a290152b04fc2ddd02418098a2625affb3ffbc assets/candycraftce/models/item/chocolate_coin.json
@@ -51,6 +52,7 @@ c3cb1179b9903f4777775334a846f022cacf9cf8 assets/candycraftce/models/item/lollipo
 e91bd44df6e74c524fcad7767bcf8c6659669959 assets/candycraftce/models/item/marshmallow_sword.json
 303b5c2adcce08566217fdc4384c26c438a6bdd8 assets/candycraftce/models/item/nessie_emblem.json
 67887a0cb781ea14c94a694c6f94840ff14b5345 assets/candycraftce/models/item/nougat_powder.json
+dbfcc52cfb8f9d6a384a904bb777593cecd2fd45 assets/candycraftce/models/item/orecord_wwwooowww.json
 e610e3261c3f489e65e13c858567054112eff316 assets/candycraftce/models/item/pez.json
 76bb6f97d9d04225caac521254c6922ee1415fdb assets/candycraftce/models/item/pez_axe.json
 54685128a8082ef0feed441b8f24ddf4ebd54fa1 assets/candycraftce/models/item/pez_boots.json
@@ -66,7 +68,6 @@ ce9e1d124f13f2496150ad6cfd880d6db5f89f19 assets/candycraftce/models/item/pez_sho
 927950edbd2b8752c64c3e5876437aeb09081a1c assets/candycraftce/models/item/record_2.json
 ceb5743a25b272d1e667d30394a00ec2227aa34a assets/candycraftce/models/item/record_3.json
 8034a0a0b9ca6ceda968ce3e9307023fbb085134 assets/candycraftce/models/item/record_4.json
-c915437257a21a8f1d37445281266e35afb94d15 assets/candycraftce/models/item/record_wwwooowww.json
 985ed6daff3644b8858ebd90e28b1972165567ae assets/candycraftce/models/item/sky_emblem.json
 fc4e671f33fc4c1b5d041154503c6be4f56ca423 assets/candycraftce/models/item/sugar_crystal.json
 9113e7d2f26ae7f2cd94b517c841965297207e08 assets/candycraftce/models/item/suguard_emblem.json

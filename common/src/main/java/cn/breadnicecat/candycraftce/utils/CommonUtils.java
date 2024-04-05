@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.utils;
 
 import org.apache.logging.log4j.util.StackLocatorUtil;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,6 +110,26 @@ public class CommonUtils {
 		return factory.get();
 	}
 
+	/**
+	 * 线性插值
+	 *
+	 * @param p  插值点坐标
+	 * @param p1 顶点坐标1
+	 * @param p2 顶点坐标2
+	 * @param v1 顶点数值1
+	 * @param v2 顶点数值2
+	 * @return 插值后的数值
+	 */
+	public static float linearInterpolation(float p, float p1, float p2, float v1, float v2) {
+		if (v1 == v2 || p1 == p2) {
+			//value值相等 距离为0 不进行插值计算
+			return v1;
+		} else {
+			return ((p2 - p) / (p2 - p1) * v1) + ((p - p1) / (p2 - p1) * v2);
+		}
+	}
+
+	@Contract()//把->fail顶掉
 	public static <T> T impossibleCode() {
 		throw new AssertionError("Impossible code invoked. It's a bug, please report it to us");
 	}

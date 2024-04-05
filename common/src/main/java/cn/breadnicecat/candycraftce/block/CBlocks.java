@@ -66,15 +66,6 @@ public class CBlocks {
 	public static final BlockEntry<LollipopStemBlock> LOLLIPOP_STEM = create("lollipop_stem", LollipopStemBlock::new).setProperties(WHEAT, null).noBlockItem().save();
 	public static final BlockEntry<LollipopFruit> LOLLIPOP_FRUIT = create("lollipop_fruit", LollipopFruit::new).setProperties(WHEAT, null).noBlockItem().save();
 
-	//    //作物
-//    HELPER.single(DRAGIBUS_CROPS, () -> new BlockCandyCrop(Properties.copy(Blocks.WHEAT), CItemEntries.DRAGIBUS),
-//            RENDERER_TYPE_CUTOUT
-//    );
-//    HELPER.single(LOLLIPOP_STEM, BlockLollipopStem::new,
-//            RENDERER_TYPE_CUTOUT);
-//    HELPER.single(LOLLIPOP_BLOCK, BlockLollipop::new,
-//            MODEL_CROSS, RENDERER_TYPE_CUTOUT);
-
 	public static final BlockEntry<SugarBlock> SUGAR_BLOCK = create("sugar_block", SugarBlock::new).setProperties(Blocks.SAND, Properties::randomTicks).save();
 	public static final BlockEntry<Block> CARAMEL_BLOCK = create("caramel_block").setProperties(Blocks.STONE, null).save();
 
@@ -85,27 +76,7 @@ public class CBlocks {
 	public static final BlockEntry<Block> MINT_ICE_CREAM = create("mint_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
 	public static final BlockEntry<Block> STRAWBERRY_ICE_CREAM = create("strawberry_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
 	public static final BlockEntry<Block> BLUEBERRY_ICE_CREAM = create("blueberry_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
-	//    HELPER.batch((n, a) -> new SlabBlock(Properties.copy(ICE_CREAM.getBlock()).noOcclusion()), CCBlockManager::simpleBlockItem,
-//                    MODEL_SP_SLAB, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-//            .addElement()
-//            .addElement()
-//            .addElement()
-//            .addElement()
-//            .register();
-//    HELPER.batch((n, a) -> new StairBlock(((CBlockEntries) a[0]).getBlock().defaultBlockState(), Properties.copy(ICE_CREAM.getBlock())), CCBlockManager::simpleBlockItem,
-//                    MODEL_STAIRS, LOOT_DROP_SELF, RENDERER_TYPE_CUTOUT)
-//            .addElement(ICE_CREAM_STAIRS, ICE_CREAM)
-//            .addElement(MINT_ICE_CREAM_STAIRS, MINT_ICE_CREAM)
-//            .addElement(STRAWBERRY_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM)
-//            .addElement(BLUEBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM)
-//            .register();
-//    HELPER.single(GRENADINE_BLOCK, () -> new HalfTransparentBlock(Properties.copy(Blocks.ICE)), CCBlockManager::simpleBlockItem,
-//            MODEL_SIMPLE, LOOT_DROP_SELF_WHEN_SILK_TOUCH, RENDERER_TYPE_TRANSLUCENT);
-//    //Barrier
-//    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_BRICK, () -> new Block(Properties.copy(Blocks.BEDROCK)), CCBlockManager::simpleBlockItem,
-//            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
-//    HELPER.single(ULTIMATE_COMPRESSED_JAWBREAKER_LIGHT, () -> new Block(Properties.copy(Blocks.BEDROCK).lightLevel((b) -> 14)), CCBlockManager::simpleBlockItem,
-//            EXCLUDE_SUGARY_BLOCK, MODEL_SIMPLE, LOOT_NONE);
+
 	public static final BlockEntry<Block> MINT_BLOCK = create("mint_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> RASPBERRY_BLOCK = create("raspberry_block").setProperties(HAY_BLOCK, null).save();
 	public static final BlockEntry<Block> BANANA_SEAWEEDS_BLOCK = create("banana_seaweeds_block").setProperties(HAY_BLOCK, null).save();
@@ -131,8 +102,6 @@ public class CBlocks {
 	public static final BlockEntry<LeavesBlock> CARAMEL_LEAVES = create("caramel_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> CANDIED_CHERRY_LEAVES = create("candied_cherry_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> MAGIC_LEAVES = create("magic_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
-	//
-
 
 	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE, null).save();
@@ -162,7 +131,7 @@ public class CBlocks {
 	public static final BlockEntry<SugarFactoryBlock> SUGAR_FACTORY = create("sugar_factory", SugarFactoryBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<AdvancedSugarFactoryBlock> ADVANCED_SUGAR_FACTORY = create("advanced_sugar_factory", AdvancedSugarFactoryBlock::new).setProperties(SUGAR_FACTORY, null).save();
 	//TODO AlchemyMixer functions
-	public static final BlockEntry<AlchemyMixerBlock> ALCHEMY_MIXER = create("alchemy_mixer", AlchemyMixerBlock::new).setProperties(ANVIL, null).save();
+	public static final BlockEntry<AlchemyMixerBlock> ALCHEMY_MIXER = create("alchemy_mixer", AlchemyMixerBlock::new).setProperties(ANVIL, Properties::noOcclusion).save();
 
 	public static final BlockEntry<FenceBlock> MARSHMALLOW_FENCE = create("marshmallow_fence", FenceBlock::new).setProperties(MARSHMALLOW_PLANKS, null).save();
 	public static final BlockEntry<FenceBlock> LIGHT_MARSHMALLOW_FENCE = create("light_marshmallow_fence", FenceBlock::new).setProperties(LIGHT_MARSHMALLOW_PLANKS, null).save();
@@ -246,12 +215,16 @@ public class CBlocks {
 	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
+	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CFluids.CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
 
 
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
+		LOGGER.info("declareRendererType");
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.translucent()),
-				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY);
+				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY,
+				CARAMEL_LIQUID
+		);
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
@@ -273,7 +246,7 @@ public class CBlocks {
 
 	//Platform difference
 	@ExpectPlatform
-	public static StairBlock _stairBlock(Supplier<BlockState> base, Properties p) {
+	private static StairBlock _stairBlock(Supplier<BlockState> base, Properties p) {
 		return impossibleCode();
 	}
 }

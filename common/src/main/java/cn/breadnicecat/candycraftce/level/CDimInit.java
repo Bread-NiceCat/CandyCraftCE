@@ -23,5 +23,6 @@ public class CDimInit {
 	public static final SimpleEntry<FoliagePlacerType<?>> CANDIED_CHERRY_FOLIAGE_PLACER = features.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, prefix("candied_cherry"), () -> new FoliagePlacerType<>(CandiedCherryFoliagePlacer.CODEC));
 
 	public static void init() {
+
 	}
 }

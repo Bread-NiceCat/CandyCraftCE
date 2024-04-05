@@ -43,21 +43,28 @@ public class CBlockStateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		//(_)type : textureName
-		mappings = new HashMap<>();//makes mappings enabled
+		mappings = new HashMap<>();//make mappings enabled
+		//exist : (model) *
+		{
+			accept(b -> simpleBlock(b.get(), existModelFile(b.get())),
+					CARAMEL_LIQUID);
+		}
 		//cubeAll : *
-		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
-				SUGAR_BLOCK, CARAMEL_BLOCK, PUDDING,
-				CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
-				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
-				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-				MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
-				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
-				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
-				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
-				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
-				ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICK, JAWBREAKER_LIGHT
-		);
-		//cubeBottomTop *_side *_bottom *_top
+		{
+			accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
+					SUGAR_BLOCK, CARAMEL_BLOCK, PUDDING,
+					CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
+					SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
+					DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
+					MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
+					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
+					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
+					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
+					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
+					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICK, JAWBREAKER_LIGHT
+			);
+		}
+		//cubeBottomTop : *_side *_bottom *_top
 		zone(() -> {
 			mapping(modLoc("block/" + CUSTARD_PUDDING.getName() + "_bottom"), blockTexture(PUDDING.get()));
 			accept(b -> {
@@ -181,12 +188,12 @@ public class CBlockStateProvider extends BlockStateProvider {
 					CHEWING_GUM_SLAB, ICE_CREAM_SLAB, MINT_ICE_CREAM_SLAB, STRAWBERRY_ICE_CREAM_SLAB, BLUEBERRY_ICE_CREAM_SLAB);
 		});
 		//trapdoor *
-		accept(b -> {
+		zone(() -> accept(b -> {
 			TrapDoorBlock block = b.get();
 			ResourceLocation tex = blockTexture(block);
 			trapdoorBlock(block, tex, true);
 			itemModels().trapdoorBottom(b.getName(), tex);
-		}, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR);
+		}, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR));
 		//log *, *_top
 		accept(b -> {
 			RotatedPillarBlock block = b.get();
@@ -194,17 +201,19 @@ public class CBlockStateProvider extends BlockStateProvider {
 			simpleBlockItem(block, existModelFile(block));
 		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
 		//cross *
-		accept(b -> {
-					Block block = b.get();
-					ResourceLocation cross = blockTexture(block);
-					String name = b.getName();
-					simpleBlock(block, models().cross(name, cross));
-					generatedItem(name, cross);
-				}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
-				COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES,
-				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
-				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, LOLLIPOP_FRUIT
-		);
+		{
+			accept(b -> {
+						Block block = b.get();
+						ResourceLocation cross = blockTexture(block);
+						String name = b.getName();
+						simpleBlock(block, models().cross(name, cross));
+						generatedItem(name, cross);
+					}, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
+					COTTON_CANDY_WEB, SUGAR_SPIKES, CRANBERRY_SPIKES,
+					SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
+					FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, LOLLIPOP_FRUIT
+			);
+		}
 		//door *_bottom *_top
 		accept(b -> {
 			String name = b.getName();

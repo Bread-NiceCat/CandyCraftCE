@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "candycraftce:item/record_wwwooowww"
+    "layer0": "candycraftce:item/orecord_wwwooowww"
   }
 }

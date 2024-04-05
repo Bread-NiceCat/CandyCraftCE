@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.items.CaramelBowItem;
+import cn.breadnicecat.candycraftce.item.items.CaramelBucketItem;
 import cn.breadnicecat.candycraftce.item.items.HoneycombArrowItem;
 import cn.breadnicecat.candycraftce.item.items.IIDebugItem;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
@@ -95,7 +96,7 @@ public class CItems {
 	public static final ItemEntry<RecordItem> RECORD_2 = createRecord("record_2", 2, CSoundEvents.CD_2, 98).save();
 	public static final ItemEntry<RecordItem> RECORD_3 = createRecord("record_3", 3, CSoundEvents.CD_3, 112).save();
 	public static final ItemEntry<RecordItem> RECORD_4 = createRecord("record_4", 4, CSoundEvents.CD_4, 188).save();
-	public static final ItemEntry<RecordItem> RECORD_WWWOOOWWW = create("record_wwwooowww",
+	public static final ItemEntry<RecordItem> RECORD_WWWOOOWWW = create("orecord_wwwooowww",
 			p -> _record_wwwooowww(Redstone.SIGNAL_MAX, CSoundEvents.CD_WWWOOOWWW, p, 302, "Bread_NiceCat's Secret Record", "Mono Inc. - Children of the Dark"))
 			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
 			.setCtab(false)
@@ -116,7 +117,8 @@ public class CItems {
 
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
 
-
+	/*流体*/
+	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
 	/*工具*/
 	//MARSHMALLOW
 	public static final ItemEntry<SwordItem> MARSHMALLOW_SWORD = createSword("marshmallow_sword", CTiers.MARSHMALLOW, 3, -2.4F).save();

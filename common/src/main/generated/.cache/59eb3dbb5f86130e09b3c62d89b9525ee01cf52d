@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-24T10:45:02.3996675	Loot Tables
+// 1.20.1	2024-04-05T12:31:44.9085936	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -25,6 +25,7 @@ d11dae413eecf24ed3fdfaec3804b5e7625426fe data/candycraftce/loot_tables/blocks/ca
 c8ba3a6d18d34d10e120eed065cc28b804bbc0cb data/candycraftce/loot_tables/blocks/caramel_glass.json
 b42cd0d7615348ff1dfdb4642348f3cb69cff9e7 data/candycraftce/loot_tables/blocks/caramel_glass_pane.json
 5ba09b305748206340a10e4e1983a360ce45b1c7 data/candycraftce/loot_tables/blocks/caramel_leaves.json
+67d2a642272082ef3f2c1a1a80f13b484c3dcb86 data/candycraftce/loot_tables/blocks/caramel_liquid.json
 fef6782285cb3e641e70f9dc6024ab070be55434 data/candycraftce/loot_tables/blocks/caramel_portal.json
 996a8cc62641b2b8a6af2bd930203a578020d449 data/candycraftce/loot_tables/blocks/caramel_sapling.json
 42450c6e9cd3694e4271531b1a0ae384aa50129a data/candycraftce/loot_tables/blocks/chewing_gum_block.json

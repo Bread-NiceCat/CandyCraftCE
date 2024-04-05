@@ -188,12 +188,9 @@ public abstract class VectorPortalShape {
 
 		@Override
 		public String toString() {
-			return "Unit{" +
-					"bottomLeft=" + bottomLeft +
-					", axis=" + axis +
-					", width=" + width +
-					", height=" + height +
-					'}';
+			return """
+					{"type":"unit","bottom_left":{"x":%d,"y":%d,"z":%d},"axis":"%s","width":%d,"height":%d}
+					""".formatted(bottomLeft.getX(), bottomLeft.getY(), bottomLeft.getZ(), axis, width, height);
 		}
 	}
 
@@ -278,9 +275,9 @@ public abstract class VectorPortalShape {
 
 		@Override
 		public String toString() {
-			return "Compound{" +
-					"units=" + parts +
-					'}';
+			return """
+					{"type": "compound", "parts": %s}
+					""".formatted(parts);
 		}
 	}
 

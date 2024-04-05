@@ -103,7 +103,7 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 		add(ICE_CREAMS, ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM);
 	}
 
-	private Map<TagKey<Block>, Set<BlockEntry<?>>> validator = new HashMap<>();
+	private Map<TagKey<?>, Set<?>> validator = new HashMap<>();
 
 	private void add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 		if (be.length == 0) return;

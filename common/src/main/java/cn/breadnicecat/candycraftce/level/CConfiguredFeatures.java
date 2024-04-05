@@ -26,10 +26,7 @@ public class CConfiguredFeatures {
 
 	public final static ResourceKey<ConfiguredFeature<?, ?>> CANDIED_CHERRY_TREE = bind("candied_cherry_tree");
 
-	public static ResourceKey<ConfiguredFeature<?, ?>> bind(String name) {
+	private static ResourceKey<ConfiguredFeature<?, ?>> bind(String name) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, prefix(name));
-	}
-
-	public static void init() {
 	}
 }

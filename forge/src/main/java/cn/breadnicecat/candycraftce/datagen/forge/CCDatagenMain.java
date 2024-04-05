@@ -39,6 +39,7 @@ public class CCDatagenMain {
 		CBlockTagsProvider blocktag = new CBlockTagsProvider(pack, lookup, efhelper);
 		generator.addProvider(evt.includeServer(), blocktag);
 		generator.addProvider(evt.includeServer(), new CItemTagsProvider(pack, lookup, blocktag.contentsGetter(), efhelper));
+		generator.addProvider(evt.includeServer(), new CFluidTagsProvider(pack, lookup, efhelper));
 		generator.addProvider(evt.includeServer(), new CLootTableProvider(pack));
 		generator.addProvider(evt.includeServer(), new CRecipeProvider(pack));
 		generator.addProvider(evt.includeServer(), new CDatapackBuiltinEntriesProvider(pack, lookup));
@@ -66,17 +67,21 @@ public class CCDatagenMain {
 					throw new RuntimeException(e);
 				}
 			}
-			LOGGER.info("Preparing exit after 5s!");
 			int status;
 			if (STATE.get()) {
-				LOGGER.info("status = 0");
+				LOGGER.info("with status = 0");
 				status = 0;
 			} else {
-				LOGGER.warn("status = -1");
+				LOGGER.warn("with status = -1");
 				status = -1;
 			}
+			LOGGER.info("Preparing exit after 5s!");
 			try {
-				Thread.sleep(5000);
+				for (int i = 0; i < 5; i++) {
+					Thread.sleep(1000);
+					System.out.print("\rPreparing exit after " + (5 - i) + "s!");
+				}
+				System.out.println();
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}

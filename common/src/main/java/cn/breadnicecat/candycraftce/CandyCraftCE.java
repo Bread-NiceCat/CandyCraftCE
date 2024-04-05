@@ -1,12 +1,14 @@
 package cn.breadnicecat.candycraftce;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.gui.block.CMenus;
 import cn.breadnicecat.candycraftce.item.CItems;
-import cn.breadnicecat.candycraftce.level.CDims;
+import cn.breadnicecat.candycraftce.level.CDimInit;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
+import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -54,7 +56,7 @@ public final class CandyCraftCE {
 	 */
 	public static void bootstrap(final Environment env, final ModPlatform platform, final EngineFeatures features) {
 		if (preBootstrap) {
-			throw new IllegalStateException("bootstrap has been ran");
+			throw new IllegalStateException(MOD_ID + " has been bootstrapped");
 		}
 		preBootstrap = true;
 		CandyCraftCE.environment = Objects.requireNonNull(env);
@@ -62,21 +64,22 @@ public final class CandyCraftCE {
 		CandyCraftCE.features = features;
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
-
 		LOGGER.info("=".repeat(64));
-		LOGGER.info(MOD_ID + " Running in " + getEnvironment() + " with " + getPlatform());
+		LOGGER.info(MOD_ID + " Running in {} with {}", getEnvironment(), getPlatform());
 		if (IS_DEV) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
 		}
 		LOGGER.info("=".repeat(64));
 
-		//防止某些类未被链式调用导致不会被初始化，不计顺序
-		CDims.init();
+//		防止某些类未被链式调用导致不会被初始化，不计顺序
 		CItems.init();
 		CMenus.init();
+		CFluids.init();
 		CBlocks.init();
+		CDimInit.init();
 		CEntities.init();
+		CParticles.init();
 		CGameRules.init();
 		CRecipeTypes.init();
 		CSoundEvents.init();
@@ -109,8 +112,9 @@ public final class CandyCraftCE {
 	}
 
 	/**
-	 * Forge: FMLCommonSetupEvent<p>
-	 * Fabric: onInitialize
+	 * Forge: FMLCommonSetupEvent
+	 * <p>
+	 * Fabric: onInitialize()
 	 */
 	@ExpectPlatform
 	public static void hookMinecraftSetup(Runnable runnable) {
@@ -133,8 +137,8 @@ public final class CandyCraftCE {
 
 	public enum ModPlatform {
 		FORGE,
-		NEOFORGE,
 		FABRIC,
-		QUILT//Quilt兼容Fabric,不单独开发
+		NEOFORGE,//1.20+
+		QUILT//Quilt兼容Fabric,暂时不单独开发
 	}
 }

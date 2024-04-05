@@ -36,19 +36,12 @@ public class CandiedCherryFoliagePlacer extends FoliagePlacer {
 		setter.set(pos, config.foliageProvider.getState(random, pos));
 		for (int ny = 0; ny < foliageHeight; ny++) {
 			pos.move(Direction.DOWN);
-			int start, end;
-			if (ny % 2 == 0) {
-				start = -1;
-				end = 1;
-			} else {
-				start = -2;
-				end = 2;
-			}
-			for (int x = start; x < end + 1; x++) {
-				for (int z = start; z < end + 1; z++) {
-					if (x != 0 || z != 0) {
-						BlockPos set = pos.offset(x, 0, z);
-						setter.set(set, config.foliageProvider.getState(random, set));
+			boolean skipCorner = ny % 2 != 0;
+			for (int x = -1; x < 2; x++) {
+				for (int z = -1; z < 2; z++) {
+					if (skipCorner && (x == -1 || x == 1 || z == -1 || z == 1)) {
+						BlockPos setPos = pos.offset(x, 0, z);
+						setter.set(setPos, config.foliageProvider.getState(random, setPos));
 					}
 				}
 			}
@@ -57,7 +50,7 @@ public class CandiedCherryFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	public int foliageHeight(RandomSource random, int height, TreeConfiguration config) {
-		return height - 2;
+		return height % 2 == 0 ? height - 2 : height - 1;//保证最下面一行一定是缺角的树叶
 	}
 
 	@Override

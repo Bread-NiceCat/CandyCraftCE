@@ -125,6 +125,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(TRAMPOJELLY_BOOTS, "果冻靴子");
 		addItemById(DRAGIBUS, "彩虹糖");
 		addItemById(LOLLIPOP_SEEDS, "棒棒糖种子");
+		addItemById(CARAMEL_BUCKET, "熔融焦糖桶");
 		addItem(I_I_DEBUG, "I 爱 DEBUG !!!", null);
 		/*=======================Blocks=======================*/
 		addBlockById(SUGAR_BLOCK, "糖块");
@@ -259,6 +260,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
 		addBlockById(JAWBREAKER_BRICK, "基岩硬糖砖");
 		addBlockById(JAWBREAKER_LIGHT, "基岩硬糖灯");
+		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
 	}
 
 	/**

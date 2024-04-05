@@ -1,4 +1,4 @@
-// 1.20.1	2024-02-03T00:39:59.0449752	Tags for minecraft:item mod id candycraftce
+// 1.20.1	2024-04-05T12:31:44.9145769	Tags for minecraft:item mod id candycraftce
 f7b57839acc146f6eb3fe9021153aa1548aff9b0 data/candycraftce/tags/items/candy_arrows.json
 084a35bdeb323ab9c235e7f6e289a5a61fc368bd data/candycraftce/tags/items/emblem.json
 7d5e2e83f955495a9dbc23a40793b613bb9517bf data/candycraftce/tags/items/honeycomb.json
@@ -6,7 +6,7 @@ f7b57839acc146f6eb3fe9021153aa1548aff9b0 data/candycraftce/tags/items/candy_arro
 8c587d2bcb0d0a920b570e651e02df9cef36d5c4 data/candycraftce/tags/items/pez.json
 ba9c2d56982b75eebe860fe016b7c5a385cbd780 data/minecraft/tags/items/axes.json
 9dc4ceec81eac7be7e666072ebd35870fb6ec60c data/minecraft/tags/items/hoes.json
-a6049f2c389612df1d5c3033eb1b6512fb6fb590 data/minecraft/tags/items/music_discs.json
+427fc05c33c9db1504812427309d337196694733 data/minecraft/tags/items/music_discs.json
 745267f8db982d03622425f13aeacf2f912b874e data/minecraft/tags/items/pickaxes.json
 6acecbf3c1d21f98bc651cf474e7e5c1bb33bc26 data/minecraft/tags/items/shovels.json
 48b933f4118b0344c6633ba90444a076a52a73fe data/minecraft/tags/items/swords.json

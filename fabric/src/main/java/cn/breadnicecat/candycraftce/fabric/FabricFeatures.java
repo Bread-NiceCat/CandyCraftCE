@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.fabric;
 
 import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.block.FluidEntry;
 import cn.breadnicecat.candycraftce.block.blockentity.BlockEntityEntry;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.gui.block.MenuEntry;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
@@ -135,8 +137,19 @@ class FabricFeatures implements EngineFeatures {
 	}
 
 	@Override
-	public <T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, @NotNull Supplier<T> value) {
-		T t = Registry.register(registry, key, value.get());
+	public <F extends Fluid> FluidEntry<F> registerFluid(ResourceLocation id, Supplier<F> factory) {
+		var f = Registry.register(BuiltInRegistries.FLUID, id, factory.get());
+		return new FluidEntry<>(id) {
+			@Override
+			public F get() {
+				return f;
+			}
+		};
+	}
+
+	@Override
+	public <T, R extends T> SimpleEntry<R> register(Registry<T> registry, ResourceLocation key, Supplier<R> value) {
+		R t = Registry.register(registry, key, value.get());
 		return new SimpleEntry<>(key, () -> t);
 	}
 }

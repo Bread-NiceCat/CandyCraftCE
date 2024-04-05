@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-24T10:45:02.3867016	Block States: candycraftce
+// 1.20.1	2024-04-05T12:31:44.898619	Block States: candycraftce
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets/candycraftce/blockstates/acid_mint_flower.json
 10f49f3c5dec148c98ea4b1a5cef5d1c3ba5354a assets/candycraftce/blockstates/advanced_sugar_factory.json
 9b8d41d642252aa7710f8db63ed7389792226e52 assets/candycraftce/blockstates/alchemy_mixer.json
@@ -25,6 +25,7 @@ c719b24c333d1d45a7e7329863d48b2e5b4137ee assets/candycraftce/blockstates/candy_c
 27c176d18bf8f73318fa42d27fe41828c93274f1 assets/candycraftce/blockstates/caramel_glass.json
 e385291776197c539eee9cbd3a4a88dcf32838ec assets/candycraftce/blockstates/caramel_glass_pane.json
 f59b2777183d4b38d2f9200cf59dc28e7d3ff8ff assets/candycraftce/blockstates/caramel_leaves.json
+abb0cb7ebd9f31b04e231d30b71eadd51edb229c assets/candycraftce/blockstates/caramel_liquid.json
 d7b3ad0111d0c666e2c9160524774b6a8c65bcd2 assets/candycraftce/blockstates/caramel_portal.json
 41dc0f0ee6a803c63d2ee945d2f1fd96e49a1b88 assets/candycraftce/blockstates/caramel_sapling.json
 0183d66acfb615a271459eb3a9da2bd3bc9a3499 assets/candycraftce/blockstates/chewing_gum_block.json

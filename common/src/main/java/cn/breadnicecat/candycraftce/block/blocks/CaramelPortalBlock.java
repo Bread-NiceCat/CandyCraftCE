@@ -4,6 +4,7 @@ import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.level.CDims;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -32,6 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
+import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_LIQUID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
 
@@ -49,8 +54,9 @@ public class CaramelPortalBlock extends Block {
 
 	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(2, 21, 3, 21,
 			true, true,
-			b -> b.isAir() || b.is(Blocks.LAVA) || b.is(CARAMEL_PORTAL.get()),
+			b -> b.isAir() || b.is(CARAMEL_LIQUID.get()) || b.is(CARAMEL_PORTAL.get()),
 			b -> b.is(CBlockTags.CARAMEL_PORTAL_FRAME));
+
 	public static final BiFunction<Axes, BlockState, BlockState> PLACER = (axes, old) -> {
 		if (old.is(CARAMEL_PORTAL.get())) {
 			return old.setValue(X, axes.hasX() | old.getValue(X))
@@ -63,7 +69,7 @@ public class CaramelPortalBlock extends Block {
 	};
 
 
-	private static final VoxelShape DEFAULT = Shapes.block();
+	private static final VoxelShape DEFAULT = Shapes.empty();
 	private static final VoxelShape X_AABB = Block.box(6.0, 0.0, 0.0, 10.0, 16.0, 16.0);
 	private static final VoxelShape Y_AABB = Block.box(6.0, 6.0, 0.0, 16.0, 10.0, 16.0);
 	private static final VoxelShape Z_AABB = Block.box(0.0, 0.0, 6.0, 16.0, 16.0, 10.0);
@@ -92,13 +98,17 @@ public class CaramelPortalBlock extends Block {
 		registerDefaultState(stateDefinition.any().setValue(X, true).setValue(Y, false).setValue(Z, false));
 	}
 
-	@SuppressWarnings("deprecation")
-	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	private int getShapeIndex(BlockState state) {
 		int flag = 0;
 		if (state.getValue(X)) flag += 1;
 		if (state.getValue(Y)) flag += 2;
 		if (state.getValue(Z)) flag += 4;
-		return AABBs[flag];
+		return flag;
+	}
+
+	@SuppressWarnings("deprecation")
+	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return AABBs[getShapeIndex(state)];
 	}
 
 	@SuppressWarnings("deprecation")
@@ -113,6 +123,12 @@ public class CaramelPortalBlock extends Block {
 		}
 		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
+
+//	@SuppressWarnings("deprecation")
+//	@Override
+//	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+//		if (getShapeIndex(state) == 0) level.removeBlock(pos, false);
+//	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -150,6 +166,30 @@ public class CaramelPortalBlock extends Block {
 		}
 	}
 
+	@Override
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (random.nextInt(100) == 0) {
+			level.playLocalSound((double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5f, random.nextFloat() * 0.4f + 0.8f, false);
+		}
+		for (int i = 0; i < 4; ++i) {
+			double d = (double) pos.getX() + random.nextDouble();
+			double e = (double) pos.getY() + random.nextDouble();
+			double f = (double) pos.getZ() + random.nextDouble();
+			double g = ((double) random.nextFloat() - 0.5) * 0.5;
+			double h = ((double) random.nextFloat() - 0.5) * 0.5;
+			double j = ((double) random.nextFloat() - 0.5) * 0.5;
+			int k = random.nextInt(2) * 2 - 1;
+			if (level.getBlockState(pos.west()).is(this) || level.getBlockState(pos.east()).is(this)) {
+				f = (double) pos.getZ() + 0.5 + 0.25 * (double) k;
+				j = random.nextFloat() * 2.0f * (float) k;
+			} else {
+				d = (double) pos.getX() + 0.5 + 0.25 * (double) k;
+				g = random.nextFloat() * 2.0f * (float) k;
+			}
+			level.addParticle(CParticles.CARAMEL_PORTAL_PARTICLE_TYPE.get(), d, e, f, g, h, j);
+		}
+	}
+
 	/**
 	 * @return null, 如果无法传送
 	 */
@@ -172,11 +212,4 @@ public class CaramelPortalBlock extends Block {
 		};
 	}
 
-	private int getLinked(BlockState state) {
-		int c = 0;
-		for (Direction.Axis value : Direction.Axis.values()) {
-			if (state.getValue(axis2Property(value))) c++;
-		}
-		return c;
-	}
 }

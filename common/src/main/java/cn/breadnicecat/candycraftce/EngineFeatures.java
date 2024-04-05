@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce;
 
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.block.FluidEntry;
 import cn.breadnicecat.candycraftce.block.blockentity.BlockEntityEntry;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.gui.block.MenuEntry;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -55,7 +57,9 @@ public interface EngineFeatures {
 
 	<E extends Entity> EntityEntry<E> registerEntity(ResourceLocation id, Supplier<EntityType<E>> factory);
 
-	<T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, Supplier<T> value);
+	<F extends Fluid> FluidEntry<F> registerFluid(ResourceLocation id, Supplier<F> factory);
+
+	<T, R extends T> SimpleEntry<R> register(Registry<T> registry, ResourceLocation key, Supplier<R> value);
 
 	static EngineFeatures get() {
 		return CandyCraftCE.getFeatures();

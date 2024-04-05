@@ -18,6 +18,7 @@ import java.util.Objects;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 
 @Mod(MOD_ID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CandyCraftCEImpl {
 
 	public static final Dist dist = Objects.requireNonNull(FMLEnvironment.dist);
@@ -39,7 +40,7 @@ public class CandyCraftCEImpl {
 
 	@SubscribeEvent
 	public static void onFMLCommonSetup(FMLCommonSetupEvent setup) {
-		CLogUtils.getModLogger().info("hit mcSetupHooks");
+		CLogUtils.getModLogger().info("onFMLCommonSetup");
 		mcSetupHooks.forEach(Runnable::run);
 		mcSetupHooks = null;
 	}

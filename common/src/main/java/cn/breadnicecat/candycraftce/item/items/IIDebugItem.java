@@ -1,24 +1,27 @@
 package cn.breadnicecat.candycraftce.item.items;
 
+import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import com.google.common.collect.Lists;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,6 +33,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFIG;
+import static net.minecraft.ChatFormatting.RED;
+import static net.minecraft.ChatFormatting.YELLOW;
 
 /**
  * Created in 2023/7/30 14:12
@@ -39,9 +44,10 @@ import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFI
  */
 public class IIDebugItem extends Item {
 
-	private final String FUN_ORD = "fun_ord";
+	private final String FUN_ORD_KEY = "fun_ord";
+	private final String USED_TIMES_KEY = "used_times";
 	private final Component CUR_FUN = Component.literal("当前模式: ").withStyle(ChatFormatting.LIGHT_PURPLE);
-	private final Component SWITCH_FUN = Component.literal("对空气 SHIFT+右键 切换模式").withStyle(ChatFormatting.YELLOW);
+	private final Component SWITCH_FUN = Component.literal("对空气 SHIFT+右键 切换模式").withStyle(YELLOW);
 
 	public IIDebugItem() {
 		super(new Properties().stacksTo(1).rarity(Rarity.EPIC));
@@ -64,7 +70,7 @@ public class IIDebugItem extends Item {
 			}
 			IIIDebugFunction fun = FUNCTIONS.get(ord);
 			player.sendSystemMessage(CUR_FUN.copy().append(fun.getName()));
-			tag.putInt(FUN_ORD, ord);
+			tag.putInt(FUN_ORD_KEY, ord);
 			return InteractionResultHolder.consume(item);
 		}
 		return InteractionResultHolder.fail(item);
@@ -89,6 +95,17 @@ public class IIDebugItem extends Item {
 		CompoundTag nbt = tag.getCompound(ord_s);
 		fun.onRightClickOn(level.getBlockState(pos), (ServerLevel) level, pos, pContext.getClickedFace(), player, item, nbt);
 		tag.put(ord_s, nbt);
+
+		{
+			int used = (tag.contains(USED_TIMES_KEY) ? tag.getInt(USED_TIMES_KEY) : 0) + 1;
+			tag.putInt(USED_TIMES_KEY, used);
+			if (used > 0 && used % 666 == 0) {
+				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_WWWOOOWWW.getDefaultInstance().setHoverName(Component.literal("作者的头发").withStyle(RED)));
+				LevelUtils.spawnItemEntity(level, pos, Items.JUKEBOX.getDefaultInstance());
+				level.playSound(player, pos, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.BLOCKS);
+				player.sendSystemMessage(Component.literal("随着你日日夜夜的对Mod进行调试， 你逐渐觉得使用用Debug工具越来越顺手了。 嗯？什么东西掉下来了？").withStyle(YELLOW));
+			}
+		}
 		return InteractionResult.CONSUME;
 	}
 
@@ -128,13 +145,13 @@ public class IIDebugItem extends Item {
 	}
 
 	private int getFunOrd(CompoundTag tag) {
-		return tag.getInt(FUN_ORD) % FUNCTIONS.size();
+		return tag.getInt(FUN_ORD_KEY) % FUNCTIONS.size();
 	}
 
 	//============================================================//
 	private static final IIIDebugFunction DF_DETECT_PORTAL = new IIIDebugFunction() {
 		private static final Component NAME = Component.literal("传送门测试");
-		private static final Component TEST = Component.literal("右键传送门框架检测").withStyle(ChatFormatting.YELLOW);
+		private static final Component TEST = Component.literal("右键传送门框架检测").withStyle(YELLOW);
 
 		@Override
 		public Component getName() {
@@ -153,12 +170,14 @@ public class IIDebugItem extends Item {
 				VectorPortalShape shape = portal.get();
 				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
 				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
-				player.sendSystemMessage(Component.literal(shape.toString()));
+				//colorful outputs
+				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.COMPRESSED.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
+//				player.sendSystemMessage(Component.literal(shape.toString()));
 			} else {
 				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
-				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(ChatFormatting.RED));
+				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(RED));
 			}
-			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt * TickUtils.MS2TICK + " tick)").withStyle(ChatFormatting.GOLD));
+			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt / TickUtils.MS_PER_TICK + "% tick)").withStyle(ChatFormatting.GOLD));
 		}
 
 		@Override
@@ -170,9 +189,9 @@ public class IIDebugItem extends Item {
 
 		private static final String ZERO = "zero";
 		private static final Component NAME = Component.literal("坐标测算");
-		private static final Component SET = Component.literal("左键 调零").withStyle(ChatFormatting.YELLOW);
-		private static final Component RESET = Component.literal("SHIFT+左键 清除调零").withStyle(ChatFormatting.YELLOW);
-		private static final Component GET = Component.literal("右键 获取相对坐标").withStyle(ChatFormatting.YELLOW);
+		private static final Component SET = Component.literal("左键 调零").withStyle(YELLOW);
+		private static final Component RESET = Component.literal("SHIFT+左键 清除调零").withStyle(YELLOW);
+		private static final Component GET = Component.literal("右键 获取相对坐标").withStyle(YELLOW);
 
 		@Override
 		public Component getName() {
@@ -182,7 +201,7 @@ public class IIDebugItem extends Item {
 		@Override
 		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
-			player.sendSystemMessage(NAME.copy().append(" 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(ChatFormatting.YELLOW));
+			player.sendSystemMessage(NAME.copy().append(" 坐标:  %d,%d,%d".formatted(pos.getX() - zero[0], pos.getY() - zero[1], pos.getZ() - zero[2])).withStyle(YELLOW));
 		}
 
 		@Override

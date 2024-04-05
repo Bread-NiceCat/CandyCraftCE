@@ -51,21 +51,7 @@ public class CConfiguredFeaturesData extends CConfiguredFeatures {
 		return createStraightBlobTree(log, leaves, 4, 2, 0, 2)
 				.ignoreVines();
 	}
-
-	/**
-	 * 固定
-	 * <pre>
-	 *   = = =
-	 * = = + = =
-	 *   = + =
-	 * = = + = =
-	 *   = + =
-	 * = = + = =
-	 *   = + =
-	 *     +
-	 * </pre>
-	 * 树干h=7
-	 */
+	
 	private static TreeConfiguration.TreeConfigurationBuilder createCandiedCherryLike(Block log, Block leaves) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(log),

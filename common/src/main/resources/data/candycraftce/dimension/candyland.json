@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:candyland_type",
+  "generator": {
+	"type": "minecraft:noise",
+	"settings": "candycraftce:candyland_settings",
+	"biome_source": {
+	  "type": "minecraft:multi_noise",
+	  "preset": "minecraft:overworld"
+	}
+  }
+}

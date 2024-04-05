@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.forge;
 
 import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.block.FluidEntry;
 import cn.breadnicecat.candycraftce.block.blockentity.BlockEntityEntry;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.gui.block.MenuEntry;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -157,10 +159,20 @@ class ForgeFeatures implements EngineFeatures {
 	}
 
 	@Override
-	public <T> SimpleEntry<T> register(Registry<T> registry, ResourceLocation key, Supplier<T> value) {
+	public <F extends Fluid> FluidEntry<F> registerFluid(ResourceLocation id, Supplier<F> factory) {
+		RegistryObject<F> object = getOrCreate(ForgeRegistries.FLUIDS).register(id.getPath(), factory);
+		return new FluidEntry<>(id) {
+			@Override
+			public F get() {
+				return object.get();
+			}
+		};
+	}
+
+	@Override
+	public <T, R extends T> SimpleEntry<R> register(Registry<T> registry, ResourceLocation key, Supplier<R> value) {
 		return new SimpleEntry<>(key,
-				getOrCreate(registry.key()).register(key.getPath(), value)
-		);
+				getOrCreate(registry.key()).register(key.getPath(), value));
 	}
 
 }
