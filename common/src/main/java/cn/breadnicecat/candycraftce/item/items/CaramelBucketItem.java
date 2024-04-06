@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.item.items;
 
+import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
 import net.minecraft.core.BlockPos;
@@ -7,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,6 +33,14 @@ public class CaramelBucketItem extends BucketItem {
 
 	@Override
 	public void checkExtraContent(@Nullable Player player, Level level, ItemStack containerStack, BlockPos pos) {
-		VectorPortalShape.findPortal(level, pos, CONFIG).ifPresent(t -> t.build(level, PLACER));
+		VectorPortalShape.findPortal(level, pos, CONFIG).ifPresent(t -> {
+			for (BlockPos frame : t.getAllFrames()) {
+				BlockState state = level.getBlockState(frame);
+				if (state.is(CBlocks.SUGAR_BLOCK.get())) {
+					level.setBlockAndUpdate(frame, CBlocks.CARAMEL_BLOCK.defaultBlockState());
+				}
+			}
+			t.build(level, PLACER);
+		});
 	}
 }

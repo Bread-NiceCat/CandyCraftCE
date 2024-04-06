@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
+import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
@@ -215,15 +216,14 @@ public class CBlocks {
 	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
-	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CFluids.CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
+	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
 
 
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
 		LOGGER.info("declareRendererType");
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.translucent()),
-				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY,
-				CARAMEL_LIQUID
+				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY
 		);
 		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
@@ -233,6 +233,9 @@ public class CBlocks {
 				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
 				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER,
 				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
+		);
+		accept((b) -> ItemBlockRenderTypes.TYPE_BY_FLUID.put(b.get(), RenderType.translucent()),
+				CARAMEL
 		);
 	}
 

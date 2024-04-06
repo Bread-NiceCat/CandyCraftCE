@@ -179,7 +179,7 @@ public class CItems {
 
 	@Environment(EnvType.CLIENT)
 	private static void declareItemProperties() {
-		LOGGER.info("Loading Item Properties...");
+		LOGGER.info("declareItemProperties");
 		//@see net.minecraft.client.renderer.item.ItemProperties.<cinit>);
 	}
 

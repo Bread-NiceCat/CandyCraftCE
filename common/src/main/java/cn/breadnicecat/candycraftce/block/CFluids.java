@@ -2,10 +2,12 @@ package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.fluids.CaramelFluid;
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
+import org.slf4j.Logger;
 
 import java.util.function.Function;
 
@@ -20,6 +22,9 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CFluids {
+
+	private static final Logger LOGGER = CLogUtils.sign();
+
 	public static final FluidEntry<CaramelFluid> CARAMEL = register("caramel", id -> _caramel_fluid(asTex(id, "_static")));
 
 	private static <F extends Fluid> FluidEntry<F> register(String name, Function<ResourceLocation, F> factory) {
