@@ -71,7 +71,7 @@ public class CaramelPortalBlock extends Block {
 
 	private static final VoxelShape DEFAULT = Shapes.empty();
 	private static final VoxelShape X_AABB = Block.box(6.0, 0.0, 0.0, 10.0, 16.0, 16.0);
-	private static final VoxelShape Y_AABB = Block.box(6.0, 6.0, 0.0, 16.0, 10.0, 16.0);
+	private static final VoxelShape Y_AABB = Block.box(0.0, 6.0, 0.0, 16.0, 10.0, 16.0);
 	private static final VoxelShape Z_AABB = Block.box(0.0, 0.0, 6.0, 16.0, 16.0, 10.0);
 	private static final VoxelShape XY_AABB = Shapes.or(X_AABB, Y_AABB);
 	private static final VoxelShape XZ_AABB = Shapes.or(X_AABB, Z_AABB);

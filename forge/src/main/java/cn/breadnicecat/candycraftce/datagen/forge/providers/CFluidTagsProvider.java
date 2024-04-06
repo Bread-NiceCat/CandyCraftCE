@@ -17,10 +17,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
-import static net.minecraft.tags.FluidTags.WATER;
 
 /**
  * Created in 2024/4/5 下午11:46
@@ -36,7 +34,7 @@ public class CFluidTagsProvider extends FluidTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
-		add(WATER, CARAMEL);
+//		add(WATER, CARAMEL);
 	}
 
 	private Map<TagKey<?>, Set<?>> validator = new HashMap<>();
