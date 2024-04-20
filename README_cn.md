@@ -25,15 +25,8 @@
 
 1. 在根目录下运行命令:`./gradlew build`
 2. 编译好的mod文件将输出在中`${EngineName}\build\libs\candycraft-x.x.x.jar`
-***注意***: 如果遇到 `BUILD FAILED` 或者 *无法下载wrapper*，请参阅[个性化](#个性化)
+   ***注意***: 如果遇到 *无法下载wrapper*
+   请修改[gradle-wrapper.properties](gradle/wrapper/gradle-wrapper.properties):
+    - `distributionUrl` 为 `https\://services.gradle.org/distributions/gradle-8.6-all.zip`
 
 <hr>
-
-## 个性化
-
-由于地区差异，你也许需要改变某些选项
-
-1. [gradle-wrapper.properties](gradle/wrapper/gradle-wrapper.properties) `distributionUrl`
-2. [gradle.properties](gradle.properties) `enable_jbr`,`enable_cn_repo`
-
-

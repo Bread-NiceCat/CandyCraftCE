@@ -3,7 +3,7 @@
   "textures": {
     "bottom": "candycraftce:block/licorice_block",
     "front": "candycraftce:block/licorice_furnace_front_on",
-    "side": "candycraftce:block/licorice_furnace_side",
-    "top": "candycraftce:block/licorice_furnace_top"
+    "side": "candycraftce:block/licorice_block",
+    "top": "candycraftce:block/licorice_block"
   }
 }

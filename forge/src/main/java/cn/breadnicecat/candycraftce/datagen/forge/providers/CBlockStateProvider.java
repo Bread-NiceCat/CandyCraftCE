@@ -353,13 +353,11 @@ public class CBlockStateProvider extends BlockStateProvider {
 		//盐甘草糖熔炉
 		{
 			String name = LICORICE_FURNACE.getName();
-			ResourceLocation side = modLoc("block/" + name + "_side");
 			ResourceLocation front_on = modLoc("block/" + name + "_front_on");
 			ResourceLocation front_off = modLoc("block/" + name + "_front_off");
-			ResourceLocation top = modLoc("block/" + name + "_top");
-			ResourceLocation bottom = blockTexture(LICORICE_BLOCK.get());
-			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
-			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
+			ResourceLocation block = blockTexture(LICORICE_BLOCK.get());
+			BlockModelBuilder off = models().orientableWithBottom(name, block, front_off, block, block);
+			BlockModelBuilder on = models().orientableWithBottom(name + "_on", block, front_on, block, block);
 			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnaceBlock.LIT) ? on : off);
 			simpleBlockItem(LICORICE_FURNACE.get(), off);
 		}
@@ -450,22 +448,6 @@ public class CBlockStateProvider extends BlockStateProvider {
 			throw new IllegalStateException("Never used mappings in zone:\n" + view);
 		}
 		mappings = global;
-	}
-
-	@Override
-	public VariantBlockStateBuilder getVariantBuilder(Block b) {
-		checkDuplicate(b);
-		return super.getVariantBuilder(b);
-	}
-
-	@Override
-	public MultiPartBlockStateBuilder getMultipartBuilder(Block b) {
-		checkDuplicate(b);
-		return super.getMultipartBuilder(b);
-	}
-
-	private void checkDuplicate(Block b) {
-		assertTrue(!registeredBlocks.containsKey(b), "Duplicate model for " + b);
 	}
 
 	@Override

@@ -28,12 +28,6 @@ loom {
         }
         client {
             vmArg "-Dmixin.debug.export=true"
-//            vmArg "-Dmixin.debug.verbose=true"
-        }
-    }
-    if (Boolean.parseBoolean(enable_jbr)) {
-        runs.forEach {
-            it.vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
     }
 }

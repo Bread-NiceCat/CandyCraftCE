@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-05T12:31:44.898619	Block States: candycraftce
+// 1.20.1	2024-04-20T17:53:36.3453456	Block States: candycraftce
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets/candycraftce/blockstates/acid_mint_flower.json
 10f49f3c5dec148c98ea4b1a5cef5d1c3ba5354a assets/candycraftce/blockstates/advanced_sugar_factory.json
 9b8d41d642252aa7710f8db63ed7389792226e52 assets/candycraftce/blockstates/alchemy_mixer.json
@@ -274,8 +274,8 @@ b9e9d4c0fabbe41eac50d33c662fd7f1df2fef4f assets/candycraftce/models/block/licori
 eee3a01a3e2c5c30467cc98c49e5062877926d09 assets/candycraftce/models/block/licorice_brick_wall_post.json
 12c8e85011bb87a0a022f5a6c6d71b2213788264 assets/candycraftce/models/block/licorice_brick_wall_side.json
 b98357e9346aea8871df8d29493cff897edbad00 assets/candycraftce/models/block/licorice_brick_wall_side_tall.json
-4bba2c0ea2117919519593ad89a8d11681e8f26e assets/candycraftce/models/block/licorice_furnace.json
-d08f8d532ef356f229bec1bac2dcb9172c365dd3 assets/candycraftce/models/block/licorice_furnace_on.json
+0ff71b434d2ef726a486fe535eaa81dad0caa88e assets/candycraftce/models/block/licorice_furnace.json
+3e362c5cc001db8f347fed6d4b4a166bbbccd98c assets/candycraftce/models/block/licorice_furnace_on.json
 56f5a775e20a314b2cb4815880295d70b1637ec7 assets/candycraftce/models/block/licorice_ore.json
 f367709f930d1a4d617594349fb5f03668febed9 assets/candycraftce/models/block/licorice_slab.json
 0a694ff2f8896d34b27ddb10364f332b5de90bc7 assets/candycraftce/models/block/licorice_slab_full.json

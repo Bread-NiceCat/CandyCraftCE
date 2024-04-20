@@ -17,9 +17,9 @@ allprojects {
     group = maven_group
 
     repositories {
-        //Faster Repo For Chinese
-        var aliyun = maven { url = "https://maven.aliyun.com/repository/public" }
-        if (Boolean.parseBoolean(enable_cn_repo)) {
+        if (Locale.getDefault() == Locale.CHINA) {
+            //Faster Repo For Chinese
+            var aliyun = maven { url = "https://maven.aliyun.com/repository/public" }
             remove(aliyun)
             addFirst(aliyun)
 //        maven { url = "https://download.mcbbs.net/assets/" }
@@ -29,7 +29,6 @@ allprojects {
             dir rootProject.file("libs")
             content { includeGroup "native" }
         }
-
         maven { url = "https://modmaven.dev" }
         maven {
             url "https://cursemaven.com"

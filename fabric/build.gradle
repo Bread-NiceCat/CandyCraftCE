@@ -6,7 +6,6 @@ architectury {
     platformSetupLoomIde()
     fabric()
 }
-//print new File(project(":common").getRootDir(), "/common/src/main/generated")
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     runs {
@@ -24,12 +23,6 @@ loom {
 //            runDir "build/datagen"
 //        }
     }
-    if (Boolean.parseBoolean(enable_jbr)) {
-        runs.forEach {
-            it.vmArg "-XX:+AllowEnhancedClassRedefinition"
-        }
-    }
-
 }
 
 configurations {
