@@ -280,7 +280,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {
-		addItem(ie, byId(ie.getID().getPath()), zh_cn);
+		addItem(ie, byId(ie.getId().getPath()), zh_cn);
 	}
 
 	public void addItem(ItemEntry<?> ie, String en_us, String zh_cn) {
@@ -288,7 +288,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 
 	public void addBlockById(BlockEntry<?> be, String zh_cn) {
-		addItem(be, byId(be.getID().getPath()), zh_cn);
+		addItem(be, byId(be.getId().getPath()), zh_cn);
 	}
 
 	public void addItem(BlockEntry<?> be, String en_us, String zh_cn) {

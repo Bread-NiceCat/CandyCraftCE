@@ -12,13 +12,17 @@ import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import com.mojang.datafixers.util.Pair;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.LinkedList;
-import java.util.Objects;
+import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 
@@ -29,8 +33,7 @@ public final class CandyCraftCE {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 
-	public static final boolean IS_DEV;
-	private static EngineFeatures features;
+	public static final boolean INDEV;
 
 	static {
 		//检查是否处于Dev环境
@@ -39,34 +42,28 @@ public final class CandyCraftCE {
 			_inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
 		} catch (Exception ignored) {
 		} finally {
-			IS_DEV = _inDev;
+			INDEV = _inDev;
 		}
 	}
 
-	private static Environment environment;
-	private static ModPlatform platform;
-
 	public static LinkedList<Runnable> bootstrapHooks = new LinkedList<>();
-
 	private static boolean postBootstrap = false;
 	private static boolean preBootstrap = false;
 
 	/**
 	 * bootstrap here
 	 */
-	public static void bootstrap(final Environment env, final ModPlatform platform, final EngineFeatures features) {
+	public static void bootstrap() {
 		if (preBootstrap) {
 			throw new IllegalStateException(MOD_ID + " has been bootstrapped");
 		}
 		preBootstrap = true;
-		CandyCraftCE.environment = Objects.requireNonNull(env);
-		CandyCraftCE.platform = Objects.requireNonNull(platform);
-		CandyCraftCE.features = features;
+
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
 		LOGGER.info("=".repeat(64));
 		LOGGER.info(MOD_ID + " Running in {} with {}", getEnvironment(), getPlatform());
-		if (IS_DEV) {
+		if (INDEV) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
 		}
@@ -86,25 +83,27 @@ public final class CandyCraftCE {
 		CBlockEntities.init();
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
-
-		LOGGER.info("Loaded Successfully!");
 		postBootstrap = true;
+		LOGGER.info("Loaded Successfully!");
 	}
 
 	public static boolean isClient() {
 		return getEnvironment() == Environment.CLIENT;
 	}
 
+	@ExpectPlatform
 	public static Environment getEnvironment() {
-		return Objects.requireNonNull(environment, "too early!");
+		return impossibleCode();
 	}
 
+	@ExpectPlatform
 	public static ModPlatform getPlatform() {
-		return Objects.requireNonNull(platform, "too early!");
+		return impossibleCode();
 	}
 
-	public static EngineFeatures getFeatures() {
-		return features;
+	@ExpectPlatform
+	public static <R, S extends R> Pair<ResourceKey<R>, Supplier<S>> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+		return impossibleCode();
 	}
 
 	public static void hookPostBootstrap(Runnable runnable) {

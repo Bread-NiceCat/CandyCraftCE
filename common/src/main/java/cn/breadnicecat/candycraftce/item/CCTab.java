@@ -1,8 +1,11 @@
 package cn.breadnicecat.candycraftce.item;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.utils.RegistryEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -10,6 +13,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.LinkedHashSet;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
@@ -21,11 +25,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CCTab {
 	public static final LinkedHashSet<Supplier<ItemStack>> ENTRIES = new LinkedHashSet<>();
 	public static final String TITLE_KEY = "itemGroup.candycraftce";
-	public static final ResourceKey<CreativeModeTab> TAB = EngineFeatures.get().registerTab(prefix("candycraftce"), builder -> builder
-			.title(Component.translatable(TITLE_KEY))
-			.icon(() -> CItems.PEZ.get().getDefaultInstance())
-			.displayItems((parameters, output) -> ENTRIES.stream().map(Supplier::get).forEach(output::accept))
-			.build());
+	public static final RegistryEntry<CreativeModeTab> TAB = register("candycraftce",
+			() -> builder().title(Component.translatable(TITLE_KEY))
+					.icon(() -> CItems.PEZ.get().getDefaultInstance())
+					.displayItems((parameters, output) -> ENTRIES.stream().map(Supplier::get).forEach(output::accept))
+					.build());
 
 
 	public static void add(Supplier<ItemStack> stack) {
@@ -34,5 +38,14 @@ public class CCTab {
 
 	public static void add(ItemLike item) {
 		add(() -> item.asItem().getDefaultInstance());
+	}
+
+	private static RegistryEntry<CreativeModeTab> register(String name, Supplier<CreativeModeTab> builder) {
+		return new SimpleEntry<>(CandyCraftCE.register(BuiltInRegistries.CREATIVE_MODE_TAB, prefix(name), builder));
+	}
+
+	@ExpectPlatform
+	public static CreativeModeTab.Builder builder() {
+		return impossibleCode();
 	}
 }

@@ -1,16 +1,17 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.fluids.CaramelFluid;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 
 import java.util.function.Function;
 
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.pathExtend;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -29,7 +30,7 @@ public class CFluids {
 
 	private static <F extends Fluid> FluidEntry<F> register(String name, Function<ResourceLocation, F> factory) {
 		ResourceLocation id = prefix(name);
-		return EngineFeatures.get().registerFluid(id, () -> factory.apply(id));
+		return new FluidEntry<>(CandyCraftCE.register(BuiltInRegistries.FLUID, id, () -> factory.apply(id)));
 	}
 
 	public static void init() {
@@ -37,7 +38,7 @@ public class CFluids {
 
 	@ExpectPlatform
 	private static CaramelFluid _caramel_fluid(ResourceLocation tex) {
-		return CommonUtils.impossibleCode();
+		return impossibleCode();
 	}
 
 	private static ResourceLocation asTex(ResourceLocation loc, String postfix) {

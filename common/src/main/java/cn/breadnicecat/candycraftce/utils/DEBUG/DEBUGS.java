@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.IS_DEV;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.INDEV;
 
 /**
  * Created in 2023/7/29 15:23
@@ -39,7 +39,7 @@ public class DEBUGS {
 		LOGGER.warn("=".repeat(40));
 		LOGGER.warn("DEBUGS ON!");
 		LOGGER.warn("=".repeat(40));
-		if (!IS_DEV) throw new IllegalStateException("Not in DEV");
+		if (!INDEV) throw new IllegalStateException("Not in DEV");
 	}
 
 //	public static Class<?> loadClass(File directory, String className) {

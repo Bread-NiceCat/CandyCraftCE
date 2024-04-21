@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.utils;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Objects;
@@ -10,28 +11,32 @@ import java.util.Objects;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
-public class RegistryEntry {
-	protected final ResourceLocation id;
+public abstract class RegistryEntry<R> {
+	protected final ResourceKey<R> key;
 
-	public RegistryEntry(ResourceLocation id) {
-		this.id = Objects.requireNonNull(id);
+	public RegistryEntry(ResourceKey<R> key) {
+		this.key = Objects.requireNonNull(key);
 	}
 
-	public ResourceLocation getID() {
-		return id;
+	public ResourceKey<R> getKey() {
+		return key;
+	}
+
+	public ResourceLocation getId() {
+		return key.location();
 	}
 
 	public String getName() {
-		return id.getPath();
+		return getId().getPath();
 	}
 
 	@Override
 	public String toString() {
-		return id.toString();
+		return key.toString();
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return key.hashCode();
 	}
 }

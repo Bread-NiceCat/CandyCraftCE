@@ -100,7 +100,7 @@ public class IIDebugItem extends Item {
 			int used = (tag.contains(USED_TIMES_KEY) ? tag.getInt(USED_TIMES_KEY) : 0) + 1;
 			tag.putInt(USED_TIMES_KEY, used);
 			if (used > 0 && used % 666 == 0) {
-				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_WWWOOOWWW.getDefaultInstance().setHoverName(Component.literal("作者的头发").withStyle(RED)));
+				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_WWWOOOWWW.getDefaultInstance().setHoverName(Component.literal("头发").withStyle(RED)));
 				LevelUtils.spawnItemEntity(level, pos, Items.JUKEBOX.getDefaultInstance());
 				level.playSound(player, pos, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.BLOCKS);
 				player.sendSystemMessage(Component.literal("随着你日日夜夜的对Mod进行调试， 你逐渐觉得使用用Debug工具越来越顺手了。 嗯？什么东西掉下来了？").withStyle(YELLOW));
@@ -149,42 +149,6 @@ public class IIDebugItem extends Item {
 	}
 
 	//============================================================//
-	private static final IIIDebugFunction DF_DETECT_PORTAL = new IIIDebugFunction() {
-		private static final Component NAME = Component.literal("传送门测试");
-		private static final Component TEST = Component.literal("右键传送门框架检测").withStyle(YELLOW);
-
-		@Override
-		public Component getName() {
-			return NAME;
-		}
-
-		@Override
-		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			long stt = System.nanoTime();
-			Optional<VectorPortalShape> portal = Optional.empty();
-			if (CONFIG.isFrame(state)) {
-				portal = VectorPortalShape.findPortalOnFrame(level, pos, CONFIG);
-			}
-			float ttt = (System.nanoTime() - stt) / 1E6f;
-			if (portal.isPresent()) {
-				VectorPortalShape shape = portal.get();
-				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
-				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
-				//colorful outputs
-				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.COMPRESSED.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
-//				player.sendSystemMessage(Component.literal(shape.toString()));
-			} else {
-				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
-				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(RED));
-			}
-			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt / TickUtils.MS_PER_TICK + "% tick)").withStyle(ChatFormatting.GOLD));
-		}
-
-		@Override
-		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
-			tooltips.add(TEST);
-		}
-	};
 	private static final IIIDebugFunction DF_RELATIVE = new IIIDebugFunction() {
 
 		private static final String ZERO = "zero";
@@ -218,6 +182,42 @@ public class IIDebugItem extends Item {
 			tooltips.add(GET);
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
 			tooltips.add(Component.literal("当前零点: " + Arrays.toString(zero)).withStyle(ChatFormatting.GREEN));
+		}
+	};
+	private static final IIIDebugFunction DF_DETECT_PORTAL = new IIIDebugFunction() {
+		private static final Component NAME = Component.literal("传送门测试");
+		private static final Component TEST = Component.literal("右键传送门框架检测").withStyle(YELLOW);
+
+		@Override
+		public Component getName() {
+			return NAME;
+		}
+
+		@Override
+		public void onRightClickOn(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+			long stt = System.nanoTime();
+			Optional<VectorPortalShape> portal = Optional.empty();
+			if (CONFIG.isFrame(state)) {
+				portal = VectorPortalShape.findPortalOnFrame(level, pos, CONFIG);
+			}
+			float ttt = (System.nanoTime() - stt) / 1E6F;
+			if (portal.isPresent()) {
+				VectorPortalShape shape = portal.get();
+				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
+				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
+				//colorful outputs
+				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.COMPRESSED.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
+//				player.sendSystemMessage(Component.literal(shape.toString()));
+			} else {
+				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(RED));
+			}
+			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt / TickUtils.MS_PER_TICK + " tick)").withStyle(ChatFormatting.GOLD));
+		}
+
+		@Override
+		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+			tooltips.add(TEST);
 		}
 	};
 	//============================================================//

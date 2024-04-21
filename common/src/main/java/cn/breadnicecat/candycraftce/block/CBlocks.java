@@ -10,7 +10,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -19,9 +18,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.slf4j.Logger;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
@@ -45,13 +41,10 @@ public class CBlocks {
 	private static final Logger LOGGER = CLogUtils.sign();
 
 	static {
-		CandyCraftCE.hookPostBootstrap(() -> BLOCKS = Collections.unmodifiableMap(CBlocks.BLOCKS));
 		if (isClient()) {
 			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
 		}
 	}
-
-	public static Map<ResourceLocation, BlockEntry<? extends Block>> BLOCKS = new HashMap<>();
 
 	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null).save();
 	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null).save();

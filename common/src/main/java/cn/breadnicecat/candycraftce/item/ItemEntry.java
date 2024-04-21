@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.item;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import net.minecraft.resources.ResourceLocation;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -16,11 +17,15 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  */
 
-public abstract class ItemEntry<I extends Item> extends RegistryEntry implements Supplier<I>, ItemLike {
+public class ItemEntry<I extends Item> extends SimpleEntry<Item, I> implements ItemLike {
 
 
-	public ItemEntry(ResourceLocation id) {
-		super(id);
+	public ItemEntry(ResourceKey<Item> key, Supplier<I> item) {
+		super(key, item);
+	}
+
+	public ItemEntry(Pair<ResourceKey<Item>, Supplier<I>> wrapper) {
+		super(wrapper);
 	}
 
 	public ItemStack getDefaultInstance() {

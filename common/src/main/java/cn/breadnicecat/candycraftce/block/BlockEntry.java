@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import net.minecraft.resources.ResourceLocation;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -17,10 +18,14 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public abstract class BlockEntry<B extends Block> extends RegistryEntry implements ItemLike, Supplier<B> {
+public class BlockEntry<B extends Block> extends SimpleEntry<Block, B> implements ItemLike {
 
-	public BlockEntry(ResourceLocation id) {
-		super(id);
+	public BlockEntry(ResourceKey<Block> key, Supplier<B> factory) {
+		super(key, factory);
+	}
+
+	public BlockEntry(Pair<ResourceKey<Block>, Supplier<B>> wrapper) {
+		super(wrapper);
 	}
 
 	public BlockState defaultBlockState() {

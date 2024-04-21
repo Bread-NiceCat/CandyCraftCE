@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import net.minecraft.resources.ResourceLocation;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.function.Supplier;
@@ -13,8 +14,12 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  */
-public abstract class FluidEntry<T extends Fluid> extends RegistryEntry implements Supplier<T> {
-	public FluidEntry(ResourceLocation id) {
-		super(id);
+public class FluidEntry<T extends Fluid> extends SimpleEntry<Fluid, T> {
+	public FluidEntry(ResourceKey<Fluid> key, Supplier<T> getter) {
+		super(key, getter);
+	}
+
+	public FluidEntry(Pair<ResourceKey<Fluid>, Supplier<T>> wrapper) {
+		super(wrapper);
 	}
 }

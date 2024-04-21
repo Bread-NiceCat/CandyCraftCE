@@ -1,11 +1,15 @@
 package cn.breadnicecat.candycraftce.recipe;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.slf4j.Logger;
 
@@ -22,12 +26,14 @@ public class CRecipeTypes {
 
 	public static <T extends Recipe<?>> RecipeTypeEntry<T> register(String name, Supplier<RecipeSerializerExt<T>> serializer) {
 		ResourceLocation id = prefix(name);
-		return EngineFeatures.get().registerRecipe(id, () -> new RecipeType<>() {
+		Pair<ResourceKey<RecipeType<?>>, Supplier<RecipeType<T>>> pair = CandyCraftCE.register(BuiltInRegistries.RECIPE_TYPE, id, () -> new RecipeType<>() {
 			@Override
 			public String toString() {
 				return id.toString();
 			}
-		}, serializer);
+		});
+		Pair<ResourceKey<RecipeSerializer<?>>, Supplier<RecipeSerializerExt<T>>> pair1 = CandyCraftCE.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializer);
+		return new RecipeTypeEntry<>(pair, pair1);
 	}
 
 	public static void init() {

@@ -1,12 +1,14 @@
 package cn.breadnicecat.candycraftce.entity;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import org.slf4j.Logger;
@@ -14,7 +16,6 @@ import org.slf4j.Logger;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.simplePrefix;
 
 /**
  * Created in 2024/2/25 8:58
@@ -29,7 +30,8 @@ public class CEntities {
 //	public static final EntityEntry<LicoriceSpearEntity> LICORICE_SPEAR = register("licorice_spear", () -> EntityType.Builder.<LicoriceSpearEntity>of(LicoriceSpearEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
 	public static <E extends Entity> EntityEntry<E> register(String name, Supplier<EntityType.Builder<E>> factory) {
-		return EngineFeatures.get().registerEntity(prefix(name), () -> factory.get().build(simplePrefix(name)));
+		ResourceLocation id = prefix(name);
+		return new EntityEntry<>(CandyCraftCE.register(BuiltInRegistries.ENTITY_TYPE, id, () -> factory.get().build(id.toString())));
 	}
 
 	@Environment(EnvType.CLIENT)

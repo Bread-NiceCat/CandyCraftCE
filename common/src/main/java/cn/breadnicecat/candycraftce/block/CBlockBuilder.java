@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.block;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
@@ -17,8 +17,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static net.minecraft.core.registries.BuiltInRegistries.BLOCK;
 
 /**
  * Created in 2023/12/30 20:07
@@ -30,6 +30,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CBlockBuilder<B extends Block> {
 	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
+
 	private final String name;
 	private Function<Properties, B> factory;
 	private Supplier<Properties> properties;
@@ -38,6 +39,7 @@ public class CBlockBuilder<B extends Block> {
 	static {
 		//把block都排到最后去
 		CItems.hookBlockItems(items);
+		CandyCraftCE.hookPostBootstrap(() -> items = null);
 	}
 
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {
@@ -101,12 +103,11 @@ public class CBlockBuilder<B extends Block> {
 	public BlockEntry<B> save() {
 		BlockEntry<B> entry = register(name, () -> factory.apply(properties == null ? Properties.of() : properties.get()));
 		if (item != null) items.add(() -> item.apply(entry));
-		assertTrue(CBlocks.BLOCKS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
 		return entry;
 	}
 
 
-	public static <B extends Block> BlockEntry<B> register(String name, Supplier<B> sup) {
-		return EngineFeatures.get().registerBlock(prefix(name), sup);
+	private static <B extends Block> BlockEntry<B> register(String name, Supplier<B> factory) {
+		return new BlockEntry<>(CandyCraftCE.register(BLOCK, prefix(name), factory));
 	}
 }

@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -56,7 +57,7 @@ public class CBlockEntityBuilder<B extends BlockEntity> {
 		).build(dsl));
 	}
 
-	public static <B extends BlockEntity> BlockEntityEntry<B> register(String name, Supplier<BlockEntityType<B>> b) {
-		return EngineFeatures.get().registerBlockEntity(prefix(name), b);
+	private static <B extends BlockEntity> BlockEntityEntry<B> register(String name, Supplier<BlockEntityType<B>> factory) {
+		return new BlockEntityEntry<>(CandyCraftCE.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, prefix(name), factory));
 	}
 }

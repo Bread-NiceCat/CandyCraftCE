@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.gui.block;
 
-import cn.breadnicecat.candycraftce.EngineFeatures;
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.gui.block.menus.AdvancedSugarFactoryMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.ChocolateFurnaceMenu;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
@@ -13,6 +13,8 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import org.slf4j.Logger;
@@ -46,8 +48,9 @@ public class CMenus {
 		MenuScreens.register(ADVANCED_SUGAR_FACTORY_MENU.get(), AdvancedFactoryScreen::new);
 	}
 
-	public static <M extends AbstractContainerMenu> MenuEntry<M> register(String key, MenuType.MenuSupplier<M> factory) {
-		return EngineFeatures.get().registerMenu(prefix(key), factory);
+	private static <M extends AbstractContainerMenu> MenuEntry<M> register(String key, MenuType.MenuSupplier<M> factory) {
+		return new MenuEntry<>(CandyCraftCE.register(BuiltInRegistries.MENU, prefix(key),
+				() -> new MenuType<>(factory, FeatureFlagSet.of())));
 	}
 
 

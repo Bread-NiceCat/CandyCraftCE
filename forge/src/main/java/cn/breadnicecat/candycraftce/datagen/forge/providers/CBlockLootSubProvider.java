@@ -1,8 +1,10 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
+import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -121,10 +124,14 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	protected void add(Block block, LootTable.@NotNull Builder builder) {
 		assertTrue(this.map.put(block.getLootTable(), builder) == null, () -> "Duplicate LootTable for " + block);
 	}
-
+	
 	@Override
+	@SuppressWarnings("deprecation")
 	protected @NotNull Iterable<Block> getKnownBlocks() {
-		return BLOCKS.values().stream().map(BlockEntry::get).collect(Collectors.toSet());
+		return BuiltInRegistries.BLOCK.entrySet().stream()
+				.filter(p -> p.getKey().location().getNamespace().equals(CandyCraftCE.MOD_ID))
+				.map(Map.Entry::getValue)
+				.collect(Collectors.toSet());
 	}
 
 	protected LootTable.@NotNull Builder createCandyLeavesDrops(@NotNull Block leavesBlock, @NotNull ItemLike sapling, float @NotNull ... chances) {

@@ -12,8 +12,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import static java.lang.Math.min;
-
 /**
  * Created in 2024/2/14 10:04
  * Project: candycraftce
@@ -45,18 +43,7 @@ public class JellyBlock extends Block {
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, @NotNull Entity entity, float fallDistance) {
-		entity.causeFallDamage(fallDistance, getFallDamageMultiplier(pos, level, 3), entity.damageSources().fall());
-	}
-
-	private static float getFallDamageMultiplier(@NotNull BlockPos pos, @NotNull Level level, int ttl) {
-		if (ttl > 0) {
-			BlockState state = level.getBlockState(pos);
-			if (state.getBlock() instanceof JellyBlock j) {
-				float v = j.type.fallDamageMultiplier;
-				return v == 0 ? 0f : min(v, getFallDamageMultiplier(pos.below(), level, --ttl));
-			}
-		}
-		return 1f;
+		entity.causeFallDamage(fallDistance, type.fallDamageMultiplier, entity.damageSources().fall());
 	}
 
 

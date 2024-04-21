@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.entity;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import net.minecraft.resources.ResourceLocation;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
@@ -14,8 +15,12 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  */
-public abstract class EntityEntry<T extends Entity> extends RegistryEntry implements Supplier<EntityType<T>> {
-	public EntityEntry(ResourceLocation id) {
-		super(id);
+public class EntityEntry<T extends Entity> extends SimpleEntry<EntityType<?>, EntityType<T>> implements Supplier<EntityType<T>> {
+	public EntityEntry(ResourceKey<EntityType<?>> key, Supplier<EntityType<T>> getter) {
+		super(key, getter);
+	}
+
+	public EntityEntry(Pair<ResourceKey<EntityType<?>>, Supplier<EntityType<T>>> wrapper) {
+		super(wrapper);
 	}
 }

@@ -1,8 +1,9 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,16 +17,17 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public abstract class BlockEntityEntry<B extends BlockEntity> extends RegistryEntry implements Supplier<BlockEntityType<B>> {
-	public BlockEntityEntry(ResourceLocation id) {
-		super(id);
+public class BlockEntityEntry<B extends BlockEntity> extends SimpleEntry<BlockEntityType<?>, BlockEntityType<B>> {
+	public BlockEntityEntry(ResourceKey<BlockEntityType<?>> key, Supplier<BlockEntityType<B>> getter) {
+		super(key, getter);
 	}
 
-	@Override
-	public abstract BlockEntityType<B> get();
+	public BlockEntityEntry(Pair<ResourceKey<BlockEntityType<?>>, Supplier<BlockEntityType<B>>> wrapper) {
+		super(wrapper);
+	}
 
 	public B create(BlockPos pos, BlockState state) {
 		return this.get().create(pos, state);
 	}
-	
+
 }

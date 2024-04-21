@@ -12,16 +12,12 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.redstone.Redstone;
 import org.slf4j.Logger;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -43,12 +39,10 @@ public class CItems {
 	private static List<Supplier<ItemEntry<?>>> blockItems;
 
 	static {
-		CandyCraftCE.hookPostBootstrap(() -> ITEMS = Collections.unmodifiableMap(CItems.ITEMS));
 		if (isClient()) CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
 		CCTab.add(Items.SUGAR::getDefaultInstance);
 	}
 
-	public static Map<ResourceLocation, ItemEntry<? extends Item>> ITEMS = new HashMap<>();
 	//TODO FOOD
 	public static final ItemEntry<Item> LICORICE = create("licorice").setFood(10, 4, null).save();
 	public static final ItemEntry<Item> HONEYCOMB = create("honeycomb").save();
@@ -174,7 +168,7 @@ public class CItems {
 
 	static {
 		blockItems.forEach(Supplier::get);
-		blockItems.clear();
+		blockItems = null;
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -1,7 +1,8 @@
 package cn.breadnicecat.candycraftce.sound;
 
-import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import net.minecraft.resources.ResourceLocation;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
@@ -13,9 +14,12 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public abstract class SoundEntry extends RegistryEntry implements Supplier<SoundEvent> {
+public class SoundEntry extends SimpleEntry<SoundEvent, SoundEvent> {
+	public SoundEntry(ResourceKey<SoundEvent> key, Supplier<SoundEvent> getter) {
+		super(key, getter);
+	}
 
-	public SoundEntry(ResourceLocation name) {
-		super(name);
+	public SoundEntry(Pair<ResourceKey<SoundEvent>, Supplier<SoundEvent>> wrapper) {
+		super(wrapper);
 	}
 }

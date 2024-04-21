@@ -1,8 +1,10 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.EngineFeatures;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
@@ -16,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
@@ -48,7 +51,7 @@ public class CItemBuilder<I extends Item> {
 	}
 
 	public static CItemBuilder<BlockItem> block(BlockEntry<? extends Block> block) {
-		ResourceLocation id = block.getID();
+		ResourceLocation id = block.getId();
 		assertTrue(id.getNamespace().equals(CandyCraftCE.MOD_ID), () -> "wrong namespace: " + id.getNamespace() + ", require equ " + CandyCraftCE.MOD_ID);
 		return create(id.getPath(), (p) -> new BlockItem(block.get(), p));
 	}
@@ -99,10 +102,14 @@ public class CItemBuilder<I extends Item> {
 //	}
 
 	public ItemEntry<I> save() {
-		ItemEntry<I> entry = EngineFeatures.get().registerItem(prefix(name), () -> factory.apply(properties));
-		assertTrue(CItems.ITEMS.put(entry.getID(), entry) == null, "Duplicate name: " + name);
+		ItemEntry<I> entry = register(name, () -> factory.apply(properties));
 		if (ctab) CCTab.add(entry);
 		return entry;
+	}
+
+	private static <I extends Item> ItemEntry<I> register(String name, Supplier<I> factory) {
+		Pair<ResourceKey<Item>, Supplier<I>> pair = CandyCraftCE.register(BuiltInRegistries.ITEM, prefix(name), factory);
+		return new ItemEntry<>(pair);
 	}
 
 

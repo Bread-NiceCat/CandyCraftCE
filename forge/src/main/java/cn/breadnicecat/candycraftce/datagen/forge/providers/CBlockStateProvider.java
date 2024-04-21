@@ -218,7 +218,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		accept(b -> {
 			String name = b.getName();
 			doorBlock(b.get(), modLoc("block/" + name + "_bottom"), modLoc("block/" + name + "_top"));
-			itemModels().basicItem(b.getID());
+			itemModels().basicItem(b.getId());
 		}, MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
 		//fence_gate ( * = #_fence_gate ) -> # || *
 		zone(() -> {
