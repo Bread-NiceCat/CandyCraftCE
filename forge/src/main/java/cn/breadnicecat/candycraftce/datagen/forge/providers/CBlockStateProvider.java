@@ -61,7 +61,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
 					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
-					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICK, JAWBREAKER_LIGHT
+					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICK, JAWBREAKER_LIGHT,
+					CARAMEL_BRICK
 			);
 		}
 		//cubeBottomTop : *_side *_bottom *_top
@@ -419,7 +420,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 	 * 局部映射
 	 */
 	public void zone(Runnable m) {
-		LOGGER.info("=".repeat(32) + "zone" + "=".repeat(32));
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+		LOGGER.info("{}zone({}:{}){}", "=".repeat(32), element.getFileName(), element.getLineNumber(), "=".repeat(32));
 		Map<ResourceLocation, ResourceLocation> global = mappings;
 		if (!(global instanceof HashMap<ResourceLocation, ResourceLocation>)) {
 			throw new IllegalStateException("Not a valid mapping map");
@@ -430,7 +432,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			public ResourceLocation get(Object key) {
 				ResourceLocation v = super.get(key);
 				if (v != null) {
-					LOGGER.info("mapping: " + key + "\t->\t" + v);
+					LOGGER.info("mapping: {}\t->\t{}", key, v);
 					used.add(key);
 				}
 				return v;
@@ -445,7 +447,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		m.run();
 		if (used.size() != mappings.size()) {
 			Sets.SetView<Object> view = Sets.difference(new HashSet<>(mappings.keySet()), used);
-			throw new IllegalStateException("Never used mappings in zone:\n" + view);
+			throw new IllegalStateException("Unused mappings in zone:\n" + view);
 		}
 		mappings = global;
 	}

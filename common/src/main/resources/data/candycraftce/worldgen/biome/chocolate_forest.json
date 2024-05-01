@@ -18,9 +18,6 @@
 	]
   },
   "features": [
-	[
-	  "candycraftce:trees_pudding",
-	  "candycraftce:sweet_grass"
-	]
+	"candycraftce:trees_pudding"
   ]
 }

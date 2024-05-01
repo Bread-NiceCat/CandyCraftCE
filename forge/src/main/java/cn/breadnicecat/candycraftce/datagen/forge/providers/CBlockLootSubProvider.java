@@ -60,7 +60,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	@Override
 	protected void generate() {
 		accept(m -> dropSelf(m.get()),
-				CARAMEL_BLOCK, PUDDING,
+				CARAMEL_BLOCK, PUDDING, CARAMEL_BRICK,
 				CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_COBBLESTONE,
 				CANDY_CANE_BLOCK, CANDY_CANE_WALL, CANDY_CANE_FENCE, CANDY_CANE_SLAB, CANDY_CANE_STAIRS,
 				MARSHMALLOW_CRAFTING_TABLE, LICORICE_FURNACE, CHOCOLATE_FURNACE, SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY,
@@ -124,7 +124,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	protected void add(Block block, LootTable.@NotNull Builder builder) {
 		assertTrue(this.map.put(block.getLootTable(), builder) == null, () -> "Duplicate LootTable for " + block);
 	}
-	
+
 	@Override
 	@SuppressWarnings("deprecation")
 	protected @NotNull Iterable<Block> getKnownBlocks() {

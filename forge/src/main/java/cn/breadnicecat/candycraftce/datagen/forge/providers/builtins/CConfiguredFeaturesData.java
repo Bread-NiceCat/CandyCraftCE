@@ -3,12 +3,18 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers.builtins;
 import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.level.CConfiguredFeatures;
 import cn.breadnicecat.candycraftce.level.CandiedCherryFoliagePlacer;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -17,10 +23,13 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.OptionalInt;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.datagen.forge.providers.builtins.CPlacedFeaturesData.check;
+import static net.minecraft.data.worldgen.features.FeatureUtils.register;
 
 /**
  * Created in 2024/2/9 19:32
@@ -35,23 +44,49 @@ public class CConfiguredFeaturesData extends CConfiguredFeatures {
 	private static final SimpleStateProvider PUDDING = BlockStateProvider.simple(CBlocks.PUDDING.get());
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-		FeatureUtils.register(context, CHOCOLATE_TREE, Feature.TREE, createOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
-		FeatureUtils.register(context, WHITE_CHOCOLATE_TREE, Feature.TREE, createOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
-		FeatureUtils.register(context, CARAMEL_TREE, Feature.TREE, createOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
+		register(context, CHOCOLATE_TREE, Feature.TREE, createOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
+		register(context, WHITE_CHOCOLATE_TREE, Feature.TREE, createOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
+		register(context, CARAMEL_TREE, Feature.TREE, createOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
 
-		FeatureUtils.register(context, CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
-		FeatureUtils.register(context, WHITE_CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
-		FeatureUtils.register(context, CARAMEL_FANCY_TREE, Feature.TREE, createFancyOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
-		FeatureUtils.register(context, MAGIC_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), MAGIC_LEAVES.get()).build());
+		register(context, CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
+		register(context, WHITE_CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
+		register(context, CARAMEL_FANCY_TREE, Feature.TREE, createFancyOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
+		register(context, MAGIC_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), MAGIC_LEAVES.get()).build());
 
-		FeatureUtils.register(context, CANDIED_CHERRY_TREE, Feature.TREE, createCandiedCherryLike(MARSHMALLOW_LOG.get(), CANDIED_CHERRY_LEAVES.get()).build());
+		register(context, CANDIED_CHERRY_TREE, Feature.TREE, createCandiedCherryLike(MARSHMALLOW_LOG.get(), CANDIED_CHERRY_LEAVES.get()).build());
+
+		//cf <- SIMPLE_RANDOM_SELECTOR(pf[]) (pf) <- (new cf(xxx))=::randomPatch
+		register(context, SWEET_GRASS, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(
+				HolderSet.direct(
+						sweetGrass(SWEET_GRASS_0.defaultBlockState()),
+						sweetGrass(SWEET_GRASS_1.defaultBlockState()),
+						sweetGrass(SWEET_GRASS_2.defaultBlockState()),
+						sweetGrass(SWEET_GRASS_3.defaultBlockState())
+				)
+		));
+	}
+
+	//草：32, 7, 3
+	private static Holder<PlacedFeature> sweetGrass(BlockState grass) {
+		return Holder.direct(check(Holder.direct(
+				new ConfiguredFeature<>(Feature.RANDOM_PATCH, randomPatch(32, 7, 3, grass))
+		), Blocks.AIR));
+	}
+
+	private static RandomPatchConfiguration randomPatch(int tries, int xzSpread, int ySpread, BlockState toPlace) {
+		return randomPatch(tries, xzSpread, ySpread, Holder.direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(SimpleStateProvider.simple(toPlace)))));
+	}
+
+	private static RandomPatchConfiguration randomPatch(int tries, int xzSpread, int ySpread, Holder<ConfiguredFeature<?, ?>> cf) {
+		return new RandomPatchConfiguration(tries, xzSpread, ySpread,
+				Holder.direct(check(cf, Blocks.AIR)));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder createOakLike(Block log, Block leaves) {
 		return createStraightBlobTree(log, leaves, 4, 2, 0, 2)
 				.ignoreVines();
 	}
-	
+
 	private static TreeConfiguration.TreeConfigurationBuilder createCandiedCherryLike(Block log, Block leaves) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(log),

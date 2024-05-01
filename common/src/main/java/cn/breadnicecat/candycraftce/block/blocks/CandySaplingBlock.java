@@ -26,7 +26,7 @@ public class CandySaplingBlock extends SaplingBlock implements ISugarTarget {
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(CBlockTags.CANDY_PLANT_CAN_ON);
+		return state.is(CBlockTags.CANDY_PLANT_SUITABLE);
 	}
 
 	@Override

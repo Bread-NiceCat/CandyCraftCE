@@ -71,13 +71,11 @@ println("=".repeat(64))
 println("here in project $project.name")
 println("repo here=>")
 getRepositories().forEach { it ->
-    try {
-        if (it instanceof FlatDirectoryArtifactRepository) {
-            println it.dirs
-        } else println it.url
-    } catch (Exception ignored) {
-        println it
-    }
+    if (it instanceof MavenArtifactRepository) {
+        println it.url
+    } else if (it instanceof FlatDirectoryArtifactRepository) {
+        println it.dirs
+    } else print it
 }
 println("repo end")
 println("=".repeat(64))

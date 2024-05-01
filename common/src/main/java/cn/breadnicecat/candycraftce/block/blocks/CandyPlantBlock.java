@@ -33,6 +33,6 @@ public class CandyPlantBlock extends Block {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return level.getBlockState(pos.below()).is(CBlockTags.CANDY_PLANT_CAN_ON);
+		return level.getBlockState(pos.below()).is(CBlockTags.CANDY_PLANT_SUITABLE);
 	}
 }

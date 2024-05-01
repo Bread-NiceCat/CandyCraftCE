@@ -261,6 +261,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(JAWBREAKER_BRICK, "基岩硬糖砖");
 		addBlockById(JAWBREAKER_LIGHT, "基岩硬糖灯");
 		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
+		addBlockById(CARAMEL_BRICK, "焦糖砖");
 	}
 
 	/**
