@@ -24,9 +24,7 @@ public class CConfiguredFeatures {
 	public final static ResourceKey<ConfiguredFeature<?, ?>> CARAMEL_FANCY_TREE = bind("caramel_fancy_tree");
 	public final static ResourceKey<ConfiguredFeature<?, ?>> MAGIC_FANCY_TREE = bind("magic_fancy_tree");
 	public final static ResourceKey<ConfiguredFeature<?, ?>> CANDIED_CHERRY_TREE = bind("candied_cherry_tree");
-
-	public final static ResourceKey<ConfiguredFeature<?, ?>> SWEET_GRASS = bind("sweet_grass");
-
+	
 	protected static ResourceKey<ConfiguredFeature<?, ?>> bind(String name) {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, prefix(name));
 	}

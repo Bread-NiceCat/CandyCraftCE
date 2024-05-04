@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +36,7 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 		super(output, lookupProvider, CandyCraftCE.MOD_ID, existingFileHelper);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
 		add(CARAMEL_PORTAL_FRAME, CARAMEL_BLOCK, SUGAR_BLOCK);
@@ -84,8 +86,13 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 		);
 
 		add(NEEDS_DIAMOND_TOOL);
+
+		add(ORES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE);
 		add(CHOCOLATES, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE);
-		add(GEN_REPLACEABLE, CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE);
+		add(CARVER_OVERRIDEABLE, PUDDING, CUSTARD_PUDDING)
+				.add(Blocks.WATER)
+				.addTags(CHOCOLATES, ORES);
+		
 		add(FENCES, CANDY_CANE_FENCE, MARSHMALLOW_FENCE, LIGHT_MARSHMALLOW_FENCE, DARK_MARSHMALLOW_FENCE);
 		add(SLABS, CANDY_CANE_SLAB, LICORICE_SLAB, LICORICE_BRICK_SLAB, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB, DARK_MARSHMALLOW_SLAB, MINT_SLAB, RASPBERRY_SLAB, BANANA_SEAWEEDS_SLAB, COTTON_CANDY_SLAB, CANDIED_CHERRY_SLAB, CHEWING_GUM_SLAB, ICE_CREAM_SLAB, MINT_ICE_CREAM_SLAB, STRAWBERRY_ICE_CREAM_SLAB, BLUEBERRY_ICE_CREAM_SLAB);
 		add(STAIRS, CANDY_CANE_STAIRS, LICORICE_STAIRS, LICORICE_BRICK_STAIRS, MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS, MINT_STAIRS, RASPBERRY_STAIRS, BANANA_SEAWEEDS_STAIRS, COTTON_CANDY_STAIRS, CANDIED_CHERRY_STAIRS, CHEWING_GUM_STAIRS, ICE_CREAM_STAIRS, MINT_ICE_CREAM_STAIRS, STRAWBERRY_ICE_CREAM_STAIRS, BLUEBERRY_ICE_CREAM_STAIRS);
@@ -105,8 +112,7 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 
 	private Map<TagKey<?>, Set<?>> validator = new HashMap<>();
 
-	private void add(TagKey<Block> tagKey, BlockEntry<?>... be) {
-		if (be.length == 0) return;
+	private IntrinsicTagAppender<Block> add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 
 		HashSet<BlockEntry<?>> set = new HashSet<>();
 		assertTrue(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
@@ -115,5 +121,6 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 			assertTrue(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
 			tag.add(i.get());
 		}, be);
+		return tag;
 	}
 }

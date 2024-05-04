@@ -251,6 +251,28 @@ public class CBlockStateProvider extends BlockStateProvider {
 		});
 		mappings = Map.of();//makes mapping disabled
 		/*================CUSTOM PART================*/
+//		{
+//			BlockEntry<CustardPuddingBlock> be = CUSTARD_PUDDING;
+//			CustardPuddingBlock b = be.get();
+//			//"particle": "block/dirt",
+//			//"bottom": "block/dirt",
+//			//"top": "block/grass_block_top",
+//			//"side": "block/grass_block_side",
+//			//"overlay": "block/grass_block_side_overlay"
+//			ResourceLocation bottom = blockTexture(PUDDING.get());
+//			BlockModelBuilder model = models().withExistingParent(be.getName(), "block/grass_block")
+//					.texture("particle", bottom)
+//					.texture("top", modLoc("block/" + be.getName() + "_top"))
+//					.texture("side", modLoc("block/" + be.getName() + "_side"))
+//					.texture("overlay", modLoc("block/" + be.getName() + "_overlay_side"));
+//			getVariantBuilder(b).partialState().addModels(
+//					new ConfiguredModel(model, 0, 0, false),
+//					new ConfiguredModel(model, 0, 90, false),
+//					new ConfiguredModel(model, 0, 180, false),
+//					new ConfiguredModel(model, 0, 270, false)
+//			);
+//			simpleBlockItem(b, model);
+//		}
 		//Dragibus软糖
 		{
 			CandyCropBlock block = DRAGIBUS_CROPS.get();

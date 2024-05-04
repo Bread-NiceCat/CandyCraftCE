@@ -45,26 +45,26 @@ public class CPlacedFeaturesData extends CPlacedFeatures {
 
 	}
 
-	protected static PlacedFeature predicates(Holder<ConfiguredFeature<?, ?>> fe, BlockPredicate... pred) {
+	static PlacedFeature predicates(Holder<ConfiguredFeature<?, ?>> fe, BlockPredicate... pred) {
 		return new PlacedFeature(fe,
 				Arrays.stream(pred).
 								<PlacementModifier>map(BlockPredicateFilter::forPredicate)
 						.toList());
 	}
 
-	protected static PlacedFeature checkSurvive(Holder<ConfiguredFeature<?, ?>> cf, BlockState bs) {
+	static PlacedFeature checkSurvive(Holder<ConfiguredFeature<?, ?>> cf, BlockState bs) {
 		return predicates(cf, BlockPredicate.wouldSurvive(bs, Vec3i.ZERO));
 	}
 
-	protected static PlacedFeature check(Holder<ConfiguredFeature<?, ?>> cf, Block... bs) {
+	static PlacedFeature checkHere(Holder<ConfiguredFeature<?, ?>> cf, Block... bs) {
 		return predicates(cf, BlockPredicate.matchesBlocks(Vec3i.ZERO, bs));
 	}
 
-	protected static PlacedFeature checkBelow(Holder<ConfiguredFeature<?, ?>> cf, TagKey<Block> bs) {
+	static PlacedFeature checkBelow(Holder<ConfiguredFeature<?, ?>> cf, TagKey<Block> bs) {
 		return predicates(cf, BlockPredicate.matchesTag(new Vec3i(0, -1, 0), bs));
 	}
 
-	private static final HolderOwner<?> KITE_OWNER = new HolderOwner<>() {
+	static final HolderOwner<?> KITE_OWNER = new HolderOwner<>() {
 		@Override
 		public boolean canSerializeIn(@NotNull HolderOwner<Object> owner) {
 			return true;

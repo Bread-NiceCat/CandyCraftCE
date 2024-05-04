@@ -78,7 +78,7 @@ public class ConsoleProvider implements DataProvider {
 			);
 			RuleSource soilType = sequence(
 					ifTrue(ON_FLOOR, faceSoil),
-					ifTrue(UNDER_FLOOR, custardPudding)
+					ifTrue(UNDER_FLOOR, pudding)
 			);
 			RuleSource surfaceSoilLayer = ifTrue(abovePreliminarySurface(), soilType);
 

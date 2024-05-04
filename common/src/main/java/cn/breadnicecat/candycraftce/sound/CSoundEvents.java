@@ -13,7 +13,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * @author <a href="https://gitee.com/Bread_NiceCat">Bread_NiceCat</a>
  * @date 2022/12/23 10:51
  */
-public final class CSoundEvents {
+public class CSoundEvents {
 
 	private static final Logger LOGGER = CLogUtils.sign();
 

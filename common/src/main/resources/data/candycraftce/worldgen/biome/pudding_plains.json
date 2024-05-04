@@ -12,15 +12,15 @@
   "spawn_costs": {},
   "carvers": {
 	"air": [
-	  "minecraft:cave",
-	  "minecraft:cave_extra_underground",
-	  "minecraft:canyon"
+	  "candycraftce:cave",
+	  "candycraftce:cave_extra_underground",
+	  "candycraftce:canyon"
 	]
   },
   "features": [
 	[
-	  "candycraftce:trees_pudding",
-	  "candycraftce:sweet_grass"
+	  "candycraftce:sweet_grass_plains",
+	  "candycraftce:trees_plains"
 	]
   ]
 }

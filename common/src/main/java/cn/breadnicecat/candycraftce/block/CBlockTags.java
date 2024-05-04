@@ -21,7 +21,8 @@ public class CBlockTags {
 	public static final TagKey<Block> JELLIES = bind("jelly");
 	public static final TagKey<Block> ICE_CREAMS = bind("ice_cream");
 	public static final TagKey<Block> CHOCOLATES = bind("chocolate");
-	public static final TagKey<Block> GEN_REPLACEABLE = bind("gen_replaceable");
+	public static final TagKey<Block> ORES = bind("ores");
+	public static final TagKey<Block> CARVER_OVERRIDEABLE = bind("carver_overrideable");
 
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, prefix(name));

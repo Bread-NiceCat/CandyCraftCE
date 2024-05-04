@@ -71,7 +71,7 @@
             },
             "then_run": {
               "result_state": {
-                "Name": "candycraftce:custard_pudding"
+                "Name": "candycraftce:pudding"
               },
               "type": "minecraft:block"
             },

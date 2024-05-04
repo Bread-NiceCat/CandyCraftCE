@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-01T16:11:21.4443896	Registries
+// 1.20.1	2024-05-03T17:26:07.1647738	Registries
 76a948b500acfa5670404247818d8ff45cc7b04d data/candycraftce/damage_type/step_on_spikes.json
 b15987c3f62609130423a33b5e33167fdfb9234a data/candycraftce/worldgen/configured_feature/candied_cherry_tree.json
 1b0e423f0193368b16da2cc4df3bea3625273bee data/candycraftce/worldgen/configured_feature/caramel_fancy_tree.json
@@ -6,7 +6,6 @@ b15987c3f62609130423a33b5e33167fdfb9234a data/candycraftce/worldgen/configured_f
 de5e9857acfba6148148c5838771a4bfe9e9b213 data/candycraftce/worldgen/configured_feature/chocolate_fancy_tree.json
 2e631c393689bce4c8799328eefcdf9991b7155a data/candycraftce/worldgen/configured_feature/chocolate_tree.json
 b85c575e3c52713e667a0bf274dc1954e4e40dba data/candycraftce/worldgen/configured_feature/magic_fancy_tree.json
-19d5d7728c1e67a9c882fd4af481588f7314aeb8 data/candycraftce/worldgen/configured_feature/sweet_grass.json
 431d091d9034790247a5723cf5ad2a3a9cc392c6 data/candycraftce/worldgen/configured_feature/white_chocolate_fancy_tree.json
 8bbf6adfc081e2408beb506bc6b4551219dbaa34 data/candycraftce/worldgen/configured_feature/white_chocolate_tree.json
 d33b09775b4cd4a27b61b0193400a351ebf20d92 data/candycraftce/worldgen/placed_feature/candied_cherry_tree_checked.json

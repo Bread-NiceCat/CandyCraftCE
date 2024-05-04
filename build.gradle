@@ -59,11 +59,17 @@ subprojects {
     }
 }
 
-tasks.register("FatRunClient") {
+tasks.register("runFatClient") {
     group = "run"
     Task client = project(":fabric").runClient
     Task data = project(":forge").runData
     dependsOn(client.mustRunAfter(data), data)
+}
+
+tasks.register("runClientRandom") {
+    group = "run"
+    Task to = (Math.random() < 0.5 ? project(":fabric") : project(":forge")).runClient
+    dependsOn(to)
 }
 
 //declare repositories

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:simple_random_selector",
-  "config": {
-	"features": [
-	  "candycraftce:magic_fancy_tree_checked",
-	  "candycraftce:chocolate_fancy_tree_checked"
-	]
-  }
-}
