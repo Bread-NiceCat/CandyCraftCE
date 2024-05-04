@@ -1,0 +1,63 @@
+version: '1.0'
+name: autobuild
+displayName: autobuild
+triggers:
+  trigger: auto
+  push:
+    branches:
+      exclude:
+        - dontbulid
+  pr:
+    branches:
+      exclude:
+        - dontbulid
+stages:
+  - name: stage-d5ea25af
+    displayName: 构建
+    strategy: naturally
+    trigger: auto
+    executor: [ ]
+    steps:
+      - step: build@gradle
+        name: build_gradle
+        displayName: Gradle 构建
+        jdkVersion: '17'
+        gradleVersion: '4.4'
+        commands:
+          - '# Gradle默认构建命令'
+          - chmod +x ./gradlew
+          - ./gradlew build
+        artifacts:
+          - name: FORGE
+            path:
+              - forge/build/libs/candycraftce-*.*.*[0-9].jar
+          - name: FABRIC
+            path:
+              - fabric/build/libs/candycraftce-*.*.*[0-9].jar
+        caches:
+          - ~/.gradle/caches
+        notify: [ ]
+        strategy:
+          retry: '0'
+  - name: stage-11333fe8
+    displayName: 上传
+    strategy: naturally
+    trigger: auto
+    executor: [ ]
+    steps:
+      - step: publish@general_artifacts
+        name: publish_general_artifacts1
+        displayName: 上传制品
+        dependArtifact: FORGE
+        artifactName: forge
+        notify: [ ]
+        strategy:
+          retry: '0'
+      - step: publish@general_artifacts
+        name: publish_general_artifacts2
+        displayName: 上传制品
+        dependArtifact: FABRIC
+        artifactName: fabric
+        notify: [ ]
+        strategy:
+          retry: '0'
