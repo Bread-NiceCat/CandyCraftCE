@@ -37,6 +37,19 @@ allprojects {
         maven { url = 'https://maven.parchmentmc.org' }
 
     }
+
+    //给gitee擦屁股!!!
+    getRepositories().forEach { repo ->
+        if (repo instanceof MavenArtifactRepository) {
+            def url = repo.getUrl()
+            def us = url.toString().split("://", 2)
+            if (us[0] == "http") {
+                println("检测到http协议repo($url),正在强制转化为https协议")
+                repo.url = new URI("https://${us[1]}")
+            }
+        }
+    }
+    
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = 17
