@@ -1,0 +1,19 @@
+name: Sync to Gitee
+
+on:
+  push
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/Bread-NiceCat
+          dst: gitee/Bread-NiceCat
+          static_list: 'candycraftce'
+          force_update: true
+          debug: true
+          dst_key: ${{ secrets.PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
