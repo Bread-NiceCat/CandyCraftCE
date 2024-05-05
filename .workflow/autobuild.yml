@@ -5,12 +5,12 @@ triggers:
   trigger: auto
   push:
     branches:
-      exclude:
-        - dontbulid
+      include:
+        - .+
   pr:
     branches:
-      exclude:
-        - dontbulid
+      include:
+        - .+
 stages:
   - name: stage-d5ea25af
     displayName: 构建
