@@ -31,28 +31,28 @@ import static net.minecraft.data.worldgen.features.FeatureUtils.register;
  * <p>
  */
 public class CConfiguredFeaturesData extends CConfiguredFeatures {
-
+	
 	private static final SimpleStateProvider PUDDING = BlockStateProvider.simple(CBlocks.PUDDING.get());
-
+	
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		register(context, CHOCOLATE_TREE, Feature.TREE, createOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
 		register(context, WHITE_CHOCOLATE_TREE, Feature.TREE, createOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
 		register(context, CARAMEL_TREE, Feature.TREE, createOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
-
+		
 		register(context, CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), CHOCOLATE_LEAVES.get()).build());
 		register(context, WHITE_CHOCOLATE_FANCY_TREE, Feature.TREE, createFancyOakLike(LIGHT_MARSHMALLOW_LOG.get(), WHITE_CHOCOLATE_LEAVES.get()).build());
 		register(context, CARAMEL_FANCY_TREE, Feature.TREE, createFancyOakLike(DARK_MARSHMALLOW_LOG.get(), CARAMEL_LEAVES.get()).build());
-		register(context, MAGIC_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), MAGIC_LEAVES.get()).build());
-
+		register(context, MAGIC_FANCY_TREE, Feature.TREE, createFancyOakLike(MARSHMALLOW_LOG.get(), MAGICAL_LEAVES.get()).build());
+		
 		register(context, CANDIED_CHERRY_TREE, Feature.TREE, createCandiedCherryLike(MARSHMALLOW_LOG.get(), CANDIED_CHERRY_LEAVES.get()).build());
-
+		
 	}
-
+	
 	private static TreeConfiguration.TreeConfigurationBuilder createOakLike(Block log, Block leaves) {
 		return createStraightBlobTree(log, leaves, 4, 2, 0, 2)
 				.ignoreVines();
 	}
-
+	
 	private static TreeConfiguration.TreeConfigurationBuilder createCandiedCherryLike(Block log, Block leaves) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(log),
@@ -63,7 +63,7 @@ public class CConfiguredFeaturesData extends CConfiguredFeatures {
 				.ignoreVines()
 				.dirt(PUDDING);
 	}
-
+	
 	private static TreeConfiguration.TreeConfigurationBuilder createFancyOakLike(Block log, Block leaves) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(log),
@@ -74,7 +74,7 @@ public class CConfiguredFeaturesData extends CConfiguredFeatures {
 				.ignoreVines()
 				.dirt(PUDDING);
 	}
-
+	
 	private static TreeConfiguration.TreeConfigurationBuilder createStraightBlobTree(Block logBlock, Block leavesBlock, int baseHeight, int heightRandA, int heightRandB, int radius) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(logBlock),

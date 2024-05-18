@@ -13,7 +13,7 @@
       },
       "then_run": {
         "result_state": {
-          "Name": "candycraftce:jawbreaker_brick"
+          "Name": "candycraftce:jawbreaker_bricks"
         },
         "type": "minecraft:block"
       },

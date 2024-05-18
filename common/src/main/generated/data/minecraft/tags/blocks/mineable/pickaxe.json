@@ -14,7 +14,7 @@
     "candycraftce:caramel_block",
     "candycraftce:candy_cane_block",
     "candycraftce:licorice_block",
-    "candycraftce:licorice_brick",
+    "candycraftce:licorice_bricks",
     "candycraftce:pez_block",
     "candycraftce:nougat_block",
     "candycraftce:nougat_head",
@@ -37,6 +37,17 @@
     "candycraftce:licorice_brick_stairs",
     "candycraftce:sugar_spikes",
     "candycraftce:cranberry_spikes",
-    "candycraftce:caramel_brick"
+    "candycraftce:caramel_bricks",
+    "candycraftce:chocolate_caramel_bricks",
+    "candycraftce:white_chocolate_caramel_bricks",
+    "candycraftce:black_chocolate_caramel_bricks",
+    "candycraftce:chocolate_bricks",
+    "candycraftce:black_chocolate_bricks",
+    "candycraftce:white_chocolate_bricks",
+    "candycraftce:chocolate_stone_tile",
+    "candycraftce:white_chocolate_furnace",
+    "candycraftce:black_chocolate_furnace",
+    "candycraftce:white_chocolate_stone_tile",
+    "candycraftce:black_chocolate_stone_tile"
   ]
 }

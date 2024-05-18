@@ -30,10 +30,10 @@ public class CItemTagsProvider extends ItemTagsProvider {
 	public CItemTagsProvider(PackOutput arg, CompletableFuture<HolderLookup.Provider> completableFuture, CompletableFuture<TagLookup<Block>> completableFuture2, @Nullable ExistingFileHelper existingFileHelper) {
 		super(arg, completableFuture, completableFuture2, CandyCraftCE.MOD_ID, existingFileHelper);
 	}
-
+	
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider arg) {
-		add(MUSIC_DISCS, RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_WWWOOOWWW);
+		add(MUSIC_DISCS, RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_o);
 		add(CItemTags.HONEYCOMB, HONEYCOMB);
 		add(CItemTags.LICORICE, LICORICE);
 		add(CItemTags.PEZ, PEZ);
@@ -48,10 +48,10 @@ public class CItemTagsProvider extends ItemTagsProvider {
 		add(PICKAXES, MARSHMALLOW_PICKAXE, LICORICE_PICKAXE, HONEYCOMB_PICKAXE, PEZ_PICKAXE);
 		add(SHOVELS, MARSHMALLOW_SHOVEL, LICORICE_SHOVEL, HONEYCOMB_SHOVEL, PEZ_SHOVEL);
 	}
-
+	
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {
 		IntrinsicTagAppender<Item> tag = tag(tagKey);
 		accept(i -> tag.add(i.get()), ie);
 	}
-
+	
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "candycraftce:block/mixed_cube",
+  "textures": {
+    "1": "candycraftce:block/caramel_block",
+    "2": "candycraftce:block/white_chocolate_bricks"
+  }
+}

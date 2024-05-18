@@ -16,7 +16,7 @@
 
 ## 下载
 
-- 自动构建版([工作流](https://github.com/Bread-NiceCat/CandyCraftCE/actions/workflows/autobuild.yml))
+- 自动构建版([Gitee流水线](https://gitee.com/Bread-NiceCat/candycraftce/gitee_go/pipelines?tab=release))
 - ~~通过[一些步骤](#编译)自己编译~~
 
 <hr>

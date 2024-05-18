@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,14 +35,14 @@ public class CLanguageProvider implements DataProvider {
 	private final ZhCnCLanguageProvider zhProv;
 	private final Set<LanguageProvider> subs;
 	private final Set<String> existKeys = new HashSet<>();
-
+	
 	public CLanguageProvider(PackOutput output) {
 		subs = Set.of(
 				enProv = new EnUsCLanguageProvider(output),
 				zhProv = new ZhCnCLanguageProvider(output)
 		);
 	}
-
+	
 	protected void addTranslations() {
 		add(CCTab.TITLE_KEY, "CandyCraft CE", "糖果世界非官方版");
 		add(CGameRules.CARAMEL_PORTAL_WORKS.getDescriptionId(), "Enable Caramel Portal Teleport Player.", "允许焦糖传送门传送玩家");
@@ -126,7 +127,16 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(DRAGIBUS, "彩虹糖");
 		addItemById(LOLLIPOP_SEEDS, "棒棒糖种子");
 		addItemById(CARAMEL_BUCKET, "熔融焦糖桶");
-		addItem(I_I_DEBUG, "I 爱 DEBUG !!!", null);
+		addItemById(CHOCOLATE_LEAF, "巧克力树叶");
+		addItemById(WHITE_CHOCOLATE_LEAF, "白巧克力树叶");
+		addItemById(CARAMEL_LEAF, "焦糖树叶");
+		addItemById(CANDIED_CHERRY_LEAF, "蜜饯樱桃树叶");
+		addItemById(CARAMEL_BRICK, "焦糖砖");
+		addItemById(CHOCOLATE_BRICK, "巧克力砖");
+		addItemById(WHITE_CHOCOLATE_BRICK, "白巧克力砖");
+		addItemById(BLACK_CHOCOLATE_BRICK, "黑巧克力砖");
+		addItemById(MAGICAL_LEAF, "魔法树叶");
+		addItem(IIDEBUG, "I 爱 DEBUG !!!", null);
 		/*=======================Blocks=======================*/
 		addBlockById(SUGAR_BLOCK, "糖块");
 		addBlockById(CARAMEL_PORTAL, "焦糖传送门");
@@ -160,7 +170,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(WHITE_CHOCOLATE_LEAVES, "白巧克力树叶");
 		addBlockById(CARAMEL_LEAVES, "焦糖树叶");
 		addBlockById(CANDIED_CHERRY_LEAVES, "蜜饯樱桃树叶");
-		addBlockById(MAGIC_LEAVES, "魔法树叶");
+		addBlockById(MAGICAL_LEAVES, "魔法树叶");
 		addBlockById(HONEYCOMB_TORCH, "蜜蜡火把");
 		addBlockById(JELLY_ORE, "果冻矿石");
 		addBlockById(NOUGAT_ORE, "牛轧糖矿石");
@@ -175,7 +185,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(LICORICE_WALL, "盐甘草糖墙");
 		addBlockById(LICORICE_SLAB, "盐甘草糖台阶");
 		addBlockById(LICORICE_STAIRS, "盐甘草糖楼梯");
-		addBlockById(LICORICE_BRICK, "盐甘草糖砖");
+		addBlockById(LICORICE_BRICKS, "盐甘草糖砖");
 		addBlockById(LICORICE_BRICK_WALL, "盐甘草糖砖墙");
 		addBlockById(LICORICE_BRICK_SLAB, "盐甘草糖砖台阶");
 		addBlockById(LICORICE_BRICK_STAIRS, "盐甘草糖砖楼梯");
@@ -223,7 +233,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CANDIED_CHERRY_SACK, "蜜饯樱桃块");
 		addBlockById(COTTON_CANDY_SLAB, "棉花糖台阶");
 		addBlockById(COTTON_CANDY_STAIRS, "棉花糖楼梯");
-		addBlockById(SWEET_GRASS_0, "甜草");
+		addBlock(SWEET_GRASS_0, "Sweet Grass", "甜草");
 		addBlockById(MINT_SLAB, "水生薄荷台阶");
 		addBlockById(RASPBERRY_SLAB, "水生树莓台阶");
 		addBlockById(BANANA_SEAWEEDS_SLAB, "香蕉海草台阶");
@@ -258,19 +268,32 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(MARSHMALLOW_TRAPDOOR, "棉花软糖活版门");
 		addBlockById(LIGHT_MARSHMALLOW_TRAPDOOR, "浅色棉花软糖活版门");
 		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
-		addBlockById(JAWBREAKER_BRICK, "基岩硬糖砖");
+		addBlockById(JAWBREAKER_BRICKS, "基岩硬糖砖");
 		addBlockById(JAWBREAKER_LIGHT, "基岩硬糖灯");
 		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
-		addBlockById(CARAMEL_BRICK, "焦糖砖");
+		addBlockById(CARAMEL_BRICKS, "焦糖砖");
+		addBlockById(CHOCOLATE_CARAMEL_BRICKS, "巧克力焦糖砖");
+		addBlockById(WHITE_CHOCOLATE_CARAMEL_BRICKS, "白巧克力焦糖混合砖");
+		addBlockById(BLACK_CHOCOLATE_CARAMEL_BRICKS, "黑巧克力焦糖混合砖");
+		addBlockById(CHOCOLATE_BRICKS, "巧克力砖");
+		addBlockById(BLACK_CHOCOLATE_BRICKS, "黑巧克力砖");
+		addBlockById(WHITE_CHOCOLATE_BRICKS, "白巧克力砖");
+		addBlockById(CHOCOLATE_STONE_TILE, "巧克力瓦");
+		addBlockById(WHITE_CHOCOLATE_STONE_TILE, "白巧克力瓦");
+		addBlockById(BLACK_CHOCOLATE_STONE_TILE, "黑巧克力瓦");
+		addBlockById(WHITE_CHOCOLATE_FURNACE, "白巧克力熔炉");
+		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
+		
+		
 	}
-
+	
 	/**
 	 * 包含一个玩家名参数
 	 */
 	private void addDamage(String msgId, String en_us, String zh_cn) {
 		add("death.attack." + msgId, en_us, zh_cn);
 	}
-
+	
 	/**
 	 * 受其他实体影响而死亡,另外包含一个参数：entity.getKillCredit().getDisplayName()
 	 *
@@ -279,29 +302,29 @@ public class CLanguageProvider implements DataProvider {
 	private void addDamageBy(String msgId, String en_us, String zh_cn) {
 		add("death.attack." + msgId + ".player", en_us, zh_cn);
 	}
-
+	
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {
 		addItem(ie, byId(ie.getId().getPath()), zh_cn);
 	}
-
+	
 	public void addItem(ItemEntry<?> ie, String en_us, String zh_cn) {
 		add(ie.get().getDescriptionId(), en_us, zh_cn);
 	}
-
+	
 	public void addBlockById(BlockEntry<?> be, String zh_cn) {
-		addItem(be, byId(be.getId().getPath()), zh_cn);
+		addBlock(be, byId(be.getId().getPath()), zh_cn);
 	}
-
-	public void addItem(BlockEntry<?> be, String en_us, String zh_cn) {
+	
+	public void addBlock(BlockEntry<?> be, String en_us, String zh_cn) {
 		add(be.get().getDescriptionId(), en_us, zh_cn);
 	}
-
-	public void add(String key, String en_us, String zh_cn) {
+	
+	public void add(String key, String en_us, @Nullable String zh_cn) {
 		assertTrue(existKeys.add(key), () -> "Duplicate key: " + key);
 		enProv.add(key, en_us);
-		zhProv.add(key, zh_cn);
+		if (zh_cn != null) zhProv.add(key, zh_cn);
 	}
-
+	
 	/**
 	 * 从注册名中获取名称
 	 *
@@ -309,7 +332,7 @@ public class CLanguageProvider implements DataProvider {
 	 * <p>
 	 * 例如{@code 输入this_is_a_example 返回 This Is A Example}
 	 */
-
+	
 	private static String byId(String id) {
 		StringBuilder sb = new StringBuilder();
 		String[] s = id.split("_");
@@ -318,11 +341,11 @@ public class CLanguageProvider implements DataProvider {
 		}
 		return modifyById(sb.substring(0, sb.length() - 1));
 	}
-
+	
 	private static String modifyById(@NotNull String byId) {
 		return byId.replace("Pez", "PEZ");
 	}
-
+	
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
 		addTranslations();
@@ -330,7 +353,7 @@ public class CLanguageProvider implements DataProvider {
 				.map(m -> m.run(output))
 				.toArray(CompletableFuture[]::new));
 	}
-
+	
 	@Override
 	public @NotNull String getName() {
 		return "CandyCraftCE Languages";

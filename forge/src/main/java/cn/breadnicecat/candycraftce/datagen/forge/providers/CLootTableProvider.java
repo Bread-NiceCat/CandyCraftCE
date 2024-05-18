@@ -19,13 +19,13 @@ import java.util.Map;
  * <p>
  */
 public class CLootTableProvider extends LootTableProvider {
-
-
+	
+	
 	public CLootTableProvider(PackOutput arg) {
 		//如果这个null抛了NPE,那么代表validate被调用了
 		super(arg, null, List.of(new SubProviderEntry(CBlockLootSubProvider::new, LootContextParamSets.BLOCK)));
 	}
-
+	
 	@Override
 	protected void validate(@NotNull Map<ResourceLocation, LootTable> map, @NotNull ValidationContext validationcontext) {
 		//禁用掉战利品表检查，否则会报错

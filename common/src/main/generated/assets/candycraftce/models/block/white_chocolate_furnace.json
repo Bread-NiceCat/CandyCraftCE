@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "candycraftce:block/white_chocolate_stone",
+    "front": "candycraftce:block/white_chocolate_furnace_front_off",
+    "side": "candycraftce:block/white_chocolate_furnace_side",
+    "top": "candycraftce:block/white_chocolate_furnace_top"
+  }
+}

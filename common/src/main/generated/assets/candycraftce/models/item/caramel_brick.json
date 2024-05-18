@@ -1,3 +1,6 @@
 {
-  "parent": "candycraftce:block/caramel_brick"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "candycraftce:item/caramel_brick"
+  }
 }

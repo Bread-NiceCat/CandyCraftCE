@@ -55,7 +55,7 @@ public class ConsoleProvider implements DataProvider {
 	private void generateSurfaceRules(CachedOutput output) throws IOException {
 		LinkedList<RuleSource> layers = new LinkedList<>();
 		//方块
-		RuleSource bedrock = state(JAWBREAKER_BRICK.defaultBlockState());
+		RuleSource bedrock = state(JAWBREAKER_BRICKS.defaultBlockState());
 		RuleSource pudding = state(PUDDING.defaultBlockState());
 		RuleSource custardPudding = state(CUSTARD_PUDDING.defaultBlockState());
 		RuleSource deepslate = state(BLACK_CHOCOLATE_STONE.defaultBlockState());

@@ -1,10 +1,12 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -22,7 +25,8 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.pathPostfix;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static com.mojang.datafixers.util.Pair.of;
 
 /**
  * Created in 2023/10/14 22:47
@@ -30,16 +34,17 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.pathPostfix;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
+ * 低效，但是好用——无数次想改这个类的架构，改完最后还是觉得这个设计好用。;)
  */
 public class CBlockStateProvider extends BlockStateProvider {
 	private static final Logger LOGGER = CLogUtils.getModLogger();
 	private final ExistingFileHelper exFileHelper;
-
+	
 	public CBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
 		super(output, CandyCraftCE.MOD_ID, existingFileHelper);
 		this.exFileHelper = existingFileHelper;
 	}
-
+	
 	@Override
 	protected void registerStatesAndModels() {
 		//(_)type : textureName
@@ -49,6 +54,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			accept(b -> simpleBlock(b.get(), existModelFile(b.get())),
 					CARAMEL_LIQUID);
 		}
+		
 		//cubeAll : *
 		{
 			accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
@@ -56,15 +62,17 @@ public class CBlockStateProvider extends BlockStateProvider {
 					CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
 					SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 					DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-					MAGIC_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICK,
+					MAGICAL_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICKS,
 					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
 					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
-					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICK, JAWBREAKER_LIGHT,
-					CARAMEL_BRICK
+					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT,
+					CARAMEL_BRICKS, CHOCOLATE_BRICKS, BLACK_CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE,
+					BLACK_CHOCOLATE_STONE_TILE
 			);
 		}
+		
 		//cubeBottomTop : *_side *_bottom *_top
 		zone(() -> {
 			mapping(modLoc("block/" + CUSTARD_PUDDING.getName() + "_bottom"), blockTexture(PUDDING.get()));
@@ -77,16 +85,18 @@ public class CBlockStateProvider extends BlockStateProvider {
 				simpleBlockWithItem(b.get(), common);
 			}, CUSTARD_PUDDING, CANDIED_CHERRY_SACK);
 		});
+		
 		//column : *_side *_end
 		accept(b -> {
 			String name = b.getName();
 			simpleBlockWithItem(b.get(), models().cubeColumn(name, modLoc("block/" + name + "_side"), modLoc("block/" + name + "_end")));
 		}, CANDY_CANE_BLOCK, MARSHMALLOW_CRAFTING_TABLE);
+		
 		//wall : *
 		zone(() -> {
 			mapping("block/" + CANDY_CANE_WALL.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
 			mapping("block/" + LICORICE_WALL.getName(), "block/" + LICORICE_BLOCK.getName());
-			mapping("block/" + LICORICE_BRICK_WALL.getName(), "block/" + LICORICE_BRICK.getName());
+			mapping("block/" + LICORICE_BRICK_WALL.getName(), "block/" + LICORICE_BRICKS.getName());
 			accept(b -> {
 						ResourceLocation texture = modLoc("block/" + b.getName());
 						wallBlock(b.get(), texture);
@@ -94,6 +104,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					},
 					CANDY_CANE_WALL, LICORICE_WALL, LICORICE_BRICK_WALL);
 		});
+		
 		//fence : *
 		zone(() -> {
 			mapping("block/" + CANDY_CANE_FENCE.getName(), "block/" + CANDY_CANE_BLOCK.getName() + "_side");
@@ -107,6 +118,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					},
 					CANDY_CANE_FENCE, MARSHMALLOW_FENCE, LIGHT_MARSHMALLOW_FENCE, DARK_MARSHMALLOW_FENCE);
 		});
+		
 		//stair : *_side *_end
 		zone(() -> {
 			{
@@ -120,7 +132,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 				mapping("block/" + stair + "_end", "block/" + block);
 			};
 			consumer.accept(LICORICE_STAIRS.getName(), LICORICE_BLOCK.getName());
-			consumer.accept(LICORICE_BRICK_STAIRS.getName(), LICORICE_BRICK.getName());
+			consumer.accept(LICORICE_BRICK_STAIRS.getName(), LICORICE_BRICKS.getName());
 			consumer.accept(MARSHMALLOW_STAIRS.getName(), MARSHMALLOW_PLANKS.getName());
 			consumer.accept(LIGHT_MARSHMALLOW_STAIRS.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_STAIRS.getName(), DARK_MARSHMALLOW_PLANKS.getName());
@@ -160,7 +172,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 				mapping("block/" + slab + "_end", ori);
 			};
 			consumer.accept(LICORICE_SLAB.getName(), LICORICE_BLOCK.getName());
-			consumer.accept(LICORICE_BRICK_SLAB.getName(), LICORICE_BRICK.getName());
+			consumer.accept(LICORICE_BRICK_SLAB.getName(), LICORICE_BRICKS.getName());
 			consumer.accept(MARSHMALLOW_SLAB.getName(), MARSHMALLOW_PLANKS.getName());
 			consumer.accept(LIGHT_MARSHMALLOW_SLAB.getName(), LIGHT_MARSHMALLOW_PLANKS.getName());
 			consumer.accept(DARK_MARSHMALLOW_SLAB.getName(), DARK_MARSHMALLOW_PLANKS.getName());
@@ -215,13 +227,15 @@ public class CBlockStateProvider extends BlockStateProvider {
 					FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, LOLLIPOP_FRUIT
 			);
 		}
+		
 		//door *_bottom *_top
 		accept(b -> {
 			String name = b.getName();
 			doorBlock(b.get(), modLoc("block/" + name + "_bottom"), modLoc("block/" + name + "_top"));
 			itemModels().basicItem(b.getId());
 		}, MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
-		//fence_gate ( * = #_fence_gate ) -> # || *
+		
+		//fence_gate *
 		zone(() -> {
 			mapping(blockTexture(MARSHMALLOW_FENCE_GATE.get()), blockTexture(MARSHMALLOW_PLANKS.get()));
 			mapping(blockTexture(LIGHT_MARSHMALLOW_FENCE_GATE.get()), blockTexture(LIGHT_MARSHMALLOW_PLANKS.get()));
@@ -233,6 +247,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 				itemModels().fenceGate(b.getName(), tex);
 			}, MARSHMALLOW_FENCE_GATE, LIGHT_MARSHMALLOW_FENCE_GATE, DARK_MARSHMALLOW_FENCE_GATE);
 		});
+		
 		//glass_pane * *_edge
 		zone(() -> {
 			mapping(blockTexture(CARAMEL_GLASS_PANE.get()), blockTexture(CARAMEL_GLASS.get()));
@@ -249,7 +264,30 @@ public class CBlockStateProvider extends BlockStateProvider {
 				generatedItem(b.getName(), pane);
 			}, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE);
 		});
-		mappings = Map.of();//makes mapping disabled
+		
+		//mixed_cube *_1 *_2
+		zone(() -> {
+			ResourceLocation parent = prefix("mixed_cube");
+			ResourceLocation caramel = blockTexture(CARAMEL_BLOCK.get());
+			mapping(blockTexture(CHOCOLATE_CARAMEL_BRICKS.get(), "_1"), caramel);
+			mapping(blockTexture(CHOCOLATE_CARAMEL_BRICKS.get(), "_2"), blockTexture(CHOCOLATE_BRICKS.get()));
+			mapping(blockTexture(WHITE_CHOCOLATE_CARAMEL_BRICKS.get(), "_1"), caramel);
+			mapping(blockTexture(WHITE_CHOCOLATE_CARAMEL_BRICKS.get(), "_2"), blockTexture(WHITE_CHOCOLATE_BRICKS.get()));
+			mapping(blockTexture(BLACK_CHOCOLATE_CARAMEL_BRICKS.get(), "_1"), caramel);
+			mapping(blockTexture(BLACK_CHOCOLATE_CARAMEL_BRICKS.get(), "_2"), blockTexture(BLACK_CHOCOLATE_BRICKS.get()));
+			accept(b -> {
+				Block block = b.get();
+				ResourceLocation location = blockTexture(block);
+				ResourceLocation _1 = postfix(location, "_1");
+				ResourceLocation _2 = postfix(location, "_2");
+				simpleBlockWithItem(block, models().withExistingParent(b.getName(), parent)
+						.texture("1", _1)
+						.texture("2", _2)
+				);
+			}, CHOCOLATE_CARAMEL_BRICKS, WHITE_CHOCOLATE_CARAMEL_BRICKS, BLACK_CHOCOLATE_CARAMEL_BRICKS);
+		});
+		
+		mappings = Map.of();//making mapping disabled
 		/*================CUSTOM PART================*/
 //		{
 //			BlockEntry<CustardPuddingBlock> be = CUSTARD_PUDDING;
@@ -311,8 +349,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 			SensitiveJellyBlock block = SENSITIVE_JELLY.get();
 			ResourceLocation texture = blockTexture(block);
 			BlockModelBuilder simple = models().cubeAll(name, texture);
-			BlockModelBuilder active = models().cubeAll(name + "_powered", pathPostfix(texture, "_powered"));
-
+			BlockModelBuilder active = models().cubeAll(name + "_powered", postfix(texture, "_powered"));
+			
 			getVariantBuilder(block)
 					.forAllStates(s -> ConfiguredModel.builder()
 							.modelFile(s.getValue(SensitiveJellyBlock.POWERED) ? active : simple)
@@ -342,7 +380,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			TorchBlock torchBlock = HONEYCOMB_TORCH.get();
 			WallTorchBlock wallBlock = WALL_HONEYCOMB_TORCH.get();
 			ResourceLocation tex = modLoc("block/" + torchName);
-
+			
 			BlockModelBuilder torchModel = models().withExistingParent(torchName, "block/template_torch")
 					.texture("torch", tex);
 			BlockModelBuilder wallModel = models().withExistingParent(wallName, "block/template_torch_wall")
@@ -356,12 +394,12 @@ public class CBlockStateProvider extends BlockStateProvider {
 			String name = ALCHEMY_MIXER.getName();
 			AlchemyMixerBlock block = ALCHEMY_MIXER.get();
 			ModelFile base = existModelFile(modLoc("block/" + name));
-
+			
 			MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
 					.part().modelFile(base)
 					.addModel()
 					.end()
-
+					
 					.part().modelFile(existModelFile(modLoc("block/" + name + "_rope")))
 					.addModel().condition(AlchemyMixerBlock.HANGING, true)
 					.end();
@@ -384,17 +422,28 @@ public class CBlockStateProvider extends BlockStateProvider {
 			horizontalBlock(LICORICE_FURNACE.get(), (s) -> s.getValue(LicoriceFurnaceBlock.LIT) ? on : off);
 			simpleBlockItem(LICORICE_FURNACE.get(), off);
 		}
+		//巧克力熔炉
 		{
-			String name = CHOCOLATE_FURNACE.getName();
-			ResourceLocation side = modLoc("block/" + name + "_side");
-			ResourceLocation front_on = modLoc("block/" + name + "_front_on");
-			ResourceLocation front_off = modLoc("block/" + name + "_front_off");
-			ResourceLocation top = modLoc("block/" + name + "_top");
-			ResourceLocation bottom = blockTexture(CHOCOLATE_STONE.get());
-			BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
-			BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
-			horizontalBlock(CHOCOLATE_FURNACE.get(), (s) -> s.getValue(ChocolateFurnaceBlock.LIT) ? on : off);
-			simpleBlockItem(CHOCOLATE_FURNACE.get(), off);
+			for (Pair<BlockEntry<ChocolateFurnaceBlock>, BlockEntry<Block>> pair : List.of(
+					of(CHOCOLATE_FURNACE, CHOCOLATE_STONE),
+					of(WHITE_CHOCOLATE_FURNACE, WHITE_CHOCOLATE_STONE),
+					of(BLACK_CHOCOLATE_FURNACE, BLACK_CHOCOLATE_STONE)
+			)) {
+				BlockEntry<ChocolateFurnaceBlock> block = pair.getFirst();
+				BlockEntry<Block> bottomRef = pair.getSecond();
+				
+				String name = block.getName();
+				ResourceLocation side = modLoc("block/" + name + "_side");
+				ResourceLocation front_on = modLoc("block/" + name + "_front_on");
+				ResourceLocation front_off = modLoc("block/" + name + "_front_off");
+				ResourceLocation top = modLoc("block/" + name + "_top");
+				ResourceLocation bottom = blockTexture(bottomRef.get());
+				BlockModelBuilder off = models().orientableWithBottom(name, side, front_off, bottom, top);
+				BlockModelBuilder on = models().orientableWithBottom(name + "_on", side, front_on, bottom, top);
+				horizontalBlock(block.get(), (s) -> s.getValue(ChocolateFurnaceBlock.LIT) ? on : off);
+				simpleBlockItem(block.get(), off);
+			}
+			
 		}
 		//布丁耕地
 		{
@@ -426,7 +475,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					.part().modelFile(y).addModel().condition(CaramelPortalBlock.Y, true).end();
 		}
 	}
-
+	
 	private ItemModelBuilder generatedItem(String name, ResourceLocation... tex) {
 		ItemModelBuilder builder = itemModels().withExistingParent(name, "item/generated");
 		for (int i = 0; i < tex.length; i++) {
@@ -434,10 +483,10 @@ public class CBlockStateProvider extends BlockStateProvider {
 		}
 		return builder;
 	}
-
+	
 	public Map<ResourceLocation, ResourceLocation> mappings = Map.of();
-
-
+	
+	
 	/**
 	 * 局部映射
 	 */
@@ -459,7 +508,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 				}
 				return v;
 			}
-
+			
 			@Override
 			public ResourceLocation getOrDefault(Object key, ResourceLocation defaultValue) {
 				ResourceLocation v = get(key);
@@ -473,33 +522,42 @@ public class CBlockStateProvider extends BlockStateProvider {
 		}
 		mappings = global;
 	}
-
+	
 	@Override
 	public ResourceLocation modLoc(String name) {
 		ResourceLocation loc = super.modLoc(name);
 		return mappings.getOrDefault(loc, loc);
 	}
-
+	
 	@Override
 	public ResourceLocation mcLoc(String name) {
 		ResourceLocation loc = super.mcLoc(name);
 		return mappings.getOrDefault(loc, loc);
 	}
-
+	
 	@Override
 	public ResourceLocation blockTexture(Block block) {
 		ResourceLocation loc = super.blockTexture(block);
 		return mappings.getOrDefault(loc, loc);
 	}
-
-	public ModelFile.ExistingModelFile existModelFile(Block block) {
-		return existModelFile(ResourceUtils.pathPrefix(ForgeRegistries.BLOCKS.getKey(block), "block/"));
+	
+	public ResourceLocation blockTexture(Block block, String postfix) {
+		return postfix(blockTexture(block), postfix);
 	}
-
+	
+	public ResourceLocation postfix(ResourceLocation ori, String app) {
+		ResourceLocation postfix = ResourceUtils.postfix(ori, app);
+		return mappings.getOrDefault(postfix, postfix);
+	}
+	
+	public ModelFile.ExistingModelFile existModelFile(Block block) {
+		return existModelFile(prefix(ForgeRegistries.BLOCKS.getKey(block), "block/"));
+	}
+	
 	public ModelFile.ExistingModelFile existModelFile(ResourceLocation location) {
 		return new ModelFile.ExistingModelFile(new ResourceLocation(location.getNamespace(), location.getPath()), exFileHelper);
 	}
-
+	
 	/**
 	 * 贴图位置映射
 	 * ori->dest
@@ -509,7 +567,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 	private void mapping(ResourceLocation ori, ResourceLocation dest) {
 		assertTrue(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
 	}
-
+	
 	private void mapping(String ori, String dest) {
 		mapping(super.modLoc(ori), super.modLoc(dest));
 	}

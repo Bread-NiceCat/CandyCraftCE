@@ -1,0 +1,6 @@
+{
+  "parent": "candycraftce:item/caramel_bow",
+  "textures": {
+    "layer0": "candycraftce:item/caramel_bow_2"
+  }
+}

@@ -17,7 +17,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "candycraftce:magic_leaves",
+        "Name": "candycraftce:magical_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
