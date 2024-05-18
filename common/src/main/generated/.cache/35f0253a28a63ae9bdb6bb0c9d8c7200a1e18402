@@ -1,5 +1,6 @@
-// 1.20.1	2024-05-18T21:53:51.4889541	Item Models: candycraftce
+// 1.20.1	2024-05-18T23:26:39.0493014	Item Models: candycraftce
 0480c58c86d698204673a94dc358a0055bbee66c assets/candycraftce/models/item/black_chocolate_brick.json
+57ea18a320824504b44eca19b5556ba55df4571f assets/candycraftce/models/item/b_record_nc.json
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 1db7252b22afc34130202c06fec63a7e983ff1a9 assets/candycraftce/models/item/candied_cherry_leaf.json
 3d18fd42d331d0e83b460f2554faf2e3778f6a64 assets/candycraftce/models/item/candy_cane.json
@@ -60,7 +61,6 @@ c3cb1179b9903f4777775334a846f022cacf9cf8 assets/candycraftce/models/item/lollipo
 e91bd44df6e74c524fcad7767bcf8c6659669959 assets/candycraftce/models/item/marshmallow_sword.json
 303b5c2adcce08566217fdc4384c26c438a6bdd8 assets/candycraftce/models/item/nessie_emblem.json
 67887a0cb781ea14c94a694c6f94840ff14b5345 assets/candycraftce/models/item/nougat_powder.json
-e2dfa595807f45860a06f685e999f0e4d1ce8735 assets/candycraftce/models/item/o_record_wwwooowww.json
 e610e3261c3f489e65e13c858567054112eff316 assets/candycraftce/models/item/pez.json
 76bb6f97d9d04225caac521254c6922ee1415fdb assets/candycraftce/models/item/pez_axe.json
 54685128a8082ef0feed441b8f24ddf4ebd54fa1 assets/candycraftce/models/item/pez_boots.json
