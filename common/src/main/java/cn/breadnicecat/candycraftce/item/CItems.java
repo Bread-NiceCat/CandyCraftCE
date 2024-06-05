@@ -52,7 +52,7 @@ public class CItems {
 	public static final ItemEntry<Item> CARAMEL_BRICK = create("caramel_brick").save();
 	public static final ItemEntry<Item> CHOCOLATE_BRICK = create("chocolate_brick").save();
 	public static final ItemEntry<Item> WHITE_CHOCOLATE_BRICK = create("white_chocolate_brick").save();
-	public static final ItemEntry<Item> BLACK_CHOCOLATE_BRICK = create("black_chocolate_brick").save();
+	//	public static final ItemEntry<Item> BLACK_CHOCOLATE_BRICK = create("black_chocolate_brick").save();
 	public static final ItemEntry<Item> COTTON_CANDY = create("cotton_candy").save();
 	public static final ItemEntry<Item> GUMMY = create("gummy").save();
 	public static final ItemEntry<Item> HOT_GUMMY = create("hot_gummy").save();
@@ -94,7 +94,7 @@ public class CItems {
 //        .register();
 	
 	/*唱片*/
-	public static final ItemEntry<RecordItem> RECORD_o = create("b_record_nc",
+	public static final ItemEntry<RecordItem> RECORD_o = create("record_o",
 			p -> _record_wwwooowww(Redstone.SIGNAL_MAX, CSoundEvents.CD_o, p, 302, "Bread_NiceCat's Secret Record", "Mono Inc. - Children of the Dark"))
 			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
 			.setCtab(false)

@@ -57,7 +57,8 @@ public class CCDatagenMain {
 	 * Arch 会启动几个非daemon的线程，导致运行完毕后无法正常退出
 	 * 此线程通过在main线程运行终止后exit来解决此问题
 	 */
-	public static void launchProcessTerminator() {
+	@SuppressWarnings("BusyWait")
+	private static void launchProcessTerminator() {
 		Thread main = Thread.currentThread();
 		Thread helper = new Thread(() -> {
 			LOGGER.info("Thread {} started!", Thread.currentThread().getName());

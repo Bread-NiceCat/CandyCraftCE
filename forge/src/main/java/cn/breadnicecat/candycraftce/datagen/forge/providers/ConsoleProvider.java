@@ -19,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static net.minecraft.world.level.levelgen.SurfaceRules.*;
-import static net.minecraft.world.level.levelgen.VerticalAnchor.absolute;
 
 /**
  * Created in 2024/5/1 下午4:35
@@ -33,13 +32,13 @@ public class ConsoleProvider implements DataProvider {
 	private final ExistingFileHelper efhelper;
 	private final Path path;
 	private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
+	
 	public ConsoleProvider(PackOutput pack, ExistingFileHelper efhelper) {
 		this.pack = pack;
 		this.efhelper = efhelper;
 		path = pack.getOutputFolder(PackOutput.Target.REPORTS);
 	}
-
+	
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
 		return CompletableFuture.runAsync(() -> {
@@ -50,15 +49,15 @@ public class ConsoleProvider implements DataProvider {
 			}
 		});
 	}
-
-
+	
+	
 	private void generateSurfaceRules(CachedOutput output) throws IOException {
 		LinkedList<RuleSource> layers = new LinkedList<>();
 		//方块
 		RuleSource bedrock = state(JAWBREAKER_BRICKS.defaultBlockState());
 		RuleSource pudding = state(PUDDING.defaultBlockState());
 		RuleSource custardPudding = state(CUSTARD_PUDDING.defaultBlockState());
-		RuleSource deepslate = state(BLACK_CHOCOLATE_STONE.defaultBlockState());
+//		RuleSource deepslate = state(BLACK_CHOCOLATE_STONE.defaultBlockState());
 		//基岩层
 		{
 			RuleSource bedrockLayer = ifTrue(verticalGradient(
@@ -66,7 +65,7 @@ public class ConsoleProvider implements DataProvider {
 					VerticalAnchor.bottom(),
 					VerticalAnchor.aboveBottom(5)
 			), bedrock);
-
+			
 			layers.add(bedrockLayer);
 		}
 		//生成表面土壤
@@ -81,27 +80,27 @@ public class ConsoleProvider implements DataProvider {
 					ifTrue(UNDER_FLOOR, pudding)
 			);
 			RuleSource surfaceSoilLayer = ifTrue(abovePreliminarySurface(), soilType);
-
+			
 			layers.add(surfaceSoilLayer);
 		}
-		//生成深板岩层
-		{
-			RuleSource deepslateLayer =
-					ifTrue(verticalGradient("deepslate",
-							absolute(0),
-							absolute(8)
-					), deepslate);
-			layers.add(deepslateLayer);
-		}
-
-
+//		//生成深板岩层
+//		{
+//			RuleSource deepslateLayer =
+//					ifTrue(verticalGradient("deepslate",
+//							absolute(0),
+//							absolute(8)
+//					), deepslate);
+//			layers.add(deepslateLayer);
+//		}
+		
+		
 		RuleSource result = sequence(layers.toArray(RuleSource[]::new));
 		String generated = GSON.toJson(RuleSource.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow(false, LOGGER::error));
 		byte[] bytes = generated.getBytes(StandardCharsets.UTF_8);
 		output.writeIfNeeded(path.resolve("surface_rules.json"), bytes, HashCode.fromBytes(bytes));
 	}
-
-
+	
+	
 	@Override
 	public @NotNull String getName() {
 		return "Console Provider";

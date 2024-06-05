@@ -2,8 +2,6 @@
   "values": [
     "candycraftce:chocolate_stone",
     "candycraftce:chocolate_cobblestone",
-    "candycraftce:black_chocolate_stone",
-    "candycraftce:black_chocolate_cobblestone",
     "candycraftce:white_chocolate_stone",
     "candycraftce:white_chocolate_cobblestone",
     "candycraftce:licorice_ore",
@@ -40,14 +38,10 @@
     "candycraftce:caramel_bricks",
     "candycraftce:chocolate_caramel_bricks",
     "candycraftce:white_chocolate_caramel_bricks",
-    "candycraftce:black_chocolate_caramel_bricks",
     "candycraftce:chocolate_bricks",
-    "candycraftce:black_chocolate_bricks",
     "candycraftce:white_chocolate_bricks",
     "candycraftce:chocolate_stone_tile",
     "candycraftce:white_chocolate_furnace",
-    "candycraftce:black_chocolate_furnace",
-    "candycraftce:white_chocolate_stone_tile",
-    "candycraftce:black_chocolate_stone_tile"
+    "candycraftce:white_chocolate_stone_tile"
   ]
 }

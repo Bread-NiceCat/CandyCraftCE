@@ -1,20 +1,18 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
  * Created in 2023/10/14 22:51
@@ -24,7 +22,8 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
  * <p>
  */
 public class CItemModelProvider extends ItemModelProvider {
-	public static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
+	private final ModelFile.UncheckedModelFile HANDHELD = new ModelFile.UncheckedModelFile("item/handheld");
+	private static ModelFile.UncheckedModelFile GENERATED = new ModelFile.UncheckedModelFile("item/generated");
 	
 	public CItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
 		super(output, CandyCraftCE.MOD_ID, existingFileHelper);
@@ -40,10 +39,10 @@ public class CItemModelProvider extends ItemModelProvider {
 					NOUGAT_POWDER, PEZ_DUST, WAFFLE, WAFFLE_NUGGET,
 					DRAGIBUS, LOLLIPOP_SEEDS, CANDIED_CHERRY, CANDY_CANE, CHEWING_GUM,
 					LOLLIPOP, CRANFISH_SCALE, CRANFISH, CRANFISH_COOKED, WHITE_CHOCOLATE_BRICK,
-					BLACK_CHOCOLATE_BRICK, WHITE_CHOCOLATE_LEAF,
-					JELLY_SENTRY_KEY, JELLY_BOSS_KEY,
+//					BLACK_CHOCOLATE_BRICK,
+					WHITE_CHOCOLATE_LEAF, JELLY_SENTRY_KEY, JELLY_BOSS_KEY,
 					CARAMEL_BUCKET, CANDIED_CHERRY_LEAF, CARAMEL_LEAF, CHOCOLATE_LEAF, MAGICAL_LEAF,
-					RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_o,
+					RECORD_1, RECORD_2, RECORD_3, RECORD_4,
 					GINGERBREAD_EMBLEM, JELLY_EMBLEM, SKY_EMBLEM, CHEWING_GUM_EMBLEM, HONEYCOMB_EMBLEM, CRANBERRY_EMBLEM, NESSIE_EMBLEM, SUGUARD_EMBLEM,
 					HONEYCOMB_ARROW, IIDEBUG, CARAMEL_BRICK, CHOCOLATE_BRICK,
 					LICORICE_HELMET, LICORICE_CHESTPLATE, LICORICE_LEGGINGS, LICORICE_BOOTS,
@@ -51,9 +50,10 @@ public class CItemModelProvider extends ItemModelProvider {
 					PEZ_HELMET, PEZ_CHESTPLATE, PEZ_LEGGINGS, PEZ_BOOTS, WATER_MASK, JELLY_CROWN, TRAMPOJELLY_BOOTS
 			);
 		}
+		generated(RECORD_o, prefix("item/record_unknown"));
 		//handheld
 		{
-			accept(i -> handheldItem(i.get()),
+			accept(this::handheldItem,
 					MARSHMALLOW_SWORD, MARSHMALLOW_SHOVEL, MARSHMALLOW_PICKAXE, MARSHMALLOW_AXE, MARSHMALLOW_HOE,
 					LICORICE_SWORD, LICORICE_SHOVEL, LICORICE_PICKAXE, LICORICE_AXE, LICORICE_HOE,
 					HONEYCOMB_SWORD, HONEYCOMB_SHOVEL, HONEYCOMB_PICKAXE, HONEYCOMB_AXE, HONEYCOMB_HOE,
@@ -62,14 +62,21 @@ public class CItemModelProvider extends ItemModelProvider {
 	}
 	
 	
-	public ItemModelBuilder handheldItem(Item item) {
-		return handheldItem(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)));
+	public ItemModelBuilder handheldItem(ItemEntry<?> item) {
+		return handheldItem(item, item.getId());
 	}
 	
-	public ItemModelBuilder handheldItem(@NotNull ResourceLocation item) {
-		return getBuilder(item.toString())
-				.parent(new ModelFile.UncheckedModelFile("item/generated"))
-				.texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
+	public ItemModelBuilder handheldItem(ItemEntry<?> item, @NotNull ResourceLocation tex) {
+		return getBuilder(item.getName())
+				.parent(this.HANDHELD)
+				.texture("layer0", new ResourceLocation(tex.getNamespace(), "item/" + tex.getPath()));
 	}
+	
+	public ItemModelBuilder generated(ItemEntry<?> item, ResourceLocation tex) {
+		return getBuilder(item.getName())
+				.parent(GENERATED)
+				.texture("layer0", tex);
+	}
+	
 	
 }

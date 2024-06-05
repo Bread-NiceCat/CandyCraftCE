@@ -134,8 +134,9 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(CARAMEL_BRICK, "焦糖砖");
 		addItemById(CHOCOLATE_BRICK, "巧克力砖");
 		addItemById(WHITE_CHOCOLATE_BRICK, "白巧克力砖");
-		addItemById(BLACK_CHOCOLATE_BRICK, "黑巧克力砖");
+//		addItemById(BLACK_CHOCOLATE_BRICK, "黑巧克力砖");
 		addItemById(MAGICAL_LEAF, "魔法树叶");
+		addItemById(FORK, "叉子");
 		addItem(IIDEBUG, "I 爱 DEBUG !!!", null);
 		/*=======================Blocks=======================*/
 		addBlockById(SUGAR_BLOCK, "糖块");
@@ -143,8 +144,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CARAMEL_BLOCK, "焦糖块");
 		addBlockById(CHOCOLATE_STONE, "巧克力石头");
 		addBlockById(CHOCOLATE_COBBLESTONE, "巧克力圆石");
-		addBlockById(BLACK_CHOCOLATE_STONE, "黑色巧克力石头");
-		addBlockById(BLACK_CHOCOLATE_COBBLESTONE, "黑色巧克力圆石");
+//		addBlockById(BLACK_CHOCOLATE_STONE, "黑色巧克力石头");
+//		addBlockById(BLACK_CHOCOLATE_COBBLESTONE, "黑色巧克力圆石");
 		addBlockById(WHITE_CHOCOLATE_STONE, "白色巧克力石头");
 		addBlockById(WHITE_CHOCOLATE_COBBLESTONE, "白色巧克力圆石");
 		addBlockById(PUDDING, "布丁");
@@ -166,6 +167,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(DARK_MARSHMALLOW_LOG, "深色棉花软糖原木");
 		addBlockById(MARSHMALLOW_PLANKS, "棉花软糖木板");
 		addBlockById(LIGHT_MARSHMALLOW_PLANKS, "浅色棉花软糖木板");
+		addBlockById(DARK_MARSHMALLOW_PLANKS, "深色棉花软糖木板");
 		addBlockById(CHOCOLATE_LEAVES, "巧克力树叶");
 		addBlockById(WHITE_CHOCOLATE_LEAVES, "白巧克力树叶");
 		addBlockById(CARAMEL_LEAVES, "焦糖树叶");
@@ -274,15 +276,15 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(CARAMEL_BRICKS, "焦糖砖");
 		addBlockById(CHOCOLATE_CARAMEL_BRICKS, "巧克力焦糖砖");
 		addBlockById(WHITE_CHOCOLATE_CARAMEL_BRICKS, "白巧克力焦糖混合砖");
-		addBlockById(BLACK_CHOCOLATE_CARAMEL_BRICKS, "黑巧克力焦糖混合砖");
+//		addBlockById(BLACK_CHOCOLATE_CARAMEL_BRICKS, "黑巧克力焦糖混合砖");
 		addBlockById(CHOCOLATE_BRICKS, "巧克力砖");
-		addBlockById(BLACK_CHOCOLATE_BRICKS, "黑巧克力砖");
+//		addBlockById(BLACK_CHOCOLATE_BRICKS, "黑巧克力砖");
 		addBlockById(WHITE_CHOCOLATE_BRICKS, "白巧克力砖");
 		addBlockById(CHOCOLATE_STONE_TILE, "巧克力瓦");
 		addBlockById(WHITE_CHOCOLATE_STONE_TILE, "白巧克力瓦");
-		addBlockById(BLACK_CHOCOLATE_STONE_TILE, "黑巧克力瓦");
+//		addBlockById(BLACK_CHOCOLATE_STONE_TILE, "黑巧克力瓦");
 		addBlockById(WHITE_CHOCOLATE_FURNACE, "白巧克力熔炉");
-		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
+//		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
 		
 		
 	}

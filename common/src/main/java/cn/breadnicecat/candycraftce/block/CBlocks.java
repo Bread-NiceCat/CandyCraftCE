@@ -65,7 +65,7 @@ public class CBlocks {
 	public static final BlockEntry<Block> CARAMEL_BRICKS = create("caramel_bricks").setProperties(CARAMEL_BLOCK, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_CARAMEL_BRICKS = create("chocolate_caramel_bricks").setProperties(CARAMEL_BLOCK, null).save();
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_CARAMEL_BRICKS = create("white_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
-	public static final BlockEntry<Block> BLACK_CHOCOLATE_CARAMEL_BRICKS = create("black_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
+//	public static final BlockEntry<Block> BLACK_CHOCOLATE_CARAMEL_BRICKS = create("black_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
 	
 	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save();
@@ -102,17 +102,17 @@ public class CBlocks {
 	public static final BlockEntry<LeavesBlock> MAGICAL_LEAVES = create("magical_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	
 	public static final BlockEntry<Block> CHOCOLATE_STONE = create("chocolate_stone").setProperties(Blocks.STONE, null).save();
-	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE = create("black_chocolate_stone").setProperties(CHOCOLATE_STONE, null).save();
+	//	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE = create("black_chocolate_stone").setProperties(CHOCOLATE_STONE, null).save();
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_STONE = create("white_chocolate_stone").setProperties(CHOCOLATE_STONE, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_COBBLESTONE = create("chocolate_cobblestone").setProperties(Blocks.COBBLESTONE, null).save();
-	public static final BlockEntry<Block> BLACK_CHOCOLATE_COBBLESTONE = create("black_chocolate_cobblestone").setProperties(CHOCOLATE_COBBLESTONE, null).save();
+	//	public static final BlockEntry<Block> BLACK_CHOCOLATE_COBBLESTONE = create("black_chocolate_cobblestone").setProperties(CHOCOLATE_COBBLESTONE, null).save();
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_COBBLESTONE = create("white_chocolate_cobblestone").setProperties(CHOCOLATE_COBBLESTONE, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_BRICKS = create("chocolate_bricks").setProperties(CHOCOLATE_STONE, null).save();
-	public static final BlockEntry<Block> BLACK_CHOCOLATE_BRICKS = create("black_chocolate_bricks").setProperties(BLACK_CHOCOLATE_STONE, null).save();
+	//	public static final BlockEntry<Block> BLACK_CHOCOLATE_BRICKS = create("black_chocolate_bricks").setProperties(BLACK_CHOCOLATE_STONE, null).save();
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_BRICKS = create("white_chocolate_bricks").setProperties(WHITE_CHOCOLATE_STONE, null).save();
 	public static final BlockEntry<Block> CHOCOLATE_STONE_TILE = create("chocolate_stone_tile").setProperties(CHOCOLATE_STONE, null).save();
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_STONE_TILE = create("white_chocolate_stone_tile").setProperties(CHOCOLATE_STONE_TILE, null).save();
-	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE_TILE = create("black_chocolate_stone_tile").setProperties(CHOCOLATE_STONE_TILE, null).save();
+//	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE_TILE = create("black_chocolate_stone_tile").setProperties(CHOCOLATE_STONE_TILE, null).save();
 	
 	public static final BlockEntry<DropExperienceBlock> JELLY_ORE = create("jelly_ore", DropExperienceBlock::new).setProperties(IRON_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> NOUGAT_ORE = create("nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
@@ -133,7 +133,7 @@ public class CBlocks {
 	public static final BlockEntry<LicoriceFurnaceBlock> LICORICE_FURNACE = create("licorice_furnace", LicoriceFurnaceBlock::new).setProperties(Blocks.FURNACE, null).save();
 	public static final BlockEntry<ChocolateFurnaceBlock> CHOCOLATE_FURNACE = create("chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(LICORICE_FURNACE, null).save();
 	public static final BlockEntry<ChocolateFurnaceBlock> WHITE_CHOCOLATE_FURNACE = create("white_chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(CHOCOLATE_FURNACE, null).save();
-	public static final BlockEntry<ChocolateFurnaceBlock> BLACK_CHOCOLATE_FURNACE = create("black_chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(CHOCOLATE_FURNACE, null).save();
+	//	public static final BlockEntry<ChocolateFurnaceBlock> BLACK_CHOCOLATE_FURNACE = create("black_chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(CHOCOLATE_FURNACE, null).save();
 	public static final BlockEntry<SugarFactoryBlock> SUGAR_FACTORY = create("sugar_factory", SugarFactoryBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
 	public static final BlockEntry<AdvancedSugarFactoryBlock> ADVANCED_SUGAR_FACTORY = create("advanced_sugar_factory", AdvancedSugarFactoryBlock::new).setProperties(SUGAR_FACTORY, null).save();
 	//TODO AlchemyMixer functions

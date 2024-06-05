@@ -81,25 +81,6 @@
         "type": "minecraft:sequence"
       },
       "type": "minecraft:condition"
-    },
-    {
-      "if_true": {
-        "random_name": "minecraft:deepslate",
-        "true_at_and_below": {
-          "absolute": 0
-        },
-        "false_at_and_above": {
-          "absolute": 8
-        },
-        "type": "minecraft:vertical_gradient"
-      },
-      "then_run": {
-        "result_state": {
-          "Name": "candycraftce:black_chocolate_stone"
-        },
-        "type": "minecraft:block"
-      },
-      "type": "minecraft:condition"
     }
   ],
   "type": "minecraft:sequence"

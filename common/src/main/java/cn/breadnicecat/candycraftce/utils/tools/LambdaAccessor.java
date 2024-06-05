@@ -8,27 +8,27 @@ import java.util.function.Supplier;
  * @date 2023/1/24 20:59
  */
 public class LambdaAccessor<T> implements Accessor<T> {
-
+	
 	private final Supplier<T> getter;
 	private final Consumer<T> setter;
-
+	
 	public LambdaAccessor(Supplier<T> getter, Consumer<T> setter) {
 		this.getter = getter;
 		this.setter = setter;
 	}
-
+	
 	public static <T> LambdaAccessor<T> of(Supplier<T> getter, Consumer<T> setter) {
 		return new LambdaAccessor<>(getter, setter);
 	}
-
-
+	
+	
 	@Override
 	public T get() {
 		return getter.get();
 	}
-
+	
 	@Override
-	public void accept(T t) {
+	public void set(T t) {
 		setter.accept(t);
 	}
 }

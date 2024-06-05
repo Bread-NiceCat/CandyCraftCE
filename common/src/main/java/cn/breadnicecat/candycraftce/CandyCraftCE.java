@@ -29,12 +29,12 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 public final class CandyCraftCE {
 	public static final String MOD_ID = "candycraftce";
 	public static final String MOD_NAME = "CandyCraft CE";
-
+	
 	private static final Logger LOGGER = CLogUtils.sign();
-
-
+	
+	
 	public static final boolean INDEV;
-
+	
 	static {
 		//检查是否处于Dev环境
 		boolean _inDev = false;
@@ -45,11 +45,11 @@ public final class CandyCraftCE {
 			INDEV = _inDev;
 		}
 	}
-
+	
 	public static LinkedList<Runnable> bootstrapHooks = new LinkedList<>();
 	private static boolean postBootstrap = false;
 	private static boolean preBootstrap = false;
-
+	
 	/**
 	 * bootstrap here
 	 */
@@ -58,7 +58,7 @@ public final class CandyCraftCE {
 			throw new IllegalStateException(MOD_ID + " has been bootstrapped");
 		}
 		preBootstrap = true;
-
+		
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
 		LOGGER.info("=".repeat(64));
@@ -70,6 +70,7 @@ public final class CandyCraftCE {
 		LOGGER.info("=".repeat(64));
 
 //		防止某些类未被链式调用导致不会被初始化，不计顺序
+//      尤其是含register的类
 		CItems.init();
 		CMenus.init();
 		CFluids.init();
@@ -86,30 +87,30 @@ public final class CandyCraftCE {
 		postBootstrap = true;
 		LOGGER.info("Loaded Successfully!");
 	}
-
+	
 	public static boolean isClient() {
 		return getEnvironment() == Environment.CLIENT;
 	}
-
+	
 	@ExpectPlatform
 	public static Environment getEnvironment() {
 		return impossibleCode();
 	}
-
+	
 	@ExpectPlatform
 	public static ModPlatform getPlatform() {
 		return impossibleCode();
 	}
-
+	
 	@ExpectPlatform
 	public static <R, S extends R> Pair<ResourceKey<R>, Supplier<S>> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		return impossibleCode();
 	}
-
+	
 	public static void hookPostBootstrap(Runnable runnable) {
 		bootstrapHooks.add(runnable);
 	}
-
+	
 	/**
 	 * Forge: FMLCommonSetupEvent
 	 * <p>
@@ -119,21 +120,21 @@ public final class CandyCraftCE {
 	public static void hookMinecraftSetup(Runnable runnable) {
 		impossibleCode();
 	}
-
+	
 	/**
 	 * @return 完成bootstrap后为true
 	 */
 	public static boolean isBootstrapped() {
 		return postBootstrap;
 	}
-
+	
 	/**
 	 * @return 在bootstrap中时为true
 	 */
 	public static boolean isBootstrapping() {
 		return preBootstrap && !postBootstrap;
 	}
-
+	
 	public enum ModPlatform {
 		FORGE,
 		FABRIC,
