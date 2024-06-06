@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.ZhCnCLanguageProvider;
+import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.item.CCTab;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
@@ -285,7 +286,7 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(BLACK_CHOCOLATE_STONE_TILE, "黑巧克力瓦");
 		addBlockById(WHITE_CHOCOLATE_FURNACE, "白巧克力熔炉");
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
-		
+		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
 		
 	}
 	
@@ -319,6 +320,10 @@ public class CLanguageProvider implements DataProvider {
 	
 	public void addBlock(BlockEntry<?> be, String en_us, String zh_cn) {
 		add(be.get().getDescriptionId(), en_us, zh_cn);
+	}
+	
+	public void addById(String key, @Nullable String zh_cn) {
+		add(key, byId(key), zh_cn);
 	}
 	
 	public void add(String key, String en_us, @Nullable String zh_cn) {

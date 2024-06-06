@@ -4,16 +4,17 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-	"MixinLayerDefinitions",
-	"MixinParticleEngine"
+    "MixinLayerDefinitions",
+    "MixinParticleEngine"
   ],
   "mixins": [
-	"MixinEntity",
-	"MixinFarmBlock",
-	"MixinItem",
-	"MixinLivingEntity"
+    "MixinBucketItem",
+    "MixinEntity",
+    "MixinFarmBlock",
+    "MixinItem",
+    "MixinLivingEntity"
   ],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   }
 }

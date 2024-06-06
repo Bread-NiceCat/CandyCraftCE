@@ -4,7 +4,7 @@ import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import mezz.jei.api.recipe.RecipeType;
 
-import static cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin.UID;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
  * Created in 2024/2/25 8:44
@@ -14,6 +14,6 @@ import static cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin.UID;
  * <p>
  */
 public class CJeiRecipes {
-	public static final RecipeType<SugarFactoryRecipe> SUGAR_FACTORY = new RecipeType<>(UID, SugarFactoryRecipe.class);
-	public static final RecipeType<SugarFurnaceRecipe> SUGAR_FURNACE = new RecipeType<>(UID, SugarFurnaceRecipe.class);
+	public static final RecipeType<SugarFactoryRecipe> SUGAR_FACTORY_JEI = new RecipeType<>(prefix("sugar_factory"), SugarFactoryRecipe.class);
+	public static final RecipeType<SugarFurnaceRecipe> SUGAR_FURNACE_JEI = new RecipeType<>(prefix("sugar_furnace"), SugarFurnaceRecipe.class);
 }

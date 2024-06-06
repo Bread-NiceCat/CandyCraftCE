@@ -25,53 +25,58 @@ public class SugarFactoryRecipeBuilder extends CRecipeBuilderBase {
 	private int count;
 	private boolean advanced;
 	private Item result;
-
+	
 	public SugarFactoryRecipeBuilder(Item result) {
 		this.result = result;
 	}
-
+	
+	public static SugarFactoryRecipeBuilder builder(Item result) {
+		return new SugarFactoryRecipeBuilder(result);
+	}
+	
+	
 	@Override
 	public @NotNull Item getResult() {
 		return result;
 	}
-
+	
 	public SugarFactoryRecipeBuilder ingredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 		return this;
 	}
-
+	
 	public SugarFactoryRecipeBuilder ingredient(ItemLike ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
-
+	
 	public SugarFactoryRecipeBuilder ingredient(TagKey<Item> ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
-
+	
 	public SugarFactoryRecipeBuilder count(int count) {
 		this.count = count;
 		return this;
 	}
-
+	
 	public SugarFactoryRecipeBuilder advanced(boolean advanced) {
 		this.advanced = advanced;
 		return this;
 	}
-
+	
 	public SugarFactoryRecipeBuilder advanced() {
 		return advanced(true);
 	}
-
+	
 	@Override
 	public void save(@NotNull Consumer<FinishedRecipe> writer, @NotNull ResourceLocation recipeId) {
 		writer.accept(new Result(recipeId));
 	}
-
+	
 	class Result extends CRecipeBuilderBase.CFinishedRecipeBase<SugarFactoryRecipe> {
 		public Result(ResourceLocation recipeId) {
 			super(new SugarFactoryRecipe(recipeId, ingredient, result, count, advanced));
 		}
-
+		
 		@Override
 		public @NotNull RecipeSerializerExt<SugarFactoryRecipe> getType() {
 			return CRecipeTypes.SUGAR_FACTORY_TYPE.getSerializer();

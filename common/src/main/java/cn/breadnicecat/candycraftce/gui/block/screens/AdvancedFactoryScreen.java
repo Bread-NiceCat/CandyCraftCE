@@ -17,15 +17,15 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  * <p>
  */
 public class AdvancedFactoryScreen extends SugarFactoryScreen {
-
-	private final ResourceLocation ADVANCED_STYLE = prefixGUITex("gui_advanced_sugar_factory");
-
+	
+	public static final ResourceLocation ADVANCED_STYLE = prefixGUITex("gui_advanced_sugar_factory");
+	
 	public AdvancedFactoryScreen(SugarFactoryMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		style = ADVANCED_STYLE;
 		titleColor = 0xb5ff71;
 	}
-
+	
 	@Override
 	protected void renderProcessBar(GuiGraphics graphics, int recipeType, float progress) {
 		if (recipeType == ADVANCED_TYPE) {

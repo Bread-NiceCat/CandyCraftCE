@@ -5,6 +5,7 @@ import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.gui.block.CMenus;
+import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
@@ -58,11 +59,14 @@ public final class CandyCraftCE {
 			throw new IllegalStateException(MOD_ID + " has been bootstrapped");
 		}
 		preBootstrap = true;
+		Environment environment = getEnvironment();
+		ModPlatform platform = getPlatform();
 		
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
+		
 		LOGGER.info("=".repeat(64));
-		LOGGER.info(MOD_ID + " Running in {} with {}", getEnvironment(), getPlatform());
+		LOGGER.info(MOD_ID + " Running in {} with {}", environment, platform);
 		if (INDEV) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
@@ -82,6 +86,9 @@ public final class CandyCraftCE {
 		CRecipeTypes.init();
 		CSoundEvents.init();
 		CBlockEntities.init();
+		
+		if (isLoaded("jei")) new CJeiPlugin();
+		
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
 		postBootstrap = true;
@@ -90,6 +97,11 @@ public final class CandyCraftCE {
 	
 	public static boolean isClient() {
 		return getEnvironment() == Environment.CLIENT;
+	}
+	
+	@ExpectPlatform
+	public static boolean isLoaded(String modid) {
+		return impossibleCode();
 	}
 	
 	@ExpectPlatform

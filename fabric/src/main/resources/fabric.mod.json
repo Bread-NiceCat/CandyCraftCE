@@ -5,29 +5,32 @@
   "name": "CandyCraft CE",
   "description": "",
   "authors": [
-	"Bread_NiceCat",
-	"Star_Ocean_Sama(Texture)"
+    "Bread_NiceCat",
+    "Star_Ocean_Sama(Texture)"
   ],
   "contact": {
-	"homepage": "https://github.com/Bread-Nicecat/CandyCraftCE",
-	"sources": "https://github.com/Bread-Nicecat/CandyCraftCE"
+    "homepage": "https://github.com/Bread-Nicecat/CandyCraftCE",
+    "sources": "https://github.com/Bread-Nicecat/CandyCraftCE"
   },
   "mixins": [
-	"candycraftce.mixins.json",
-	"candycraftce-common.mixins.json"
+    "candycraftce.mixins.json",
+    "candycraftce-common.mixins.json"
   ],
   "license": "GNU LGPL v3",
   "icon": "assets/candycraftce/icon.png",
   "environment": "*",
   "entrypoints": {
-	"fabric-datagen": [
-	],
-	"main": [
-	  "cn.breadnicecat.candycraftce.fabric.CandyCraftCEImpl"
-	]
+    "fabric-datagen": [
+    ],
+    "main": [
+      "cn.breadnicecat.candycraftce.fabric.CandyCraftCEImpl"
+    ],
+    "jei_mod_plugin": [
+      "cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin"
+    ]
   },
   "depends": {
-	"fabric": "*",
-	"minecraft": ">=1.20.1"
+    "fabric": "*",
+    "minecraft": ">=1.20.1"
   }
 }

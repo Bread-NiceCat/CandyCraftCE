@@ -1,11 +1,25 @@
 package cn.breadnicecat.candycraftce.integration.jei;
 
+import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFactoryCategory;
+import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 
+import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes.SUGAR_FACTORY_JEI;
+import static cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes.SUGAR_FURNACE_JEI;
+import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FACTORY_TYPE;
+import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
 
 /**
  * Created in 2023/9/30 15:44
@@ -16,14 +30,38 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 @JeiPlugin
 public class CJeiPlugin implements IModPlugin {
 	public static final ResourceLocation UID = prefix("jei-plugin");
-
+	public static final ResourceLocation JEI_TEX = prefixGUITex("jei");
+	
+	public CJeiPlugin() {
+	}
+	
 	@Override
 	public @NotNull ResourceLocation getPluginUid() {
 		return UID;
 	}
-
-//	@Override
-//	public void registerRecipes(IRecipeRegistration registration) {
-//		RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().level.getRecipeManager());
-//	}
+	
+	@Override
+	public void registerRecipes(IRecipeRegistration registration) {
+		RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
+		registration.addRecipes(SUGAR_FURNACE_JEI, manager.getAllRecipesFor(SUGAR_FURNACE_TYPE.get()));
+		registration.addRecipes(SUGAR_FACTORY_JEI, manager.getAllRecipesFor(SUGAR_FACTORY_TYPE.get()));
+	}
+	
+	@Override
+	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+		registration.addRecipeCatalyst(SUGAR_FACTORY.getDefaultInstance(), SUGAR_FACTORY_JEI);
+		registration.addRecipeCatalyst(ADVANCED_SUGAR_FACTORY.getDefaultInstance(), SUGAR_FACTORY_JEI);
+		
+		registration.addRecipeCatalyst(CHOCOLATE_FURNACE.getDefaultInstance(), SUGAR_FURNACE_JEI);
+		registration.addRecipeCatalyst(WHITE_CHOCOLATE_FURNACE.getDefaultInstance(), SUGAR_FURNACE_JEI);
+		registration.addRecipeCatalyst(LICORICE_FURNACE.getDefaultInstance(), SUGAR_FURNACE_JEI);
+	}
+	
+	@Override
+	public void registerCategories(IRecipeCategoryRegistration registration) {
+		IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
+		registration.addRecipeCategories(
+				new SugarFurnaceCategory(helper),
+				new SugarFactoryCategory(helper));
+	}
 }

@@ -18,14 +18,14 @@ import static cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFacto
  * <p>
  */
 public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu> {
-	public static final ResourceLocation COMMON_GUI = ResourceUtils.prefixGUITex("gui_sugar_factory");
-	protected ResourceLocation style = COMMON_GUI;
+	public static final ResourceLocation COMMON_STYLE = ResourceUtils.prefixGUITex("gui_sugar_factory");
+	protected ResourceLocation style = COMMON_STYLE;
 	protected int titleColor = 0xb5ff71;
-
+	
 	public SugarFactoryScreen(SugarFactoryMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 	}
-
+	
 	@Override
 	protected void init() {
 		imageWidth = 174;
@@ -33,7 +33,7 @@ public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu
 		super.init();
 		titleLabelY = -9;
 	}
-
+	
 	@Override
 	protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
 		renderBackground(graphics);
@@ -42,18 +42,18 @@ public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu
 		int tickedTotal = menu.data.get(TICKED_TOTAL_DATA_SLOT);
 		if (ticked != 0) renderProcessBar(graphics, menu.data.get(RECIPE_TYPE_DATA_SLOT), (float) ticked / tickedTotal);
 	}
-
+	
 	protected void renderProcessBar(GuiGraphics graphics, int recipeType, float progress) {
 		switch (recipeType) {
-			case COMMON_TYPE -> renderProcessBar(graphics, COMMON_GUI, 0, 114, progress);
-			case SUGARY_TYPE -> renderProcessBar(graphics, COMMON_GUI, 0, 126, progress);
+			case COMMON_TYPE -> renderProcessBar(graphics, COMMON_STYLE, 0, 114, progress);
+			case SUGARY_TYPE -> renderProcessBar(graphics, COMMON_STYLE, 0, 126, progress);
 		}
 	}
-
+	
 	protected void renderProcessBar(GuiGraphics graphics, ResourceLocation style, int u, int v, float progress) {
 		graphics.blit(style, leftPos + 26 + 1, topPos + 8 + 1, u, v, (int) (120 * progress), 12);
 	}
-
+	
 	@Override
 	protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
 		graphics.drawString(font, title, titleLabelX, titleLabelY, titleColor);

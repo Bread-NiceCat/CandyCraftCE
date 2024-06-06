@@ -39,6 +39,7 @@ import java.util.function.BiFunction;
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_LIQUID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
+import static net.minecraft.world.level.block.Blocks.LAVA;
 
 /**
  * Created in 2023/12/31 9:43
@@ -51,12 +52,12 @@ public class CaramelPortalBlock extends Block {
 	public static final BooleanProperty X = BooleanProperty.create("x");
 	public static final BooleanProperty Y = BooleanProperty.create("y");
 	public static final BooleanProperty Z = BooleanProperty.create("z");
-
+	
 	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(2, 21, 3, 21,
 			true, true,
-			b -> b.isAir() || b.is(CARAMEL_LIQUID.get()) || b.is(CARAMEL_PORTAL.get()),
+			b -> b.isAir() || b.is(CARAMEL_LIQUID.get()) || b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
 			b -> b.is(CBlockTags.CARAMEL_PORTAL_FRAME));
-
+	
 	public static final BiFunction<Axes, BlockState, BlockState> PLACER = (axes, old) -> {
 		if (old.is(CARAMEL_PORTAL.get())) {
 			return old.setValue(X, axes.hasX() | old.getValue(X))
@@ -67,8 +68,8 @@ public class CaramelPortalBlock extends Block {
 				.setValue(Y, axes.hasY())
 				.setValue(Z, axes.hasZ());
 	};
-
-
+	
+	
 	private static final VoxelShape DEFAULT = Shapes.empty();
 	private static final VoxelShape X_AABB = Block.box(6.0, 0.0, 0.0, 10.0, 16.0, 16.0);
 	private static final VoxelShape Y_AABB = Block.box(0.0, 6.0, 0.0, 16.0, 10.0, 16.0);
@@ -77,7 +78,7 @@ public class CaramelPortalBlock extends Block {
 	private static final VoxelShape XZ_AABB = Shapes.or(X_AABB, Z_AABB);
 	private static final VoxelShape YZ_AABB = Shapes.or(Y_AABB, Z_AABB);
 	private static final VoxelShape XYZ_AABB = Shapes.or(X_AABB, Y_AABB, Z_AABB);
-
+	
 	/**
 	 * <pre>
 	 * index shape
@@ -92,12 +93,12 @@ public class CaramelPortalBlock extends Block {
 	 * </pre>
 	 */
 	private static final VoxelShape[] AABBs = new VoxelShape[]{DEFAULT, X_AABB, Y_AABB, XY_AABB, Z_AABB, XZ_AABB, YZ_AABB, XYZ_AABB};
-
+	
 	public CaramelPortalBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(stateDefinition.any().setValue(X, true).setValue(Y, false).setValue(Z, false));
 	}
-
+	
 	private int getShapeIndex(BlockState state) {
 		int flag = 0;
 		if (state.getValue(X)) flag += 1;
@@ -105,12 +106,12 @@ public class CaramelPortalBlock extends Block {
 		if (state.getValue(Z)) flag += 4;
 		return flag;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return AABBs[getShapeIndex(state)];
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
@@ -129,7 +130,7 @@ public class CaramelPortalBlock extends Block {
 //	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 //		if (getShapeIndex(state) == 0) level.removeBlock(pos, false);
 //	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
@@ -165,7 +166,7 @@ public class CaramelPortalBlock extends Block {
 			}
 		}
 	}
-
+	
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(100) == 0) {
@@ -189,7 +190,7 @@ public class CaramelPortalBlock extends Block {
 			level.addParticle(CParticles.CARAMEL_PORTAL_PARTICLE_TYPE.get(), d, e, f, g, h, j);
 		}
 	}
-
+	
 	/**
 	 * @return null, 如果无法传送
 	 */
@@ -198,12 +199,12 @@ public class CaramelPortalBlock extends Block {
 				hate(level.dimension(), CDims.CANDYLAND, Level.OVERWORLD, null)
 				: null;
 	}
-
+	
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(X, Y, Z);
 	}
-
+	
 	private BooleanProperty axis2Property(Direction.Axis axis) {
 		return switch (axis) {
 			case X -> X;
@@ -211,5 +212,5 @@ public class CaramelPortalBlock extends Block {
 			case Z -> Z;
 		};
 	}
-
+	
 }
