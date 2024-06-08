@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "candycraftce:dark_marshmallow_planks"
+    },
+    "/": {
+      "item": "candycraftce:marshmallow_stick"
+    }
+  },
+  "pattern": [
+    "#/#",
+    "#/#"
+  ],
+  "result": {
+    "count": 6,
+    "item": "candycraftce:dark_marshmallow_fence"
+  },
+  "show_notification": true
+}

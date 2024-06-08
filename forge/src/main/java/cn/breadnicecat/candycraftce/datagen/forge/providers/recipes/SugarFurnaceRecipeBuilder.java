@@ -25,56 +25,56 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 	private Ingredient ingredient;
 	private float exp;
 	private int count = 1;
-
+	
 	private SugarFurnaceRecipeBuilder(ItemLike result) {
 		this.result = result.asItem();
 	}
-
-	public static SugarFurnaceRecipeBuilder builder(ItemLike result) {
+	
+	public static SugarFurnaceRecipeBuilder furnace(ItemLike result) {
 		return new SugarFurnaceRecipeBuilder(result);
 	}
-
-
+	
+	
 	public SugarFurnaceRecipeBuilder ingredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 		return this;
 	}
-
+	
 	public SugarFurnaceRecipeBuilder ingredient(ItemLike ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
-
+	
 	public SugarFurnaceRecipeBuilder ingredient(TagKey<Item> ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
-
+	
 	public SugarFurnaceRecipeBuilder exp(float exp) {
 		this.exp = exp;
 		return this;
 	}
-
+	
 	public SugarFurnaceRecipeBuilder count(int count) {
 		this.count = count;
 		return this;
 	}
-
+	
 	@Override
 	public @NotNull Item getResult() {
 		return result;
 	}
-
+	
 	@Override
 	public void save(@NotNull Consumer<FinishedRecipe> consumer, @NotNull ResourceLocation recipeId) {
 		consumer.accept(new Result(recipeId));
 	}
-
+	
 	private class Result extends CFinishedRecipeBase<SugarFurnaceRecipe> {
-
-
+		
+		
 		public Result(ResourceLocation id) {
 			super(new SugarFurnaceRecipe(id, ingredient, result, count, exp));
 		}
-
+		
 		@Override
 		public @NotNull RecipeSerializerExt<SugarFurnaceRecipe> getType() {
 			return CRecipeTypes.SUGAR_FURNACE_TYPE.getSerializer();

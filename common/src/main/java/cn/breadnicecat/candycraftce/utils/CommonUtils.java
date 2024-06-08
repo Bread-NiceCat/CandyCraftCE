@@ -17,32 +17,32 @@ import java.util.function.Supplier;
  * 非mc特有
  */
 public class CommonUtils {
-
-
+	
+	
 	public static Class<?> getCaller() {
 		return StackLocatorUtil.getCallerClass(3);//因为要再调用getCaller(int)所以要+1
 	}
-
+	
 	/**
 	 * @param depth 从深度1(此方法)开始,2调用这个方法的方法,3调用调用这个方法的方法...
 	 */
 	public static Class<?> getCaller(int depth) {
 		return StackLocatorUtil.getCallerClass(depth);
 	}
-
-
+	
+	
 	public static void assertTrue(boolean bool) {
 		assertTrue(bool, "false");
 	}
-
+	
 	public static void assertTrue(boolean bool, String msg) {
 		if (!bool) throw new IllegalStateException(msg);
 	}
-
+	
 	public static void assertTrue(boolean bool, Supplier<String> msg) {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
-
+	
 	public static <T> ArrayList<T> newList(int size, IntFunction<T> constructor) {
 		ArrayList<T> list = new ArrayList<>(size);
 		for (int i = 0; i < size; i++) {
@@ -50,7 +50,7 @@ public class CommonUtils {
 		}
 		return list;
 	}
-
+	
 	/**
 	 * 让visitor依次拜访每个house
 	 */
@@ -61,7 +61,7 @@ public class CommonUtils {
 		}
 		return visitor;
 	}
-
+	
 	/**
 	 * 依次让所有guest拜访house
 	 */
@@ -71,7 +71,7 @@ public class CommonUtils {
 			house.accept(guest);
 		}
 	}
-
+	
 	/**
 	 * 如果讨厌的object是两个candidate中的一个,那么就返回另外一个;
 	 * <p>
@@ -88,7 +88,7 @@ public class CommonUtils {
 			return default_value;
 		}
 	}
-
+	
 	/**
 	 * 顺反异构
 	 * <pre>
@@ -105,11 +105,11 @@ public class CommonUtils {
 			return r_trans == null ? null : r_trans.get();
 		} else return r_default == null ? null : r_default.get();
 	}
-
+	
 	public static <T> T make(@NotNull Supplier<T> factory) {
 		return factory.get();
 	}
-
+	
 	/**
 	 * 线性插值
 	 *
@@ -128,7 +128,7 @@ public class CommonUtils {
 			return ((p2 - p) / (p2 - p1) * v1) + ((p - p1) / (p2 - p1) * v2);
 		}
 	}
-
+	
 	@Contract()//把->fail顶掉
 	public static <T> T impossibleCode() {
 		throw new AssertionError("Impossible code invoked. It's a bug, please report it to us");

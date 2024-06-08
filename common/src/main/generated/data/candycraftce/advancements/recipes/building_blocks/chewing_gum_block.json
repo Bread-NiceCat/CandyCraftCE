@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chewing_gum_puddle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candycraftce:chewing_gum_puddle"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:chewing_gum_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_chewing_gum_puddle",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:chewing_gum_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

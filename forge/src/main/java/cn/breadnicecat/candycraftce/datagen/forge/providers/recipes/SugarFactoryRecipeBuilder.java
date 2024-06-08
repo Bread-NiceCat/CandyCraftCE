@@ -26,11 +26,11 @@ public class SugarFactoryRecipeBuilder extends CRecipeBuilderBase {
 	private boolean advanced;
 	private Item result;
 	
-	public SugarFactoryRecipeBuilder(Item result) {
-		this.result = result;
+	public SugarFactoryRecipeBuilder(ItemLike result) {
+		this.result = result.asItem();
 	}
 	
-	public static SugarFactoryRecipeBuilder builder(Item result) {
+	public static SugarFactoryRecipeBuilder factory(ItemLike result) {
 		return new SugarFactoryRecipeBuilder(result);
 	}
 	

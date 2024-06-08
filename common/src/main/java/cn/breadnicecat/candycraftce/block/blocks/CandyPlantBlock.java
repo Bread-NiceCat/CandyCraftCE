@@ -21,7 +21,7 @@ public class CandyPlantBlock extends Block {
 	public CandyPlantBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
@@ -29,10 +29,10 @@ public class CandyPlantBlock extends Block {
 				? super.updateShape(state, direction, neighborState, level, pos, neighborPos)
 				: Blocks.AIR.defaultBlockState();
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return level.getBlockState(pos.below()).is(CBlockTags.CANDY_PLANT_SUITABLE);
+		return level.getBlockState(pos.below()).is(CBlockTags.BT_CANDY_PLANT_SUITABLE);
 	}
 }

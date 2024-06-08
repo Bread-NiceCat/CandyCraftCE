@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.item.CItemTags;
+import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-import static cn.breadnicecat.candycraftce.item.CItemTags.CANDY_ARROWS;
+import static cn.breadnicecat.candycraftce.item.CItemTags.*;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static net.minecraft.tags.ItemTags.*;
@@ -34,19 +34,22 @@ public class CItemTagsProvider extends ItemTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider arg) {
 		add(MUSIC_DISCS, RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_o);
-		add(CItemTags.HONEYCOMB, HONEYCOMB);
-		add(CItemTags.LICORICE, LICORICE);
-		add(CItemTags.PEZ, PEZ);
-		add(CItemTags.EMBLEM,
+//		add(CItemTags.IT_HONEYCOMB, HONEYCOMB);
+//		add(CItemTags.IT_LICORICE, LICORICE);
+//		add(CItemTags.IT_PEZ, PEZ);
+		add(IT_LEAF, CARAMEL_LEAF, MAGICAL_LEAF, CHOCOLATE_LEAF, WHITE_CHOCOLATE_LEAF, CANDIED_CHERRY_LEAF);
+		add(IT_EMBLEM,
 				GINGERBREAD_EMBLEM, JELLY_EMBLEM, SKY_EMBLEM, CHEWING_GUM_EMBLEM, HONEYCOMB_EMBLEM,
 				CRANBERRY_EMBLEM, NESSIE_EMBLEM, SUGUARD_EMBLEM
 		);
-		add(CANDY_ARROWS, HONEYCOMB_ARROW);
+		add(CANDY_ARROW, HONEYCOMB_ARROW);
 		add(SWORDS, MARSHMALLOW_SWORD, LICORICE_SWORD, HONEYCOMB_SWORD, PEZ_SWORD);
 		add(HOES, MARSHMALLOW_HOE, LICORICE_HOE, HONEYCOMB_HOE, PEZ_HOE);
 		add(AXES, MARSHMALLOW_AXE, LICORICE_AXE, HONEYCOMB_AXE, PEZ_AXE);
 		add(PICKAXES, MARSHMALLOW_PICKAXE, LICORICE_PICKAXE, HONEYCOMB_PICKAXE, PEZ_PICKAXE);
 		add(SHOVELS, MARSHMALLOW_SHOVEL, LICORICE_SHOVEL, HONEYCOMB_SHOVEL, PEZ_SHOVEL);
+		
+		CBlockTags._pairs_.forEach(this::copy);
 	}
 	
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {

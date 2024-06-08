@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.integration.jei.categories;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
-import cn.breadnicecat.candycraftce.gui.block.screens.LicoriceFurnaceScreen;
 import cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
+import static cn.breadnicecat.candycraftce.gui.block.screens.ChocolateFurnaceScreen.CHOCOLATE;
 import static cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin.JEI_TEX;
 import static cn.breadnicecat.candycraftce.utils.TickUtils.SEC2TICK;
 
@@ -45,10 +45,10 @@ public class SugarFurnaceCategory implements IRecipeCategory<SugarFurnaceRecipe>
 	public SugarFurnaceCategory(@NotNull IGuiHelper helper) {
 		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, CBlocks.LICORICE_FURNACE.getDefaultInstance());
 		bg = helper.createDrawable(JEI_TEX, 0, 60, 176, 80);
-		IDrawableStatic fire = helper.createDrawable(LicoriceFurnaceScreen.LICORICE, 176, 0, 14, 14);
+		IDrawableStatic fire = helper.createDrawable(CHOCOLATE, 176, 0, 14, 14);
 		int tick = (int) (4 * SEC2TICK);
 		fireAnim = helper.createAnimatedDrawable(fire, tick, IDrawableAnimated.StartDirection.TOP, true);
-		IDrawableStatic progress = helper.createDrawable(LicoriceFurnaceScreen.LICORICE, 176, 14, 22, 16);
+		IDrawableStatic progress = helper.createDrawable(CHOCOLATE, 176, 14, 22, 16);
 		progressAnim = helper.createAnimatedDrawable(progress, tick, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 	
@@ -80,7 +80,7 @@ public class SugarFurnaceCategory implements IRecipeCategory<SugarFurnaceRecipe>
 	
 	@Override
 	public void draw(SugarFurnaceRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		fireAnim.draw(guiGraphics, 56, 37);
-		progressAnim.draw(guiGraphics, 79, 35);
+		fireAnim.draw(guiGraphics, 56, 36);
+		progressAnim.draw(guiGraphics, 80, 35);
 	}
 }

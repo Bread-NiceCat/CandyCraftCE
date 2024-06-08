@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "advanced": true,
+  "ingredient": {
+    "item": "candycraftce:nougat_block"
+  },
+  "result": {
+    "count": 0,
+    "item": "candycraftce:nougat_head"
+  }
+}

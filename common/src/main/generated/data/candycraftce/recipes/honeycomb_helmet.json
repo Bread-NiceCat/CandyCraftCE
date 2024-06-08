@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "@": {
+      "item": "candycraftce:honeycomb"
+    }
+  },
+  "pattern": [
+    "@@@",
+    "@ @"
+  ],
+  "result": {
+    "item": "candycraftce:honeycomb_helmet"
+  },
+  "show_notification": true
+}

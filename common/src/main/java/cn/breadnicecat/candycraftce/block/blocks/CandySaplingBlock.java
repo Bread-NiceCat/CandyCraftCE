@@ -22,39 +22,39 @@ public class CandySaplingBlock extends SaplingBlock implements ISugarTarget {
 	protected CandySaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
-
-
+	
+	
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(CBlockTags.CANDY_PLANT_SUITABLE);
+		return state.is(CBlockTags.BT_CANDY_PLANT_SUITABLE);
 	}
-
+	
 	@Override
 	public boolean isValidSugarTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
 		return true;
 	}
-
+	
 	@Override
 	public boolean isSugarSuccess(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
 		return rand.nextFloat() < 0.45;
 	}
-
+	
 	@Override
 	public void performSugar(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
 		advanceTree(level, pos, state, rand);
 	}
-
-
+	
+	
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
 		return false;
 	}
-
+	
 	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return false;
 	}
-
+	
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 	}

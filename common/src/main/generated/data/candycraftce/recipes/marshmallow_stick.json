@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "x": {
+      "tag": "candycraftce:marshmallow_planks"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "result": {
+    "count": 4,
+    "item": "candycraftce:marshmallow_stick"
+  },
+  "show_notification": true
+}

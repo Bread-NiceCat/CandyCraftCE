@@ -60,6 +60,8 @@ public abstract class VectorPortalShape {
 		return true;
 	}
 	
+	public abstract List<Unit> getUnits();
+	
 	/**
 	 * 构建传送门，这里传进来的传送门方块必须有Axis属性
 	 *
@@ -87,6 +89,8 @@ public abstract class VectorPortalShape {
 	private static final Axis[] XZY = new Axis[]{X, Z, Y};
 	
 	/**
+	 * 根据框架找
+	 *
 	 * @param pos 任意一格有效框架
 	 */
 	public static Optional<VectorPortalShape> findPortalOnFrame(BlockGetter getter, BlockPos pos, PortalConfig config) {
@@ -130,7 +134,7 @@ public abstract class VectorPortalShape {
 		}
 	}
 	
-	private static class Unit extends VectorPortalShape {
+	public static class Unit extends VectorPortalShape {
 		
 		public final BlockPos bottomLeft;
 		public final Axis axis;
@@ -141,6 +145,7 @@ public abstract class VectorPortalShape {
 		private final Set<BlockPos> frames;
 		private final Set<BlockPos> portals;
 		private final Set<BlockPos> extraFrames;
+		//对应到[width,height]
 		public final Axis[] pipe2;
 		
 		/**
@@ -187,6 +192,11 @@ public abstract class VectorPortalShape {
 		}
 		
 		@Override
+		public List<Unit> getUnits() {
+			return List.of(this);
+		}
+		
+		@Override
 		public boolean build(Level level, BiFunction<Axes, BlockState, BlockState> statePlacer) {
 			boolean flag = false;
 			for (BlockPos pos : getPortals()) {
@@ -201,10 +211,14 @@ public abstract class VectorPortalShape {
 					{"type":"unit","bottom_left":{"x":%d,"y":%d,"z":%d},"axis":"%s","width":%d,"height":%d}
 					""".formatted(bottomLeft.getX(), bottomLeft.getY(), bottomLeft.getZ(), axis, width, height);
 		}
+		
+		public BlockPos getTopRight() {
+			return bottomLeft.relative(pipe2[0], width - 1).relative(pipe2[1], height - 1);
+		}
 	}
 	
 	
-	private static class Compound extends VectorPortalShape {
+	public static class Compound extends VectorPortalShape {
 		
 		private final Map<BlockPos, Axes> portals;
 		private final Set<BlockPos> frames;
@@ -271,6 +285,13 @@ public abstract class VectorPortalShape {
 		@Override
 		public Iterable<BlockPos> getAllFrames() {
 			return Sets.union(frames, extraFrames);
+		}
+		
+		@Override
+		public List<Unit> getUnits() {
+			LinkedList<Unit> list = new LinkedList<>();
+			parts.forEach(p -> list.addAll(p.getUnits()));
+			return Collections.unmodifiableList(list);
 		}
 		
 		@Override

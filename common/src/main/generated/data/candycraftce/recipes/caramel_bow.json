@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "candycraftce:marshmallow_stick"
+    },
+    "x": {
+      "item": "candycraftce:honeycomb"
+    },
+    "|": {
+      "item": "candycraftce:cotton_candy"
+    }
+  },
+  "pattern": [
+    " #|",
+    "#x|",
+    " #|"
+  ],
+  "result": {
+    "item": "candycraftce:caramel_bow"
+  },
+  "show_notification": true
+}

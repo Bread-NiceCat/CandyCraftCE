@@ -56,7 +56,7 @@ public class CaramelPortalBlock extends Block {
 	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(2, 21, 3, 21,
 			true, true,
 			b -> b.isAir() || b.is(CARAMEL_LIQUID.get()) || b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
-			b -> b.is(CBlockTags.CARAMEL_PORTAL_FRAME));
+			b -> b.is(CBlockTags.BT_CARAMEL_PORTAL_FRAME));
 	
 	public static final BiFunction<Axes, BlockState, BlockState> PLACER = (axes, old) -> {
 		if (old.is(CARAMEL_PORTAL.get())) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "/": {
+      "item": "candycraftce:marshmallow_stick"
+    },
+    "@": {
+      "item": "candycraftce:honeycomb"
+    }
+  },
+  "pattern": [
+    "@@ ",
+    "@/ ",
+    " / "
+  ],
+  "result": {
+    "item": "candycraftce:honeycomb_axe"
+  },
+  "show_notification": true
+}

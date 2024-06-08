@@ -25,32 +25,32 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  */
 public class SensitiveJellyBlock extends JellyBlock {
-
+	
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final JellyType SENSITIVE = new JellyType(0.0, 1F);
-
+	
 	public SensitiveJellyBlock(Properties properties, JellyType type) {
 		super(properties, type);
 		registerDefaultState(stateDefinition.any().setValue(POWERED, false));
 	}
-
+	
 	public SensitiveJellyBlock(Properties properties) {
 		this(properties, SENSITIVE);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		level.scheduleTick(pos, this, 1);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void tick(BlockState state, ServerLevel level, final BlockPos pos, RandomSource random) {
 		BlockPos detect = pos;
 		BlockPos above = pos.above();
 		BlockState state1 = level.getBlockState(above);
-		if (state1.is(CBlockTags.JELLIES) && !state1.is(this)) {
+		if (state1.is(CBlockTags.BT_JELLY.b()) && !state1.is(this)) {
 			detect = above;
 		}
 		boolean powered = !level.getEntitiesOfClass(LivingEntity.class, new AABB(
@@ -61,28 +61,28 @@ public class SensitiveJellyBlock extends JellyBlock {
 				detect.getY() + 1.5,
 				detect.getZ() + 1
 		)).isEmpty();
-
+		
 		if (powered != state.getValue(POWERED)) level.setBlockAndUpdate(pos, state.setValue(POWERED, powered));
 		level.scheduleTick(pos, this, 1);
 	}
-
+	
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(POWERED);
 		super.createBlockStateDefinition(builder);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean isSignalSource(@NotNull BlockState state) {
 		return true;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public int getSignal(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
 		return state.getValue(POWERED) ? Redstone.SIGNAL_MAX : Redstone.SIGNAL_NONE;
 	}
-
-
+	
+	
 }

@@ -1,12 +1,12 @@
-// 1.20.1	2024-06-05T22:20:54.2239025	Tags for minecraft:block mod id candycraftce
-96fde7f4b4cef4e4bcceca56752e1815e702f18d data/candycraftce/tags/blocks/candy_log.json
-a2a5036f2c6edbf2fd36f31af4a321ee79da4a9b data/candycraftce/tags/blocks/candy_plank.json
+// 1.20.1	2024-06-08T07:59:34.1336685	Tags for minecraft:block mod id candycraftce
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/blocks/candy_plant_suitable.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/blocks/caramel_portal_frame.json
 0e1a36c7e43d76094031bcc85a30d0d8c95f196a data/candycraftce/tags/blocks/carver_overrideable.json
 1a181a21de4a5f9f69851f207173aa89f9ffe46e data/candycraftce/tags/blocks/chocolate.json
 c30a8a3e720fbdfee0cfca158868c8cf9511aef0 data/candycraftce/tags/blocks/ice_cream.json
 634f09f098298388533c65b5e6a91a2e7531fec7 data/candycraftce/tags/blocks/jelly.json
+96fde7f4b4cef4e4bcceca56752e1815e702f18d data/candycraftce/tags/blocks/marshmallow_logs.json
+a2a5036f2c6edbf2fd36f31af4a321ee79da4a9b data/candycraftce/tags/blocks/marshmallow_planks.json
 3941536df8c9a102f8b73201f4b743ace92cc72c data/candycraftce/tags/blocks/ores.json
 e2f51ab5e1647ef130148f4533afba97f4cfce61 data/minecraft/tags/blocks/climbable.json
 10df8474d7b1fd747804027494023fb637f38452 data/minecraft/tags/blocks/doors.json

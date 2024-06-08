@@ -22,13 +22,12 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  */
 public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurnaceMenu> {
 	public static final ResourceLocation LICORICE = prefixGUITex("gui_licorice_furnace");
-	protected ResourceLocation guiStyle;
-
+	protected ResourceLocation guiStyle = LICORICE;
+	
 	public LicoriceFurnaceScreen(LicoriceFurnaceMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
-		guiStyle = LICORICE;
 	}
-
+	
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
 		guiGraphics.blit(guiStyle, leftPos, topPos, 0, 0, 176, 166);
@@ -39,7 +38,7 @@ public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurna
 			int p = litTime > litTimeTotal ? 14 : (int) (14f * litTime / litTimeTotal);//渲染高度
 			//反向渲染
 			int k = 14 - p;//未渲染高度
-			guiGraphics.blit(guiStyle, leftPos + 57, topPos + 37 + k, 176, k, 14, p);
+			guiGraphics.blit(guiStyle, leftPos + 57, topPos + 36 + k, 176, k, 14, p);
 		}
 		//进度条
 		int ticked = menu.containerData.get(TICKED_DATA);
@@ -49,19 +48,20 @@ public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurna
 			guiGraphics.blit(guiStyle, leftPos + 80, topPos + 35, 176, 14, w, 16);
 		}
 	}
-
+	
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 		renderBackground(graphics);
 		super.render(graphics, mouseX, mouseY, partialTick);
 		renderTooltip(graphics, mouseX, mouseY);
 	}
-
+	
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-		guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0xd7d7d7, false);
+		int color = guiStyle == LICORICE ? 0xd7d7d7 : 0x704338;
+		guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, color, false);
 	}
-
+	
 	@Override
 	protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
 		int litTime = menu.containerData.get(LicoriceFurnaceBE.LIT_TIME_DATA);

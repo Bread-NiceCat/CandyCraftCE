@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "@": {
+      "item": "candycraftce:licorice"
+    }
+  },
+  "pattern": [
+    "@ @",
+    "@@@",
+    "@@@"
+  ],
+  "result": {
+    "item": "candycraftce:licorice_chestplate"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "@": {
+      "item": "candycraftce:pez"
+    }
+  },
+  "pattern": [
+    "@ @",
+    "@@@",
+    "@@@"
+  ],
+  "result": {
+    "item": "candycraftce:pez_chestplate"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:white_chocolate_bricks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_chocolate_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "candycraftce:white_chocolate_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_chocolate_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:white_chocolate_bricks"
+    ]
+  },
+  "sends_telemetry_event": false
+}

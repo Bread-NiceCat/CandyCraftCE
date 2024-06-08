@@ -15,13 +15,13 @@ import java.util.function.Predicate;
  * <p>
  */
 public class CaramelBowItem extends BowItem {
-
-	public static final Predicate<ItemStack> CANDY_ARROW_ONLY = itemStack -> itemStack.is(CItemTags.CANDY_ARROWS);
-
+	
+	public static final Predicate<ItemStack> CANDY_ARROW_ONLY = itemStack -> itemStack.is(CItemTags.CANDY_ARROW);
+	
 	public CaramelBowItem(Properties properties) {
 		super(properties);
 	}
-
+	
 	@Override
 	public @NotNull Predicate<ItemStack> getAllSupportedProjectiles() {
 		return CANDY_ARROW_ONLY;

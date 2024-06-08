@@ -33,7 +33,7 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 		this.id = id;
 		this.result = result;
 		this.ingredient = ingredient;
-		assertTrue(count > 0, "Count > 0");
+		assertTrue(count > 0, "count > 0 required");
 		this.count = count;
 		this.exp = exp;
 	}

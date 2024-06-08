@@ -1,0 +1,10 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 0.5,
+  "ingredient": {
+    "item": "candycraftce:diamond_caramel_glass"
+  },
+  "result": {
+    "item": "candycraftce:caramel_glass"
+  }
+}

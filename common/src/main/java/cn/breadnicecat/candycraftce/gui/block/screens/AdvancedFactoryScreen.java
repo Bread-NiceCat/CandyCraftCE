@@ -23,7 +23,7 @@ public class AdvancedFactoryScreen extends SugarFactoryScreen {
 	public AdvancedFactoryScreen(SugarFactoryMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		style = ADVANCED_STYLE;
-		titleColor = 0xb5ff71;
+		titleColor = 0xf84356;
 	}
 	
 	@Override

@@ -16,8 +16,8 @@ public class ChocolateFurnaceMenu extends LicoriceFurnaceMenu {
 	public ChocolateFurnaceMenu(int i, Inventory inventory) {
 		super(i, inventory);
 	}
-
+	
 	public ChocolateFurnaceMenu(int containerId, Inventory inventory, Container container, ContainerData containerData) {
-		super(CMenus.LICORICE_FURNACE_MENU.get(), containerId, inventory, container, containerData);
+		super(CMenus.CHOCOLATE_FURNACE_MENU.get(), containerId, inventory, container, containerData);
 	}
 }

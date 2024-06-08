@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "/": {
+      "item": "candycraftce:pez"
+    }
+  },
+  "pattern": [
+    " / ",
+    "/  "
+  ],
+  "result": {
+    "item": "candycraftce:fork"
+  },
+  "show_notification": true
+}

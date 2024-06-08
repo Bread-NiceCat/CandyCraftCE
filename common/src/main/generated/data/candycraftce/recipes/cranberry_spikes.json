@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "*": {
+      "item": "candycraftce:cranfish_scale"
+    }
+  },
+  "pattern": [
+    " * ",
+    "* *"
+  ],
+  "result": {
+    "item": "candycraftce:cranberry_spikes"
+  },
+  "show_notification": true
+}
