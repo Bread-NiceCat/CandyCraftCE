@@ -34,6 +34,7 @@ allprojects {
             url "https://cursemaven.com"
             content { includeGroup "curse.maven" }
         }
+        maven { url "https://maven.minecraftforge.net/" }
         maven { url = 'https://maven.parchmentmc.org' }
 
     }
