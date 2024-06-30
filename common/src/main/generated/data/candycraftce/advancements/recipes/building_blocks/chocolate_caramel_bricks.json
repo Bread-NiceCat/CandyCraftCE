@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_caramel_bricks": {
+    "has_caramel_brick": {
       "conditions": {
         "items": [
           {
             "items": [
-              "candycraftce:caramel_bricks"
+              "candycraftce:caramel_brick"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_caramel_bricks",
+      "has_caramel_brick",
       "has_the_recipe"
     ]
   ],

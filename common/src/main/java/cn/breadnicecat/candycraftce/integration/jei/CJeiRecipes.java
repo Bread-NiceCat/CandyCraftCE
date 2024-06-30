@@ -15,5 +15,6 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CJeiRecipes {
 	public static final RecipeType<SugarFactoryRecipe> SUGAR_FACTORY_JEI = new RecipeType<>(prefix("sugar_factory"), SugarFactoryRecipe.class);
+	public static final RecipeType<SugarFactoryRecipe> SUGAR_FACTORY_SUGAR_JEI = new RecipeType<>(prefix("sugar_factory_sugar"), SugarFactoryRecipe.class);
 	public static final RecipeType<SugarFurnaceRecipe> SUGAR_FURNACE_JEI = new RecipeType<>(prefix("sugar_furnace"), SugarFurnaceRecipe.class);
 }

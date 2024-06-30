@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "candycraftce:marshmallow_planks"
+      "item": "candycraftce:dark_marshmallow_planks"
     },
     "/": {
       "item": "candycraftce:marshmallow_stick"
@@ -14,7 +14,7 @@
     "/#/"
   ],
   "result": {
-    "item": "candycraftce:marshmallow_fence"
+    "item": "candycraftce:dark_marshmallow_fence_gate"
   },
   "show_notification": true
 }

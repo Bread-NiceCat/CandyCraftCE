@@ -14,30 +14,28 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class LicoriceFurnaceMenu extends AbstractContainerMenu {
-
+	
 	private static final int INV_START = 0;
-	private static final int INV_END = 36;
-	private static final int INPUT_SLOT = 37;
-	private static final int FUEL_SLOT = 38;
-	private static final int OUTPUT_SLOT = 39;
-
-	private final Inventory inventory;
+	private static final int INV_END = 35;
+	private static final int INPUT_SLOT = 36;
+	private static final int FUEL_SLOT = 37;
+	private static final int OUTPUT_SLOT = 38;
+	
 	private final Container container;
 	public final ContainerData containerData;
-
+	
 	public LicoriceFurnaceMenu(int i, Inventory inventory) {
 		this(i, inventory, new SimpleContainer(3), new SimpleContainerData(4));
 	}
-
+	
 	public LicoriceFurnaceMenu(int containerId, Inventory inventory, Container container, ContainerData containerData) {
 		this(CMenus.LICORICE_FURNACE_MENU.get(), containerId, inventory, container, containerData);
 	}
-
+	
 	protected LicoriceFurnaceMenu(MenuType<?> type, int containerId, Inventory inventory, Container container, ContainerData containerData) {
 		super(type, containerId);
 		checkContainerSize(container, 3);
 		checkContainerDataCount(containerData, 4);
-		this.inventory = inventory;
 		this.container = container;
 		this.containerData = containerData;
 		//player inv
@@ -64,7 +62,7 @@ public class LicoriceFurnaceMenu extends AbstractContainerMenu {
 		});
 		this.addDataSlots(containerData);
 	}
-
+	
 	@Override
 	public @NotNull ItemStack quickMoveStack(Player player, int index) {
 		Slot slot = slots.get(index);
@@ -76,10 +74,10 @@ public class LicoriceFurnaceMenu extends AbstractContainerMenu {
 		}
 		return ItemStack.EMPTY;
 	}
-
+	
 	@Override
 	public boolean stillValid(Player player) {
 		return container.stillValid(player);
 	}
-
+	
 }

@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.forge;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
-import cn.breadnicecat.candycraftce.block.forge.CBlocksImpl;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
@@ -53,7 +52,6 @@ public class CandyCraftCEImpl {
 		mcSetupHooks.forEach(Runnable::run);
 		mcSetupHooks = null;
 		deferredRegisters = null;
-		CBlocksImpl.modifyRendererType(setup);
 	}
 	
 	

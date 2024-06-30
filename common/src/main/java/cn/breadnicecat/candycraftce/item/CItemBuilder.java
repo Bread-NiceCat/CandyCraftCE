@@ -35,28 +35,28 @@ public class CItemBuilder<I extends Item> {
 	private Function<Properties, I> factory;
 	public Properties properties = new Properties();
 	public boolean ctab = true;
-
+	
 	public static <I extends Item> CItemBuilder<I> create(String name, Function<Properties, I> factory) {
 		return new CItemBuilder<>(name, factory);
 	}
-
+	
 	public static CItemBuilder<Item> create(String name) {
 		return create(name, Item::new);
 	}
-
-
+	
+	
 	protected CItemBuilder(String name, Function<Properties, I> factory) {
 		this.name = name;
 		this.factory = factory;
 	}
-
+	
 	public static CItemBuilder<BlockItem> block(BlockEntry<? extends Block> block) {
 		ResourceLocation id = block.getId();
 		assertTrue(id.getNamespace().equals(CandyCraftCE.MOD_ID), () -> "wrong namespace: " + id.getNamespace() + ", require equ " + CandyCraftCE.MOD_ID);
 		return create(id.getPath(), (p) -> new BlockItem(block.get(), p));
 	}
-
-
+	
+	
 	/**
 	 * 新的Properties
 	 * 注:默认直接是新的Properties
@@ -65,8 +65,8 @@ public class CItemBuilder<I extends Item> {
 		this.properties = Objects.requireNonNull(prop);
 		return this;
 	}
-
-
+	
+	
 	/**
 	 * @param food 调用properties#food
 	 *             NOTE: 以美食为主当然要单独开辟一的API啦！
@@ -76,7 +76,7 @@ public class CItemBuilder<I extends Item> {
 		properties.food(food);
 		return this;
 	}
-
+	
 	/**
 	 * @param nutrition  饱食度
 	 * @param saturation 饱和度 # 饱和度=2*饱食度*饱和度修饰符,这里已经进行转化
@@ -91,7 +91,7 @@ public class CItemBuilder<I extends Item> {
 		if (modifier != null) modifier.accept(food);
 		return setFood(food);
 	}
-
+	
 	public CItemBuilder<I> setCtab(boolean ctab) {
 		this.ctab = ctab;
 		return this;
@@ -100,17 +100,18 @@ public class CItemBuilder<I extends Item> {
 //	public CItemBuilder<I> setTab(ResourceKey<CreativeModeTab> tab) {
 //		return this;
 //	}
-
+	
 	public ItemEntry<I> save() {
 		ItemEntry<I> entry = register(name, () -> factory.apply(properties));
+		CItems.ITEMS.add(entry);
 		if (ctab) CCTab.add(entry);
 		return entry;
 	}
-
+	
 	private static <I extends Item> ItemEntry<I> register(String name, Supplier<I> factory) {
 		Pair<ResourceKey<Item>, Supplier<I>> pair = CandyCraftCE.register(BuiltInRegistries.ITEM, prefix(name), factory);
 		return new ItemEntry<>(pair);
 	}
-
-
+	
+	
 }

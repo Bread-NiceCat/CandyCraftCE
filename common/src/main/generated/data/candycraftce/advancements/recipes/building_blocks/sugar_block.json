@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_light_marshmallow_planks": {
+    "has_sugar": {
       "conditions": {
         "items": [
           {
             "items": [
-              "candycraftce:light_marshmallow_planks"
+              "minecraft:sugar"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "candycraftce:light_marshmallow_fence1"
+        "recipe": "candycraftce:sugar_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_light_marshmallow_planks",
+      "has_sugar",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "candycraftce:light_marshmallow_fence1"
+      "candycraftce:sugar_block"
     ]
   },
   "sends_telemetry_event": false

@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "candycraftce:caramel_bricks"
+      "item": "candycraftce:caramel_brick"
     },
     "@": {
       "item": "candycraftce:chocolate_brick"
@@ -14,7 +14,6 @@
     "@#"
   ],
   "result": {
-    "count": 4,
     "item": "candycraftce:chocolate_caramel_bricks"
   },
   "show_notification": true

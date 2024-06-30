@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,6 +35,7 @@ import static net.minecraft.data.recipes.RecipeCategory.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.world.item.crafting.Ingredient.of;
+import static net.minecraft.world.level.block.Blocks.REDSTONE_WIRE;
 
 /**
  * Created in 2024/2/3
@@ -41,6 +43,9 @@ import static net.minecraft.world.item.crafting.Ingredient.of;
  *
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
+ * - def()用来确定配方的输出,id()依此生成唯一配方名，防止重复.一次def()只能且必须使用一次id(),否则异常
+ * - have()用来确定该配方最重要的物品,has()依此生成解锁成就，hasn()依此获取解锁成就的id.
+ * 一次have()只能且必须使用has()和hasn()共两次,否则异常.用hasrst()可重置计数器
  */
 public class CRecipeProvider extends RecipeProvider {
 	public CRecipeProvider(PackOutput arg) {
@@ -139,20 +144,33 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern("@ @").define('@', have(JELLY_SHOCK_ABSORBER))
 				.unlockedBy(hasn(), has()).save(writer, id());
 		furnace(def(CARAMEL_BLOCK)).ingredient(SUGAR_BLOCK).exp(0.5f).save(writer, id());
-		of2x2(def(CARAMEL_BRICKS), 4, of(have(CARAMEL_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
-		shaped(BUILDING_BLOCKS, def(CHOCOLATE_CARAMEL_BRICKS), 4)
-				.pattern("#@").define('#', have(CARAMEL_BRICKS))
+		
+		shaped(MISC, def(CHEWING_GUM_PUDDLE))
+				.pattern("##").define('#', have(CHEWING_GUM))
+				.unlockedBy(hasn(), has()).save(writer, id());
+		
+		of3x3(def(SUGAR_BLOCK), 1, of(have(Items.SUGAR))).unlockedBy(hasn(), has()).save(writer, id());
+		
+		//BRICKS（方块）和BRICK（物品）一定要区分开来！
+		factory(def(CARAMEL_BRICK), 4).ingredient(CARAMEL_BLOCK).save(writer, id());
+		factory(def(CHOCOLATE_BRICK)).ingredient(CHOCOLATE_STONE).save(writer, id());
+		factory(def(WHITE_CHOCOLATE_BRICK)).ingredient(WHITE_CHOCOLATE_STONE).save(writer, id());
+		//类似于地狱砖的方式
+		of2x2(def(CARAMEL_BRICKS), 1, of(have(CARAMEL_BRICK))).unlockedBy(hasn(), has()).save(writer, id());
+		shaped(BUILDING_BLOCKS, def(CHOCOLATE_CARAMEL_BRICKS))
+				.pattern("#@").define('#', have(CARAMEL_BRICK))
 				.pattern("@#").define('@', CHOCOLATE_BRICK)
 				.unlockedBy(hasn(), has()).save(writer, id());
-		shaped(BUILDING_BLOCKS, def(WHITE_CHOCOLATE_CARAMEL_BRICKS), 4)
-				.pattern("#@").define('#', have(CARAMEL_BRICKS))
+		shaped(BUILDING_BLOCKS, def(WHITE_CHOCOLATE_CARAMEL_BRICKS))
+				.pattern("#@").define('#', have(CARAMEL_BRICK))
 				.pattern("@#").define('@', WHITE_CHOCOLATE_BRICK)
 				.unlockedBy(hasn(), has()).save(writer, id());
 		
+		//甜草越往下越珍稀,所以只能3->0 , 0-/->3
 		factory(def(SWEET_GRASS_3)).ingredient(SWEET_GRASS_2).save(writer, id());
 		factory(def(SWEET_GRASS_2)).ingredient(SWEET_GRASS_1).save(writer, id());
 		factory(def(SWEET_GRASS_1)).ingredient(SWEET_GRASS_0).save(writer, id());
-		factory(def(SWEET_GRASS_0)).ingredient(SWEET_GRASS_3).save(writer, id());
+		factory(def(SWEET_GRASS_0)).ingredient(SWEET_GRASS_3).advanced().save(writer, id());
 		
 		of3x3(def(MINT_BLOCK), 1, of(have(MINT))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x3(def(RASPBERRY_BLOCK), 1, of(have(ROPE_RASPBERRY))).unlockedBy(hasn(), has()).save(writer, id());
@@ -172,6 +190,9 @@ public class CRecipeProvider extends RecipeProvider {
 		of3x3(def(CANDY_CANE_BLOCK), 1, of(have(CANDY_CANE))).unlockedBy(hasn(), has()).save(writer, id());
 		
 		furnace(def(TRAMPOJELLY)).ingredient(JELLY_ORE).exp(2f).save(writer, id());
+		factory(def(RED_TRAMPOJELLY)).ingredient(TRAMPOJELLY).save(writer, id());
+		furnace(def(JELLY_SHOCK_ABSORBER)).ingredient(RED_TRAMPOJELLY).exp(2f).save(writer, id());
+		shapeless(BUILDING_BLOCKS, def(SENSITIVE_JELLY)).requires(REDSTONE_WIRE).requires(have(TRAMPOJELLY)).unlockedBy(hasn(), has()).save(writer, id());
 		
 		furnace(def(LICORICE)).ingredient(LICORICE_ORE).exp(2f).save(writer, id());
 		of2x2(def(LICORICE_BRICKS), 4, of(have(LICORICE_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
@@ -221,9 +242,9 @@ public class CRecipeProvider extends RecipeProvider {
 		fence(def(LIGHT_MARSHMALLOW_FENCE), 6, of(MARSHMALLOW_STICK), of(have(LIGHT_MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
 		fence(def(CANDY_CANE_FENCE), 6, of(CANDY_CANE), of(have(CANDY_CANE_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
 		
-		fenceGate(def(MARSHMALLOW_FENCE), 1, of(MARSHMALLOW_STICK), of(have(MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
-		fenceGate(def(DARK_MARSHMALLOW_FENCE), 1, of(MARSHMALLOW_STICK), of(have(DARK_MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
-		fenceGate(def(LIGHT_MARSHMALLOW_FENCE), 1, of(MARSHMALLOW_STICK), of(have(LIGHT_MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
+		fenceGate(def(MARSHMALLOW_FENCE_GATE), 1, of(MARSHMALLOW_STICK), of(have(MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
+		fenceGate(def(DARK_MARSHMALLOW_FENCE_GATE), 1, of(MARSHMALLOW_STICK), of(have(DARK_MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
+		fenceGate(def(LIGHT_MARSHMALLOW_FENCE_GATE), 1, of(MARSHMALLOW_STICK), of(have(LIGHT_MARSHMALLOW_PLANKS))).unlockedBy(hasn(), has()).save(writer, id());
 		
 		of3x2(def(CANDY_CANE_WALL), 6, of(have(CANDY_CANE_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x2(def(LICORICE_WALL), 6, of(have(LICORICE_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
@@ -280,6 +301,7 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern(" * ")
 				.pattern("* *").define('*', have(CRANFISH_SCALE))
 				.unlockedBy(hasn(), has()).save(writer, id());
+		
 		furnace(def(CARAMEL_GLASS)).ingredient(of(CARAMEL_BLOCK)).exp(0.5f).save(writer, id());
 		furnace(def(CARAMEL_GLASS)).ingredient(of(ROUND_CARAMEL_GLASS)).exp(0.5f).save(writer, id());
 		furnace(def(CARAMEL_GLASS)).ingredient(of(DIAMOND_CARAMEL_GLASS)).exp(0.5f).save(writer, id());
@@ -395,7 +417,7 @@ public class CRecipeProvider extends RecipeProvider {
 	private String _hasK;
 	private InventoryChangeTrigger.TriggerInstance _hasV;
 	private int _used = 0;
-	private HashMap<String, InventoryChangeTrigger.TriggerInstance> _haves = new HashMap<>();
+	private final HashMap<String, InventoryChangeTrigger.TriggerInstance> _haves = new HashMap<>();
 	
 	private <T> T have(T t) {
 		if (_hasK != null) {

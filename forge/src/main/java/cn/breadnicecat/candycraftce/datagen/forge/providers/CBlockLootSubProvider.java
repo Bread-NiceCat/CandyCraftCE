@@ -83,7 +83,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE,
 				WHITE_CHOCOLATE_FURNACE, WHITE_CHOCOLATE_STONE_TILE
 		);
-		accept(m -> add(m, noDrop()), CARAMEL_PORTAL, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT, CARAMEL_LIQUID);
+		accept(m -> add(m, noDrop()), CARAMEL_PORTAL, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT);
 		accept(m -> add(m, createDoorTable(m.get())), MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
 		//SilkTouch || Shear
 		accept(m -> add(m, createSilkTouchOrShearsDispatchTable(m.get(), EmptyLootItem.emptyItem())),
@@ -91,7 +91,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		);
 		//SilkTouch
 		accept(m -> dropWhenSilkTouch(m.get()),
-				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE
+				GRENADINE_ICE, CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE
 		);
 		
 		add(DRAGIBUS_CROPS, (b) -> createCropDrops(b, DRAGIBUS.get(), DRAGIBUS.get(), AGE_IS_7.apply(b)));
@@ -143,8 +143,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	
 	protected LootTable.@NotNull Builder createLeavesDrops(@NotNull Block leavesBlock, @NotNull ItemLike sapling, ItemLike stick, float @NotNull ... chances) {
 		return createSilkTouchOrShearsDispatchTable(leavesBlock,
-				applyExplosionCondition(leavesBlock, LootItem.lootTableItem(sapling))
-						.when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances))
+				applyExplosionCondition(leavesBlock, LootItem.lootTableItem(sapling)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances))
 		).withPool(LootPool.lootPool()
 				.setRolls(ConstantValue.exactly(1.0f))
 				.when(HAS_NO_SHEARS_OR_SILK_TOUCH)

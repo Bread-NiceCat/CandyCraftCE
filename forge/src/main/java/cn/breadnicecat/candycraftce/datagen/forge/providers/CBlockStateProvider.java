@@ -45,14 +45,15 @@ public class CBlockStateProvider extends BlockStateProvider {
 		this.exFileHelper = existingFileHelper;
 	}
 	
+	@SuppressWarnings("CodeBlock2Expr")
 	@Override
 	protected void registerStatesAndModels() {
 		//(_)type : textureName
 		mappings = new HashMap<>();//make mappings enabled
 		//exist : (model) *
 		{
-			accept(b -> simpleBlock(b.get(), existModelFile(b.get())),
-					CARAMEL_LIQUID);
+//			accept(b -> simpleBlock(b.get(), existModelFile(b.get())),
+//					CARAMEL_LIQUID);
 		}
 		
 		//cubeAll : *
@@ -67,7 +68,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
-					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK,
+					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK, GRENADINE_ICE,
 					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT,
 					CARAMEL_BRICKS, CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE
 			);

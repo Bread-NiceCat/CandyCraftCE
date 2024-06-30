@@ -7,7 +7,6 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -16,13 +15,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 
+import java.util.HashSet;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
-import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
@@ -39,6 +39,7 @@ import static net.minecraft.world.level.block.Blocks.*;
 public class CBlocks {
 	
 	private static final Logger LOGGER = CLogUtils.sign();
+	public static final HashSet<BlockEntry<?>> BLOCKS = new HashSet<>();
 	
 	static {
 		if (isClient()) {
@@ -205,6 +206,7 @@ public class CBlocks {
 	public static final BlockEntry<SpikesBlock> SUGAR_SPIKES = create("sugar_spikes", SpikesBlock::new).setProperties(PEZ_BLOCK, Properties::noCollission).save();
 	public static final BlockEntry<SpikesBlock> CRANBERRY_SPIKES = create("cranberry_spikes", SpikesBlock::new).setProperties(SUGAR_SPIKES, null).save();
 	
+	public static final BlockEntry<IceBlock> GRENADINE_ICE = create("grenadine_block", IceBlock::new).setProperties(ICE, null).save();
 	public static final BlockEntry<GlassBlock> CARAMEL_GLASS = create("caramel_glass", GlassBlock::new).setProperties(GLASS, null).save();
 	public static final BlockEntry<GlassBlock> ROUND_CARAMEL_GLASS = create("round_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
 	public static final BlockEntry<GlassBlock> DIAMOND_CARAMEL_GLASS = create("diamond_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
@@ -221,16 +223,17 @@ public class CBlocks {
 	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 	
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
-	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
+//	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
 	
 	
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
 		LOGGER.info("declareRendererType");
-		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.translucent()),
-				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY
+		accept((b) -> setRendererType(b.get(), RenderType.translucent()),
+				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY,
+				GRENADINE_ICE
 		);
-		accept((b) -> ItemBlockRenderTypes.TYPE_BY_BLOCK.put(b.get(), RenderType.cutout()),
+		accept((b) -> setRendererType(b.get(), RenderType.cutout()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
 				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, SUGAR_SPIKES, CRANBERRY_SPIKES,
@@ -239,12 +242,22 @@ public class CBlocks {
 				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER,
 				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
 		);
-		accept((b) -> ItemBlockRenderTypes.TYPE_BY_FLUID.put(b.get(), RenderType.translucent()),
-				CARAMEL
-		);
+//		accept((b) -> ItemBlockRenderTypes.TYPE_BY_FLUID.put(b.get(), RenderType.translucent()),
+//				CARAMEL
+//		);
 	}
 	
 	public static void init() {
+	}
+	
+	@ExpectPlatform
+	private static void setRendererType(Block block, RenderType rt) {
+		impossibleCode();
+	}
+	
+	@ExpectPlatform
+	private static void setRendererType(Fluid fluid, RenderType rt) {
+		impossibleCode();
 	}
 	
 	

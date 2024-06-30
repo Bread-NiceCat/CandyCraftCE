@@ -127,7 +127,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(TRAMPOJELLY_BOOTS, "果冻靴子");
 		addItemById(DRAGIBUS, "彩虹糖");
 		addItemById(LOLLIPOP_SEEDS, "棒棒糖种子");
-		addItemById(CARAMEL_BUCKET, "熔融焦糖桶");
+//		addItemById(CARAMEL_BUCKET, "熔融焦糖桶");
 		addItemById(CHOCOLATE_LEAF, "巧克力树叶");
 		addItemById(WHITE_CHOCOLATE_LEAF, "白巧克力树叶");
 		addItemById(CARAMEL_LEAF, "焦糖树叶");
@@ -273,7 +273,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(DARK_MARSHMALLOW_TRAPDOOR, "深色棉花软糖活版门");
 		addBlockById(JAWBREAKER_BRICKS, "基岩硬糖砖");
 		addBlockById(JAWBREAKER_LIGHT, "基岩硬糖灯");
-		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
+//		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
 		addBlockById(CARAMEL_BRICKS, "焦糖砖");
 		addBlockById(CHOCOLATE_CARAMEL_BRICKS, "巧克力焦糖砖");
 		addBlockById(WHITE_CHOCOLATE_CARAMEL_BRICKS, "白巧克力焦糖混合砖");
@@ -287,6 +287,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(WHITE_CHOCOLATE_FURNACE, "白巧克力熔炉");
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
 		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
+		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
 		
 	}
 	

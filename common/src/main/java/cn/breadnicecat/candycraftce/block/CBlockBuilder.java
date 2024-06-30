@@ -33,7 +33,7 @@ public class CBlockBuilder<B extends Block> {
 	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
 	
 	private final String name;
-	private Function<Properties, B> factory;
+	private final Function<Properties, B> factory;
 	private Supplier<Properties> properties;
 	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
 	
@@ -113,6 +113,7 @@ public class CBlockBuilder<B extends Block> {
 			return factory.apply(prop);
 		});
 		if (item != null) items.add(() -> item.apply(entry));
+		CBlocks.BLOCKS.add(entry);
 		return entry;
 	}
 	

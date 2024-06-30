@@ -22,9 +22,9 @@ import java.util.function.Consumer;
  */
 public class SugarFactoryRecipeBuilder extends CRecipeBuilderBase {
 	private Ingredient ingredient;
-	private int count;
+	private int count = 1;
 	private boolean advanced;
-	private Item result;
+	private final Item result;
 	
 	public SugarFactoryRecipeBuilder(ItemLike result) {
 		this.result = result.asItem();
@@ -32,6 +32,10 @@ public class SugarFactoryRecipeBuilder extends CRecipeBuilderBase {
 	
 	public static SugarFactoryRecipeBuilder factory(ItemLike result) {
 		return new SugarFactoryRecipeBuilder(result);
+	}
+	
+	public static SugarFactoryRecipeBuilder factory(ItemLike result, int cnt) {
+		return factory(result).count(cnt);
 	}
 	
 	

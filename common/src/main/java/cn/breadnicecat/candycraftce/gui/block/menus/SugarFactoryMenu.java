@@ -20,21 +20,20 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SugarFactoryMenu extends AbstractContainerMenu {
 	private static final int INV_START = 0;
-	private static final int INV_END = 36;
-	private static final int INPUT_SLOT = 37;
-	private static final int OUTPUT_SLOT = 38;
-
+	private static final int INV_END = 35;
+	private static final int INPUT_SLOT = 36;
+	private static final int OUTPUT_SLOT = 37;
+	
 	public final Inventory inventory;
 	public final Container container;
 	public final ContainerData data;
-
-
+	
+	
 	protected SugarFactoryMenu(MenuType<?> type, int id, Inventory inventory, Container container, ContainerData data) {
 		super(type, id);
 		this.inventory = inventory;
 		this.container = container;
 		this.data = data;
-		int by = 84;
 		//player inv
 		for (int i = 0; i < 3; ++i) {
 			for (int k = 0; k < 9; ++k) {
@@ -48,15 +47,15 @@ public class SugarFactoryMenu extends AbstractContainerMenu {
 		addSlot(new ResultSlot(container, SugarFactoryBE.OUTPUT_SLOT, 151, 7));
 		addDataSlots(data);
 	}
-
+	
 	public SugarFactoryMenu(int id, Inventory inventory, Container container, ContainerData data) {
 		this(CMenus.SUGAR_FACTORY_MENU.get(), id, inventory, container, data);
 	}
-
+	
 	public SugarFactoryMenu(int id, Inventory inv) {
 		this(id, inv, new SimpleContainer(2), new SimpleContainerData(3));
 	}
-
+	
 	@Override
 	public @NotNull ItemStack quickMoveStack(Player player, int index) {
 		if (index >= INV_START && index <= INV_END) {
@@ -66,7 +65,7 @@ public class SugarFactoryMenu extends AbstractContainerMenu {
 		}
 		return ItemStack.EMPTY;
 	}
-
+	
 	@Override
 	public boolean stillValid(Player player) {
 		return container.stillValid(player);

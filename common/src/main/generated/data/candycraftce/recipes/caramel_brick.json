@@ -2,10 +2,10 @@
   "type": "candycraftce:sugar_factory",
   "advanced": false,
   "ingredient": {
-    "item": "candycraftce:sweet_grass_3"
+    "item": "candycraftce:caramel_block"
   },
   "result": {
-    "count": 0,
-    "item": "candycraftce:sweet_grass_0"
+    "count": 4,
+    "item": "candycraftce:caramel_brick"
   }
 }

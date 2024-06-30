@@ -1,7 +1,10 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.item.items.*;
+import cn.breadnicecat.candycraftce.item.items.CaramelBowItem;
+import cn.breadnicecat.candycraftce.item.items.ForkItem;
+import cn.breadnicecat.candycraftce.item.items.HoneycombArrowItem;
+import cn.breadnicecat.candycraftce.item.items.IIDebugItem;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -16,6 +19,7 @@ import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.redstone.Redstone;
 import org.slf4j.Logger;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -35,6 +39,10 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
+	/**
+	 * 包括BlockItem
+	 */
+	public static HashSet<ItemEntry<?>> ITEMS = new HashSet<>();
 	private static List<Supplier<ItemEntry<?>>> blockItems;
 	
 	static {
@@ -95,7 +103,7 @@ public class CItems {
 	
 	/*唱片*/
 	public static final ItemEntry<RecordItem> RECORD_o = create("record_o",
-			p -> _record_wwwooowww(Redstone.SIGNAL_MAX, CSoundEvents.CD_o, p, 302, "Bread_NiceCat's Secret Record", "Mono Inc. - Children of the Dark"))
+			p -> _record_o(Redstone.SIGNAL_MAX, CSoundEvents.CD_o, p, 2 * 60 + 8))
 			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
 			.setCtab(false)
 			.save();
@@ -115,12 +123,12 @@ public class CItems {
 	
 	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
 	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).setProperties(new Properties().stacksTo(1)).save();
-//HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
+	//HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
 	
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
 	
 	/*流体*/
-	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
+//	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
 	/*工具*/
 	//MARSHMALLOW
 	public static final ItemEntry<SwordItem> MARSHMALLOW_SWORD = createSword("marshmallow_sword", CTiers.MARSHMALLOW, 3, -2.4F).save();
@@ -258,7 +266,7 @@ public class CItems {
 	}
 	
 	@ExpectPlatform
-	private static RecordItem _record_wwwooowww(int analog, SoundEntry evt, Properties prop, int lengthInSeconds, String nameInGame, String musicName) {
+	private static RecordItem _record_o(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
 		return impossibleCode();
 	}
 }

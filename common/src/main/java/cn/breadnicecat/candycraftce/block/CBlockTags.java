@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -18,8 +18,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CBlockTags {
-	public static HashMap<TagKey<Block>, TagKey<Item>> _pairs_ = new HashMap<>();
-	//仅标记
+	/**
+	 * 用于{@link net.minecraft.data.tags.ItemTagsProvider#copy(net.minecraft.tags.TagKey, net.minecraft.tags.TagKey)}
+	 */
+	public static HashSet<BiTagKey> _pairs_ = new HashSet<>();
+	//仅标记,不存在item
 	public static final TagKey<Block> BT_CARAMEL_PORTAL_FRAME = create("caramel_portal_frame");
 	public static final TagKey<Block> BT_CANDY_PLANT_SUITABLE = create("candy_plant_suitable");
 	public static final TagKey<Block> BT_CARVER_OVERRIDEABLE = create("carver_overrideable");
@@ -30,14 +33,18 @@ public class CBlockTags {
 	public static final BiTagKey BT_JELLY = bind("jelly");
 	public static final BiTagKey BT_ICE_CREAMS = bind("ice_cream");
 	public static final BiTagKey BT_CHOCOLATES = bind("chocolate");
+	public static final BiTagKey BT_SUGARY = bind("sugary");
 	
+	static {
+		_pairs_.remove(BT_SUGARY);
+	}
 	
 	private static BiTagKey bind(String name) {
 		ResourceLocation location = prefix(name);
 		TagKey<Block> k = TagKey.create(Registries.BLOCK, location);
 		TagKey<Item> v = TagKey.create(Registries.ITEM, location);
 		BiTagKey pair = new BiTagKey(k, v);
-		_pairs_.put(k, v);
+		_pairs_.add(pair);
 		return pair;
 	}
 	

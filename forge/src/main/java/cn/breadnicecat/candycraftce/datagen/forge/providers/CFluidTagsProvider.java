@@ -37,7 +37,7 @@ public class CFluidTagsProvider extends FluidTagsProvider {
 //		add(WATER, CARAMEL);
 	}
 
-	private Map<TagKey<?>, Set<?>> validator = new HashMap<>();
+	private final Map<TagKey<?>, Set<?>> validator = new HashMap<>();
 
 	private void add(TagKey<Fluid> tagKey, FluidEntry<?>... fe) {
 		if (fe.length == 0) return;

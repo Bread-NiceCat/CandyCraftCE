@@ -35,8 +35,7 @@ import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFIG;
 import static cn.breadnicecat.candycraftce.utils.LevelUtils.move;
-import static net.minecraft.ChatFormatting.RED;
-import static net.minecraft.ChatFormatting.YELLOW;
+import static net.minecraft.ChatFormatting.*;
 import static net.minecraft.core.particles.ParticleTypes.FLAME;
 
 /**
@@ -103,10 +102,10 @@ public class IIDebugItem extends Item {
 			int used = (tag.contains(USED_TIMES_KEY) ? tag.getInt(USED_TIMES_KEY) : 0) + 1;
 			tag.putInt(USED_TIMES_KEY, used);
 			if (used > 0 && used % 666 == 0) {
-				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_o.getDefaultInstance().setHoverName(Component.literal("头发").withStyle(RED)));
+				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_o.getDefaultInstance());
 				LevelUtils.spawnItemEntity(level, pos, Items.JUKEBOX.getDefaultInstance());
 				level.playSound(player, pos, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.BLOCKS);
-				player.sendSystemMessage(Component.literal("随着你日日夜夜的对Mod进行调试， 你逐渐觉得使用用Debug工具越来越顺手了。 嗯？什么东西掉下来了？").withStyle(YELLOW));
+				player.sendSystemMessage(Component.literal("这是你第" + used + "次使用").withStyle(YELLOW).append(getName(item)).withStyle(BLUE));
 			}
 		}
 		return InteractionResult.sidedSuccess(level.isClientSide);

@@ -35,8 +35,14 @@ public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu
 	}
 	
 	@Override
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		renderBackground(guiGraphics);
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		renderTooltip(guiGraphics, mouseX, mouseY);
+	}
+	
+	@Override
 	protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-		renderBackground(graphics);
 		graphics.blit(style, leftPos, topPos, 0, 0, 174, 114);
 		int ticked = menu.data.get(TICKED_DATA_SLOT);
 		int tickedTotal = menu.data.get(TICKED_TOTAL_DATA_SLOT);

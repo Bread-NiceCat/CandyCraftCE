@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -127,6 +128,16 @@ public class CommonUtils {
 		} else {
 			return ((p2 - p) / (p2 - p1) * v1) + ((p - p1) / (p2 - p1) * v2);
 		}
+	}
+	
+	public static int[] listInt2int(List<Integer> listInt) {
+		int[] res = new int[listInt.size()];
+		int i = 0;
+		for (int num : listInt) {
+			res[i++] = num;
+		}
+		return res;
+		
 	}
 	
 	@Contract()//把->fail顶掉

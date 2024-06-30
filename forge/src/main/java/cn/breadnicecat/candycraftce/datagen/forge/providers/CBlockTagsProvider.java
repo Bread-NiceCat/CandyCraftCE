@@ -36,9 +36,13 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 		super(output, lookupProvider, CandyCraftCE.MOD_ID, existingFileHelper);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked"})
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
+		
+		var sugary = new HashSet<>(BLOCKS);
+		add(BT_SUGARY.b(), sugary.toArray(BlockEntry[]::new));
+		
 		add(BT_CARAMEL_PORTAL_FRAME, CARAMEL_BLOCK, SUGAR_BLOCK);
 		add(PORTALS, CARAMEL_PORTAL);
 		
@@ -116,7 +120,7 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 		add(BT_ICE_CREAMS.b(), ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM);
 	}
 	
-	private Map<TagKey<?>, Set<?>> validator = new HashMap<>();
+	private final Map<TagKey<?>, Set<?>> validator = new HashMap<>();
 	
 	private IntrinsicTagAppender<Block> add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 		

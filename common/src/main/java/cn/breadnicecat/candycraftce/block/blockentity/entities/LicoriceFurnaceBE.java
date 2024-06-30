@@ -37,11 +37,11 @@ import java.util.Optional;
 import static cn.breadnicecat.candycraftce.utils.TickUtils.SEC2TICK;
 
 public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer {
-
+	
 	public static final int INPUT_SLOT = 0;
 	public static final int FUEL_SLOT = 1;
 	public static final int OUTPUT_SLOT = 2;
-
+	
 	public static final int TICKED_DATA = 0;
 	public static final int TICKED_TOTAL_DATA = 1;
 	public static final int LIT_TIME_DATA = 2;
@@ -52,36 +52,36 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 
 //	private final RecipeType<?> RECIPE_TYPE = null;
 //	private final RecipeManager.CachedCheck<?, ?> CACHE = RecipeManager.createCheck(RECIPE_TYPE);
-
-	private ItemStackList items = new ItemStackList(3);
+	
+	private final ItemStackList items = new ItemStackList(3);
 	private float exp;
 	private int litTime;
-
+	
 	private int litTimeTotal;
-
+	
 	private int ticked;
 	private int tickedTotal;
-
-
-	private SugarFurnaceRecipe recipeUsed = null;
-	private RecipeManager.CachedCheck<LicoriceFurnaceBE, SugarFurnaceRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FURNACE_TYPE.get());
-
+	
+	
+	private @Nullable SugarFurnaceRecipe recipeUsed = null;
+	private final RecipeManager.CachedCheck<LicoriceFurnaceBE, SugarFurnaceRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FURNACE_TYPE.get());
+	
 	public final CDataAccessors data = new CDataAccessors(
 			LambdaAccessor.of(() -> this.ticked, (t) -> this.ticked = t),
 			LambdaAccessor.of(() -> this.tickedTotal, (t) -> this.tickedTotal = t),
 			LambdaAccessor.of(() -> this.litTime, (t) -> this.litTime = t),
 			LambdaAccessor.of(() -> this.litTimeTotal, (t) -> this.litTimeTotal = t)
 	);
-
+	
 	protected LicoriceFurnaceBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int tickedTotal) {
 		super(blockEntityType, blockPos, blockState);
 		this.tickedTotal = tickedTotal;
 	}
-
+	
 	public LicoriceFurnaceBE(BlockPos blockPos, BlockState blockState) {
 		this(CBlockEntities.LICORICE_FURNACE_BE.get(), blockPos, blockState, (int) (10 * SEC2TICK));
 	}
-
+	
 	public void serverTick() {
 		boolean isLit = litTime > 0;
 		//检查工作状态(配方,燃料,输出)
@@ -91,24 +91,20 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 				recipeUsed = null;
 				break check;
 			}
-
 			//检查配方
 			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
 				//寻找新配方
 				Optional<SugarFurnaceRecipe> recipe = quickCheck.getRecipeFor(this, level);
 				if (recipe.isEmpty()) {
 					recipeUsed = null;
-					break check;
 				} else {
+					//检查输出 输出堵塞
 					recipeUsed = recipe.get();
+					ItemStack out = items.get(OUTPUT_SLOT);
+					if (!out.isEmpty() && (!out.is(recipeUsed.result) || (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize()))) {
+						recipeUsed = null;
+					}
 				}
-			}
-
-			//检查输出 输出堵塞
-			ItemStack out = items.get(OUTPUT_SLOT);
-			ItemStack resultItem = recipeUsed.getResultItem(level.registryAccess());
-			if (!out.isEmpty() && (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize() || !out.is(resultItem.getItem()))) {
-				recipeUsed = null;
 			}
 		}
 		//方块更新
@@ -155,19 +151,19 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		}
 		if (changed) setChanged();
 	}
-
-
+	
+	
 	@Override
 	public @NotNull Component getDisplayName() {
 		return getBlockState().getBlock().getName();
 	}
-
+	
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 		return new LicoriceFurnaceMenu(i, inventory, this, data);
 	}
-
+	
 	public void dropExp(Vec3 pos) {
 		if (exp > 0f) {
 			ExperienceOrb orb = new ExperienceOrb(level, pos.x, pos.y, pos.z, Mth.floor(exp));
@@ -176,8 +172,8 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			level.addFreshEntity(orb);
 		}
 	}
-
-
+	
+	
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
 		ContainerHelper.saveAllItems(tag, this.items);
@@ -187,7 +183,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		tag.putInt("ticked", ticked);
 		super.saveAdditional(tag);
 	}
-
+	
 	@Override
 	public void load(CompoundTag tag) {
 		ContainerHelper.loadAllItems(tag, this.items);
@@ -197,7 +193,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		ticked = tag.getInt("ticked");
 		super.load(tag);
 	}
-
+	
 	@Override
 	public int @NotNull [] getSlotsForFace(Direction side) {
 		return switch (side) {
@@ -206,7 +202,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			default -> SLOT_FOR_SIDE;
 		};
 	}
-
+	
 	@Override
 	public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
 		return direction != null && switch (direction) {
@@ -214,7 +210,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			default -> true;
 		};
 	}
-
+	
 	@Override
 	public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
 		return switch (direction) {
@@ -222,43 +218,43 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			default -> false;
 		};
 	}
-
+	
 	@Override
 	public int getContainerSize() {
 		return items.size();
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		return items.isEmpty();
 	}
-
+	
 	@Override
 	public @NotNull ItemStack getItem(int slot) {
 		return items.get(slot);
 	}
-
+	
 	@Override
 	public @NotNull ItemStack removeItem(int slot, int amount) {
 		return ContainerHelper.removeItem(items, slot, amount);
 	}
-
+	
 	@Override
 	public @NotNull ItemStack removeItemNoUpdate(int slot) {
 		return ContainerHelper.takeItem(items, slot);
-
+		
 	}
-
+	
 	@Override
 	public void setItem(int slot, ItemStack stack) {
 		items.set(slot, stack);
 	}
-
+	
 	@Override
 	public boolean stillValid(Player player) {
 		return Container.stillValidBlockEntity(this, player);
 	}
-
+	
 	@Override
 	public void clearContent() {
 		items.clear();

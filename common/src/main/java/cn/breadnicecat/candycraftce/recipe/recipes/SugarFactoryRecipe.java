@@ -21,8 +21,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
 
 /**
  * Created in 2024/2/4
@@ -42,6 +41,7 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 		this.id = id;
 		this.ingredient = ingredient;
 		this.result = result;
+		assertTrue(count > 0, "count <= 0 in recipe" + id);
 		this.count = count;
 		this.advanced = advanced;
 	}
@@ -58,7 +58,9 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 	
 	@Override
 	public @NotNull ItemStack assemble(SugarFactoryBE container, RegistryAccess registryAccess) {
-		return result.getDefaultInstance();
+		ItemStack stack = result.getDefaultInstance();
+		stack.setCount(count);
+		return stack;
 	}
 	
 	@Override
@@ -73,7 +75,9 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 	
 	@Override
 	public @NotNull ItemStack getResultItem(@Nullable RegistryAccess registryAccess) {
-		return result.getDefaultInstance();
+		ItemStack stack = result.getDefaultInstance();
+		stack.setCount(count);
+		return stack;
 	}
 	
 	@Override
@@ -99,7 +103,7 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 					Ingredient.fromJson(json.get("ingredient")),
 					ItemUtils.getItem(result.get("item")),
 					result.has("count") ? result.get("count").getAsInt() : 1,
-					result.has("advanced") && result.get("advanced").getAsBoolean());
+					json.has("advanced") && json.get("advanced").getAsBoolean());
 		}
 		
 		@Override
@@ -111,7 +115,7 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 				return result;
 			}));
 			object.add("ingredient", recipe.ingredient.toJson());
-			object.addProperty("advanced", recipe.advanced);
+			if (recipe.advanced) object.addProperty("advanced", true);
 		}
 		
 		@Override

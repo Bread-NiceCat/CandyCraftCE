@@ -13,11 +13,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.concurrent.CompletableFuture;
 
+import static cn.breadnicecat.candycraftce.block.CBlockTags.BT_SUGARY;
 import static cn.breadnicecat.candycraftce.item.CItemTags.*;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 import static net.minecraft.tags.ItemTags.*;
 
 /**
@@ -33,6 +36,11 @@ public class CItemTagsProvider extends ItemTagsProvider {
 	
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider arg) {
+		add(BT_SUGARY.i(), apply(new HashSet<>(ITEMS), (i) -> {
+			i.remove(RECORD_o);
+			i.remove(IIDEBUG);
+		}).toArray(ItemEntry[]::new));
+		
 		add(MUSIC_DISCS, RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_o);
 //		add(CItemTags.IT_HONEYCOMB, HONEYCOMB);
 //		add(CItemTags.IT_LICORICE, LICORICE);
@@ -49,11 +57,11 @@ public class CItemTagsProvider extends ItemTagsProvider {
 		add(PICKAXES, MARSHMALLOW_PICKAXE, LICORICE_PICKAXE, HONEYCOMB_PICKAXE, PEZ_PICKAXE);
 		add(SHOVELS, MARSHMALLOW_SHOVEL, LICORICE_SHOVEL, HONEYCOMB_SHOVEL, PEZ_SHOVEL);
 		
-		CBlockTags._pairs_.forEach(this::copy);
+		CBlockTags._pairs_.forEach((p) -> copy(p.b(), p.i()));
 	}
 	
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {
-		IntrinsicTagAppender<Item> tag = tag(tagKey);
+		var tag = tag(tagKey);
 		accept(i -> tag.add(i.get()), ie);
 	}
 	

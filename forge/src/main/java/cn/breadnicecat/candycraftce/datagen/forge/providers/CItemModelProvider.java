@@ -22,8 +22,8 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CItemModelProvider extends ItemModelProvider {
-	private final ModelFile.UncheckedModelFile HANDHELD = new ModelFile.UncheckedModelFile("item/handheld");
-	private static ModelFile.UncheckedModelFile GENERATED = new ModelFile.UncheckedModelFile("item/generated");
+	private static final ModelFile.UncheckedModelFile HANDHELD = new ModelFile.UncheckedModelFile("item/handheld");
+	private static final ModelFile.UncheckedModelFile GENERATED = new ModelFile.UncheckedModelFile("item/generated");
 	
 	public CItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
 		super(output, CandyCraftCE.MOD_ID, existingFileHelper);
@@ -41,7 +41,7 @@ public class CItemModelProvider extends ItemModelProvider {
 					LOLLIPOP, CRANFISH_SCALE, CRANFISH, CRANFISH_COOKED, WHITE_CHOCOLATE_BRICK,
 //					BLACK_CHOCOLATE_BRICK,
 					WHITE_CHOCOLATE_LEAF, JELLY_SENTRY_KEY, JELLY_BOSS_KEY,
-					CARAMEL_BUCKET, CANDIED_CHERRY_LEAF, CARAMEL_LEAF, CHOCOLATE_LEAF, MAGICAL_LEAF,
+					CANDIED_CHERRY_LEAF, CARAMEL_LEAF, CHOCOLATE_LEAF, MAGICAL_LEAF,
 					RECORD_1, RECORD_2, RECORD_3, RECORD_4,
 					GINGERBREAD_EMBLEM, JELLY_EMBLEM, SKY_EMBLEM, CHEWING_GUM_EMBLEM, HONEYCOMB_EMBLEM, CRANBERRY_EMBLEM, NESSIE_EMBLEM, SUGUARD_EMBLEM,
 					HONEYCOMB_ARROW, IIDEBUG, CARAMEL_BRICK, CHOCOLATE_BRICK,
@@ -68,7 +68,7 @@ public class CItemModelProvider extends ItemModelProvider {
 	
 	public ItemModelBuilder handheldItem(ItemEntry<?> item, @NotNull ResourceLocation tex) {
 		return getBuilder(item.getName())
-				.parent(this.HANDHELD)
+				.parent(HANDHELD)
 				.texture("layer0", new ResourceLocation(tex.getNamespace(), "item/" + tex.getPath()));
 	}
 	

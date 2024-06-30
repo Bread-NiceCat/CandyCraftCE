@@ -21,7 +21,7 @@ import java.util.function.Consumer;
  * <p>
  */
 public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
-	private Item result;
+	private final Item result;
 	private Ingredient ingredient;
 	private float exp;
 	private int count = 1;

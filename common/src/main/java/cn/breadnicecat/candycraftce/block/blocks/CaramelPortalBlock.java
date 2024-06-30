@@ -19,7 +19,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -36,7 +35,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
-import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_LIQUID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
 import static net.minecraft.world.level.block.Blocks.LAVA;
@@ -55,7 +53,7 @@ public class CaramelPortalBlock extends Block {
 	
 	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(2, 21, 3, 21,
 			true, true,
-			b -> b.isAir() || b.is(CARAMEL_LIQUID.get()) || b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
+			b -> b.isAir() || /*b.is(CARAMEL_LIQUID.get()) ||*/ b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
 			b -> b.is(CBlockTags.BT_CARAMEL_PORTAL_FRAME));
 	
 	public static final BiFunction<Axes, BlockState, BlockState> PLACER = (axes, old) -> {
@@ -135,10 +133,10 @@ public class CaramelPortalBlock extends Block {
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (level.isClientSide()) return;
-		if (entity instanceof ItemEntity itemEntity) {
+//		if (entity instanceof ItemEntity itemEntity) {
 //			ItemStack stack = itemEntity.getItem();
 //			itemEntity.setItem(ItemStack.EMPTY);
-			//交易
+		//交易
 //			Vec3 delta = itemEntity.getDeltaMovement();
 //			for (CaramelPortalRecipe r : RecipeHelper.getAllRecipesFor(CCManagerRecipe.caramel_portal_type.get())) {
 //				if (r.matches(stack, level)) {
@@ -147,7 +145,8 @@ public class CaramelPortalBlock extends Block {
 //					return;
 //				}
 //			}
-		} else if (entity.isAlive() && !entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
+//		}else
+		if (entity.isAlive() && !entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
 			//传送
 			ResourceKey<Level> destination = getDestination(level);
 			if (destination != null) {

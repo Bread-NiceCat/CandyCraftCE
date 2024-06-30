@@ -23,17 +23,17 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
 import static net.minecraft.core.registries.BuiltInRegistries.ITEM;
 
 public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
-	private final ResourceLocation id;
-	private final Item result;
-	private final Ingredient ingredient;
-	private final int count;
-	private final float exp;
+	public final ResourceLocation id;
+	public final Item result;
+	public final Ingredient ingredient;
+	public final int count;
+	public final float exp;
 	
 	public SugarFurnaceRecipe(ResourceLocation id, Ingredient ingredient, Item result, int count, float exp) {
 		this.id = id;
 		this.result = result;
 		this.ingredient = ingredient;
-		assertTrue(count > 0, "count > 0 required");
+		assertTrue(count > 0, "count <= 0 in " + id);
 		this.count = count;
 		this.exp = exp;
 	}
@@ -65,7 +65,9 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 	
 	@Override
 	public @NotNull ItemStack getResultItem(@Nullable RegistryAccess registryAccess) {
-		return result.getDefaultInstance();
+		ItemStack stack = result.getDefaultInstance();
+		stack.setCount(count);
+		return stack;
 	}
 	
 	@Override
