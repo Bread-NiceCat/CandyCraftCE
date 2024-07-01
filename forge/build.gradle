@@ -29,6 +29,7 @@ loom {
         client {
             vmArg "-Dmixin.debug.export=true"
         }
+
     }
 }
 configurations {
@@ -48,8 +49,6 @@ dependencies {
     modRuntimeOnly("curse.maven:appleskin-248787:4770828")
 
     modRuntimeOnly("native:BetterTags-1.20.1:1.1")
-    modRuntimeOnly("native:IconRenderer-Forge-1.20.1:1.1.0")
-    modRuntimeOnly("native:recipedumper:4.0-Forge")
 
     modCompileOnly("mezz.jei:jei-1.20.1-forge-api:15.2.0.25") { transitive false }
     modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.25") { transitive false }

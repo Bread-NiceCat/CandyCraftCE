@@ -21,13 +21,13 @@ public class BlockEntityEntry<B extends BlockEntity> extends SimpleEntry<BlockEn
 	public BlockEntityEntry(ResourceKey<BlockEntityType<?>> key, Supplier<BlockEntityType<B>> getter) {
 		super(key, getter);
 	}
-
+	
 	public BlockEntityEntry(Pair<ResourceKey<BlockEntityType<?>>, Supplier<BlockEntityType<B>>> wrapper) {
 		super(wrapper);
 	}
-
+	
 	public B create(BlockPos pos, BlockState state) {
 		return this.get().create(pos, state);
 	}
-
+	
 }

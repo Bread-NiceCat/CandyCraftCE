@@ -19,7 +19,7 @@ public class EntityEntry<T extends Entity> extends SimpleEntry<EntityType<?>, En
 	public EntityEntry(ResourceKey<EntityType<?>> key, Supplier<EntityType<T>> getter) {
 		super(key, getter);
 	}
-
+	
 	public EntityEntry(Pair<ResourceKey<EntityType<?>>, Supplier<EntityType<T>>> wrapper) {
 		super(wrapper);
 	}

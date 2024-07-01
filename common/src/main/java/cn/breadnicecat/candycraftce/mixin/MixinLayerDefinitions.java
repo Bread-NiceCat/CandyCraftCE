@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityBuilder;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -22,11 +22,11 @@ import java.util.Map;
  */
 @Mixin(LayerDefinitions.class)
 public abstract class MixinLayerDefinitions {
-
+	
 	@Inject(method = "createRoots",
 			at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;", remap = false),
 			locals = LocalCapture.CAPTURE_FAILEXCEPTION)
 	private static void createRoots(CallbackInfoReturnable<Map<ModelLayerLocation, LayerDefinition>> info, ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder) {
-		CEntities.createRoots(builder);
+		CEntityBuilder._createRoots(builder);
 	}
 }

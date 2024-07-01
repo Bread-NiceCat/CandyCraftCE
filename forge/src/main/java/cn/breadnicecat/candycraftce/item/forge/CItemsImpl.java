@@ -1,19 +1,25 @@
 package cn.breadnicecat.candycraftce.item.forge;
 
+import cn.breadnicecat.candycraftce.entity.EntityEntry;
+import cn.breadnicecat.candycraftce.item.CItemBuilder;
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
+
+import static cn.breadnicecat.candycraftce.item.CItems._SPAWN_EGG_TRANS_KEY;
 
 /**
  * Created in 2023/12/29 23:55
@@ -48,6 +54,19 @@ public class CItemsImpl {
 				super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
 				tooltipComponents.add(appendix);
 			}
+		};
+	}
+	
+	public static @NotNull Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
+		return () -> {
+			CItemBuilder<SpawnEggItem> builder = CItemBuilder.create(entity.getName(), (p) -> new ForgeSpawnEggItem(entity, backgroundColor, highlightColor, p){
+				@Override
+				public @NotNull Component getName(@NotNull ItemStack stack) {
+					return Component.translatable(_SPAWN_EGG_TRANS_KEY, I18n.get(entity.get().getDescriptionId()));
+				}
+			});
+			if (properties != null) builder.setProperties(properties);
+			return builder.save();
 		};
 	}
 }

@@ -1,6 +1,9 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
+import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.CaramelBowItem;
 import cn.breadnicecat.candycraftce.item.items.ForkItem;
 import cn.breadnicecat.candycraftce.item.items.HoneycombArrowItem;
@@ -14,9 +17,12 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.redstone.Redstone;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.HashSet;
@@ -27,6 +33,7 @@ import java.util.function.Supplier;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
+import static cn.breadnicecat.candycraftce.item.CItemBuilder.setTab;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 
 /**
@@ -39,11 +46,14 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
+	public static final String _SPAWN_EGG_TRANS_KEY ="item.candycraftce.spawn_egg";
 	/**
 	 * 包括BlockItem
 	 */
-	public static HashSet<ItemEntry<?>> ITEMS = new HashSet<>();
-	private static List<Supplier<ItemEntry<?>>> blockItems;
+	public static @NotNull HashSet<ItemEntry<?>> ITEMS = new HashSet<>();
+	
+	private static @Nullable List<Supplier<ItemEntry<BlockItem>>> blockItems;
+	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs;
 	
 	static {
 		if (isClient()) CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
@@ -183,8 +193,13 @@ public class CItems {
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 	
 	static {
+		setTab(CreativeModeTabs.OP_BLOCKS,IIDEBUG::getDefaultInstance);
+		CBlockEntities.init();
 		blockItems.forEach(Supplier::get);
 		blockItems = null;
+		CEntities.init();
+		eggs.forEach(Supplier::get);
+		eggs = null;
 	}
 	
 	@Environment(EnvType.CLIENT)
@@ -206,8 +221,18 @@ public class CItems {
 	public static void init() {
 	}
 	
-	public static void hookBlockItems(List<Supplier<ItemEntry<?>>> items) {
+	/**
+	 * 仅仅是为了创造模式物品栏排序
+	 */
+	public static void hookBlockItems(List<Supplier<ItemEntry<BlockItem>>> items) {
 		blockItems = items;
+	}
+	
+	/**
+	 * 仅仅是为了创造模式物品栏排序
+	 */
+	public static void hookEntityEggs(List<Supplier<ItemEntry<SpawnEggItem>>> items) {
+		eggs = items;
 	}
 	
 	private static <I> Function<Properties, I> higher(Supplier<I> sup) {
@@ -259,7 +284,6 @@ public class CItems {
 	}
 	
 	//平台差异
-	
 	@ExpectPlatform
 	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
 		return impossibleCode();
@@ -267,6 +291,11 @@ public class CItems {
 	
 	@ExpectPlatform
 	private static RecordItem _record_o(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
+		return impossibleCode();
+	}
+	
+	@ExpectPlatform
+	public static Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
 		return impossibleCode();
 	}
 }

@@ -30,12 +30,12 @@ import static net.minecraft.core.registries.BuiltInRegistries.BLOCK;
  * <p>
  */
 public class CBlockBuilder<B extends Block> {
-	private static List<Supplier<ItemEntry<?>>> items = new LinkedList<>();
+	private static List<Supplier<ItemEntry<BlockItem>>> items = new LinkedList<>();
 	
 	private final String name;
 	private final Function<Properties, B> factory;
 	private Supplier<Properties> properties;
-	private Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item;
+	private Function<BlockEntry<B>, ItemEntry<BlockItem>> item;
 	
 	static {
 		//把block都排到最后去
@@ -87,7 +87,7 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 	
-	public CBlockBuilder<B> simpleBlockItem(@Nullable Consumer<CItemBuilder<? extends BlockItem>> modifier) {
+	public CBlockBuilder<B> simpleBlockItem(@Nullable Consumer<CItemBuilder<BlockItem>> modifier) {
 		blockItem((t) -> {
 			CItemBuilder<BlockItem> builder = CItemBuilder.block(t);
 			if (modifier != null) modifier.accept(builder);
@@ -96,7 +96,7 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 	
-	public CBlockBuilder<B> blockItem(Function<BlockEntry<B>, ItemEntry<? extends BlockItem>> item) {
+	public CBlockBuilder<B> blockItem(Function<BlockEntry<B>, ItemEntry<BlockItem>> item) {
 		this.item = item;
 		return this;
 	}

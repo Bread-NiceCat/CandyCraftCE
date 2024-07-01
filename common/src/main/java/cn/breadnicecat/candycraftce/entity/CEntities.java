@@ -1,21 +1,25 @@
 package cn.breadnicecat.candycraftce.entity;
 
-import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.entities.projectiles.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.renderers.RendererCaramelArrow;
+import cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import com.google.common.collect.ImmutableMap;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.util.function.Supplier;
+import java.util.HashMap;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
+import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.create;
+import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.registerLayer;
+import static cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan.JOB;
+import static cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan.MAIN;
+import static net.minecraft.world.entity.MobCategory.CREATURE;
+import static net.minecraft.world.entity.MobCategory.MISC;
 
 /**
  * Created in 2024/2/25 8:58
@@ -25,22 +29,32 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CEntities {
+	
+	public static final @NotNull HashMap<String, EntityEntry<?>> ENTITIES = new HashMap<>();
+	
 	private static final Logger LOGGER = CLogUtils.sign();
-
-//	public static final EntityEntry<LicoriceSpearEntity> LICORICE_SPEAR = register("licorice_spear", () -> EntityType.Builder.<LicoriceSpearEntity>of(LicoriceSpearEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
-
-	public static <E extends Entity> EntityEntry<E> register(String name, Supplier<EntityType.Builder<E>> factory) {
-		ResourceLocation id = prefix(name);
-		return new EntityEntry<>(CandyCraftCE.register(BuiltInRegistries.ENTITY_TYPE, id, () -> factory.get().build(id.toString())));
+	
+	public static final EntityEntry<GingerbreadMan> GINGERBREAD_MAN = create("gingerbread_man", GingerbreadMan::new, CREATURE)
+			.sized(0.5f, 1f)
+			.attribute(GingerbreadMan::createAttributes)
+			.spawnEgg(0xF1C3C3, 0x61380B)
+			.save();
+		public static final EntityEntry<CaramelArrow> CARAMEL_ARROW =  CEntityBuilder.<CaramelArrow>create("caramel_arrow",CaramelArrow::new, MISC)
+				.sized(0.5f,0.5f)
+				.save();
+	
+	static {
+		hookMinecraftSetup(() -> {
+					if (isClient()) {
+						EntityRenderers.register(GINGERBREAD_MAN.get(), RendererGingerbreadMan::new);
+						EntityRenderers.register(CARAMEL_ARROW.get(), RendererCaramelArrow::new);
+						registerLayer(MAIN, ModelGingerbreadMan::createBodyLayer);
+						registerLayer(JOB, ModelGingerbreadMan::createBodyLayer);
+					}
+				}
+		);
 	}
-
-	@Environment(EnvType.CLIENT)
-	public static void createRoots(ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder) {
-		LOGGER.info("create model roots");
-//		builder.put(LicoriceSpearModel.MAIN_LAYER, LicoriceSpearModel.createBodyLayer());
-//		EntityRenderers.register(LICORICE_SPEAR.get(), LicoriceSpearRenderer::new);
-	}
-
+	
 	public static void init() {
 	}
 }

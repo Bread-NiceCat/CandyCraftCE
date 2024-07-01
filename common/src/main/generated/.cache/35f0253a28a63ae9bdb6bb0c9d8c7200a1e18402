@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-30T15:28:22.6221763	Item Models: candycraftce
+// 1.20.1	2024-07-01T22:57:27.1236306	Item Models: candycraftce
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 1db7252b22afc34130202c06fec63a7e983ff1a9 assets/candycraftce/models/item/candied_cherry_leaf.json
 3d18fd42d331d0e83b460f2554faf2e3778f6a64 assets/candycraftce/models/item/candy_cane.json
@@ -17,6 +17,7 @@ d010c80060a62816224315552fc1d36db41a0483 assets/candycraftce/models/item/cranfis
 f905627a7cbf716238285b59ddd8a03522b7d128 assets/candycraftce/models/item/dragibus.json
 ce279e54f7a6138bf2dbb05fa85133be5ba17890 assets/candycraftce/models/item/fork.json
 34d6f675c08ef63d75aa2d3bf06f83bfc22f7bcd assets/candycraftce/models/item/gingerbread_emblem.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/gingerbread_man.json
 7b2c2355299cd75fffed364ebd458beb30593d7c assets/candycraftce/models/item/gummy.json
 22aca8f17c76fbae8b29dddc4c9aec8ee13ae521 assets/candycraftce/models/item/honeycomb.json
 4253fb61464547033a40cd913b9b7f26ef082105 assets/candycraftce/models/item/honeycomb_arrow.json

@@ -2,8 +2,10 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -33,6 +35,11 @@ public class CItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		//generated
 		{
+//			CCEntityManager.SPAWN_EGG_HELPER.getEntries().forEach((k, v) -> withExistingParent(k.getEntryName(), "item/template_spawn_egg"));
+			BuiltInRegistries.ITEM.entrySet().stream()
+					.filter(e -> e.getKey().location().getNamespace().equals(CandyCraftCE.MOD_ID))
+					.filter(e -> e.getValue() instanceof SpawnEggItem)
+					.forEach(e -> withExistingParent(e.getKey().location().getPath(), "item/template_spawn_egg"));
 			accept(((i) -> basicItem(i.get())),
 					LICORICE, HONEYCOMB, HONEYCOMB_SHARD, PEZ, MARSHMALLOW_STICK,
 					SUGAR_CRYSTAL, COTTON_CANDY, GUMMY, HOT_GUMMY, CHOCOLATE_COIN,

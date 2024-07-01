@@ -1,0 +1,10 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "advanced": true,
+  "ingredient": {
+    "item": "candycraftce:sweet_grass_3"
+  },
+  "result": {
+    "item": "candycraftce:sweet_grass_0"
+  }
+}

@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.ZhCnCLanguageProvider;
+import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.item.CCTab;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
@@ -20,6 +21,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 
@@ -47,8 +49,8 @@ public class CLanguageProvider implements DataProvider {
 	protected void addTranslations() {
 		add(CCTab.TITLE_KEY, "CandyCraft CE", "糖果世界非官方版");
 		add(CGameRules.CARAMEL_PORTAL_WORKS.getDescriptionId(), "Enable Caramel Portal Teleport Player.", "允许焦糖传送门传送玩家");
-		addDamage("step_on_spikes", "%s's feet was pierced.", "%s的脚被刺穿了");
-		addDamageBy("step_on_spikes", "%s's feet was accidentally pierced while he escapes from %s", "%s在逃离%s的时候不慎被尖刺刺穿了脚");
+		addDamage("candycraftce.step_on_spikes", "%s's feet was pierced.", "%s的脚被刺穿了");
+		addDamageBy("candycraftce.step_on_spikes", "%s's feet was accidentally pierced while he escapes from %s", "%s在逃离%s的时候不慎被尖刺刺穿了脚");
 		addItemById(LICORICE, "盐甘草糖");
 		addItemById(HONEYCOMB, "蜜蜡");
 		addItemById(HONEYCOMB_SHARD, "蜜蜡碎片");
@@ -226,8 +228,8 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(ROUND_CARAMEL_GLASS, "圆形焦糖玻璃");
 		addBlockById(DIAMOND_CARAMEL_GLASS, "钻石形焦糖玻璃");
 		addBlockById(CARAMEL_GLASS_PANE, "焦糖玻璃板");
-		addBlockById(ROUND_CARAMEL_GLASS_PANE, "圆形焦糖玻璃");
-		addBlockById(DIAMOND_CARAMEL_GLASS_PANE, "钻石形焦糖玻璃");
+		addBlockById(ROUND_CARAMEL_GLASS_PANE, "圆形焦糖玻璃板");
+		addBlockById(DIAMOND_CARAMEL_GLASS_PANE, "钻石形焦糖玻璃板");
 		addBlockById(MINT_BLOCK, "水生薄荷块");
 		addBlockById(RASPBERRY_BLOCK, "水生树莓块");
 		addBlockById(CHEWING_GUM_BLOCK, "口香糖块");
@@ -288,7 +290,8 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
 		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
 		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
-		
+		add(_SPAWN_EGG_TRANS_KEY,"%s Spawn Egg","%s刷怪蛋");
+		addEntityById(GINGERBREAD_MAN,"姜饼人");
 	}
 	
 	/**
@@ -321,6 +324,13 @@ public class CLanguageProvider implements DataProvider {
 	
 	public void addBlock(BlockEntry<?> be, String en_us, String zh_cn) {
 		add(be.get().getDescriptionId(), en_us, zh_cn);
+	}
+	public void addEntityById(EntityEntry<?> ee, String zh_cn) {
+		addEntity(ee, byId(ee.getId().getPath()), zh_cn);
+	}
+	
+	public void addEntity(EntityEntry<?> ee, String en_us, String zh_cn) {
+		add(ee.get().getDescriptionId(), en_us, zh_cn);
 	}
 	
 	public void addById(String key, @Nullable String zh_cn) {

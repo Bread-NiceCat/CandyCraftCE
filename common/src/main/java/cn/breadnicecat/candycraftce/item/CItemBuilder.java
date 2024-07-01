@@ -3,14 +3,17 @@ package cn.breadnicecat.candycraftce.item;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import com.mojang.datafixers.util.Pair;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,6 +24,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
@@ -108,10 +112,15 @@ public class CItemBuilder<I extends Item> {
 		return entry;
 	}
 	
-	private static <I extends Item> ItemEntry<I> register(String name, Supplier<I> factory) {
+	private static <I extends Item> @NotNull ItemEntry<I> register(String name, Supplier<I> factory) {
 		Pair<ResourceKey<Item>, Supplier<I>> pair = CandyCraftCE.register(BuiltInRegistries.ITEM, prefix(name), factory);
 		return new ItemEntry<>(pair);
 	}
 	
+	@SafeVarargs
+	@ExpectPlatform
+	public static void setTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack>... stack){
+		impossibleCode();
+	}
 	
 }

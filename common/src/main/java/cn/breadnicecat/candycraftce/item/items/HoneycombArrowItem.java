@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.item.items;
 
+import cn.breadnicecat.candycraftce.entity.entities.projectiles.CaramelArrow;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -22,8 +23,7 @@ public class HoneycombArrowItem extends ArrowItem {
 
 	@Override
 	public @NotNull AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter) {
-		//TODO 自定义箭实体
-		Arrow arrow = new Arrow(level, shooter);
+		CaramelArrow arrow = new CaramelArrow(level, shooter);
 		arrow.setEffectsFromItem(stack);
 		return arrow;
 	}
