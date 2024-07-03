@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers;
 
 import cn.breadnicecat.candycraftce.utils.ItemUtils;
-import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -480,7 +479,7 @@ public class CRecipeProvider extends RecipeProvider {
 		final ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(_now.asItem()));
 		ResourceLocation recipeId = key;
 		for (int i = 1; _nameCache.contains(recipeId); i++) {
-			recipeId = ResourceUtils.postfix(key, String.valueOf(i));
+			recipeId = key.withSuffix(String.valueOf(i));
 		}
 		_nameCache.add(recipeId);
 		_now = null;

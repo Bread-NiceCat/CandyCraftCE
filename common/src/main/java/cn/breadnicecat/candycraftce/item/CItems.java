@@ -4,10 +4,7 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
-import cn.breadnicecat.candycraftce.item.items.CaramelBowItem;
-import cn.breadnicecat.candycraftce.item.items.ForkItem;
-import cn.breadnicecat.candycraftce.item.items.HoneycombArrowItem;
-import cn.breadnicecat.candycraftce.item.items.IIDebugItem;
+import cn.breadnicecat.candycraftce.item.items.*;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -46,7 +43,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
-	public static final String _SPAWN_EGG_TRANS_KEY ="item.candycraftce.spawn_egg";
+	public static final String _SPAWN_EGG_TRANS_KEY = "item.candycraftce.spawn_egg";
 	/**
 	 * 包括BlockItem
 	 */
@@ -133,6 +130,7 @@ public class CItems {
 	
 	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
 	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).setProperties(new Properties().stacksTo(1)).save();
+	public static final ItemEntry<LicoriceSpearItem> LICORICE_SPEAR = create("licorice_spear", LicoriceSpearItem::new).setProperties(new Properties().stacksTo(1).durability(300)).save();
 	//HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
 	
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
@@ -193,7 +191,8 @@ public class CItems {
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 	
 	static {
-		setTab(CreativeModeTabs.OP_BLOCKS,IIDEBUG::getDefaultInstance);
+		
+		setTab(CreativeModeTabs.OP_BLOCKS, IIDEBUG::getDefaultInstance);
 		CBlockEntities.init();
 		blockItems.forEach(Supplier::get);
 		blockItems = null;
@@ -215,6 +214,7 @@ public class CItems {
 			return (float) (itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0f;
 		});
 		ItemProperties.register(CARAMEL_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
+		ItemProperties.register(LICORICE_SPEAR.get(), new ResourceLocation("throwing"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
 		
 	}
 	

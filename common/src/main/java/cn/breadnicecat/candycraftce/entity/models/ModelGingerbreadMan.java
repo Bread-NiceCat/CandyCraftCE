@@ -8,14 +8,19 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
+import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
+
 @Environment(EnvType.CLIENT)
 public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
+	public static final ModelLayerLocation MAIN = new ModelLayerLocation(GINGERBREAD_MAN.getId(), "main");
+	public static final ModelLayerLocation JOB = new ModelLayerLocation(GINGERBREAD_MAN.getId(), "job");
 	
 	private final ModelPart Head;
 	private final ModelPart RightLeg;
@@ -29,6 +34,7 @@ public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
 		this.LeftLeg = root.getChild("LeftLeg");
 	}
 	
+	@SuppressWarnings("unused")
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();

@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.PackOutput;
@@ -547,12 +546,12 @@ public class CBlockStateProvider extends BlockStateProvider {
 	}
 	
 	public ResourceLocation postfix(ResourceLocation ori, String app) {
-		ResourceLocation postfix = ResourceUtils.postfix(ori, app);
+		ResourceLocation postfix = ori.withSuffix(app);
 		return mappings.getOrDefault(postfix, postfix);
 	}
 	
 	public ModelFile.ExistingModelFile existModelFile(Block block) {
-		return existModelFile(prefix(ForgeRegistries.BLOCKS.getKey(block), "block/"));
+		return existModelFile(ForgeRegistries.BLOCKS.getKey(block).withPrefix("block/"));
 	}
 	
 	public ModelFile.ExistingModelFile existModelFile(ResourceLocation location) {

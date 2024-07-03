@@ -1,9 +1,8 @@
 package cn.breadnicecat.candycraftce.item.items;
 
-import cn.breadnicecat.candycraftce.entity.entities.projectiles.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -20,7 +19,7 @@ public class HoneycombArrowItem extends ArrowItem {
 	public HoneycombArrowItem(Properties properties) {
 		super(properties);
 	}
-
+	
 	@Override
 	public @NotNull AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter) {
 		CaramelArrow arrow = new CaramelArrow(level, shooter);

@@ -1,0 +1,38 @@
+{
+  "_idea": "@formatter:off",
+    "parent": "builtin/entity",
+    "gui_light": "front",
+    "textures": {
+        "particle": "candycraftce:item/licorice_spear"
+    },
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ 0, 60, 0 ],
+            "translation": [ 11, 17, -2 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 60, 0 ],
+            "translation": [ 3, 17, 12 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ -3, 17, 1],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 13, 17, 1],
+            "scale": [ 1, 1, 1 ]
+        }
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "throwing": 1
+            },
+            "model": "candycraftce:item/licorice_spear_throwing"
+        }
+    ]
+}

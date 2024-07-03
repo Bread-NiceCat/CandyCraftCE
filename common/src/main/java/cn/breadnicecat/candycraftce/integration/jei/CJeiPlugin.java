@@ -27,7 +27,8 @@ import static cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes.*;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FACTORY_TYPE;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.*;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
 
 /**
  * Created in 2023/9/30 15:44
@@ -54,7 +55,7 @@ public class CJeiPlugin implements IModPlugin {
 		registration.addRecipes(SUGAR_FURNACE_JEI, manager.getAllRecipesFor(SUGAR_FURNACE_TYPE.get()));
 		registration.addRecipes(SUGAR_FACTORY_JEI, manager.getAllRecipesFor(SUGAR_FACTORY_TYPE.get()));
 		registration.addRecipes(SUGAR_FACTORY_SUGAR_JEI, apply(Arrays.stream(SUGARY.ingredient.getItems())
-				.map(i -> new SugarFactoryRecipe(postfix(ItemUtils.getKey(i.getItem()), "__sugary"),
+				.map(i -> new SugarFactoryRecipe(ItemUtils.getKey(i.getItem()).withSuffix("__sugary"),
 						Ingredient.of(i), Items.SUGAR, 1, false))
 				.collect(Collectors.toList()), (i) -> i.add(0, SUGARY)));
 	}

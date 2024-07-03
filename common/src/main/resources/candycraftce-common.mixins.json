@@ -4,15 +4,23 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "MixinBlockEntityWithoutLevelRenderer",
+    "MixinItemRenderer",
     "MixinLayerDefinitions",
-    "MixinParticleEngine"
+    "MixinParticleEngine",
+    "MixinPlayerRenderer"
   ],
   "mixins": [
+    "MixinAbstractArrow",
     "MixinBucketItem",
     "MixinEntity",
     "MixinFarmBlock",
     "MixinItem",
-    "MixinLivingEntity"
+    "MixinLivingEntity",
+    "MixinModelBakery",
+    "MixinPlayer",
+    "ThrownTridentAccessor",
+    "ThrownTridentRendererAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

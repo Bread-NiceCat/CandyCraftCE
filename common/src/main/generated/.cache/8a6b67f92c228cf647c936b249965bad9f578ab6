@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-02T00:22:48.8551031	Tags for minecraft:item mod id candycraftce
+// 1.20.1	2024-07-03T17:30:29.7131429	Tags for minecraft:item mod id candycraftce
 f7b57839acc146f6eb3fe9021153aa1548aff9b0 data/candycraftce/tags/items/candy_arrow.json
 1a181a21de4a5f9f69851f207173aa89f9ffe46e data/candycraftce/tags/items/chocolate.json
 084a35bdeb323ab9c235e7f6e289a5a61fc368bd data/candycraftce/tags/items/emblem.json
@@ -7,7 +7,7 @@ c30a8a3e720fbdfee0cfca158868c8cf9511aef0 data/candycraftce/tags/items/ice_cream.
 bd0cf8655fdf49e0e71be2489074cdd793c72988 data/candycraftce/tags/items/leaf.json
 96fde7f4b4cef4e4bcceca56752e1815e702f18d data/candycraftce/tags/items/marshmallow_logs.json
 a2a5036f2c6edbf2fd36f31af4a321ee79da4a9b data/candycraftce/tags/items/marshmallow_planks.json
-2f43811eb789145d9dae48cb98ebd7f451f4710d data/candycraftce/tags/items/sugary.json
+cd54501d6299371c81a15443f4185fc0459d004d data/candycraftce/tags/items/sugary.json
 ba9c2d56982b75eebe860fe016b7c5a385cbd780 data/minecraft/tags/items/axes.json
 9dc4ceec81eac7be7e666072ebd35870fb6ec60c data/minecraft/tags/items/hoes.json
 e4557011233b96df27cfabf19cfc62603b32d67e data/minecraft/tags/items/music_discs.json

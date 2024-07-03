@@ -25,28 +25,29 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.cis_trans;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
+ * 传送玩家
  */
 @Mixin(Entity.class)
 public abstract class MixinEntity {
-
+	
 	@Shadow
 	public abstract float getYRot();
-
+	
 	@Shadow
 	public abstract float getXRot();
-
+	
 	@Shadow
 	public abstract Vec3 position();
-
+	
 	@Shadow
 	private Level level;
-
+	
 	@Shadow
 	public abstract Level level();
-
+	
 	@Shadow
 	public abstract Vec3 getDeltaMovement();
-
+	
 	@Inject(method = "findDimensionEntryPoint", at = @At("HEAD"), cancellable = true)
 	private void findDimensionEntryPoint(@NotNull ServerLevel destination, CallbackInfoReturnable<PortalInfo> cir) {
 		ResourceKey<Level> curDim = level.dimension();
@@ -66,7 +67,7 @@ public abstract class MixinEntity {
 					return new PortalInfo(Vec3.atCenterOf(pos1), getDeltaMovement(), getXRot(), getYRot());
 				},
 				null);
-
+		
 		if (info != null) cir.setReturnValue(info);
 	}
 }

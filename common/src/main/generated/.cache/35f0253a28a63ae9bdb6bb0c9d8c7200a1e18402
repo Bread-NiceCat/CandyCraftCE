@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-01T22:57:27.1236306	Item Models: candycraftce
+// 1.20.1	2024-07-03T17:30:29.7111481	Item Models: candycraftce
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 1db7252b22afc34130202c06fec63a7e983ff1a9 assets/candycraftce/models/item/candied_cherry_leaf.json
 3d18fd42d331d0e83b460f2554faf2e3778f6a64 assets/candycraftce/models/item/candy_cane.json
@@ -47,6 +47,7 @@ b6821ff9655fe5090aa321ddfe3b9e140b5eaa74 assets/candycraftce/models/item/licoric
 922d38081ac599f322070486afef383bf04999f5 assets/candycraftce/models/item/licorice_leggings.json
 edc0263a9c8ca4a68ac7f3ae262d78735655b4d1 assets/candycraftce/models/item/licorice_pickaxe.json
 7a9a658ab5f9d7b2ff258a40123ddbe0df05dcf3 assets/candycraftce/models/item/licorice_shovel.json
+94477bb8e0cd9733763a702384b70fe88b837451 assets/candycraftce/models/item/licorice_spear.json
 15ad86dcc98158e7bbd4557d0451667d9b46ee5b assets/candycraftce/models/item/licorice_sword.json
 b0e36a3a17e6baa926e524b670bae3b4b594a7e6 assets/candycraftce/models/item/lollipop.json
 c3cb1179b9903f4777775334a846f022cacf9cf8 assets/candycraftce/models/item/lollipop_seeds.json

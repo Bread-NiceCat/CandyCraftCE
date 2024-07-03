@@ -144,4 +144,12 @@ public class CommonUtils {
 	public static <T> T impossibleCode() {
 		throw new AssertionError("Impossible code invoked. It's a bug, please report it to us");
 	}
+	
+	public static <T> T orElse(T value, T defaultValue) {
+		return value == null ? defaultValue : value;
+	}
+	
+	public static <T> T orElse(T value, Supplier<T> defaultValue) {
+		return value == null ? defaultValue.get() : value;
+	}
 }

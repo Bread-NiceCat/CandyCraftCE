@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
-import cn.breadnicecat.candycraftce.entity.entities.projectiles.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  **/
 public class RendererCaramelArrow extends ArrowRenderer<CaramelArrow> {
-	public static ResourceLocation TEX= ResourceUtils.prefixEntityTex("caramel_arrow");
+	public static ResourceLocation TEX = ResourceUtils.prefixEntityTex("caramel_arrow");
+	
 	public RendererCaramelArrow(EntityRendererProvider.Context context) {
 		super(context);
 	}

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 
 import java.util.function.Function;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.extend;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
@@ -37,8 +36,5 @@ public class CFluids {
 //    private static CaramelFluid _caramel_fluid(ResourceLocation tex) {
 //        return impossibleCode();
 //    }
-	
-	private static ResourceLocation asTex(ResourceLocation loc, String postfix) {
-		return extend(loc, "block/", postfix);
-	}
+
 }

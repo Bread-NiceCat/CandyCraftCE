@@ -2,17 +2,16 @@ package cn.breadnicecat.candycraftce.entity.renderers;
 
 
 import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
-import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.layers.LayerGingerbreadManJob;
+import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
+import static cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan.MAIN;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
 
 /**
@@ -21,9 +20,6 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
  */
 @Environment(EnvType.CLIENT)
 public class RendererGingerbreadMan extends MobRenderer<GingerbreadMan, ModelGingerbreadMan> {
-	public static final ResourceLocation MODEL = prefix("gingerbread_man");
-	public static final ModelLayerLocation MAIN = new ModelLayerLocation(MODEL, "main");
-	public static final ModelLayerLocation JOB = new ModelLayerLocation(MODEL, "job");
 	
 	private static final ResourceLocation MAIN_TEX = prefixEntityTex("gingerbread_man/main");
 	

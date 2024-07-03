@@ -1,10 +1,13 @@
 package cn.breadnicecat.candycraftce.entity;
 
+import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
 import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
-import cn.breadnicecat.candycraftce.entity.entities.projectiles.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.LicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.models.ModelLicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.renderers.RendererCaramelArrow;
 import cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.renderers.RendererLicoriceSpear;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import org.jetbrains.annotations.NotNull;
@@ -16,8 +19,6 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.create;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.registerLayer;
-import static cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan.JOB;
-import static cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan.MAIN;
 import static net.minecraft.world.entity.MobCategory.CREATURE;
 import static net.minecraft.world.entity.MobCategory.MISC;
 
@@ -39,17 +40,23 @@ public class CEntities {
 			.attribute(GingerbreadMan::createAttributes)
 			.spawnEgg(0xF1C3C3, 0x61380B)
 			.save();
-		public static final EntityEntry<CaramelArrow> CARAMEL_ARROW =  CEntityBuilder.<CaramelArrow>create("caramel_arrow",CaramelArrow::new, MISC)
-				.sized(0.5f,0.5f)
-				.save();
+	public static final EntityEntry<CaramelArrow> CARAMEL_ARROW = CEntityBuilder.<CaramelArrow>create("caramel_arrow", CaramelArrow::new, MISC)
+			.sized(0.5f, 0.5f)
+			.save();
+	public static final EntityEntry<LicoriceSpear> LICORICE_SPEAR = CEntityBuilder.<LicoriceSpear>create("licorice_spear", LicoriceSpear::new, MISC)
+			.sized(0.5f, 0.5f)
+			.save();
 	
 	static {
 		hookMinecraftSetup(() -> {
 					if (isClient()) {
 						EntityRenderers.register(GINGERBREAD_MAN.get(), RendererGingerbreadMan::new);
 						EntityRenderers.register(CARAMEL_ARROW.get(), RendererCaramelArrow::new);
-						registerLayer(MAIN, ModelGingerbreadMan::createBodyLayer);
-						registerLayer(JOB, ModelGingerbreadMan::createBodyLayer);
+						EntityRenderers.register(LICORICE_SPEAR.get(), RendererLicoriceSpear::new);
+						
+						registerLayer(ModelGingerbreadMan.MAIN, ModelGingerbreadMan::createBodyLayer);
+						registerLayer(ModelGingerbreadMan.JOB, ModelGingerbreadMan::createBodyLayer);
+						registerLayer(ModelLicoriceSpear.MAIN, ModelLicoriceSpear::createBodyLayer);
 					}
 				}
 		);

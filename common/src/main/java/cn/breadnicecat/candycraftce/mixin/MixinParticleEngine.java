@@ -18,6 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinParticleEngine {
 	@Inject(method = "registerProviders", at = @At("TAIL"))
 	private void registerProviders(CallbackInfo ci) {
-		CParticles.registerProviders((ParticleEngine) (Object) this);
+		CParticles._registerProviders((ParticleEngine) (Object) this);
 	}
 }

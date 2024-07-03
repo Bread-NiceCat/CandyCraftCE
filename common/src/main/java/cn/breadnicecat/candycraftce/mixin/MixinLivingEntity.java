@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.item.CItems;
+import cn.breadnicecat.candycraftce.mixin_ref.$LivingEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -28,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinLivingEntity {
 	@Shadow
 	public abstract ItemStack getItemBySlot(EquipmentSlot slot);
-
+	
 	@Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
 	protected void hurt(@NotNull DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
 		//果冻靴子免摔落伤
@@ -36,7 +37,7 @@ public abstract class MixinLivingEntity {
 			cir.setReturnValue(false);
 		}
 	}
-
+	
 	@Inject(method = "tick", at = @At("HEAD"))
 	protected void tickHelmet(CallbackInfo ci) {
 		LivingEntity ent = (LivingEntity) (Object) this;
@@ -46,5 +47,18 @@ public abstract class MixinLivingEntity {
 			ent.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 20, 0, false, false, false));
 			ent.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20, 0, false, false, false));
 		}
+	}
+	
+	@Inject(method = "defineSynchedData", at = @At("TAIL"))
+	protected void defineSynchedData(CallbackInfo ci) {
+		LivingEntity ent = (LivingEntity) (Object) this;
+		//记录被焦糖箭打中的次数
+		ent.getEntityData().define($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID, 0);
+	}
+	
+	@SuppressWarnings("unused")
+	@Inject(method = "<clinit>", at = @At("TAIL"))
+	private static void clinit(CallbackInfo ci) {
+		var load = $LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID;
 	}
 }
