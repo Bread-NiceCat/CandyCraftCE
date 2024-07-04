@@ -29,12 +29,7 @@ public abstract class MixinModelBakery {
 	protected abstract void loadTopLevel(ModelResourceLocation location);
 	
 	@SuppressWarnings("rawtypes")
-	@Inject(method = "<init>",
-			at = @At(value = "INVOKE",
-					target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V",
-					shift = At.Shift.BEFORE
-			)
-	)
+	@Inject(method = "<init>", at = @At(value = "TAIL"))
 	void init(BlockColors blockColors, ProfilerFiller profilerFiller, Map modelResources, Map blockStateResources, CallbackInfo ci) {
 		loadTopLevel(ItemRenderer$SPEAR_IN_HAND_MODEL);
 	}

@@ -7,42 +7,10 @@
     },
     {
       "apply": {
-        "model": "candycraftce:block/alchemy_mixer_rope"
+        "model": "candycraftce:block/alchemy_mixer_liquid"
       },
       "when": {
-        "hanging": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "candycraftce:block/alchemy_mixer_content_1"
-      },
-      "when": {
-        "level": "1"
-      }
-    },
-    {
-      "apply": {
-        "model": "candycraftce:block/alchemy_mixer_content_2"
-      },
-      "when": {
-        "level": "2"
-      }
-    },
-    {
-      "apply": {
-        "model": "candycraftce:block/alchemy_mixer_content_3"
-      },
-      "when": {
-        "level": "3"
-      }
-    },
-    {
-      "apply": {
-        "model": "candycraftce:block/alchemy_mixer_content_4"
-      },
-      "when": {
-        "level": "4"
+        "full": "true"
       }
     }
   ]

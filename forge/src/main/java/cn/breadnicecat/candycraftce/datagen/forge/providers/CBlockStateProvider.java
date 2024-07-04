@@ -393,22 +393,20 @@ public class CBlockStateProvider extends BlockStateProvider {
 		{
 			String name = ALCHEMY_MIXER.getName();
 			AlchemyMixerBlock block = ALCHEMY_MIXER.get();
-			ModelFile base = existModelFile(modLoc("block/" + name));
+			ResourceLocation baseLoc = modLoc("block/" + name);
+			ModelFile base = existModelFile(baseLoc);
+			ModelFile liquid = existModelFile(baseLoc.withSuffix("_liquid"));
 			
 			MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
 					.part().modelFile(base)
 					.addModel()
 					.end()
 					
-					.part().modelFile(existModelFile(modLoc("block/" + name + "_rope")))
-					.addModel().condition(AlchemyMixerBlock.HANGING, true)
+					.part().modelFile(liquid)
+					.addModel()
+					.condition(AlchemyMixerBlock.FULL, true)
 					.end();
-			for (int i = 1; i < 5; i++) {
-				builder.part().modelFile(existModelFile(modLoc("block/" + name + "_content_" + i)))
-						.addModel()
-						.condition(AlchemyMixerBlock.LEVEL, i)
-						.end();
-			}
+			
 			simpleBlockItem(block, base);
 		}
 		//盐甘草糖熔炉
