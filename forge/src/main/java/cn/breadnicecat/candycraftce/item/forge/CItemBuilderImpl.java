@@ -8,7 +8,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -20,9 +23,9 @@ import java.util.function.Supplier;
  *
  * <p>
  **/
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CItemBuilderImpl {
-	private static final HashMap<ResourceKey<CreativeModeTab>, List<Supplier<ItemStack>>> its=new HashMap<>();
+	private static final HashMap<ResourceKey<CreativeModeTab>, List<Supplier<ItemStack>>> its = new HashMap<>();
 	
 	public static void setTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack>[] stack) {
 		its.computeIfAbsent(tab, (i) -> new LinkedList<>()).addAll(Arrays.asList(stack));
@@ -31,8 +34,8 @@ public class CItemBuilderImpl {
 	@SubscribeEvent
 	public void onBuildCreativeModeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {
 		List<Supplier<ItemStack>> l = its.get(event.getTabKey());
-		if(l!=null&&event.hasPermissions()){
-			l.forEach((i)->event.accept(i.get()));
+		if (l != null && event.hasPermissions()) {
+			l.forEach((i) -> event.accept(i.get()));
 		}
 	}
 }

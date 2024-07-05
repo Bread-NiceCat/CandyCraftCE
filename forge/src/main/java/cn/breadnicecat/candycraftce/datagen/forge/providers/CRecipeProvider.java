@@ -311,6 +311,12 @@ public class CRecipeProvider extends RecipeProvider {
 		of3x2(def(CARAMEL_GLASS_PANE), 16, of(have(CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x2(def(ROUND_CARAMEL_GLASS_PANE), 16, of(have(ROUND_CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x2(def(DIAMOND_CARAMEL_GLASS_PANE), 16, of(have(DIAMOND_CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
+		
+		factory(def(MAGICAL_LEAF), 2).ingredient(of(MAGICAL_LEAVES)).save(writer, id());
+		factory(def(CHOCOLATE_LEAF), 2).ingredient(of(CHOCOLATE_LEAVES)).save(writer, id());
+		factory(def(WHITE_CHOCOLATE_LEAF), 2).ingredient(of(WHITE_CHOCOLATE_LEAVES)).save(writer, id());
+		factory(def(CARAMEL_LEAF), 2).ingredient(of(CARAMEL_LEAVES)).save(writer, id());
+		factory(def(CANDIED_CHERRY_LEAF), 2).ingredient(of(CANDIED_CHERRY_LEAVES)).save(writer, id());
 	}
 	
 	

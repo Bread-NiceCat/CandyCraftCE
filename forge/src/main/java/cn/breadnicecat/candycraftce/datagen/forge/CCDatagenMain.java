@@ -44,12 +44,15 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeServer(), new CRecipeProvider(pack));
 		generator.addProvider(evt.includeServer(), new CDatapackBuiltinEntriesProvider(pack, lookup));
 		
-		generator.addProvider(evt.includeClient(), new CLanguageProvider(pack));
+		CLanguageProvider lang = new CLanguageProvider(pack);
+		generator.addProvider(evt.includeClient(), lang);
 		generator.addProvider(evt.includeClient(), new CBlockStateProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
 		
-		generator.addProvider(true, new NoisingSettingsProvider(pack, efhelper));
+		generator.addProvider(evt.includeServer(), new NoisingSettingsProvider(pack));
+		generator.addProvider(true, new CExportProvider(pack, lang.getZhLookup()));
+		
 		generator.addProvider(true, new CTerminalStateProvider(STATE));
 	}
 	

@@ -14,18 +14,19 @@ import java.util.function.Supplier;
  */
 public class SimpleEntry<R, T extends R> extends RegistryEntry<R> implements Supplier<T> {
 	private final Supplier<T> getter;
-
+	
 	public SimpleEntry(ResourceKey<R> key, Supplier<T> getter) {
 		super(key);
 		this.getter = getter;
 	}
-
+	
 	public SimpleEntry(Pair<ResourceKey<R>, Supplier<T>> wrapper) {
 		this(wrapper.getFirst(), wrapper.getSecond());
 	}
-
+	
 	@Override
 	public T get() {
 		return getter.get();
 	}
+	
 }

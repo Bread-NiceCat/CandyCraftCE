@@ -3,7 +3,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "candycraftce:block/alchemy_table"
+		"1": "candycraftce:block/grenadine_static"
 	},
 	"elements": [
 		{
@@ -12,8 +12,8 @@
 			"to": [13, 14, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
-				"up": {"uv": [4.5, 0, 12.5, 8], "texture": "#0"},
-				"down": {"uv": [4.5, 0, 12.5, 8], "texture": "#0"}
+				"up": {"uv": [4.5, 0, 12.5, 8], "texture": "#1"},
+				"down": {"uv": [4.5, 0, 12.5, 8], "texture": "#1"}
 			}
 		},
 		{
@@ -22,17 +22,9 @@
 			"to": [15, 3, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
-				"up": {"uv": [4.5, 0, 12.5, 8], "texture": "#0"},
-				"down": {"uv": [4.5, 0, 12.5, 8], "texture": "#0"}
+				"up": {"uv": [4.5, 0, 12.5, 8], "texture": "#1"},
+				"down": {"uv": [4.5, 0, 12.5, 8], "texture": "#1"}
 			}
-		}
-	],
-	"groups": [
-		{
-			"name": "liquid",
-			"origin": [8, 0, 8],
-			"color": 0,
-			"children": [0, 1]
 		}
 	]
 }

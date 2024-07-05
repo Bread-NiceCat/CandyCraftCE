@@ -85,7 +85,7 @@ public class CItemBuilder<I extends Item> {
 	 * @param nutrition  饱食度
 	 * @param saturation 饱和度 # 饱和度=2*饱食度*饱和度修饰符,这里已经进行转化
 	 * @param modifier   可以为null,对FoodProperties进行最后的修饰
-	 *                   <p>注意:不是对现有的FoodProperties修饰,而是直接赋值
+	 * @apiNote 注意:不是对现有的FoodProperties修饰,而是直接构建一个新的去setFood
 	 * @see FoodData#eat(int, float)
 	 */
 	public CItemBuilder<I> setFood(int nutrition, int saturation, @Nullable Consumer<FoodProperties> modifier) {
@@ -119,7 +119,7 @@ public class CItemBuilder<I extends Item> {
 	
 	@SafeVarargs
 	@ExpectPlatform
-	public static void setTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack>... stack){
+	public static void setTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack>... stack) {
 		impossibleCode();
 	}
 	

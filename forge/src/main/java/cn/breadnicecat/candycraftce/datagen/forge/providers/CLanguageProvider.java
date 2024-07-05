@@ -16,9 +16,11 @@ import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
@@ -38,6 +40,9 @@ public class CLanguageProvider implements DataProvider {
 	private final ZhCnCLanguageProvider zhProv;
 	private final Set<LanguageProvider> subs;
 	private final Set<String> existKeys = new HashSet<>();
+	
+	private final HashMap<String, String> zhStub = new HashMap<>();
+	private final CompletableFuture<?> lookupFuture = new CompletableFuture<>();
 	
 	public CLanguageProvider(PackOutput output) {
 		subs = Set.of(
@@ -290,8 +295,8 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
 		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
 		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
-		add(_SPAWN_EGG_TRANS_KEY,"%s Spawn Egg","%s刷怪蛋");
-		addEntityById(GINGERBREAD_MAN,"姜饼人");
+		add(_SPAWN_EGG_TRANS_KEY, "%s Spawn Egg", "%s刷怪蛋");
+		addEntityById(GINGERBREAD_MAN, "姜饼人");
 	}
 	
 	/**
@@ -325,6 +330,7 @@ public class CLanguageProvider implements DataProvider {
 	public void addBlock(BlockEntry<?> be, String en_us, String zh_cn) {
 		add(be.get().getDescriptionId(), en_us, zh_cn);
 	}
+	
 	public void addEntityById(EntityEntry<?> ee, String zh_cn) {
 		addEntity(ee, byId(ee.getId().getPath()), zh_cn);
 	}
@@ -340,7 +346,17 @@ public class CLanguageProvider implements DataProvider {
 	public void add(String key, String en_us, @Nullable String zh_cn) {
 		assertTrue(existKeys.add(key), () -> "Duplicate key: " + key);
 		enProv.add(key, en_us);
-		if (zh_cn != null) zhProv.add(key, zh_cn);
+		if (zh_cn != null) {
+			zhProv.add(key, zh_cn);
+			
+			zhStub.put(key, zh_cn);
+		} else {
+			zhStub.put(key, en_us);
+		}
+	}
+	
+	public CompletableFuture<Function<String, String>> getZhLookup() {
+		return lookupFuture.thenApply(void_ -> key -> zhStub.getOrDefault(key, key));
 	}
 	
 	/**
@@ -366,10 +382,12 @@ public class CLanguageProvider implements DataProvider {
 	
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
-		addTranslations();
-		return CompletableFuture.allOf(subs.stream()
-				.map(m -> m.run(output))
-				.toArray(CompletableFuture[]::new));
+		CompletableFuture<Void> adding = CompletableFuture.runAsync(this::addTranslations);
+		lookupFuture.complete(null);
+		return adding.thenCompose(void_ -> CompletableFuture.allOf(
+				subs.stream()
+						.map(m -> m.run(output))
+						.toArray(CompletableFuture[]::new)));
 	}
 	
 	@Override

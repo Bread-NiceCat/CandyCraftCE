@@ -13,30 +13,30 @@ import java.util.Objects;
  */
 public abstract class RegistryEntry<R> {
 	protected final ResourceKey<R> key;
-
+	
 	public RegistryEntry(ResourceKey<R> key) {
 		this.key = Objects.requireNonNull(key);
 	}
-
+	
 	public ResourceKey<R> getKey() {
 		return key;
 	}
-
+	
 	public ResourceLocation getId() {
 		return key.location();
 	}
-
+	
 	public String getName() {
 		return getId().getPath();
 	}
-
+	
 	@Override
 	public String toString() {
 		return key.toString();
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return key.hashCode();
+		return Objects.hash(key.registry(), key.location());
 	}
 }

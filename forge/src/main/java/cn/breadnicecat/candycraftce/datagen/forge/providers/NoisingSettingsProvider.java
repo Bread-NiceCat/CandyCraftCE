@@ -8,7 +8,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class NoisingSettingsProvider implements DataProvider {
 	private final Gson GSON = new GsonBuilder().create();
 	private final Path output;
 	
-	public NoisingSettingsProvider(PackOutput pack, ExistingFileHelper efhelper) {
+	public NoisingSettingsProvider(PackOutput pack) {
 		this.output = pack.getOutputFolder(PackOutput.Target.DATA_PACK).resolve(MOD_ID + "/worldgen/noise_settings");
 	}
 	

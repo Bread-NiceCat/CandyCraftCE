@@ -19,7 +19,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CDimInit {
 	private static final Logger LOGGER = CLogUtils.sign();
 	public static final SimpleEntry<FoliagePlacerType<?>, FoliagePlacerType<CandiedCherryFoliagePlacer>> CANDIED_CHERRY_FOLIAGE_PLACER = new SimpleEntry<>(CandyCraftCE.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, prefix("candied_cherry"), () -> new FoliagePlacerType<>(CandiedCherryFoliagePlacer.CODEC)));
-
+	
 	public static void init() {
 	}
 }
