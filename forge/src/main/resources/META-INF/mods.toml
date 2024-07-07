@@ -11,7 +11,7 @@ authors = "Bread_NiceCat, Star_Ocean_Sama(Texture)"
 credits = "Architectury-Loom"
 description = '''
 '''
-logoFile = "assets/candycraftce/icon.png"
+logoFile = "icon.png"
 
 [[dependencies.candycraftce]]
 modId = "forge"

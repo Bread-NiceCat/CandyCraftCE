@@ -7,6 +7,7 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -40,12 +41,6 @@ public class CBlocks {
 	
 	private static final Logger LOGGER = CLogUtils.sign();
 	public static final HashSet<BlockEntry<?>> BLOCKS = new HashSet<>();
-	
-	static {
-		if (isClient()) {
-			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
-		}
-	}
 	
 	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null).save();
 	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null).save();
@@ -223,23 +218,47 @@ public class CBlocks {
 	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 	
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
-//	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
+	
+	//	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
+	
+	static {
+		if (isClient()) {
+			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
+		}
+	}
 	
 	
+	/**
+	 * 由Mixin调用
+	 */
+	@Environment(EnvType.CLIENT)
+	public static void registerBlockColors(BlockColors colors) {
+		LOGGER.info("Register Block Colors");
+		colors.register((state, getter, pos, tintindex) -> {
+			if (getter == null || pos == null) {
+				return -1;
+			}
+			return getter.getBlockTint(pos, PuddingColor.PUDDING_COLOR_RESOLVER);
+		}, CUSTARD_PUDDING.get(), MAGICAL_LEAVES.get());
+	}
+	
+	/**
+	 * Minecraft Setup
+	 */
 	@Environment(EnvType.CLIENT)
 	private static void declareRendererType() {
-		LOGGER.info("declareRendererType");
+		LOGGER.info("Declare Renderer Type");
 		accept((b) -> setRendererType(b.get(), RenderType.translucent()),
 				CARAMEL_PORTAL, ALCHEMY_MIXER, TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER, SENSITIVE_JELLY,
 				GRENADINE_ICE
 		);
-		accept((b) -> setRendererType(b.get(), RenderType.cutout()),
+		accept((b) -> setRendererType(b.get(), RenderType.cutoutMipped()),
 				HONEYCOMB_TORCH, WALL_HONEYCOMB_TORCH, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING,
 				CANDIED_CHERRY_SAPLING, CHEWING_GUM_PUDDLE, COTTON_CANDY_WEB, MARSHMALLOW_LADDER,
 				MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, SUGAR_SPIKES, CRANBERRY_SPIKES,
 				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE,
 				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
-				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER,
+				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, CUSTARD_PUDDING,
 				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
 		);
 //		accept((b) -> ItemBlockRenderTypes.TYPE_BY_FLUID.put(b.get(), RenderType.translucent()),

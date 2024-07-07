@@ -46,14 +46,14 @@ dependencies {
 //    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
 
-    modRuntimeOnly("curse.maven:appleskin-248787:4770828")
+    modRuntimeOnly "curse.maven:appleskin-248787:4770828"
+    modRuntimeOnly "curse.maven:jade-324717:4801177"
+//    modImplementation "curse.maven:jei-238222:4690097"
 
     modRuntimeOnly("native:BetterTags-1.20.1:1.1")
 
     modCompileOnly("mezz.jei:jei-1.20.1-forge-api:15.2.0.25") { transitive false }
     modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.25") { transitive false }
-
-    modImplementation "curse.maven:jade-324717:4801177"
 
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }

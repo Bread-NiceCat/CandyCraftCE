@@ -1,0 +1,9 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "ingredient": {
+    "item": "candycraftce:golden_sugar_flower"
+  },
+  "result": {
+    "item": "minecraft:gold_nugget"
+  }
+}

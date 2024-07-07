@@ -9,7 +9,6 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,6 +32,8 @@ import static java.util.Arrays.asList;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
+import static net.minecraft.world.item.Items.GOLD_NUGGET;
+import static net.minecraft.world.item.Items.SUGAR;
 import static net.minecraft.world.item.crafting.Ingredient.of;
 import static net.minecraft.world.level.block.Blocks.REDSTONE_WIRE;
 
@@ -148,7 +149,7 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern("##").define('#', have(CHEWING_GUM))
 				.unlockedBy(hasn(), has()).save(writer, id());
 		
-		of3x3(def(SUGAR_BLOCK), 1, of(have(Items.SUGAR))).unlockedBy(hasn(), has()).save(writer, id());
+		of3x3(def(SUGAR_BLOCK), 1, of(have(SUGAR))).unlockedBy(hasn(), has()).save(writer, id());
 		
 		//BRICKS（方块）和BRICK（物品）一定要区分开来！
 		factory(def(CARAMEL_BRICK), 4).ingredient(CARAMEL_BLOCK).save(writer, id());
@@ -311,6 +312,9 @@ public class CRecipeProvider extends RecipeProvider {
 		of3x2(def(CARAMEL_GLASS_PANE), 16, of(have(CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x2(def(ROUND_CARAMEL_GLASS_PANE), 16, of(have(ROUND_CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x2(def(DIAMOND_CARAMEL_GLASS_PANE), 16, of(have(DIAMOND_CARAMEL_GLASS))).unlockedBy(hasn(), has()).save(writer, id());
+		
+		factory(def(HONEYCOMB_SHARD), 1).ingredient(of(FRAISE_TAGADA_FLOWER)).save(writer, id());
+		factory(def(GOLD_NUGGET), 1).ingredient(of(GOLDEN_SUGAR_FLOWER)).save(writer, id());
 		
 		factory(def(MAGICAL_LEAF), 2).ingredient(of(MAGICAL_LEAVES)).save(writer, id());
 		factory(def(CHOCOLATE_LEAF), 2).ingredient(of(CHOCOLATE_LEAVES)).save(writer, id());

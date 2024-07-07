@@ -1,0 +1,10 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "ingredient": {
+    "item": "candycraftce:chocolate_leaves"
+  },
+  "result": {
+    "count": 2,
+    "item": "candycraftce:chocolate_leaf"
+  }
+}

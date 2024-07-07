@@ -37,6 +37,9 @@ accessible	method	net/minecraft/client/renderer/entity/LivingEntityRenderer	addL
 accessible	field	net/minecraft/world/entity/projectile/ThrownTrident	tridentItem	Lnet/minecraft/world/item/ItemStack;
 #WorldGen
 accessible	method	net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType	<init>	(Lcom/mojang/serialization/Codec;)V
+
+accessible field net/minecraft/world/level/biome/Biome climateSettings Lnet/minecraft/world/level/biome/Biome$ClimateSettings;
+accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 #CreativeTabs
 accessible	class	net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible	field	net/minecraft/world/item/CreativeModeTabs	OP_BLOCKS	Lnet/minecraft/resources/ResourceKey;

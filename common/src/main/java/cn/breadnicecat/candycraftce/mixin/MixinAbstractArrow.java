@@ -6,6 +6,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,7 +29,7 @@ public abstract class MixinAbstractArrow {
 					shift = At.Shift.AFTER
 			)
 	)
-	protected void onHitEntity(EntityHitResult result, CallbackInfo ci) {
+	protected void onHitEntity(@NotNull EntityHitResult result, CallbackInfo ci) {
 		LivingEntity instance = (LivingEntity) result.getEntity();
 		if ((AbstractArrow) (Object) this instanceof CaramelArrow) {
 			SynchedEntityData data = instance.getEntityData();

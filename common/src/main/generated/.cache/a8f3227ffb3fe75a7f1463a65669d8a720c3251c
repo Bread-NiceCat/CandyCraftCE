@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-04T15:33:34.6041804	Block States: candycraftce
+// 1.20.1	2024-07-07T22:24:47.8884594	Block States: candycraftce
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets/candycraftce/blockstates/acid_mint_flower.json
 10f49f3c5dec148c98ea4b1a5cef5d1c3ba5354a assets/candycraftce/blockstates/advanced_sugar_factory.json
 98461b39c30bf2626e41b87c3f4bedc2ec157939 assets/candycraftce/blockstates/alchemy_mixer.json
@@ -217,7 +217,6 @@ ac7a53756babebcbb074739f88c3fc82f41819d1 assets/candycraftce/models/block/cotton
 95b797afae1ca3f0aee8a296138195ad5ca2477c assets/candycraftce/models/block/cotton_candy_stairs_outer.json
 9d045b62e9684c34a00e86ad379ab61457f604bc assets/candycraftce/models/block/cotton_candy_web.json
 201a35988129eb6bab85e3402fdfcb50d2052473 assets/candycraftce/models/block/cranberry_spikes.json
-b9558fc7f23369d390f0a5c8b6eb2f5630a2e02e assets/candycraftce/models/block/custard_pudding.json
 bdfc09c72008474a7a9ebe742bdcc16e09b48b13 assets/candycraftce/models/block/dark_marshmallow_door_bottom_left.json
 e8c256ab0d49d7855d15dad88fbd293a69b5ddba assets/candycraftce/models/block/dark_marshmallow_door_bottom_left_open.json
 dfe353d116346d89cc1f6e4a62261115a505157c assets/candycraftce/models/block/dark_marshmallow_door_bottom_right.json
@@ -325,7 +324,6 @@ bc55ac55a5a0c0875f25a78d41c1c6b1331d1b94 assets/candycraftce/models/block/light_
 4a5a77d098c1da7aa69a0b2c00f9449d2c40b017 assets/candycraftce/models/block/lollipop_stem_0.json
 7fecdc811921b3ed0e5cec39dc7fb04d218f22cf assets/candycraftce/models/block/lollipop_stem_1.json
 029d288b8507f0894a960af724d07bfd4131aa39 assets/candycraftce/models/block/lollipop_stem_2.json
-22c180b6055359e8c9800a433b73821bd91225dc assets/candycraftce/models/block/magical_leaves.json
 3cdf6e28d7231f6b4261a9de901e9f9f91197cde assets/candycraftce/models/block/marshmallow_crafting_table.json
 7a5917593999150bc303fa303dfc5da4e06d3a4f assets/candycraftce/models/block/marshmallow_door_bottom_left.json
 d9958ca9112bd971b572dc02201d4d9ac9568faf assets/candycraftce/models/block/marshmallow_door_bottom_left_open.json

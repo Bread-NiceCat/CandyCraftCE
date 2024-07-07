@@ -51,8 +51,8 @@ public class CBlockStateProvider extends BlockStateProvider {
 		mappings = new HashMap<>();//make mappings enabled
 		//exist : (model) *
 		{
-//			accept(b -> simpleBlock(b.get(), existModelFile(b.get())),
-//					CARAMEL_LIQUID);
+			accept(b -> simpleBlockWithItem(b.get(), existModelFile(b.get())),
+					CUSTARD_PUDDING, MAGICAL_LEAVES);
 		}
 		
 		//cubeAll : *
@@ -63,7 +63,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
 					SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 					DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-					MAGICAL_LEAVES, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICKS,
+					JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICKS,
 					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
@@ -75,7 +75,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 		
 		//cubeBottomTop : *_side *_bottom *_top
 		zone(() -> {
-			mapping(modLoc("block/" + CUSTARD_PUDDING.getName() + "_bottom"), blockTexture(PUDDING.get()));
+//			mapping(modLoc("block/" + CUSTARD_PUDDING.getName() + "_bottom"), blockTexture(PUDDING.get()));
 			accept(b -> {
 				String name = b.getName();
 				BlockModelBuilder common = models().cubeBottomTop(name,
@@ -83,7 +83,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 						modLoc("block/" + name + "_bottom"),
 						modLoc("block/" + name + "_top"));
 				simpleBlockWithItem(b.get(), common);
-			}, CUSTARD_PUDDING, CANDIED_CHERRY_SACK);
+			}, /*CUSTARD_PUDDING,*/ CANDIED_CHERRY_SACK);
 		});
 		
 		//column : *_side *_end

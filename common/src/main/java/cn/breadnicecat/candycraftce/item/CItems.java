@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.PuddingColor;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
@@ -11,6 +12,8 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -51,11 +54,6 @@ public class CItems {
 	
 	private static @Nullable List<Supplier<ItemEntry<BlockItem>>> blockItems;
 	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs;
-	
-	static {
-		if (isClient()) CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
-		CCTab.add(Items.SUGAR::getDefaultInstance);
-	}
 	
 	//TODO EAT
 	public static final ItemEntry<Item> LICORICE = create("licorice").setFood(10, 4, null).save();
@@ -190,8 +188,15 @@ public class CItems {
 	
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
 	
+	
 	static {
+		if (isClient()) {
+			CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
+		}
+		
+		CCTab.add(Items.SUGAR::getDefaultInstance);
 		setTab(CreativeModeTabs.OP_BLOCKS, IIDEBUG::getDefaultInstance);
+		
 		CBlockEntities.init();
 		blockItems.forEach(Supplier::get);
 		blockItems = null;
@@ -221,6 +226,14 @@ public class CItems {
 	}
 	
 	/**
+	 * 由Mixin调用
+	 */
+	@Environment(EnvType.CLIENT)
+	public static void registerItemColors(BlockColors blockColors, ItemColors itemColors) {
+		itemColors.register((item, tintindex) -> PuddingColor.getDefaultColor(), CUSTARD_PUDDING);
+	}
+	
+	/**
 	 * 仅仅是为了创造模式物品栏排序
 	 */
 	public static void hookBlockItems(List<Supplier<ItemEntry<BlockItem>>> items) {
@@ -234,10 +247,10 @@ public class CItems {
 		eggs = items;
 	}
 	
+	//===========模板===========
 	private static <I> Function<Properties, I> higher(Supplier<I> sup) {
 		return (p) -> sup.get();
 	}
-	//===========模板===========
 	
 	private static CItemBuilder<RecordItem> createRecord(String name, int analog, SoundEntry evt, int lengthInSeconds) {
 		return create(name, (p) -> _recordItem(analog, evt, p, lengthInSeconds))

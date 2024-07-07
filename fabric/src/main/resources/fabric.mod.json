@@ -17,7 +17,7 @@
     "candycraftce-common.mixins.json"
   ],
   "license": "GNU LGPL v3",
-  "icon": "assets/candycraftce/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
