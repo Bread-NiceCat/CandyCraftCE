@@ -391,7 +391,8 @@ public class NoisingSettingsProvider implements DataProvider {
 			    "lava": 0,
 			    "vein_gap": 0,
 			    "vein_ridged": 0,
-			    "vein_toggle": 0,
+			    "vein_toggle": 0
+			  },
 			  "surface_rule": ${surface_rule_generated_data}
 			}
 			""";
