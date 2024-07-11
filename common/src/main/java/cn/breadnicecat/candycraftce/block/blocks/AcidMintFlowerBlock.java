@@ -20,13 +20,14 @@ public class AcidMintFlowerBlock extends CandyPlantBlock {
 	public AcidMintFlowerBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity living && level.random.nextFloat() < 0.1 / TickUtils.TICK_PER_SEC) {
 			living.addEffect(new MobEffectInstance(MobEffects.POISON, (int) (2 * TickUtils.SEC2TICK)));
-			living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, (int) (2 * TickUtils.SEC2TICK)));
+			//反胃
+			living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, (int) (2.5 * TickUtils.SEC2TICK)));
 		}
 	}
 }

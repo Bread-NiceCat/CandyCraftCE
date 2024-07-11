@@ -2,6 +2,9 @@
   "values": [
     "candycraftce:marshmallow_log",
     "candycraftce:dark_marshmallow_log",
-    "candycraftce:light_marshmallow_log"
+    "candycraftce:light_marshmallow_log",
+    "candycraftce:stripped_marshmallow_log",
+    "candycraftce:stripped_dark_marshmallow_log",
+    "candycraftce:stripped_light_marshmallow_log"
   ]
 }

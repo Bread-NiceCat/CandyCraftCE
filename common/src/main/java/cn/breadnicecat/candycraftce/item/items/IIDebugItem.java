@@ -10,6 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
@@ -212,7 +213,7 @@ public class IIDebugItem extends Item {
 			long stt = System.nanoTime();
 			Optional<VectorPortalShape> portal = Optional.empty();
 			pos = move(pos, clickedFace, 1);
-			LevelUtils.particleBlock(FLAME, (ClientLevel) level, pos, 1 / 4d);
+			LevelUtils.particleBlock(ParticleTypes.FALLING_WATER, (ClientLevel) level, pos, 1 / 4d);
 			if (CONFIG.isEmpty(level.getBlockState(pos))) {
 				portal = VectorPortalShape.findPortal(level, pos, CONFIG);
 			}

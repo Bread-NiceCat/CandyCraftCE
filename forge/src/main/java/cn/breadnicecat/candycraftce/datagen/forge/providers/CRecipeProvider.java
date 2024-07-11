@@ -181,6 +181,9 @@ public class CRecipeProvider extends RecipeProvider {
 		shapeless(BUILDING_BLOCKS, def(MARSHMALLOW_PLANKS), 4).requires(have(MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
 		shapeless(BUILDING_BLOCKS, def(DARK_MARSHMALLOW_PLANKS), 4).requires(have(DARK_MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
 		shapeless(BUILDING_BLOCKS, def(LIGHT_MARSHMALLOW_PLANKS), 4).requires(have(LIGHT_MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
+		shapeless(BUILDING_BLOCKS, def(MARSHMALLOW_PLANKS), 4).requires(have(STRIPPED_MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
+		shapeless(BUILDING_BLOCKS, def(DARK_MARSHMALLOW_PLANKS), 4).requires(have(STRIPPED_DARK_MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
+		shapeless(BUILDING_BLOCKS, def(LIGHT_MARSHMALLOW_PLANKS), 4).requires(have(STRIPPED_LIGHT_MARSHMALLOW_LOG)).unlockedBy(hasn(), has()).save(writer, id());
 		furnace(def(CHOCOLATE_STONE)).ingredient(CHOCOLATE_COBBLESTONE).exp(0.5f).save(writer, id());
 		furnace(def(WHITE_CHOCOLATE_STONE)).ingredient(WHITE_CHOCOLATE_COBBLESTONE).exp(0.5f).save(writer, id());
 		of2x2(def(CHOCOLATE_BRICKS), 1, of(have(CHOCOLATE_STONE))).unlockedBy(hasn(), has()).save(writer, id());

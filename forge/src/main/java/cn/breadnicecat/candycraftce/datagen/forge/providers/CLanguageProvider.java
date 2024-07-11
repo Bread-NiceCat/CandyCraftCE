@@ -283,8 +283,8 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(CARAMEL_LIQUID, "熔融焦糖");
 		addBlockById(CARAMEL_BRICKS, "焦糖砖");
 		addBlockById(CHOCOLATE_CARAMEL_BRICKS, "巧克力焦糖砖");
-		addBlockById(WHITE_CHOCOLATE_CARAMEL_BRICKS, "白巧克力焦糖混合砖");
-//		addBlockById(BLACK_CHOCOLATE_CARAMEL_BRICKS, "黑巧克力焦糖混合砖");
+		addBlockById(WHITE_CHOCOLATE_CARAMEL_BRICKS, "白巧克力焦糖砖");
+//		addBlockById(BLACK_CHOCOLATE_CARAMEL_BRICKS, "黑巧克力焦糖砖");
 		addBlockById(CHOCOLATE_BRICKS, "巧克力砖");
 //		addBlockById(BLACK_CHOCOLATE_BRICKS, "黑巧克力砖");
 		addBlockById(WHITE_CHOCOLATE_BRICKS, "白巧克力砖");
@@ -297,6 +297,9 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
 		add(_SPAWN_EGG_TRANS_KEY, "%s Spawn Egg", "%s刷怪蛋");
 		addEntityById(GINGERBREAD_MAN, "姜饼人");
+		addBlockById(STRIPPED_MARSHMALLOW_LOG, "去皮棉花软糖原木");
+		addBlockById(STRIPPED_DARK_MARSHMALLOW_LOG, "去皮深色棉花软糖原木");
+		addBlockById(STRIPPED_LIGHT_MARSHMALLOW_LOG, "去皮浅色棉花软糖原木");
 	}
 	
 	/**

@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.block;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.block.blocks.JellyBlock.JellyType;
+import cn.breadnicecat.candycraftce.mixin.AxeItemAccessor;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
@@ -19,14 +20,15 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
 import static net.minecraft.world.level.block.Blocks.*;
 
 
@@ -86,6 +88,20 @@ public class CBlocks {
 	public static final BlockEntry<RotatedPillarBlock> MARSHMALLOW_LOG = create("marshmallow_log", RotatedPillarBlock::new).setProperties(Blocks.OAK_LOG, null).save();
 	public static final BlockEntry<RotatedPillarBlock> DARK_MARSHMALLOW_LOG = create("dark_marshmallow_log", RotatedPillarBlock::new).setProperties(MARSHMALLOW_LOG, null).save();
 	public static final BlockEntry<RotatedPillarBlock> LIGHT_MARSHMALLOW_LOG = create("light_marshmallow_log", RotatedPillarBlock::new).setProperties(MARSHMALLOW_LOG, null).save();
+	public static final BlockEntry<RotatedPillarBlock> STRIPPED_MARSHMALLOW_LOG = create("stripped_marshmallow_log", RotatedPillarBlock::new).setProperties(MARSHMALLOW_LOG, null).save();
+	public static final BlockEntry<RotatedPillarBlock> STRIPPED_DARK_MARSHMALLOW_LOG = create("stripped_dark_marshmallow_log", RotatedPillarBlock::new).setProperties(MARSHMALLOW_LOG, null).save();
+	public static final BlockEntry<RotatedPillarBlock> STRIPPED_LIGHT_MARSHMALLOW_LOG = create("stripped_light_marshmallow_log", RotatedPillarBlock::new).setProperties(MARSHMALLOW_LOG, null).save();
+	
+	static {
+		hookMinecraftSetup(() -> AxeItemAccessor.setSTRIPPABLES(make(() -> {
+			LOGGER.info("Inject Axe Strippable");
+			HashMap<Block, Block> map = new HashMap<>(AxeItemAccessor.getSTRIPPABLES());
+			map.put(MARSHMALLOW_LOG.get(), STRIPPED_MARSHMALLOW_LOG.get());
+			map.put(DARK_MARSHMALLOW_LOG.get(), STRIPPED_DARK_MARSHMALLOW_LOG.get());
+			map.put(LIGHT_MARSHMALLOW_LOG.get(), STRIPPED_LIGHT_MARSHMALLOW_LOG.get());
+			return map;
+		})));
+	}
 	
 	public static final BlockEntry<Block> MARSHMALLOW_PLANKS = create("marshmallow_planks").setProperties(Blocks.OAK_PLANKS, null).save();
 	public static final BlockEntry<Block> DARK_MARSHMALLOW_PLANKS = create("dark_marshmallow_planks").setProperties(MARSHMALLOW_PLANKS, null).save();
@@ -236,7 +252,7 @@ public class CBlocks {
 		LOGGER.info("Register Block Colors");
 		colors.register((state, getter, pos, tintindex) -> {
 			if (getter == null || pos == null) {
-				return -1;
+				return PuddingColor.getDefaultColor();
 			}
 			return getter.getBlockTint(pos, PuddingColor.PUDDING_COLOR_RESOLVER);
 		}, CUSTARD_PUDDING.get(), MAGICAL_LEAVES.get());

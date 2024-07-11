@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.misc.muitlblocks;
 import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import com.google.common.collect.Sets;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -17,8 +18,6 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.newList;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 import static net.minecraft.core.Direction.Axis.*;
 import static net.minecraft.core.Direction.AxisDirection.NEGATIVE;
 import static net.minecraft.core.Direction.AxisDirection.POSITIVE;
@@ -314,78 +313,53 @@ public abstract class VectorPortalShape {
 	private static @Nullable Unit findAxis(BlockGetter level, BlockPos pos, Axis axis, @NotNull PortalConfig config) {
 		Axis[] pipe2 = axis2pipe2(axis);
 		boolean exchangeable = axis == Y;//只有传送门水平的时候才启用
-		int bigger = -1;
-		int lesser = -1;
-		int minBigger = -1;//最大值较大的最小值
-		int minLesser = -1;//最大值较小的最小值
-		if (exchangeable) {
-			if (config.maxWidth > config.maxHeight) {
-				bigger = config.maxWidth;
-				minBigger = config.minWidth;
-				lesser = config.maxHeight;
-				minLesser = config.minHeight;
-			} else {
-				bigger = config.maxHeight;
-				minBigger = config.minHeight;
-				lesser = config.maxWidth;
-				minLesser = config.minWidth;
-			}
-		}
+		/*
+		 * exchangeable的思路是：
+		 * 先按对拿出最大值较大和较小的两组，
+		 * 因为findBound要的是limit，
+		 * 而为了把两个bound都拿出来，
+		 * 肯定要先用宽松的limit，
+		 * 所以先比较较大值，
+		 * M>m
+		 * 随后第一个bound拿出来了，
+		 * 如果此bound同时满足两个限制，
+		 * 则优先给这个这个bound赋予限制强的limit。
+		 *
+		 * */
+		IntIntPair limitWM = IntIntPair.of(config.minWidth, config.maxWidth);
+		IntIntPair limitHm = IntIntPair.of(config.minHeight, config.maxHeight);
 		
+		if (exchangeable && limitWM.rightInt() < limitHm.rightInt()) {
+			var i = limitHm;
+			limitHm = limitWM;
+			limitWM = i;
+		}
+		//bound[正边界宽度,总宽度]
 		//默认情况下(!exchangeable)
-		//bound1的限制[minWidth,maxWidth]
-		//bound2     [minHeight,maxHeight]
-		int[] bound1 = findBound(level, pos, pipe2[0], config.isEmpty, config.isFrame,
-				exchangeable ? bigger : config.maxWidth);
-		
-		int minLimit1 = config.minWidth;//对 1 的限制最小值
-		int limit2 = config.maxHeight;//对 2 的限制最大值
-		int minLimit2 = config.minHeight;//对 2 的限制最小值
+		//pipe2[1] = Y
+		int[] boundW = findBound(level, pos, pipe2[0], config.isEmpty, config.isFrame, limitWM.rightInt());
+		int[] boundH = findBound(level, pos, pipe2[1], config.isEmpty, config.isFrame, exchangeable ? limitWM.rightInt() : limitHm.rightInt());
 		
 		if (exchangeable) {
-			if (bound1[1] > lesser) {
-				//如果超过了其中的较小值
-				//那么认为bound1的限制值为[minBigger,bigger]
-				//认为bound2的限制值为   [minLesser,lesser]
-				minLimit1 = minBigger;
-				minLimit2 = minLesser;
-				limit2 = lesser;
-			} else if (bound1[1] < lesser) {
-				//未超过较小值
-				//则bound1 [minLesser,lesser]
-				// bound2 [minBigger,bigger]
-				minLimit1 = minLesser;
-				minLimit2 = minBigger;
-				limit2 = bigger;
-			} else {
-				//相等
-				//那么就要尽量让传送门节省大牌被打出去
-				int lesserMin = min(minLesser, minBigger);
-				int biggerMin = max(minLesser, minBigger);
-				//bound1 [[1]符合mMin? minMin : maxMin ,lesser]
-				//bound2 [与bound1的Min相反 , bigger]
-				limit2 = bigger;
-				if (bound1[1] >= biggerMin) { //相当于提前预知[1]能过,所以给他分配一个比较难过的
-					minLimit1 = biggerMin;
-					minLimit2 = lesserMin;
-				} else {
-					minLimit1 = lesserMin;
-					minLimit2 = biggerMin;
-				}
+			boolean flag = false;
+			for (int i = 0; i < 2; i++) {
+				//定双方都满足的limit
+				if (boundW[1] >= limitWM.leftInt() && boundH[1] >= limitHm.leftInt()) flag = true;
+				//交换,继续
+				var cg = limitHm;
+				limitHm = limitWM;
+				limitWM = cg;
 			}
-		}
+			if (!flag) return null;
+		} else if (boundW[1] < limitWM.leftInt() || boundH[1] < limitHm.leftInt()) return null;
 		
-		if (bound1[1] < minLimit1) return null;
-		int[] bound2 = findBound(level, pos, pipe2[1], config.isEmpty, config.isFrame, limit2);
-		if (bound2[1] < minLimit2) return null;
-		
-		int delta1 = bound1[1] - bound1[0] - 1;
-		int delta2 = bound2[1] - bound2[0] - 1;
+		int delta1 = boundW[1] - boundW[0] - 1;
+		int delta2 = boundH[1] - boundH[0] - 1;
 		BlockPos bottomLeft = pos.relative(pipe2[0], -delta1)
 				.relative(pipe2[1], -delta2);
-		List<Set<BlockPos>> sets = collectBlocks(level, bottomLeft, pipe2, bound1[1], bound2[1], config.isEmpty, config.isFrame);
+		List<Set<BlockPos>> sets = collectBlocks(level, bottomLeft, pipe2, boundW[1], boundH[1], config.isEmpty, config.isFrame);
 		return sets == null ? null :
-				new Unit(bottomLeft, axis, bound1[1], bound2[1], config, sets.get(0), sets.get(1), sets.get(2));
+				new Unit(bottomLeft, axis, boundW[1], boundH[1], config, sets.get(0), sets.get(1), sets.get(2));
 	}
 	
 	/**
@@ -455,8 +429,9 @@ public abstract class VectorPortalShape {
 	public static Axis[] axis2pipe2(Axis axis) {
 		return switch (axis) {
 			case X -> new Axis[]{Z, Y};
-			case Y -> new Axis[]{X, Z};
 			case Z -> new Axis[]{X, Y};
+			
+			case Y -> new Axis[]{X, Z};
 		};
 	}
 	

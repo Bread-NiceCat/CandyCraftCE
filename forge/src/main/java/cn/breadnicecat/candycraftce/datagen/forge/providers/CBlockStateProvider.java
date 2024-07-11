@@ -209,10 +209,11 @@ public class CBlockStateProvider extends BlockStateProvider {
 		}, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR));
 		//log *, *_top
 		accept(b -> {
-			RotatedPillarBlock block = b.get();
-			logBlock(block);
-			simpleBlockItem(block, existModelFile(block));
-		}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG);
+					RotatedPillarBlock block = b.get();
+					logBlock(block);
+					simpleBlockItem(block, existModelFile(block));
+				}, MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG,
+				STRIPPED_MARSHMALLOW_LOG, STRIPPED_DARK_MARSHMALLOW_LOG, STRIPPED_LIGHT_MARSHMALLOW_LOG);
 		//cross *
 		{
 			accept(b -> {

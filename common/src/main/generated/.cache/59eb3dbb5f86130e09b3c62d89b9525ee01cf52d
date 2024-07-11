@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-07T13:51:34.7845742	Loot Tables
+// 1.20.1	2024-07-11T11:55:46.1583572	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -126,6 +126,9 @@ eb7dc5e79fc706f342b22f50cfb6e63a97aa9f69 data/candycraftce/loot_tables/blocks/so
 dc0367310e4da5dee1728abc46a871fa1c7199cf data/candycraftce/loot_tables/blocks/strawberry_ice_cream.json
 f794874be31c87ff57e0a582b44aeb32fa354fa5 data/candycraftce/loot_tables/blocks/strawberry_ice_cream_slab.json
 c4ccdb370647ac236870681edfacef17a8bf5edc data/candycraftce/loot_tables/blocks/strawberry_ice_cream_stairs.json
+7016581eb29212d7bde13e0b15529acdca9194f5 data/candycraftce/loot_tables/blocks/stripped_dark_marshmallow_log.json
+edfc2640820863bb83b76893740858ef84ad7f59 data/candycraftce/loot_tables/blocks/stripped_light_marshmallow_log.json
+5446d94b94cfcd8bef31fd53eb5f887683007d4c data/candycraftce/loot_tables/blocks/stripped_marshmallow_log.json
 f022896b0d56e895ef77c0f18bb83076dbcb8095 data/candycraftce/loot_tables/blocks/sugar_block.json
 b0db6d0c5dbd81a0970d1bfcbe5b91703f23eb88 data/candycraftce/loot_tables/blocks/sugar_factory.json
 4a0b046b83d191d6191a9fdb614be790544791e2 data/candycraftce/loot_tables/blocks/sugar_spikes.json

@@ -51,7 +51,8 @@ public class CaramelPortalBlock extends Block {
 	public static final BooleanProperty Y = BooleanProperty.create("y");
 	public static final BooleanProperty Z = BooleanProperty.create("z");
 	
-	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(2, 21, 3, 21,
+	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(
+			2, 21, 3, 21,
 			true, true,
 			b -> b.isAir() || /*b.is(CARAMEL_LIQUID.get()) ||*/ b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
 			b -> b.is(CBlockTags.BT_CARAMEL_PORTAL_FRAME));
@@ -99,9 +100,9 @@ public class CaramelPortalBlock extends Block {
 	
 	private int getShapeIndex(BlockState state) {
 		int flag = 0;
-		if (state.getValue(X)) flag += 1;
-		if (state.getValue(Y)) flag += 2;
-		if (state.getValue(Z)) flag += 4;
+		if (state.getValue(X)) flag |= 0b001;
+		if (state.getValue(Y)) flag |= 0b010;
+		if (state.getValue(Z)) flag |= 0b100;
 		return flag;
 	}
 	

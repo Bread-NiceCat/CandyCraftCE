@@ -1,12 +1,12 @@
 package cn.breadnicecat.candycraftce.block;
 
+import cn.breadnicecat.candycraftce.mixin.BiomeAccessor;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.LegacyStuffWrapper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.Mth;
@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -31,9 +32,8 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  **/
 @Environment(EnvType.CLIENT)
 public class PuddingColor {
-	
-	public static final ColorResolver PUDDING_COLOR_RESOLVER = PuddingColor::getColor;
 	private static final Logger LOGGER = CLogUtils.sign();
+	public static final ColorResolver PUDDING_COLOR_RESOLVER = PuddingColor::getColor;
 	private static final ResourceLocation LOCATION = prefix("textures/colormap/pudding.png");
 	private static int[] pixels = new int[0];
 	public static final PreparableReloadListener RELOAD_LISTENER = new SimplePreparableReloadListener<int[]>() {
@@ -50,19 +50,19 @@ public class PuddingColor {
 		
 		@Override
 		protected void apply(int[] object, ResourceManager resourceManager, ProfilerFiller profiler) {
-			pixels = object;
+			setPixels(object);
 		}
 	};
+	
+	public static void setPixels(int[] pixels) {
+		PuddingColor.pixels = Objects.requireNonNull(pixels);
+	}
 	
 	private PuddingColor() {
 	}
 	
-	public static void init(ReloadableResourceManager m) {
-		LOGGER.info("adding PuddingColor Reload Listener");
-	}
-	
 	private static int getColor(Biome biome, double x, double y) {
-		Biome.ClimateSettings settings = biome.climateSettings;
+		Biome.ClimateSettings settings = ((BiomeAccessor) (Object) biome).getClimateSettings();
 		int color = biome.getSpecialEffects().getGrassColorOverride().orElseGet(() -> {
 			double temp = Mth.clamp(settings.temperature(), 0.0f, 1.0f);
 			double df = Mth.clamp(settings.downfall(), 0.0f, 1.0f);

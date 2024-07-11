@@ -57,9 +57,9 @@ public class CItemsImpl {
 	
 	public static Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
 		return () -> {
-			CItemBuilder<SpawnEggItem> builder = CItemBuilder.create(entity.getName(), (p) -> new SpawnEggItem(entity.get(), backgroundColor, highlightColor, p){
+			CItemBuilder<SpawnEggItem> builder = CItemBuilder.create(entity.getName(), (p) -> new SpawnEggItem(entity.get(), backgroundColor, highlightColor, p) {
 				@Override
-				public Component getName(ItemStack stack) {
+				public @NotNull Component getName(ItemStack stack) {
 					return Component.translatable(_SPAWN_EGG_TRANS_KEY, I18n.get(entity.get().getDescriptionId()));
 				}
 			});
