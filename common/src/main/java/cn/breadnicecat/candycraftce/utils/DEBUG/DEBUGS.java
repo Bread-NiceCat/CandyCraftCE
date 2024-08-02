@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.INDEV;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.DEV;
 
 /**
  * Created in 2023/7/29 15:23
@@ -34,12 +34,12 @@ public class DEBUGS {
 	 */
 	public static final HashMap<?, ?> EVAL = new HashMap<>();
 	private static final Logger LOGGER = CLogUtils.sign();
-
+	
 	static {
 		LOGGER.warn("=".repeat(40));
 		LOGGER.warn("DEBUGS ON!");
 		LOGGER.warn("=".repeat(40));
-		if (!INDEV) throw new IllegalStateException("Not in DEV");
+		if (!DEV) throw new IllegalStateException("Not in DEV");
 	}
 
 //	public static Class<?> loadClass(File directory, String className) {
@@ -49,7 +49,7 @@ public class DEBUGS {
 //			throw new RuntimeException(e);
 //		}
 //	}
-
+	
 	public static @Nullable Object runGroovyScript(File path, Map<String, Object> args) throws Exception {
 		GroovyScriptEngine engine = new GroovyScriptEngine(path.getAbsoluteFile().getParent(), Thread.currentThread().getContextClassLoader());
 		return engine.run(path.getName(), new Binding(args));

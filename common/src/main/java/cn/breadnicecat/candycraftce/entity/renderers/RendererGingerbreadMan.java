@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import static cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan.MAIN;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
 
 /**
  * @author <a href="https://gitee.com/Bread_NiceCat">Bread_NiceCat</a>
@@ -21,7 +21,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
 @Environment(EnvType.CLIENT)
 public class RendererGingerbreadMan extends MobRenderer<GingerbreadMan, ModelGingerbreadMan> {
 	
-	private static final ResourceLocation MAIN_TEX = prefixEntityTex("gingerbread_man/main");
+	private static final ResourceLocation MAIN_TEX = entityTex("gingerbread_man/main");
 	
 	public RendererGingerbreadMan(EntityRendererProvider.Context pContext) {
 		super(pContext, new ModelGingerbreadMan(pContext.bakeLayer(MAIN)), 0.25f);

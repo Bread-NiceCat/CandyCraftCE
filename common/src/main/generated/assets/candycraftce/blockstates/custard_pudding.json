@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "candycraftce:block/custard_pudding"
-    }
+    "": [
+      {
+        "model": "candycraftce:block/custard_pudding"
+      },
+      {
+        "model": "candycraftce:block/custard_pudding",
+        "y": 90
+      },
+      {
+        "model": "candycraftce:block/custard_pudding",
+        "y": 180
+      },
+      {
+        "model": "candycraftce:block/custard_pudding",
+        "y": 270
+      }
+    ]
   }
 }

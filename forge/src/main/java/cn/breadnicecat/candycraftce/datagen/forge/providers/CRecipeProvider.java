@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static cn.breadnicecat.candycraftce.block.CBlockTags.BT_MARSHMALLOW_LOGS;
-import static cn.breadnicecat.candycraftce.block.CBlockTags.BT_MARSHMALLOW_PLANKS;
+import static cn.breadnicecat.candycraftce.block.CBlockTags.*;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.datagen.forge.providers.recipes.SugarFactoryRecipeBuilder.factory;
 import static cn.breadnicecat.candycraftce.datagen.forge.providers.recipes.SugarFurnaceRecipeBuilder.furnace;
@@ -43,9 +42,10 @@ import static net.minecraft.world.level.block.Blocks.REDSTONE_WIRE;
  *
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
- * - def()用来确定配方的输出,id()依此生成唯一配方名，防止重复.一次def()只能且必须使用一次id(),否则异常
- * - have()用来确定该配方最重要的物品,has()依此生成解锁成就，hasn()依此获取解锁成就的id.
- * 一次have()只能且必须使用has()和hasn()共两次,否则异常.用hasrst()可重置计数器
+ * * def()用来确定配方的输出,id()依此生成唯一配方名，防止重复.一次def()只能且必须使用一次id(),否则异常
+ * * have()用来确定该配方最重要的物品,has()依此生成解锁成就，hasn()依此获取解锁成就的id.
+ * 一次have()只能且必须使用has()和hasn()共记两次,否则异常.用hasrst()可重置计数器,
+ * 目前只支持单物品,多物品需要自定义
  */
 public class CRecipeProvider extends RecipeProvider {
 	public CRecipeProvider(PackOutput arg) {
@@ -57,11 +57,11 @@ public class CRecipeProvider extends RecipeProvider {
 	@Override
 	protected void buildRecipes(@NotNull Consumer<FinishedRecipe> writer) {
 		shaped(MISC, def(MARSHMALLOW_STICK), 4)
-				.pattern("x  ").define('x', have(BT_MARSHMALLOW_PLANKS.i()))
+				.pattern("x  ").define('x', have(BT_MARSHMALLOW_PLANKS.it()))
 				.pattern("x  ")
 				.unlockedBy(hasn(), has()).save(writer, id());
 		shaped(MISC, def(MARSHMALLOW_STICK), 16)
-				.pattern("x  ").define('x', have(BT_MARSHMALLOW_LOGS.i()))
+				.pattern("x  ").define('x', have(BT_MARSHMALLOW_LOGS.it()))
 				.pattern("x  ")
 				.unlockedBy(hasn(), has()).save(writer, id());
 		furnace(def(HOT_GUMMY)).ingredient(GUMMY).exp(2f).save(writer, id());
@@ -80,17 +80,17 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern("/  ").define('/', MARSHMALLOW_STICK)
 				.pattern("*  ").define('*', IT_LEAF)
 				.unlockedBy(hasn(), has()).save(writer, id());
-		shaped(COMBAT, def(CARAMEL_BOW))
-				.pattern(" #|").define('#', MARSHMALLOW_STICK)
-				.pattern("#x|").define('x', have(HONEYCOMB))
-				.pattern(" #|").define('|', COTTON_CANDY)
-				.unlockedBy(hasn(), has()).save(writer, id());
+//		shaped(COMBAT, def(CARAMEL_BOW))
+//				.pattern(" #|").define('#', MARSHMALLOW_STICK)
+//				.pattern("#x|").define('x', have(HONEYCOMB))
+//				.pattern(" #|").define('|', COTTON_CANDY)
+//				.unlockedBy(hasn(), has()).save(writer, id());
 		shaped(TOOLS, def(HONEYCOMB_TORCH_ITEM), 4)
 				.pattern("*  ").define('*', have(HONEYCOMB))
 				.pattern("/  ").define('/', MARSHMALLOW_STICK)
 				.unlockedBy(hasn(), has()).save(writer, id());
 		tools(MARSHMALLOW_SWORD, MARSHMALLOW_SHOVEL, MARSHMALLOW_PICKAXE, MARSHMALLOW_AXE, MARSHMALLOW_HOE,
-				of(MARSHMALLOW_STICK), of(have(BT_MARSHMALLOW_PLANKS.i())))
+				of(MARSHMALLOW_STICK), of(have(BT_MARSHMALLOW_PLANKS.it())))
 				.forEach(e -> {
 					def(e.getResult());
 					hasrst();
@@ -192,24 +192,24 @@ public class CRecipeProvider extends RecipeProvider {
 		furnace(def(WHITE_CHOCOLATE_STONE_TILE)).ingredient(WHITE_CHOCOLATE_STONE).exp(0.5f).save(writer, id());
 		of3x3(def(CANDY_CANE_BLOCK), 1, of(have(CANDY_CANE))).unlockedBy(hasn(), has()).save(writer, id());
 		
-		furnace(def(TRAMPOJELLY)).ingredient(JELLY_ORE).exp(2f).save(writer, id());
+		furnace(def(TRAMPOJELLY)).ingredient(BT_ORE_JELLY.it()).exp(2f).save(writer, id());
 		factory(def(RED_TRAMPOJELLY)).ingredient(TRAMPOJELLY).save(writer, id());
 		furnace(def(JELLY_SHOCK_ABSORBER)).ingredient(RED_TRAMPOJELLY).exp(2f).save(writer, id());
 		shapeless(BUILDING_BLOCKS, def(SENSITIVE_JELLY)).requires(REDSTONE_WIRE).requires(have(TRAMPOJELLY)).unlockedBy(hasn(), has()).save(writer, id());
 		
-		furnace(def(LICORICE)).ingredient(LICORICE_ORE).exp(2f).save(writer, id());
+		furnace(def(LICORICE)).ingredient(BT_ORE_LICORICE.it()).exp(2f).save(writer, id());
 		of2x2(def(LICORICE_BRICKS), 4, of(have(LICORICE_BLOCK))).unlockedBy(hasn(), has()).save(writer, id());
 		
-		furnace(def(HONEYCOMB)).ingredient(HONEYCOMB_ORE).exp(4f).save(writer, id());
+		furnace(def(HONEYCOMB)).ingredient(BT_ORE_HONEYCOMB.it()).exp(4f).save(writer, id());
 		of3x3(def(HONEYCOMB), 1, of(have(HONEYCOMB_SHARD))).unlockedBy(hasn(), has()).save(writer, id());
 		of3x3(def(HONEYCOMB_BLOCK), 1, of(have(HONEYCOMB))).unlockedBy(hasn(), has()).save(writer, id());
 		
-		furnace(def(PEZ)).ingredient(PEZ_ORE).exp(6f).save(writer, id());
+		furnace(def(PEZ)).ingredient(BT_ORE_PEZ.it()).exp(6f).save(writer, id());
 		furnace(def(PEZ)).ingredient(PEZ_DUST).save(writer, id());
-		factory(def(PEZ_DUST)).ingredient(PEZ_ORE).save(writer, id());
+		factory(def(PEZ_DUST)).ingredient(BT_ORE_PEZ.it()).save(writer, id());
 		of3x3(def(PEZ_BLOCK), 1, of(have(PEZ))).unlockedBy(hasn(), has()).save(writer, id());
 		
-		factory(def(NOUGAT_POWDER)).ingredient(NOUGAT_ORE).save(writer, id());
+		factory(def(NOUGAT_POWDER)).ingredient(BT_ORE_NOUGAT.it()).save(writer, id());
 		of3x3(def(NOUGAT_BLOCK), 1, of(have(NOUGAT_POWDER))).unlockedBy(hasn(), has()).save(writer, id());
 		factory(def(NOUGAT_HEAD)).ingredient(NOUGAT_BLOCK).advanced().save(writer, id());
 		
@@ -218,7 +218,7 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern("#/#").define('/', HONEYCOMB_TORCH_ITEM)
 				.pattern("###")
 				.unlockedBy(hasn(), has()).save(writer, id());
-		of2x2(def(MARSHMALLOW_CRAFTING_TABLE), 1, of(have(BT_MARSHMALLOW_PLANKS.i()))).unlockedBy(hasn(), has()).save(writer, id());
+		of2x2(def(MARSHMALLOW_CRAFTING_TABLE), 1, of(have(BT_MARSHMALLOW_PLANKS.it()))).unlockedBy(hasn(), has()).save(writer, id());
 		shaped(DECORATIONS, def(CHOCOLATE_FURNACE))
 				.pattern("###")
 				.pattern("# #").define('#', have(CHOCOLATE_COBBLESTONE))

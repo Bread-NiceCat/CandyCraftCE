@@ -11,7 +11,9 @@ loom {
     runs {
         client {
             vmArg "-Dmixin.debug.export=true"
+            vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
+
         //坑爹datagen
 //        datagen {
 //            inherit client

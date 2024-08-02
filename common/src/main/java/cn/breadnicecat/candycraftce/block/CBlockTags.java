@@ -26,6 +26,8 @@ public class CBlockTags {
 	public static final TagKey<Block> BT_CARAMEL_PORTAL_FRAME = create("caramel_portal_frame");
 	public static final TagKey<Block> BT_CANDY_PLANT_SUITABLE = create("candy_plant_suitable");
 	public static final TagKey<Block> BT_CARVER_OVERRIDEABLE = create("carver_overrideable");
+	public static final TagKey<Block> BT_WHITE_ORE_OVERRIDEABLE = create("ore_white_overrideable");
+	public static final TagKey<Block> BT_BLACK_ORE_OVERRIDEABLE = create("ore_black_overrideable");
 	public static final TagKey<Block> BT_ORES = create("ores");
 	//类似矿辞
 	public static final BiTagKey BT_MARSHMALLOW_LOGS = bind("marshmallow_logs");
@@ -34,6 +36,12 @@ public class CBlockTags {
 	public static final BiTagKey BT_ICE_CREAMS = bind("ice_cream");
 	public static final BiTagKey BT_CHOCOLATES = bind("chocolate");
 	public static final BiTagKey BT_SUGARY = bind("sugary");
+	
+	public static final BiTagKey BT_ORE_HONEYCOMB = bind("ore_honeycomb");
+	public static final BiTagKey BT_ORE_PEZ = bind("ore_pez");
+	public static final BiTagKey BT_ORE_LICORICE = bind("ore_licorice");
+	public static final BiTagKey BT_ORE_NOUGAT = bind("ore_nougat");
+	public static final BiTagKey BT_ORE_JELLY = bind("ore_jelly");
 	
 	static {
 		_pairs_.remove(BT_SUGARY);
@@ -52,6 +60,6 @@ public class CBlockTags {
 		return TagKey.create(Registries.BLOCK, prefix(name));
 	}
 	
-	public record BiTagKey(TagKey<Block> b, TagKey<Item> i) {
+	public record BiTagKey(TagKey<Block> bt, TagKey<Item> it) {
 	}
 }

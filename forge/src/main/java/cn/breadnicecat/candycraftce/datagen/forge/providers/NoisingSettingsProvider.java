@@ -18,7 +18,10 @@ import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.level.CBiomes.ICE_CREAM_FOREST;
+import static cn.breadnicecat.candycraftce.level.CBiomes.ICE_CREAM_PLAINS;
 import static net.minecraft.world.level.levelgen.SurfaceRules.*;
+import static net.minecraft.world.level.levelgen.VerticalAnchor.absolute;
 
 /**
  * Created in 2024/5/1 下午4:35
@@ -39,12 +42,9 @@ public class NoisingSettingsProvider implements DataProvider {
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
 		return CompletableFuture.runAsync(() -> {
 					try {
-						
 						RuleSource rules = candylandSurfaceRules();
 						String rulesStr = GSON.toJson(RuleSource.CODEC.encodeStart(JsonOps.INSTANCE, rules).getOrThrow(false, LOGGER::error));
-						
 						String out = MODEL.replace("${surface_rule_generated_data}", rulesStr);
-						
 						byte[] data = out.getBytes(StandardCharsets.UTF_8);
 						output.writeIfNeeded(this.output.resolve("candyland_settings.json"), data, HashCode.fromBytes(data));
 					} catch (IOException ioe) {
@@ -61,7 +61,8 @@ public class NoisingSettingsProvider implements DataProvider {
 		RuleSource bedrock = state(JAWBREAKER_BRICKS.defaultBlockState());
 		RuleSource pudding = state(PUDDING.defaultBlockState());
 		RuleSource custardPudding = state(CUSTARD_PUDDING.defaultBlockState());
-//		RuleSource deepslate = state(BLACK_CHOCOLATE_STONE.defaultBlockState());
+		RuleSource iceCream = state(ICE_CREAM.defaultBlockState());
+		RuleSource white = state(WHITE_CHOCOLATE_STONE.defaultBlockState());
 		//基岩层
 		{
 			RuleSource bedrockLayer = ifTrue(verticalGradient(
@@ -75,27 +76,38 @@ public class NoisingSettingsProvider implements DataProvider {
 		//生成表面土壤
 		{
 			RuleSource faceSoil = sequence(
+					ifTrue(isBiome(ICE_CREAM_PLAINS),
+							iceCream),
 					ifTrue(waterBlockCheck(-1, 0),
 							custardPudding),
 					pudding
 			);
 			RuleSource soilType = sequence(
 					ifTrue(ON_FLOOR, faceSoil),
-					ifTrue(UNDER_FLOOR, pudding)
+					ifTrue(UNDER_FLOOR,
+							ifTrue(waterBlockCheck(-1, 0),
+									custardPudding)
+					)
 			);
 			RuleSource surfaceSoilLayer = ifTrue(abovePreliminarySurface(), soilType);
 			
 			layers.add(surfaceSoilLayer);
 		}
-//		//生成深板岩层
-//		{
-//			RuleSource deepslateLayer =
-//					ifTrue(verticalGradient("deepslate",
-//							absolute(0),
-//							absolute(8)
-//					), deepslate);
-//			layers.add(deepslateLayer);
-//		}
+		{
+			RuleSource middleLayer = ifTrue(isBiome(ICE_CREAM_PLAINS, ICE_CREAM_FOREST),
+					white
+			);
+			layers.add(middleLayer);
+		}
+		//生成深板岩层
+		{
+			RuleSource deepslateLayer =
+					ifTrue(verticalGradient("deepslate",
+							absolute(0),
+							absolute(8)
+					), white);
+			layers.add(deepslateLayer);
+		}
 		
 		return sequence(layers.toArray(RuleSource[]::new));
 	}
@@ -393,6 +405,7 @@ public class NoisingSettingsProvider implements DataProvider {
 			    "vein_ridged": 0,
 			    "vein_toggle": 0
 			  },
+			  "_comment":"Auto Generated Part",
 			  "surface_rule": ${surface_rule_generated_data}
 			}
 			""";

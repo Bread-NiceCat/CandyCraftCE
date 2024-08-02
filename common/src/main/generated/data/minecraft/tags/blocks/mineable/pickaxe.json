@@ -4,11 +4,6 @@
     "candycraftce:chocolate_cobblestone",
     "candycraftce:white_chocolate_stone",
     "candycraftce:white_chocolate_cobblestone",
-    "candycraftce:licorice_ore",
-    "candycraftce:honeycomb_ore",
-    "candycraftce:pez_ore",
-    "candycraftce:jelly_ore",
-    "candycraftce:nougat_ore",
     "candycraftce:caramel_block",
     "candycraftce:candy_cane_block",
     "candycraftce:licorice_block",
@@ -42,6 +37,11 @@
     "candycraftce:white_chocolate_bricks",
     "candycraftce:chocolate_stone_tile",
     "candycraftce:white_chocolate_furnace",
-    "candycraftce:white_chocolate_stone_tile"
+    "candycraftce:white_chocolate_stone_tile",
+    "#candycraftce:ore_jelly",
+    "#candycraftce:ore_nougat",
+    "#candycraftce:ore_honeycomb",
+    "#candycraftce:ore_licorice",
+    "#candycraftce:ore_licorice"
   ]
 }

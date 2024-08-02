@@ -36,7 +36,7 @@ public class CItemTagsProvider extends ItemTagsProvider {
 	
 	@Override
 	protected void addTags(HolderLookup.@NotNull Provider arg) {
-		add(BT_SUGARY.i(), apply(new HashSet<>(ITEMS), (i) -> {
+		add(BT_SUGARY.it(), apply(new HashSet<>(ITEMS), (i) -> {
 			i.remove(RECORD_o);
 			i.remove(IIDEBUG);
 		}).toArray(ItemEntry[]::new));
@@ -51,13 +51,14 @@ public class CItemTagsProvider extends ItemTagsProvider {
 				CRANBERRY_EMBLEM, NESSIE_EMBLEM, SUGUARD_EMBLEM
 		);
 		add(CANDY_ARROW, HONEYCOMB_ARROW);
+		add(IT_RETURN_TICKET, JELLY_CROWN);
 		add(SWORDS, MARSHMALLOW_SWORD, LICORICE_SWORD, HONEYCOMB_SWORD, PEZ_SWORD);
 		add(HOES, MARSHMALLOW_HOE, LICORICE_HOE, HONEYCOMB_HOE, PEZ_HOE);
 		add(AXES, MARSHMALLOW_AXE, LICORICE_AXE, HONEYCOMB_AXE, PEZ_AXE);
 		add(PICKAXES, MARSHMALLOW_PICKAXE, LICORICE_PICKAXE, HONEYCOMB_PICKAXE, PEZ_PICKAXE);
 		add(SHOVELS, MARSHMALLOW_SHOVEL, LICORICE_SHOVEL, HONEYCOMB_SHOVEL, PEZ_SHOVEL);
 		
-		CBlockTags._pairs_.forEach((p) -> copy(p.b(), p.i()));
+		CBlockTags._pairs_.forEach((p) -> copy(p.bt(), p.it()));
 	}
 	
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {

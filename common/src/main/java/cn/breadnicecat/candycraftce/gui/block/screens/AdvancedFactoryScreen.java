@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 import static cn.breadnicecat.candycraftce.block.blockentity.entities.AdvancedFactoryBE.ADVANCED_TYPE;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
 
 /**
  * Created in 2024/2/5
@@ -18,7 +18,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  */
 public class AdvancedFactoryScreen extends SugarFactoryScreen {
 	
-	public static final ResourceLocation ADVANCED_STYLE = prefixGUITex("gui_advanced_sugar_factory");
+	public static final ResourceLocation ADVANCED_STYLE = guiTex("gui_advanced_sugar_factory");
 	
 	public AdvancedFactoryScreen(SugarFactoryMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);

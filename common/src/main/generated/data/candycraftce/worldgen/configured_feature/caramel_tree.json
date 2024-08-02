@@ -20,6 +20,7 @@
         "Name": "candycraftce:caramel_leaves",
         "Properties": {
           "distance": "7",
+          "distance_extra": "3",
           "persistent": "false",
           "waterlogged": "false"
         }

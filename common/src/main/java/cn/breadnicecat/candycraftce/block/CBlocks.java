@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.block;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.block.blocks.JellyBlock.JellyType;
+import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import cn.breadnicecat.candycraftce.mixin.AxeItemAccessor;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -109,7 +110,7 @@ public class CBlocks {
 	
 	public static final BlockEntry<LeavesBlock> CHOCOLATE_LEAVES = create("chocolate_leaves", LeavesBlock::new).setProperties(OAK_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> WHITE_CHOCOLATE_LEAVES = create("white_chocolate_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
-	public static final BlockEntry<LeavesBlock> CARAMEL_LEAVES = create("caramel_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
+	public static final BlockEntry<CaramelLeavesBlock> CARAMEL_LEAVES = create("caramel_leaves", CaramelLeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> CANDIED_CHERRY_LEAVES = create("candied_cherry_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	public static final BlockEntry<LeavesBlock> MAGICAL_LEAVES = create("magical_leaves", LeavesBlock::new).setProperties(CHOCOLATE_LEAVES, null).save();
 	
@@ -131,6 +132,11 @@ public class CBlocks {
 	public static final BlockEntry<DropExperienceBlock> LICORICE_ORE = create("licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> HONEYCOMB_ORE = create("honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(IRON_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> PEZ_ORE = create("pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_JELLY_ORE = create("white_jelly_ore", DropExperienceBlock::new).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_NOUGAT_ORE = create("white_nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_LICORICE_ORE = create("white_licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_HONEYCOMB_ORE = create("white_honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_PEZ_ORE = create("white_pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, null).save();
 	
 	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(STONE, null).save();
 	public static final BlockEntry<Block> LICORICE_BLOCK = create("licorice_block").setProperties(Blocks.COAL_BLOCK, null).save();
@@ -275,7 +281,8 @@ public class CBlocks {
 				CARAMEL_GLASS, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS_PANE,
 				SWEET_GRASS_0, SWEET_GRASS_1, SWEET_GRASS_2, SWEET_GRASS_3, MINT, ROPE_RASPBERRY, BANANA_SEAWEED,
 				FRAISE_TAGADA_FLOWER, GOLDEN_SUGAR_FLOWER, ACID_MINT_FLOWER, CUSTARD_PUDDING,
-				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR
+				DRAGIBUS_CROPS, LOLLIPOP_STEM, LOLLIPOP_FRUIT, MARSHMALLOW_TRAPDOOR, LIGHT_MARSHMALLOW_TRAPDOOR, DARK_MARSHMALLOW_TRAPDOOR,
+				JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE
 		);
 //		accept((b) -> ItemBlockRenderTypes.TYPE_BY_FLUID.put(b.get(), RenderType.translucent()),
 //				CARAMEL

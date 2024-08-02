@@ -2,7 +2,7 @@
   "type": "candycraftce:sugar_furnace",
   "exp": 4.0,
   "ingredient": {
-    "item": "candycraftce:honeycomb_ore"
+    "tag": "candycraftce:ore_honeycomb"
   },
   "result": {
     "item": "candycraftce:honeycomb"

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  **/
 public class RendererCaramelArrow extends ArrowRenderer<CaramelArrow> {
-	public static ResourceLocation TEX = ResourceUtils.prefixEntityTex("caramel_arrow");
+	public static ResourceLocation TEX = ResourceUtils.entityTex("caramel_arrow");
 	
 	public RendererCaramelArrow(EntityRendererProvider.Context context) {
 		super(context);

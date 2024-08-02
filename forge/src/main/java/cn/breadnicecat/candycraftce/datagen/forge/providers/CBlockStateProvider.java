@@ -51,8 +51,17 @@ public class CBlockStateProvider extends BlockStateProvider {
 		mappings = new HashMap<>();//make mappings enabled
 		//exist : (model) *
 		{
-			accept(b -> simpleBlockWithItem(b.get(), existModelFile(b.get())),
-					CUSTARD_PUDDING, MAGICAL_LEAVES);
+//			accept(b -> simpleBlockWithItem(b.get(), existModelFile(b.get())),
+//					 MAGICAL_LEAVES);
+		}
+		//tint-ableLeaves : *
+		{
+			accept(b -> {
+				LeavesBlock block = b.get();
+				BlockModelBuilder builder = models().withExistingParent(b.getName(), "block/leaves")
+						.texture("all", blockTexture(block));
+				simpleBlockWithItem(block, builder);
+			}, MAGICAL_LEAVES);
 		}
 		
 		//cubeAll : *
@@ -63,7 +72,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 					CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
 					SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
 					DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-					JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE, LICORICE_BLOCK, LICORICE_BRICKS,
+					LICORICE_BLOCK, LICORICE_BRICKS,
 					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
 					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
 					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
@@ -83,7 +92,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 						modLoc("block/" + name + "_bottom"),
 						modLoc("block/" + name + "_top"));
 				simpleBlockWithItem(b.get(), common);
-			}, /*CUSTARD_PUDDING,*/ CANDIED_CHERRY_SACK);
+			}, CANDIED_CHERRY_SACK);
 		});
 		
 		//column : *_side *_end
@@ -266,6 +275,34 @@ public class CBlockStateProvider extends BlockStateProvider {
 			}, CARAMEL_GLASS_PANE, ROUND_CARAMEL_GLASS_PANE, DIAMOND_CARAMEL_GLASS_PANE);
 		});
 		
+		//black_ore *
+		zone(() -> {
+			ResourceLocation black = blockTexture(CHOCOLATE_STONE.get());
+			ResourceLocation white = blockTexture(WHITE_CHOCOLATE_STONE.get());
+			ResourceLocation parent = modLoc("block/ore");
+			accept(b -> {
+				Block block = b.get();
+				ResourceLocation ore = blockTexture(block);
+				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
+						.texture("stone", black)
+						.texture("ore", ore);
+				simpleBlockWithItem(block, model);
+			}, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE);
+			mapping(blockTexture(WHITE_JELLY_ORE), blockTexture(JELLY_ORE));
+			mapping(blockTexture(WHITE_NOUGAT_ORE), blockTexture(NOUGAT_ORE));
+			mapping(blockTexture(WHITE_LICORICE_ORE), blockTexture(LICORICE_ORE));
+			mapping(blockTexture(WHITE_HONEYCOMB_ORE), blockTexture(HONEYCOMB_ORE));
+			mapping(blockTexture(WHITE_PEZ_ORE), blockTexture(PEZ_ORE));
+			accept(b -> {
+				Block block = b.get();
+				ResourceLocation ore = blockTexture(block);
+				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
+						.texture("stone", white)
+						.texture("ore", ore);
+				simpleBlockWithItem(block, model);
+			}, WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE);
+		});
+		
 		//mixed_cube *_1 *_2
 		zone(() -> {
 			ResourceLocation parent = prefix("mixed_cube");
@@ -290,28 +327,29 @@ public class CBlockStateProvider extends BlockStateProvider {
 		
 		mappings = Map.of();//making mapping disabled
 		/*================CUSTOM PART================*/
-//		{
-//			BlockEntry<CustardPuddingBlock> be = CUSTARD_PUDDING;
-//			CustardPuddingBlock b = be.get();
-//			//"particle": "block/dirt",
-//			//"bottom": "block/dirt",
-//			//"top": "block/grass_block_top",
-//			//"side": "block/grass_block_side",
-//			//"overlay": "block/grass_block_side_overlay"
-//			ResourceLocation bottom = blockTexture(PUDDING.get());
-//			BlockModelBuilder model = models().withExistingParent(be.getName(), "block/grass_block")
-//					.texture("particle", bottom)
-//					.texture("top", modLoc("block/" + be.getName() + "_top"))
-//					.texture("side", modLoc("block/" + be.getName() + "_side"))
-//					.texture("overlay", modLoc("block/" + be.getName() + "_overlay_side"));
-//			getVariantBuilder(b).partialState().addModels(
-//					new ConfiguredModel(model, 0, 0, false),
-//					new ConfiguredModel(model, 0, 90, false),
-//					new ConfiguredModel(model, 0, 180, false),
-//					new ConfiguredModel(model, 0, 270, false)
-//			);
-//			simpleBlockItem(b, model);
-//		}
+		{
+			BlockEntry<CustardPuddingBlock> be = CUSTARD_PUDDING;
+			CustardPuddingBlock b = be.get();
+			//"particle": "block/dirt",
+			//"bottom": "block/dirt",
+			//"top": "block/grass_block_top",
+			//"side": "block/grass_block_side",
+			//"overlay": "block/grass_block_side_overlay"
+			ResourceLocation pudding = blockTexture(PUDDING.get());
+			BlockModelBuilder model = models().withExistingParent(be.getName(), "block/grass_block")
+					.texture("particle", pudding)
+					.texture("bottom", pudding)
+					.texture("top", modLoc("block/" + be.getName() + "_top_overlay"))
+					.texture("side", modLoc("block/" + be.getName() + "_side"))
+					.texture("overlay", modLoc("block/" + be.getName() + "_side_overlay"));
+			getVariantBuilder(b).partialState().addModels(
+					new ConfiguredModel(model, 0, 0, false),
+					new ConfiguredModel(model, 0, 90, false),
+					new ConfiguredModel(model, 0, 180, false),
+					new ConfiguredModel(model, 0, 270, false)
+			);
+			simpleBlockItem(b, model);
+		}
 		//Dragibus软糖
 		{
 			CandyCropBlock block = DRAGIBUS_CROPS.get();
@@ -398,7 +436,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 			ModelFile base = existModelFile(baseLoc);
 			ModelFile liquid = existModelFile(baseLoc.withSuffix("_liquid"));
 			
-			MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+			getMultipartBuilder(block)
 					.part().modelFile(base)
 					.addModel()
 					.end()
@@ -407,7 +445,6 @@ public class CBlockStateProvider extends BlockStateProvider {
 					.addModel()
 					.condition(AlchemyMixerBlock.FULL, true)
 					.end();
-			
 			simpleBlockItem(block, base);
 		}
 		//盐甘草糖熔炉
@@ -540,6 +577,10 @@ public class CBlockStateProvider extends BlockStateProvider {
 		return mappings.getOrDefault(loc, loc);
 	}
 	
+	public ResourceLocation blockTexture(BlockEntry<?> block) {
+		return blockTexture(block.get());
+	}
+	
 	public ResourceLocation blockTexture(Block block, String postfix) {
 		return postfix(blockTexture(block), postfix);
 	}
@@ -567,6 +608,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 		assertTrue(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
 	}
 	
+	/**
+	 * modLoc
+	 */
 	private void mapping(String ori, String dest) {
 		mapping(super.modLoc(ori), super.modLoc(dest));
 	}

@@ -10,14 +10,14 @@ public class ResourceUtils {
 	/**
 	 * @return MOD_ID:textures/gui/(name).png
 	 */
-	public static ResourceLocation prefixGUITex(String name) {
+	public static ResourceLocation guiTex(String name) {
 		return prefix("textures/gui/" + name + ".png");
 	}
 	
 	/**
 	 * @return MOD_ID:textures/entity/(name).png
 	 */
-	public static ResourceLocation prefixEntityTex(String name) {
+	public static ResourceLocation entityTex(String name) {
 		return prefix("textures/entity/" + name + ".png");
 	}
 	
@@ -30,7 +30,7 @@ public class ResourceUtils {
 		return new ResourceLocation(CandyCraftCE.MOD_ID, path);
 	}
 	
-	public static ModelResourceLocation modelPrefix(String location, String path) {
+	public static ModelResourceLocation model(String location, String path) {
 		return new ModelResourceLocation(CandyCraftCE.MOD_ID, location, path);
 	}
 	

@@ -2,7 +2,7 @@
   "type": "candycraftce:sugar_furnace",
   "exp": 6.0,
   "ingredient": {
-    "item": "candycraftce:pez_ore"
+    "tag": "candycraftce:ore_pez"
   },
   "result": {
     "item": "candycraftce:pez"

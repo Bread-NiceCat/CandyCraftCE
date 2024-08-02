@@ -49,7 +49,7 @@ public class SugarFactoryRecipeBuilder extends CRecipeBuilderBase {
 		return this;
 	}
 	
-	public SugarFactoryRecipeBuilder ingredient(ItemLike ingredient) {
+	public SugarFactoryRecipeBuilder ingredient(ItemLike... ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
 	

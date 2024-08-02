@@ -40,7 +40,7 @@ public class SugarFurnaceRecipeBuilder extends CRecipeBuilderBase {
 		return this;
 	}
 	
-	public SugarFurnaceRecipeBuilder ingredient(ItemLike ingredient) {
+	public SugarFurnaceRecipeBuilder ingredient(ItemLike... ingredient) {
 		return ingredient(Ingredient.of(ingredient));
 	}
 	

@@ -2,7 +2,7 @@
   "type": "candycraftce:sugar_furnace",
   "exp": 2.0,
   "ingredient": {
-    "item": "candycraftce:licorice_ore"
+    "tag": "candycraftce:ore_licorice"
   },
   "result": {
     "item": "candycraftce:licorice"

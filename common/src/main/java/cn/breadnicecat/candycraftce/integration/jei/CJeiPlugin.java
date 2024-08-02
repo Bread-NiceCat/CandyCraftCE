@@ -27,8 +27,8 @@ import static cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes.*;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FACTORY_TYPE;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
 
 /**
  * Created in 2023/9/30 15:44
@@ -39,7 +39,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
 @JeiPlugin
 public class CJeiPlugin implements IModPlugin {
 	public static final ResourceLocation UID = prefix("jei-plugin");
-	public static final ResourceLocation JEI_TEX = prefixGUITex("jei");
+	public static final ResourceLocation JEI_TEX = guiTex("jei");
 	
 	public CJeiPlugin() {
 	}

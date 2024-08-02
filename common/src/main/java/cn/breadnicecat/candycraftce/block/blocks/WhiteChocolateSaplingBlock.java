@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.WHITE_CHOCOLATE_FANCY_TREE;
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.WHITE_CHOCOLATE_TREE;
 
 /**
@@ -20,12 +19,12 @@ public class WhiteChocolateSaplingBlock extends CandySaplingBlock {
 	protected WhiteChocolateSaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
-
+	
 	public WhiteChocolateSaplingBlock(Properties properties) {
 		super(new AbstractTreeGrower() {
 			@Override
 			protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return random.nextFloat() < 0.1 ? WHITE_CHOCOLATE_FANCY_TREE : WHITE_CHOCOLATE_TREE;
+				return WHITE_CHOCOLATE_TREE;
 			}
 		}, properties);
 	}

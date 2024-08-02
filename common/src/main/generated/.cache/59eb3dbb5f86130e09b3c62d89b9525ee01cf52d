@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-11T11:55:46.1583572	Loot Tables
+// 1.20.1	2024-08-02T17:58:37.2373997	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -145,3 +145,8 @@ ad4dc3a69a93920bf8d6882a9a0647cf29ebfef7 data/candycraftce/loot_tables/blocks/wh
 f08aca35dbcfc1b48a5fa21f98d7325ac48ef6b6 data/candycraftce/loot_tables/blocks/white_chocolate_sapling.json
 cdf9506bcecb8a7e8da8ecf2e353c95a604334ce data/candycraftce/loot_tables/blocks/white_chocolate_stone.json
 b90ac229c79d93dccba92e5863562b7e134c23c5 data/candycraftce/loot_tables/blocks/white_chocolate_stone_tile.json
+a7ed2d8fc05496901743a55ea4a830fcc9945ace data/candycraftce/loot_tables/blocks/white_honeycomb_ore.json
+cf528bed5f9b4961207883bb38f57abe065048b8 data/candycraftce/loot_tables/blocks/white_jelly_ore.json
+27c97602c967af6f650839b8b7f629656664a8eb data/candycraftce/loot_tables/blocks/white_licorice_ore.json
+b4fff6e016b16fa49cbbb9d09066a592b36d0847 data/candycraftce/loot_tables/blocks/white_nougat_ore.json
+9707b7004388d49dab1342313c585df2a8d4e4a1 data/candycraftce/loot_tables/blocks/white_pez_ore.json

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.block.PuddingColor.PUDDING_COLOR_RESOLVER;
+import static cn.breadnicecat.candycraftce.misc.PuddingColor.PUDDING_COLOR_RESOLVER;
 
 /**
  * Created in 2024/7/7 上午12:43
@@ -39,8 +39,7 @@ public abstract class MixinClientLevel {
 	public abstract int calculateBlockTint(BlockPos blockPos, ColorResolver colorResolver);
 	
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void init(ClientPacketListener connection, ClientLevel.ClientLevelData clientLevelData, ResourceKey dimension, Holder dimensionType, int viewDistance, int serverSimulationDistance, Supplier profiler, LevelRenderer levelRenderer, boolean isDebug, long biomeZoomSeed, CallbackInfo ci) {
-		tintCaches.put(PUDDING_COLOR_RESOLVER,
-				new BlockTintCache((blockPos) -> calculateBlockTint(blockPos, PUDDING_COLOR_RESOLVER)));
+	private void init(ClientPacketListener connection, ClientLevel.ClientLevelData clientLevelData, ResourceKey<?> dimension, Holder<?> dimensionType, int viewDistance, int serverSimulationDistance, Supplier profiler, LevelRenderer levelRenderer, boolean isDebug, long biomeZoomSeed, CallbackInfo ci) {
+		tintCaches.put(PUDDING_COLOR_RESOLVER, new BlockTintCache((blockPos) -> calculateBlockTint(blockPos, PUDDING_COLOR_RESOLVER)));
 	}
 }

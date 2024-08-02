@@ -1,9 +1,9 @@
 {
   "values": [
-    "candycraftce:jelly_ore",
-    "candycraftce:nougat_ore",
-    "candycraftce:licorice_ore",
-    "candycraftce:honeycomb_ore",
-    "candycraftce:pez_ore"
+    "#candycraftce:ore_jelly",
+    "#candycraftce:ore_nougat",
+    "#candycraftce:ore_honeycomb",
+    "#candycraftce:ore_licorice",
+    "#candycraftce:ore_licorice"
   ]
 }

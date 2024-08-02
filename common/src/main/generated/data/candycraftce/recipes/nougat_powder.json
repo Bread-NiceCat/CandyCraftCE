@@ -1,7 +1,7 @@
 {
   "type": "candycraftce:sugar_factory",
   "ingredient": {
-    "item": "candycraftce:nougat_ore"
+    "tag": "candycraftce:ore_nougat"
   },
   "result": {
     "item": "candycraftce:nougat_powder"

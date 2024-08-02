@@ -2,7 +2,7 @@
   "type": "candycraftce:sugar_furnace",
   "exp": 2.0,
   "ingredient": {
-    "item": "candycraftce:jelly_ore"
+    "tag": "candycraftce:ore_jelly"
   },
   "result": {
     "item": "candycraftce:trampojelly"

@@ -2,7 +2,7 @@ package cn.breadnicecat.candycraftce.mixin_ref;
 
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.modelPrefix;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.model;
 
 /**
  * Created in 2024/7/3 下午4:05
@@ -14,5 +14,5 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.modelPrefix;
  * <p>
  **/
 public class $ItemRenderer {
-	public static final ModelResourceLocation ItemRenderer$SPEAR_IN_HAND_MODEL = modelPrefix("licorice_spear_in_hand", "inventory");
+	public static final ModelResourceLocation ItemRenderer$SPEAR_IN_HAND_MODEL = model("licorice_spear_in_hand", "inventory");
 }

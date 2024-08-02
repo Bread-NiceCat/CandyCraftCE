@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-11T11:55:46.1798094	Tags for minecraft:block mod id candycraftce
+// 1.20.1	2024-08-02T17:58:37.2448864	Tags for minecraft:block mod id candycraftce
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/blocks/candy_plant_suitable.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/blocks/caramel_portal_frame.json
 0e1a36c7e43d76094031bcc85a30d0d8c95f196a data/candycraftce/tags/blocks/carver_overrideable.json
@@ -7,8 +7,15 @@ c30a8a3e720fbdfee0cfca158868c8cf9511aef0 data/candycraftce/tags/blocks/ice_cream
 634f09f098298388533c65b5e6a91a2e7531fec7 data/candycraftce/tags/blocks/jelly.json
 96fde7f4b4cef4e4bcceca56752e1815e702f18d data/candycraftce/tags/blocks/marshmallow_logs.json
 a2a5036f2c6edbf2fd36f31af4a321ee79da4a9b data/candycraftce/tags/blocks/marshmallow_planks.json
-3941536df8c9a102f8b73201f4b743ace92cc72c data/candycraftce/tags/blocks/ores.json
-838ddc13d50998cdad6a6627c3ee3d65c0954196 data/candycraftce/tags/blocks/sugary.json
+4a7e7bbccc27a7df1414bd7256cc1d41451f034c data/candycraftce/tags/blocks/ores.json
+36f230c6d1555adbb19391db27f72900b96d033a data/candycraftce/tags/blocks/ore_black_overrideable.json
+e1169a3ee44ecbd2b15644823a090935a97b8e4c data/candycraftce/tags/blocks/ore_honeycomb.json
+091eba4d56420f63b15cde911e53093abbe19826 data/candycraftce/tags/blocks/ore_jelly.json
+8eefc6c4da778bc3d3eacc28ea0c745261d1a6a2 data/candycraftce/tags/blocks/ore_licorice.json
+511f1b726a205f85bdf6e2e334f5d3ae1853aff7 data/candycraftce/tags/blocks/ore_nougat.json
+be6f9612730e4a2fba1fd5e3cce83b44a9e240a2 data/candycraftce/tags/blocks/ore_pez.json
+2ea817b1c761c7d9f04935572315b3c991f0f5d0 data/candycraftce/tags/blocks/ore_white_overrideable.json
+f36841845c9b12a77b69f59a9344e4691f3fd4a8 data/candycraftce/tags/blocks/sugary.json
 e2f51ab5e1647ef130148f4533afba97f4cfce61 data/minecraft/tags/blocks/climbable.json
 10df8474d7b1fd747804027494023fb637f38452 data/minecraft/tags/blocks/doors.json
 4fc00cb442e2166900e5cee7d1650aef7b680f27 data/minecraft/tags/blocks/fences.json
@@ -17,11 +24,11 @@ ef5b71f7aa63521afb1cb4c2b3d56dfd52b3e5aa data/minecraft/tags/blocks/leaves.json
 bf97b43979c11ad27625bb47a327b245b8688103 data/minecraft/tags/blocks/logs.json
 f394e9182cfd3d0fb0b49f97c694f5584ba2dc6c data/minecraft/tags/blocks/mineable/axe.json
 1a82b09702ae5cdd265eafaf860f2246d7d717fd data/minecraft/tags/blocks/mineable/hoe.json
-0534336066415ad66245417a6ce0b09142ae1101 data/minecraft/tags/blocks/mineable/pickaxe.json
+adecd3eb2c87c4abd43bc048dbb6f08b304a0b11 data/minecraft/tags/blocks/mineable/pickaxe.json
 22fe1893957182ca070efc13ad874dd7cbfe5c37 data/minecraft/tags/blocks/mineable/shovel.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/blocks/needs_diamond_tool.json
-e5e40094779b2d9ab5a896428a12e7b51a4d4d95 data/minecraft/tags/blocks/needs_iron_tool.json
-0866c65b76df62f96902b02bafa7ef3c6c729b0d data/minecraft/tags/blocks/needs_stone_tool.json
+c3eccae64518d34087c7a9fced6c2d1c5e5d7ffd data/minecraft/tags/blocks/needs_diamond_tool.json
+e648803b9dd26a7e095003fd44c36e6660283906 data/minecraft/tags/blocks/needs_iron_tool.json
+f6be15f3c8593b45938ab41db4cc140757653525 data/minecraft/tags/blocks/needs_stone_tool.json
 47f5b6a1c72b6e8aa97d5cd3fa0068e55b368e17 data/minecraft/tags/blocks/portals.json
 830be772da3334b9d91797b2cd496143e69564f1 data/minecraft/tags/blocks/saplings.json
 b41938e3d48acf37a569956c9dc41fa34ce75f9a data/minecraft/tags/blocks/slabs.json

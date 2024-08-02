@@ -3,24 +3,34 @@
   "downfall": 0.4,
   "has_precipitation": true,
   "effects": {
-	"sky_color": 11107071,
-	"fog_color": 14140159,
-	"water_color": 7028708,
-	"water_fog_color": 3147059
+    "sky_color": 15122881,
+    "fog_color": 14140159,
+    "water_color": 16230101,
+    "water_fog_color": 10249079,
+    "grass_color": 15641275
   },
   "spawners": {},
   "spawn_costs": {},
   "carvers": {
-	"air": [
-	  "candycraftce:cave",
-	  "candycraftce:cave_extra_underground",
-	  "candycraftce:canyon"
-	]
+    "air": [
+      "candycraftce:cave",
+      "candycraftce:cave_extra_underground",
+      "candycraftce:canyon"
+    ]
   },
   "features": [
-	[
-	  "candycraftce:sweet_grass_plains",
-	  "candycraftce:trees_plains"
-	]
+    [
+      "candycraftce:trees_plains",
+      "candycraftce:grass_plains",
+      "candycraftce:flower_plains"
+    ],
+    [
+      "candycraftce:ore_honeycomb_upper",
+      "candycraftce:ore_honeycomb_lower",
+      "candycraftce:ore_licorice_upper",
+      "candycraftce:ore_licorice_middle",
+      "candycraftce:ore_jelly",
+      "candycraftce:ore_pez"
+    ]
   ]
 }

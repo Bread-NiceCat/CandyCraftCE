@@ -2,7 +2,7 @@
   "values": [
     "candycraftce:licorice_furnace",
     "candycraftce:advanced_sugar_factory",
-    "candycraftce:honeycomb_ore",
-    "candycraftce:honeycomb_block"
+    "candycraftce:honeycomb_block",
+    "#candycraftce:ore_honeycomb"
   ]
 }

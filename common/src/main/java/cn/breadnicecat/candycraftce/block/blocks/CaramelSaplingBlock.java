@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CARAMEL_FANCY_TREE;
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CARAMEL_TREE;
 
 /**
@@ -17,16 +16,16 @@ import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CARAMEL_TRE
  * <p>
  */
 public class CaramelSaplingBlock extends CandySaplingBlock {
-
+	
 	protected CaramelSaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
-
+	
 	public CaramelSaplingBlock(Properties properties) {
 		super(new AbstractTreeGrower() {
 			@Override
 			protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return random.nextFloat() < 0.1 ? CARAMEL_FANCY_TREE : CARAMEL_TREE;
+				return CARAMEL_TREE;
 			}
 		}, properties);
 	}

@@ -7,10 +7,7 @@ triggers:
     branches:
       include:
         - .+
-  pr:
-    branches:
-      include:
-        - .+
+        
 stages:
   - name: stage-d5ea25af
     displayName: 构建

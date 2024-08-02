@@ -16,16 +16,16 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CPlacedFeatures {
 	public final static ResourceKey<PlacedFeature> CHOCOLATE_TREE_CHECKED = bind("chocolate_tree_checked");
-	public final static ResourceKey<PlacedFeature> WHITE_CHOCOLATE_TREE_CHECKED = bind("white_chocolate_tree_checked");
-	public final static ResourceKey<PlacedFeature> CARAMEL_TREE_CHECKED = bind("caramel_tree_checked");
-
 	public final static ResourceKey<PlacedFeature> CHOCOLATE_FANCY_TREE_CHECKED = bind("chocolate_fancy_tree_checked");
+	
+	public final static ResourceKey<PlacedFeature> WHITE_CHOCOLATE_TREE_CHECKED = bind("white_chocolate_tree_checked");
 	public final static ResourceKey<PlacedFeature> WHITE_CHOCOLATE_FANCY_TREE_CHECKED = bind("white_chocolate_fancy_tree_checked");
+	
+	public final static ResourceKey<PlacedFeature> CARAMEL_TREE_CHECKED = bind("caramel_tree_checked");
 	public final static ResourceKey<PlacedFeature> CARAMEL_FANCY_TREE_CHECKED = bind("caramel_fancy_tree_checked");
-	public final static ResourceKey<PlacedFeature> MAGIC_FANCY_TREE_CHECKED = bind("magic_fancy_tree_checked");
-
+	
 	public final static ResourceKey<PlacedFeature> CANDIED_CHERRY_TREE_CHECKED = bind("candied_cherry_tree_checked");
-
+	
 	protected static ResourceKey<PlacedFeature> bind(String name) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, prefix(name));
 	}

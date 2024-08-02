@@ -4,8 +4,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.dimension.LevelStem;
 
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -25,9 +23,5 @@ public class CDims {
 	
 	public static final ResourceKey<Level> CANDYLAND = ResourceKey.create(Registries.DIMENSION, CANDYCRAFT_LOCATION);
 	public static final ResourceKey<Level> DUNGEONS = ResourceKey.create(Registries.DIMENSION, DUNGEONS_LOCATION);
-	
-	protected static final ResourceKey<LevelStem> LAND_STEM = ResourceKey.create(Registries.LEVEL_STEM, CANDYCRAFT_LOCATION);
-	protected static final ResourceKey<DimensionType> LAND_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, CANDYCRAFT_LOCATION.withSuffix("_type"));
-	
 	
 }

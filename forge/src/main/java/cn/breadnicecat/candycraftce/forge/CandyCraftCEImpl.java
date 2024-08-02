@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.forge;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
-import cn.breadnicecat.candycraftce.block.PuddingColor;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
@@ -10,7 +9,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -54,11 +52,6 @@ public class CandyCraftCEImpl {
 		mcSetupHooks.forEach(Runnable::run);
 		mcSetupHooks = null;
 		deferredRegisters = null;
-	}
-	
-	@SubscribeEvent
-	public void onAddReloadListener(AddReloadListenerEvent event) {
-		event.addListener(PuddingColor.RELOAD_LISTENER);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -1,0 +1,41 @@
+{
+  "temperature": 2,
+  "downfall": 0,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 15375206,
+    "fog_color": 13404478,
+    "water_color": 9417983,
+    "water_fog_color": 13347442,
+    "grass_color": 11557928,
+    "music": {
+      "sound": "minecraft:music.overworld.forest",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "candycraftce:cave",
+      "candycraftce:cave_extra_underground",
+      "candycraftce:canyon"
+    ]
+  },
+  "features": [
+    [
+      "candycraftce:trees_caramel",
+      "candycraftce:grass_forest",
+      "candycraftce:flower_caramel"
+    ],
+    [
+      "candycraftce:ore_honeycomb_upper",
+      "candycraftce:ore_honeycomb_lower",
+      "candycraftce:ore_licorice_upper",
+      "candycraftce:ore_licorice_middle",
+      "candycraftce:ore_nougat"
+    ]
+  ]
+}

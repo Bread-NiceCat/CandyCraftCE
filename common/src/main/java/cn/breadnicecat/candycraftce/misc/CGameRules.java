@@ -12,12 +12,12 @@ import org.slf4j.Logger;
  * <p>
  */
 public class CGameRules {
-
+	
 	private static final Logger LOGGER = CLogUtils.sign();
 	public static final GameRules.Key<GameRules.BooleanValue> CARAMEL_PORTAL_WORKS = GameRules.register("doCaramelPortalWorks", GameRules.Category.UPDATES, GameRules.BooleanValue.create(true));
-
+	
 	public static void init() {
 	}
-
-
+	
+	
 }

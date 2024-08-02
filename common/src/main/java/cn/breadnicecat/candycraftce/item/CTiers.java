@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  */
 public enum CTiers implements Tier {
 	MARSHMALLOW(0, 59, 2.0F, 0.0F, 15,
-			() -> Ingredient.of(CBlockTags.BT_MARSHMALLOW_PLANKS.i())),
+			() -> Ingredient.of(CBlockTags.BT_MARSHMALLOW_PLANKS.it())),
 	LICORICE(1, 131, 4.0F, 1.0F, 5,
 			() -> Ingredient.of(CItems.LICORICE)),
 	HONEYCOMB(2, 250, 6.0F, 2.0F, 14,

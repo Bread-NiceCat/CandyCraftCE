@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
@@ -74,7 +74,7 @@ public class CExportProvider implements DataProvider {
 			StringWriter writer = new StringWriter();
 			writer.append(head).append('\n');
 			lines.forEach((l) -> writer.write(l + '\n'));
-			byte[] data = writer.getBuffer().toString().getBytes(Charset.forName("GBK"));
+			byte[] data = writer.getBuffer().toString().getBytes(StandardCharsets.UTF_8);
 			try {
 				output.writeIfNeeded(csv.toPath(), data, HashCode.fromBytes(data));
 			} catch (IOException e) {

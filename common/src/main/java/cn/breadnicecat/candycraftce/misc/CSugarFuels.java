@@ -10,22 +10,23 @@ import static cn.breadnicecat.candycraftce.item.CItems.PEZ;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 
 public class CSugarFuels {
+	//	public static final Codec<CSugarFuels> CODEC= TODO
 	public static final Object2IntOpenHashMap<Item> FUELS = apply(new Object2IntOpenHashMap<>(), (m) -> {
 		m.put(PEZ.get(), 1000);
-	});//TODO 数据包?不，直接写代码里
-
+	});
+	
 	public static boolean isFuel(Item item) {
 		return item != Items.AIR && FUELS.containsKey(item);
 	}
-
+	
 	public static boolean isFuel(@NotNull ItemStack stack) {
 		return isFuel(stack.getItem());
 	}
-
+	
 	public static int getBurnDuration(Item item) {
 		return item == Items.AIR ? 0 : FUELS.getInt(item);
 	}
-
+	
 	public static int getBurnDuration(@NotNull ItemStack stack) {
 		return stack.isEmpty() ? 0 : FUELS.getInt(stack.getItem());
 	}

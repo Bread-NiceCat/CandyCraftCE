@@ -15,7 +15,7 @@ allprojects {
     archivesBaseName = archives_base_name
     version = mod_version
     group = maven_group
-
+    
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese

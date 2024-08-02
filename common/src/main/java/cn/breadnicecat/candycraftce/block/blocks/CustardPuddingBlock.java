@@ -21,11 +21,11 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.PUDDING;
  */
 public class CustardPuddingBlock extends Block {
 	public static final Block DIRT_LIKE = PUDDING.get();
-
+	
 	public CustardPuddingBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	private static boolean canBeGrass(BlockState state, LevelReader levelReader, BlockPos pos) {
 		BlockPos blockPos = pos.above();
 		BlockState blockState = levelReader.getBlockState(blockPos);
@@ -43,7 +43,7 @@ public class CustardPuddingBlock extends Block {
 //		BlockPos blockPos = pos.above();
 //		return canBeGrass(state, level, pos) && !level.getFluidState(blockPos).is(FluidTags.WATER);
 //	}
-
+	
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

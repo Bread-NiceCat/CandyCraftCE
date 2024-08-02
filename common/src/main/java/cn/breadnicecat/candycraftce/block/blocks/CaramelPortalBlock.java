@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
-import cn.breadnicecat.candycraftce.level.CDims;
+import cn.breadnicecat.candycraftce.item.CItemTags;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.particle.CParticles;
@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -36,7 +37,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.BiFunction;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.hate;
+import static cn.breadnicecat.candycraftce.level.CDims.CANDYLAND;
+import static net.minecraft.world.Difficulty.HARD;
+import static net.minecraft.world.level.Level.OVERWORLD;
 import static net.minecraft.world.level.block.Blocks.LAVA;
 
 /**
@@ -149,7 +152,7 @@ public class CaramelPortalBlock extends Block {
 //		}else
 		if (entity.isAlive() && !entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
 			//传送
-			ResourceKey<Level> destination = getDestination(level);
+			ResourceKey<Level> destination = getDestination(level, entity);
 			if (destination != null) {
 				MinecraftServer server = level.getServer();
 				if (server != null) {
@@ -194,10 +197,26 @@ public class CaramelPortalBlock extends Block {
 	/**
 	 * @return null, 如果无法传送
 	 */
-	protected @Nullable ResourceKey<Level> getDestination(Level level) {
-		return level.getGameRules().getBoolean(CGameRules.CARAMEL_PORTAL_WORKS) ?
-				hate(level.dimension(), CDims.CANDYLAND, Level.OVERWORLD, null)
-				: null;
+	protected @Nullable ResourceKey<Level> getDestination(Level level, Entity entity) {
+		boolean works = level.getGameRules().getBoolean(CGameRules.CARAMEL_PORTAL_WORKS);
+		ResourceKey<Level> ori = level.dimension();
+		if (ori == OVERWORLD) {
+			return CANDYLAND;
+		} else if (ori == CANDYLAND) {
+			//困难模式，且手上和身上没有返程票。
+			boolean blocked = false;
+			if (level.getDifficulty() == HARD && entity instanceof LivingEntity live) {
+				blocked = true;
+				for (ItemStack slot : live.getAllSlots()) {
+					if (slot.is(CItemTags.IT_RETURN_TICKET)) {
+						blocked = false;
+						break;
+					}
+				}
+			}
+			if (!blocked) return OVERWORLD;
+		}
+		return null;
 	}
 	
 	@Override

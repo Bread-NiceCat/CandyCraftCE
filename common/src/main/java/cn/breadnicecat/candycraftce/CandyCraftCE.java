@@ -9,6 +9,7 @@ import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
+import cn.breadnicecat.candycraftce.misc.CHaGens;
 import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
@@ -34,16 +35,16 @@ public final class CandyCraftCE {
 	private static final Logger LOGGER = CLogUtils.sign();
 	
 	
-	public static final boolean INDEV;
+	public static final boolean DEV;
 	
 	static {
 		//检查是否处于Dev环境
-		boolean _inDev = false;
+		boolean inDev = false;
 		try {
-			_inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
+			inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
 		} catch (Exception ignored) {
 		} finally {
-			INDEV = _inDev;
+			DEV = inDev;
 		}
 	}
 	
@@ -67,7 +68,7 @@ public final class CandyCraftCE {
 		
 		LOGGER.info("=".repeat(64));
 		LOGGER.info(MOD_ID + " Running in {} with {}", environment, platform);
-		if (INDEV) {
+		if (DEV) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
 		}
@@ -77,6 +78,7 @@ public final class CandyCraftCE {
 //      尤其是含register的类
 		CItems.init();
 		CMenus.init();
+		CHaGens.init();
 		CFluids.init();
 		CBlocks.init();
 		CDimInit.init();

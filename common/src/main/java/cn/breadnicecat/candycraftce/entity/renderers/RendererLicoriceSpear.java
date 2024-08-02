@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
 
 /**
  * Created in 2024/7/2 21:34
@@ -23,7 +23,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
  * <p>
  **/
 public class RendererLicoriceSpear extends ThrownTridentRenderer {
-	public static ResourceLocation TEX = prefixEntityTex("licorice_spear");
+	public static ResourceLocation TEX = entityTex("licorice_spear");
 	
 	public RendererLicoriceSpear(EntityRendererProvider.Context context) {
 		super(context);

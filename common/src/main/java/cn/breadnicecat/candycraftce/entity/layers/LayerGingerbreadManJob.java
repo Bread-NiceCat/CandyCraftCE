@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixEntityTex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
 import static net.fabricmc.api.EnvType.CLIENT;
 
 /**
@@ -23,9 +23,9 @@ import static net.fabricmc.api.EnvType.CLIENT;
  */
 @Environment(CLIENT)
 public class LayerGingerbreadManJob extends RenderLayer<GingerbreadMan, ModelGingerbreadMan> {
-	private static final ResourceLocation BLACK_SMITH = prefixEntityTex("gingerbread_man/blacksmith");
-	private static final ResourceLocation FARMER = prefixEntityTex("gingerbread_man/farmer");
-	private static final ResourceLocation TRAVELLER = prefixEntityTex("gingerbread_man/traveller");
+	private static final ResourceLocation BLACK_SMITH = entityTex("gingerbread_man/blacksmith");
+	private static final ResourceLocation FARMER = entityTex("gingerbread_man/farmer");
+	private static final ResourceLocation TRAVELLER = entityTex("gingerbread_man/traveller");
 	private static final List<ResourceLocation> TEXTURES = List.of(BLACK_SMITH, FARMER, TRAVELLER);
 	
 	public LayerGingerbreadManJob(RenderLayerParent<GingerbreadMan, ModelGingerbreadMan> pRenderer) {

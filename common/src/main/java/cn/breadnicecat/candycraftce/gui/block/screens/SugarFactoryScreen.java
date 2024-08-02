@@ -18,7 +18,7 @@ import static cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFacto
  * <p>
  */
 public class SugarFactoryScreen extends AbstractContainerScreen<SugarFactoryMenu> {
-	public static final ResourceLocation COMMON_STYLE = ResourceUtils.prefixGUITex("gui_sugar_factory");
+	public static final ResourceLocation COMMON_STYLE = ResourceUtils.guiTex("gui_sugar_factory");
 	protected ResourceLocation style = COMMON_STYLE;
 	protected int titleColor = 0xb5ff71;
 	

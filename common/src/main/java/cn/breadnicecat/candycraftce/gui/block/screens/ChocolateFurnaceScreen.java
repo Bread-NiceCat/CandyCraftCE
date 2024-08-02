@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
 
 /**
  * Created in 2024/2/3
@@ -15,11 +15,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  * <p>
  */
 public class ChocolateFurnaceScreen extends LicoriceFurnaceScreen {
-	public static final ResourceLocation CHOCOLATE = prefixGUITex("gui_chocolate_furnace");
-
+	public static final ResourceLocation CHOCOLATE = guiTex("gui_chocolate_furnace");
+	
 	public ChocolateFurnaceScreen(LicoriceFurnaceMenu abstractContainerMenu, Inventory inventory, Component component) {
 		super(abstractContainerMenu, inventory, component);
 		guiStyle = CHOCOLATE;
 	}
-
+	
 }

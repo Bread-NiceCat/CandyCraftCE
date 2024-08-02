@@ -12,17 +12,3 @@ credits = "Architectury-Loom"
 description = '''
 '''
 logoFile = "icon.png"
-
-[[dependencies.candycraftce]]
-modId = "forge"
-mandatory = true
-versionRange = "[47,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.candycraftce]]
-modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.1,)"
-ordering = "NONE"
-side = "BOTH"

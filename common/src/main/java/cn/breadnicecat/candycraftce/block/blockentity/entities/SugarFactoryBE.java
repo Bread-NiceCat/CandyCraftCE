@@ -54,7 +54,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	public static final int COMMON_TYPE = 1;
 	public static final int SUGARY_TYPE = 2;
 	
-	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("__sugary__"), Ingredient.of(CBlockTags.BT_SUGARY.i()), SUGAR, 1, false);
+	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("__sugary__"), Ingredient.of(CBlockTags.BT_SUGARY.it()), SUGAR, 1, false);
 	
 	protected static final int COMMON_TICKED_TOTAL = (int) (10 * TickUtils.SEC2TICK);
 	

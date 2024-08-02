@@ -50,7 +50,7 @@ public class SensitiveJellyBlock extends JellyBlock {
 		BlockPos detect = pos;
 		BlockPos above = pos.above();
 		BlockState state1 = level.getBlockState(above);
-		if (state1.is(CBlockTags.BT_JELLY.b()) && !state1.is(this)) {
+		if (state1.is(CBlockTags.BT_JELLY.bt()) && !state1.is(this)) {
 			detect = above;
 		}
 		boolean powered = !level.getEntitiesOfClass(LivingEntity.class, new AABB(

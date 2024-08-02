@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE.TICKED_DATA;
 import static cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE.TICKED_TOTAL_DATA;
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
+import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
 
 /**
  * Created in 2024/2/3
@@ -21,7 +21,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefixGUITex;
  * <p>
  */
 public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurnaceMenu> {
-	public static final ResourceLocation LICORICE = prefixGUITex("gui_licorice_furnace");
+	public static final ResourceLocation LICORICE = guiTex("gui_licorice_furnace");
 	protected ResourceLocation guiStyle = LICORICE;
 	
 	public LicoriceFurnaceScreen(LicoriceFurnaceMenu abstractContainerMenu, Inventory inventory, Component component) {

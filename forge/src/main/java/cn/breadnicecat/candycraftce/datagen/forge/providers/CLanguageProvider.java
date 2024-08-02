@@ -146,6 +146,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(MAGICAL_LEAF, "魔法树叶");
 		addItemById(FORK, "叉子");
 		addItem(IIDEBUG, "I 爱 DEBUG !!!", null);
+		addItemById(LICORICE_SPEAR, "盐甘草糖矛");
 		/*=======================Blocks=======================*/
 		addBlockById(SUGAR_BLOCK, "糖块");
 		addBlockById(CARAMEL_PORTAL, "焦糖传送门");
@@ -183,10 +184,15 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(MAGICAL_LEAVES, "魔法树叶");
 		addBlockById(HONEYCOMB_TORCH, "蜜蜡火把");
 		addBlockById(JELLY_ORE, "果冻矿石");
+		addBlockById(WHITE_JELLY_ORE, "果冻矿石");
 		addBlockById(NOUGAT_ORE, "牛轧糖矿石");
+		addBlockById(WHITE_NOUGAT_ORE, "牛轧糖矿石");
 		addBlockById(LICORICE_ORE, "盐甘草糖矿石");
+		addBlockById(WHITE_LICORICE_ORE, "盐甘草糖矿石");
 		addBlockById(HONEYCOMB_ORE, "蜜蜡矿石");
+		addBlockById(WHITE_HONEYCOMB_ORE, "蜜蜡矿石");
 		addBlockById(PEZ_ORE, "皮礼士糖矿石");
+		addBlockById(WHITE_PEZ_ORE, "皮礼士糖矿石");
 		addBlockById(CHOCOLATE_SAPLING, "巧克力树苗");
 		addBlockById(WHITE_CHOCOLATE_SAPLING, "白巧克力树苗");
 		addBlockById(CARAMEL_SAPLING, "焦糖树苗");

@@ -1,10 +1,12 @@
 package cn.breadnicecat.candycraftce.entity;
 
+import cn.breadnicecat.candycraftce.entity.entities.CandyCanePig;
 import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
 import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.entities.LicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.models.ModelLicoriceSpear;
+import cn.breadnicecat.candycraftce.entity.renderers.RendererCandyCanePig;
 import cn.breadnicecat.candycraftce.entity.renderers.RendererCaramelArrow;
 import cn.breadnicecat.candycraftce.entity.renderers.RendererGingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.renderers.RendererLicoriceSpear;
@@ -40,6 +42,11 @@ public class CEntities {
 			.attribute(GingerbreadMan::createAttributes)
 			.spawnEgg(0xF1C3C3, 0x61380B)
 			.save();
+	public static final EntityEntry<CandyCanePig> CANDY_CANE_PIG = CEntityBuilder.<CandyCanePig>create("candy_cane_pig", CandyCanePig::new, CREATURE)
+			.sized(0.9f, 0.9f)
+			.attribute(CandyCanePig::createAttributes)
+			.save();
+	
 	public static final EntityEntry<CaramelArrow> CARAMEL_ARROW = CEntityBuilder.<CaramelArrow>create("caramel_arrow", CaramelArrow::new, MISC)
 			.sized(0.5f, 0.5f)
 			.save();
@@ -47,12 +54,14 @@ public class CEntities {
 			.sized(0.5f, 0.5f)
 			.save();
 	
+	
 	static {
 		hookMinecraftSetup(() -> {
 					if (isClient()) {
 						EntityRenderers.register(GINGERBREAD_MAN.get(), RendererGingerbreadMan::new);
 						EntityRenderers.register(CARAMEL_ARROW.get(), RendererCaramelArrow::new);
 						EntityRenderers.register(LICORICE_SPEAR.get(), RendererLicoriceSpear::new);
+						EntityRenderers.register(CANDY_CANE_PIG.get(), RendererCandyCanePig::new);
 						
 						registerLayer(ModelGingerbreadMan.MAIN, ModelGingerbreadMan::createBodyLayer);
 						registerLayer(ModelGingerbreadMan.JOB, ModelGingerbreadMan::createBodyLayer);
