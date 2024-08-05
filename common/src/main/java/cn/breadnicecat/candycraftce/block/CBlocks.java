@@ -131,12 +131,12 @@ public class CBlocks {
 	public static final BlockEntry<DropExperienceBlock> NOUGAT_ORE = create("nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> LICORICE_ORE = create("licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();
 	public static final BlockEntry<DropExperienceBlock> HONEYCOMB_ORE = create("honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> PEZ_ORE = create("pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_JELLY_ORE = create("white_jelly_ore", DropExperienceBlock::new).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_NOUGAT_ORE = create("white_nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_LICORICE_ORE = create("white_licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_HONEYCOMB_ORE = create("white_honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_PEZ_ORE = create("white_pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> PEZ_ORE = create("pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, p -> p.lightLevel(i -> 8)).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_JELLY_ORE = create("white_jelly_ore", DropExperienceBlock::new).setProperties(JELLY_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_NOUGAT_ORE = create("white_nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(NOUGAT_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_LICORICE_ORE = create("white_licorice_ore", DropExperienceBlock::new).setProperties(LICORICE_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_HONEYCOMB_ORE = create("white_honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(HONEYCOMB_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_PEZ_ORE = create("white_pez_ore", DropExperienceBlock::new).setProperties(PEZ_ORE, null).save();
 	
 	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(STONE, null).save();
 	public static final BlockEntry<Block> LICORICE_BLOCK = create("licorice_block").setProperties(Blocks.COAL_BLOCK, null).save();

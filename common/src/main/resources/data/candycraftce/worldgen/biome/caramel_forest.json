@@ -15,7 +15,28 @@
       "replace_current_music": false
     }
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "candycraftce:waffle_sheep",
+        "weight": 12,
+        "minCount": 2,
+        "maxCount": 2
+      },
+      {
+        "type": "candycraftce:candy_cane_pig",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 2
+      },
+      {
+        "type": "candycraftce:bunny",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 2
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

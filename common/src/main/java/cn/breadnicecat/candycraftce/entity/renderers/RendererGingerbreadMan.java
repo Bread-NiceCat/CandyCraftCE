@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
 
-import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.entities.mobs.GingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.layers.LayerGingerbreadManJob;
 import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
 import net.fabricmc.api.EnvType;
@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan.MAIN;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
 
 /**
@@ -23,8 +22,8 @@ public class RendererGingerbreadMan extends MobRenderer<GingerbreadMan, ModelGin
 	
 	private static final ResourceLocation MAIN_TEX = entityTex("gingerbread_man/main");
 	
-	public RendererGingerbreadMan(EntityRendererProvider.Context pContext) {
-		super(pContext, new ModelGingerbreadMan(pContext.bakeLayer(MAIN)), 0.25f);
+	public RendererGingerbreadMan(EntityRendererProvider.Context context) {
+		super(context, new ModelGingerbreadMan(context), 0.25f);
 		addLayer(new LayerGingerbreadManJob(this));
 	}
 	

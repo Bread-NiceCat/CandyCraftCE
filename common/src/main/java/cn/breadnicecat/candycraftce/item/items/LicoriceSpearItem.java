@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.item.items;
 
-import cn.breadnicecat.candycraftce.entity.entities.LicoriceSpear;
+import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

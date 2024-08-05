@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.entity.entities;
+package cn.breadnicecat.candycraftce.entity.entities.entity;
 
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.item.CItems;

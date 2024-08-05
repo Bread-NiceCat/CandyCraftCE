@@ -9,7 +9,28 @@
     "water_fog_color": 10249079,
     "grass_color": 15641275
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "candycraftce:waffle_sheep",
+        "weight": 12,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "candycraftce:candy_cane_pig",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "candycraftce:bunny",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

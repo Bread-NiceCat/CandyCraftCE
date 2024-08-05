@@ -27,6 +27,7 @@ import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.register;
 import static cn.breadnicecat.candycraftce.item.CItems._spawn_egg;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static net.fabricmc.api.EnvType.CLIENT;
@@ -40,6 +41,7 @@ public class CEntityBuilder<T extends Entity> {
 	private static final Logger LOGGER = CLogUtils.getModLogger();
 	
 	private final String name;
+	private final Class<T> clazz;
 	private final EntityType.Builder<T> builder;
 	private Supplier<AttributeSupplier.Builder> attribute;
 	private Function<EntityEntry<T>, Supplier<ItemEntry<SpawnEggItem>>> egg;
@@ -54,14 +56,15 @@ public class CEntityBuilder<T extends Entity> {
 		CandyCraftCE.hookPostBootstrap(() -> eggs = null);
 	}
 	
-	public CEntityBuilder(String name, EntityType.EntityFactory<T> factory, MobCategory category) {
+	public CEntityBuilder(String name, Class<T> clazz, EntityType.EntityFactory<T> factory, MobCategory category) {
+		this.clazz = clazz;
 		builder = EntityType.Builder.of(factory, category);
 		this.name = name;
 	}
 	
 	@NotNull
-	public static <T extends Entity> CEntityBuilder<T> create(String name, EntityType.EntityFactory<T> pFactory, MobCategory pCategory) {
-		return new CEntityBuilder<>(name, pFactory, pCategory);
+	public static <T extends Entity> CEntityBuilder<T> create(String name, Class<T> clazz, EntityType.EntityFactory<T> pFactory, MobCategory pCategory) {
+		return new CEntityBuilder<>(name, clazz, pFactory, pCategory);
 	}
 	
 	public CEntityBuilder<T> sized(float weigh, float height) {
@@ -74,6 +77,15 @@ public class CEntityBuilder<T extends Entity> {
 		return this;
 	}
 	
+	public CEntityBuilder<T> clientTrackingRange(int clientTrackingRange) {
+		builder.clientTrackingRange(clientTrackingRange);
+		return this;
+	}
+	
+	public CEntityBuilder<T> updateInterval(int updateInterval) {
+		builder.updateInterval(updateInterval);
+		return this;
+	}
 	
 	/**
 	 * @apiNote 只允许Mob类型的生物拥有生物蛋
@@ -82,6 +94,7 @@ public class CEntityBuilder<T extends Entity> {
 		this.egg = egg;
 		return this;
 	}
+	
 	
 	/**
 	 * @apiNote 只允许Mob类型的生物拥有生物蛋
@@ -103,10 +116,10 @@ public class CEntityBuilder<T extends Entity> {
 	@SuppressWarnings("unchecked")
 	public EntityEntry<T> save() {
 		ResourceLocation prefix = prefix(name);
-		EntityEntry<T> s = new EntityEntry<>(register(ENTITY_TYPE, prefix, () -> builder.build(prefix.toString())));
+		EntityEntry<T> s = new EntityEntry<>(clazz, register(ENTITY_TYPE, prefix, () -> builder.build(prefix.toString())));
 		if (attribute != null) registerAttribute((EntityEntry<LivingEntity>) s, attribute);
 		if (egg != null) eggs.add(egg.apply(s));
-		CEntities.ENTITIES.put(name, s);
+		assertTrue(CEntities.ENTITIES.put(name, s) == null, () -> "重复注册" + prefix);
 		return s;
 	}
 	

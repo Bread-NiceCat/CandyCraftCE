@@ -2,7 +2,7 @@ package cn.breadnicecat.candycraftce.entity.models;
 // Made with Blockbench 4.3.1
 // Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
 
-import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.entities.mobs.GingerbreadMan;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,6 @@ import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
 @Environment(EnvType.CLIENT)
 public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
 	public static final ModelLayerLocation MAIN = new ModelLayerLocation(GINGERBREAD_MAN.getId(), "main");
-	public static final ModelLayerLocation JOB = new ModelLayerLocation(GINGERBREAD_MAN.getId(), "job");
 	
 	private final ModelPart Head;
 	private final ModelPart RightLeg;
@@ -32,6 +32,10 @@ public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
 		this.Head = root.getChild("Head");
 		this.RightLeg = root.getChild("RightLeg");
 		this.LeftLeg = root.getChild("LeftLeg");
+	}
+	
+	public ModelGingerbreadMan(EntityRendererProvider.Context context) {
+		this(context.bakeLayer(MAIN));
 	}
 	
 	@SuppressWarnings("unused")

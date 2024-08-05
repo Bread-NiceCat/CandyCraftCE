@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.layers;
 
-import cn.breadnicecat.candycraftce.entity.entities.GingerbreadMan;
+import cn.breadnicecat.candycraftce.entity.entities.mobs.GingerbreadMan;
 import cn.breadnicecat.candycraftce.entity.models.ModelGingerbreadMan;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.Environment;

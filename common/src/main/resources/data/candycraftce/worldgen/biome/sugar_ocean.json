@@ -9,7 +9,16 @@
     "water_fog_color": 10249079,
     "grass_color": 16030419
   },
-  "spawners": {},
+  "spawners": {
+    "water_ambient": [
+      {
+        "type": "candycraftce:cranfish",
+        "weight": 10,
+        "minCount": 3,
+        "maxCount": 6
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

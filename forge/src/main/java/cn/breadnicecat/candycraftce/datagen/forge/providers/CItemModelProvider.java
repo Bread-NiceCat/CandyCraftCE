@@ -40,6 +40,7 @@ public class CItemModelProvider extends ItemModelProvider {
 					.filter(e -> e.getKey().location().getNamespace().equals(CandyCraftCE.MOD_ID))
 					.filter(e -> e.getValue() instanceof SpawnEggItem)
 					.forEach(e -> withExistingParent(e.getKey().location().getPath(), "item/template_spawn_egg"));
+			
 			accept(((i) -> basicItem(i.get())),
 					LICORICE, HONEYCOMB, HONEYCOMB_SHARD, PEZ, MARSHMALLOW_STICK,
 					SUGAR_CRYSTAL, COTTON_CANDY, GUMMY, HOT_GUMMY, CHOCOLATE_COIN,

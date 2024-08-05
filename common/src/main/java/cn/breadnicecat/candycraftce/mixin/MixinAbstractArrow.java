@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin;
 
-import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
 import cn.breadnicecat.candycraftce.mixin_ref.$LivingEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.LivingEntity;

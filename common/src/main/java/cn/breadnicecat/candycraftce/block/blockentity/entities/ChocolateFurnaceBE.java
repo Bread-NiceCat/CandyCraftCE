@@ -22,11 +22,11 @@ public class ChocolateFurnaceBE extends LicoriceFurnaceBE {
 	protected ChocolateFurnaceBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int tickedTotal) {
 		super(blockEntityType, blockPos, blockState, tickedTotal);
 	}
-
+	
 	public ChocolateFurnaceBE(BlockPos blockPos, BlockState blockState) {
-		this((BlockEntityType<?>) CBlockEntities.CHOCOLATE_FURNACE_BE.get(), blockPos, blockState, (int) (15 * TickUtils.SEC2TICK));
+		this(CBlockEntities.CHOCOLATE_FURNACE_BE.get(), blockPos, blockState, (int) (15 * TickUtils.SEC2TICK));
 	}
-
+	
 	@Override
 	public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 		return new ChocolateFurnaceMenu(i, inventory, this, data);

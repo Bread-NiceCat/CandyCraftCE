@@ -19,7 +19,7 @@ public interface Accessor<T> extends Consumer<T>, Supplier<T> {
 	
 	void set(T t);
 	
-	default Supplier<T> frozen() {
+	default Accessor<T> frozen() {
 		return new Frozen<>(this);
 	}
 	

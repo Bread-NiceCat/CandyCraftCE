@@ -1,4 +1,4 @@
-// 1.20.1	2024-08-02T17:58:37.2373997	Loot Tables
+// 1.20.1	2024-08-05T12:51:02.2196754	Loot Tables
 fd1224084cdb6c713835c4bb1bf94743586c2f9f data/candycraftce/loot_tables/blocks/acid_mint_flower.json
 5dddbcf79cb2d1095fb25b83c2602e5de4429839 data/candycraftce/loot_tables/blocks/advanced_sugar_factory.json
 4b2064f3bbc016f269997e66a502c46a9fa38ec3 data/candycraftce/loot_tables/blocks/alchemy_mixer.json
@@ -150,3 +150,8 @@ cf528bed5f9b4961207883bb38f57abe065048b8 data/candycraftce/loot_tables/blocks/wh
 27c97602c967af6f650839b8b7f629656664a8eb data/candycraftce/loot_tables/blocks/white_licorice_ore.json
 b4fff6e016b16fa49cbbb9d09066a592b36d0847 data/candycraftce/loot_tables/blocks/white_nougat_ore.json
 9707b7004388d49dab1342313c585df2a8d4e4a1 data/candycraftce/loot_tables/blocks/white_pez_ore.json
+d6c8d51dd8c576e59bf5fb7592781d19ee834816 data/candycraftce/loot_tables/entities/bunny.json
+4dc07c07ab0f188667a0b7c149b1b0ddf3e326ad data/candycraftce/loot_tables/entities/candy_cane_pig.json
+6b773d0bb3433df8565cb30d6cc2fd80354ffa17 data/candycraftce/loot_tables/entities/cranfish.json
+4792750aa46ad93d45fd636f93a825203395a4dc data/candycraftce/loot_tables/entities/gingerbread_man.json
+53cc9a9d6e6b3dd956a877474d1ddea3aecca6f1 data/candycraftce/loot_tables/entities/waffle_sheep.json

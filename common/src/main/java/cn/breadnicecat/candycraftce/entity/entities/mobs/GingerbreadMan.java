@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.entity.entities;
+package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

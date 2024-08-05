@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.entity.models;// Made with Blockbench 4.10.
 // Paste this class into your mod and generate all required imports
 
 
-import cn.breadnicecat.candycraftce.entity.entities.LicoriceSpear;
+import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.layers;
 
-import cn.breadnicecat.candycraftce.entity.entities.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
 import cn.breadnicecat.candycraftce.mixin_ref.$LivingEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PlayerModel;

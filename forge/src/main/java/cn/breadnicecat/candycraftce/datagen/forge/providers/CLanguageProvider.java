@@ -6,6 +6,7 @@ import cn.breadnicecat.candycraftce.datagen.forge.providers.langs.ZhCnCLanguageP
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.item.CCTab;
+import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import net.minecraft.data.CachedOutput;
@@ -23,7 +24,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
+import static cn.breadnicecat.candycraftce.entity.CEntities.CRANFISH;
+import static cn.breadnicecat.candycraftce.entity.CEntities.*;
+import static cn.breadnicecat.candycraftce.item.CItems.LICORICE_SPEAR;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 
@@ -75,7 +78,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(CHEWING_GUM, "口香糖");
 		addItemById(LOLLIPOP, "棒棒糖");
 		addItemById(CRANFISH_SCALE, "蔓越莓鱼鱼鳞");
-		addItemById(CRANFISH, "蔓越莓鱼");
+		addItemById(CItems.CRANFISH, "蔓越莓鱼");
 		addItem(CRANFISH_COOKED, "Cooked Cranfish", "烤蔓越莓鱼");
 		addItemById(JELLY_SENTRY_KEY, "果冻守卫的钥匙");
 		addItemById(JELLY_BOSS_KEY, "果冻国王的钥匙");
@@ -301,11 +304,15 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
 		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
 		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
-		add(_SPAWN_EGG_TRANS_KEY, "%s Spawn Egg", "%s刷怪蛋");
-		addEntityById(GINGERBREAD_MAN, "姜饼人");
 		addBlockById(STRIPPED_MARSHMALLOW_LOG, "去皮棉花软糖原木");
 		addBlockById(STRIPPED_DARK_MARSHMALLOW_LOG, "去皮深色棉花软糖原木");
 		addBlockById(STRIPPED_LIGHT_MARSHMALLOW_LOG, "去皮浅色棉花软糖原木");
+		//=====================Entity====================
+		add(_SPAWN_EGG_TRANS_KEY, "%s Spawn Egg", "%s刷怪蛋");
+		addEntityById(GINGERBREAD_MAN, "姜饼人");
+		addEntityById(CRANFISH, "蔓越莓鱼");
+		addEntityById(CANDY_CANE_PIG, "拐杖糖猪");
+		addEntityById(WAFFLE_SHEEP, "华夫饼羊");
 	}
 	
 	/**

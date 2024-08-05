@@ -20,12 +20,14 @@
     "AxeItemAccessor",
     "MixinAbstractArrow",
     "MixinBucketItem",
+    "MixinEatBlockGoal",
     "MixinEntity",
     "MixinFarmBlock",
     "MixinItem",
     "MixinLivingEntity",
     "MixinNoiseBasedChunkGenerator",
     "MixinPlayer",
+    "MixinRaidGardenGoal",
     "ThrownTridentAccessor"
   ],
   "injectors": {
