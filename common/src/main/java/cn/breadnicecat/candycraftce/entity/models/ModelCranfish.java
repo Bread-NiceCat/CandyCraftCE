@@ -39,12 +39,11 @@ public class ModelCranfish extends EntityModel<Cranfish> {
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-1.0F, -8.0F, -4.0F, 2.0F, 5.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 20).mirror().addBox(-1.0F, -6.0F, -5.0F, 2.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(0, 14).mirror().addBox(1.1F, -6.0F, 0.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(22, 0).mirror().addBox(-0.5F, -9.0F, -2.0F, 1.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 14).mirror().addBox(-1.1F, -6.3F, -1.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 24.0F, 0.0F));
 		
-		PartDefinition tail = partdefinition.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(8, 14).mirror().addBox(-0.5F, -0.7667F, -0.7333F, 1.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(8, 14).mirror().addBox(-0.5F, -2.0F, -0.1333F, 1.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 19.0F, 4.0F));
+		PartDefinition tail = partdefinition.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(8, 14).mirror().addBox(-0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(9, 15).mirror().addBox(-0.5F, -2.0F, 1.0F, 1.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 19.0F, 4.0F));
 		
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static cn.breadnicecat.candycraftce.misc.CHaGens.*;
+import static cn.breadnicecat.candycraftce.misc.CGenshin.*;
 
 /**
  * Created in 2024/8/2 上午11:35
@@ -16,7 +16,7 @@ import static cn.breadnicecat.candycraftce.misc.CHaGens.*;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
- *
+ * 彩蛋标语
  * <p>
  **/
 @Mixin(SplashManager.class)
@@ -49,7 +49,7 @@ public abstract class MixinSplashManager {
 		if (furina) {
 			cir.setReturnValue(candycraftce$FURINA);
 		}
-		if (paimon$itto) {
+		if (paimon_itto) {
 			cir.setReturnValue(candycraftce$PAIMON$ITTO);
 		}
 		if (nahida) {

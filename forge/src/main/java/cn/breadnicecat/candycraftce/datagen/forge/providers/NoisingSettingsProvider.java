@@ -75,23 +75,18 @@ public class NoisingSettingsProvider implements DataProvider {
 		}
 		//生成表面土壤
 		{
-			RuleSource faceSoil = sequence(
-					ifTrue(isBiome(ICE_CREAM_PLAINS),
-							iceCream),
-					ifTrue(waterBlockCheck(-1, 0),
-							custardPudding),
-					pudding
-			);
-			RuleSource soilType = sequence(
-					ifTrue(ON_FLOOR, faceSoil),
+			RuleSource soilType = ifTrue(abovePreliminarySurface(), sequence(
+					ifTrue(ON_FLOOR, sequence(
+							ifTrue(isBiome(ICE_CREAM_PLAINS),
+									iceCream),
+							ifTrue(waterBlockCheck(0, 0),
+									custardPudding),
+							pudding
+					)),
 					ifTrue(UNDER_FLOOR,
-							ifTrue(waterBlockCheck(-1, 0),
-									custardPudding)
-					)
-			);
-			RuleSource surfaceSoilLayer = ifTrue(abovePreliminarySurface(), soilType);
-			
-			layers.add(surfaceSoilLayer);
+							pudding)
+			));
+			layers.add(soilType);
 		}
 		{
 			RuleSource middleLayer = ifTrue(isBiome(ICE_CREAM_PLAINS, ICE_CREAM_FOREST),

@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.item.CItems;
-import cn.breadnicecat.candycraftce.mixin_ref.$LivingEntity;
+import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 /**
  * Created in 2023/11/26 8:32
@@ -56,9 +58,12 @@ public abstract class MixinLivingEntity {
 		ent.getEntityData().define($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID, 0);
 	}
 	
+	/**
+	 * 创建
+	 */
 	@SuppressWarnings("unused")
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void clinit(CallbackInfo ci) {
-		var load = $LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID;
+		Objects.requireNonNull($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID);
 	}
 }

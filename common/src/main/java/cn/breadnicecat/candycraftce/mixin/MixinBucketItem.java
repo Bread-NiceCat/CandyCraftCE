@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
-import cn.breadnicecat.candycraftce.misc.muitlblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;

@@ -150,6 +150,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(FORK, "叉子");
 		addItem(IIDEBUG, "I 爱 DEBUG !!!", null);
 		addItemById(LICORICE_SPEAR, "盐甘草糖矛");
+		addItemById(CRANFISH_BUCKET, "蔓越莓鱼桶");
 		/*=======================Blocks=======================*/
 		addBlockById(SUGAR_BLOCK, "糖块");
 		addBlockById(CARAMEL_PORTAL, "焦糖传送门");
@@ -313,6 +314,7 @@ public class CLanguageProvider implements DataProvider {
 		addEntityById(CRANFISH, "蔓越莓鱼");
 		addEntityById(CANDY_CANE_PIG, "拐杖糖猪");
 		addEntityById(WAFFLE_SHEEP, "华夫饼羊");
+		addEntity(BUNNY, "Gummy Bunny", "软糖兔");
 	}
 	
 	/**

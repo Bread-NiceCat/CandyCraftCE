@@ -32,7 +32,7 @@ public class CItemBuilderImpl {
 	}
 	
 	@SubscribeEvent
-	public void onBuildCreativeModeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {
+	public static void onBuildCreativeModeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {
 		List<Supplier<ItemStack>> l = its.get(event.getTabKey());
 		if (l != null && event.hasPermissions()) {
 			l.forEach((i) -> event.accept(i.get()));

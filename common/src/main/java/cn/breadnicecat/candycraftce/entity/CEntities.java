@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.entity;
 
+import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
 import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.entities.mobs.*;
@@ -10,6 +11,13 @@ import cn.breadnicecat.candycraftce.entity.models.ModelLicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.renderers.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -20,6 +28,8 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.create;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.registerLayer;
 import static net.minecraft.world.entity.MobCategory.*;
+import static net.minecraft.world.entity.SpawnPlacements.Type.ON_GROUND;
+import static net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES;
 
 /**
  * Created in 2024/2/25 8:58
@@ -45,18 +55,21 @@ public class CEntities {
 			.attribute(CandyCanePig::createAttributes)
 			.spawnEgg(0xf1c3c3, 0xfb5757)
 			.clientTrackingRange(10)
+			.setPlacements(ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CEntities::checkCandyAnimalSpawnRules)
 			.save();
 	public static final EntityEntry<WaffleSheep> WAFFLE_SHEEP = CEntityBuilder.create("waffle_sheep", WaffleSheep.class, WaffleSheep::new, CREATURE)
 			.attribute(WaffleSheep::createAttributes)
 			.spawnEgg(0xf1c3c3, 0xffc000)
 			.sized(0.9f, 1.3f)
 			.clientTrackingRange(10)
+			.setPlacements(ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CEntities::checkCandyAnimalSpawnRules)
 			.save();
 	public static final EntityEntry<Bunny> BUNNY = CEntityBuilder.create("bunny", Bunny.class, Bunny::new, CREATURE)
 			.attribute(Bunny::createAttributes)
 			.spawnEgg(0xf1c3c3, 0xeeff33)
 			.sized(0.4f, 0.5f)
 			.clientTrackingRange(8)
+			.setPlacements(ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CEntities::checkCandyAnimalSpawnRules)
 			.save();
 	
 	//WATER_CREATURE
@@ -68,6 +81,7 @@ public class CEntities {
 			.spawnEgg(0xf1c3c3, 0x3a01df)
 			.sized(0.5f, 0.3f)
 			.clientTrackingRange(4)
+			.setPlacements(ON_GROUND, MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules)
 			.save();
 	//MISC
 	public static final EntityEntry<CaramelArrow> CARAMEL_ARROW = CEntityBuilder.create("caramel_arrow", CaramelArrow.class, CaramelArrow::new, MISC)
@@ -77,6 +91,10 @@ public class CEntities {
 			.sized(0.5f, 0.5f)
 			.save();
 	
+	
+	public static boolean checkCandyAnimalSpawnRules(EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+		return level.getBlockState(pos.below()).is(CBlockTags.BT_CANDY_ANIMAL_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8;
+	}
 	
 	static {
 		hookMinecraftSetup(() -> {

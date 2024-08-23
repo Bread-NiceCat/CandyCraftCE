@@ -7,4 +7,4 @@
  * 本应存在于Mixin类中的字段，但是由于外界需要访问，故存放于此包中
  * <p>
  **/
-package cn.breadnicecat.candycraftce.mixin_ref;
+package cn.breadnicecat.candycraftce.misc.mixin_ref;

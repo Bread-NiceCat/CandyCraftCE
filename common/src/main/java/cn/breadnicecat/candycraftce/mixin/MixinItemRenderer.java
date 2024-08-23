@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static cn.breadnicecat.candycraftce.mixin_ref.$ItemRenderer.ItemRenderer$SPEAR_IN_HAND_MODEL;
+import static cn.breadnicecat.candycraftce.misc.mixin_ref.$ItemRenderer.ItemRenderer$SPEAR_IN_HAND_MODEL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.orElse;
 import static net.minecraft.world.item.ItemDisplayContext.*;
 
@@ -60,10 +60,13 @@ public abstract class MixinItemRenderer {
 			if (context != GUI && context != GROUND && context != FIXED) {
 				//不是以物品状态呈现
 				poseStack.pushPose();
-				BakedModel model = orElse(candycraftce$handSpearModel.getOverrides().resolve(candycraftce$handSpearModel, itemStack, (ClientLevel) level, entity, seed),
-						this.itemModelShaper.getModelManager()::getMissingModel);
-				model.getTransforms().getTransform(context).apply(leftHand, poseStack);
-				blockEntityRenderer.renderByItem(itemStack, context, poseStack, buffer, combinedLight, combinedOverlay);
+				{
+					BakedModel model = orElse(candycraftce$handSpearModel.getOverrides().resolve(candycraftce$handSpearModel, itemStack, (ClientLevel) level, entity, seed),
+							this.itemModelShaper.getModelManager()::getMissingModel);
+					model.getTransforms().getTransform(context).apply(leftHand, poseStack);
+					poseStack.translate(-0.5f, -0.5f, -0.5f);
+					blockEntityRenderer.renderByItem(itemStack, context, poseStack, buffer, combinedLight, combinedOverlay);
+				}
 				poseStack.popPose();
 				ci.cancel();
 			}

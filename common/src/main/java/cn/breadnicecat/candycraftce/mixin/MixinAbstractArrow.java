@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
-import cn.breadnicecat.candycraftce.mixin_ref.$LivingEntity;
+import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;

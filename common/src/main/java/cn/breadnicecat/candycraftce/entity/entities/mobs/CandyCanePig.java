@@ -52,4 +52,5 @@ public class CandyCanePig extends Pig {
 	public void thunderHit(ServerLevel level, LightningBolt lightning) {
 		//no zombified_piglin
 	}
+	
 }

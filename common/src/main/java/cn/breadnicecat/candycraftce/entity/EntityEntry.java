@@ -6,7 +6,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.SpawnEggItem;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -31,11 +33,19 @@ public class EntityEntry<T extends Entity> extends SimpleEntry<EntityType<?>, En
 		
 	}
 	
-	public SpawnEggItem getEggItem() {
+	public @Nullable SpawnEggItem getEggItem() {
 		return SpawnEggItem.byId(get());
 	}
 	
 	public boolean isLivingEntity() {
-		return LivingEntity.class.isAssignableFrom(clazz);
+		return is(LivingEntity.class);
+	}
+	
+	public boolean isMob() {
+		return is(Mob.class);
+	}
+	
+	public boolean is(Class<? extends Entity> e) {
+		return e.isAssignableFrom(clazz);
 	}
 }

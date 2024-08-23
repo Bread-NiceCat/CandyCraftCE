@@ -93,8 +93,8 @@ public class CommonUtils {
 	/**
 	 * 顺反异构
 	 * <pre>
-	 * i1,i2==cis,trans -> r_cis
-	 * ii,i2==trans,cis -> r_trans
+	 * (i1,i2)==(cis,trans) -> r_cis
+	 * (ii,i2)==(trans,cis) -> r_trans
 	 * else -> r_default
 	 * == : equals, null safe
 	 * </pre>

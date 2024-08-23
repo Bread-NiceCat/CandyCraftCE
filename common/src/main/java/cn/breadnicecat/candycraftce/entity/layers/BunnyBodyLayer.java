@@ -21,21 +21,21 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
  *
  * <p>
  **/
-public class BunnyEyeLayer extends RenderLayer<Bunny, ModelBunny> {
-	private static final ResourceLocation TEX = entityTex("bunny/eye");
+public class BunnyBodyLayer extends RenderLayer<Bunny, ModelBunny> {
+	private static final ResourceLocation TEX = entityTex("bunny/body");
 	
-	public BunnyEyeLayer(RenderLayerParent<Bunny, ModelBunny> renderer) {
+	public BunnyBodyLayer(RenderLayerParent<Bunny, ModelBunny> renderer) {
 		super(renderer);
 	}
 	
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Bunny bunny, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		ModelBunny m = getParentModel();
+		m.setupAnim(bunny, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		int color = bunny.getRGB();
 		float r = (color >> 16 & 0xFF) / 255f;
 		float g = (color >> 8 & 0xFF) / 255f;
 		float b = (color & 0xFF) / 255f;
-		m.setupAnim(bunny, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutout(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), r, g, b, 1f);
+		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), r, g, b, 1f);
 	}
 }

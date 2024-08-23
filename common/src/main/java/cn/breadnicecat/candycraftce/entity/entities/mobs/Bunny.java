@@ -35,12 +35,13 @@ public class Bunny extends Rabbit {
 	
 	public Bunny(EntityType<? extends Rabbit> entityType, Level level) {
 		super(entityType, level);
+		setRGB(level.random.nextInt(0xffffff));
 	}
 	
 	@Override
 	protected void registerGoals() {
 //		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, Ingredient.of(Items.CARROT, Items.GOLDEN_CARROT, Blocks.DANDELION), false));
-		goalSelector.removeAllGoals(g -> g instanceof TemptGoal);
+		goalSelector.removeAllGoals(g -> g instanceof TemptGoal || g instanceof RaidGardenGoal);
 		goalSelector.addGoal(3, new TemptGoal(this, 1.0, FOOD, false));
 	}
 	

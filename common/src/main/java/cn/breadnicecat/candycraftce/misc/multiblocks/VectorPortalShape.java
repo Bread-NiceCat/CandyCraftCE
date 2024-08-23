@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.misc.muitlblocks;
+package cn.breadnicecat.candycraftce.misc.multiblocks;
 
 import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;

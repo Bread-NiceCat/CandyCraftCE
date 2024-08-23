@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
+import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -18,8 +19,18 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  **/
 public class Cranfish extends AbstractFish {
+	public Cranfish master = null;
+	
 	public Cranfish(EntityType<? extends AbstractFish> entityType, Level level) {
 		super(entityType, level);
+	}
+	
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+
+//		this.goalSelector.addGoal(1, new FollowMobGoal(this, 1.25, 3.0f, 10f));
+		
 	}
 	
 	@Override
@@ -29,6 +40,6 @@ public class Cranfish extends AbstractFish {
 	
 	@Override
 	public @NotNull ItemStack getBucketItemStack() {
-		return ItemStack.EMPTY;//todo
+		return CItems.CRANFISH_BUCKET.getDefaultInstance();
 	}
 }

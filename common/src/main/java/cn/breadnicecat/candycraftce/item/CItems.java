@@ -1,28 +1,29 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.PuddingColor;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
-import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.sound.SoundEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.redstone.Redstone;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,6 +39,7 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.setTab;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
+import static net.minecraft.world.level.material.Fluids.WATER;
 
 /**
  * Created in 2023/8/9 10:22
@@ -137,7 +139,8 @@ public class CItems {
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
 	
 	/*流体*/
-//	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
+	public static final ItemEntry<MobBucketItem> CRANFISH_BUCKET = create("cranfish_bucket", p -> _mob_bucket(CEntities.CRANFISH::get, () -> WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, p)).setProperties(new Properties().stacksTo(1)).save();
+	//	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
 	/*工具*/
 	//MARSHMALLOW
 	public static final ItemEntry<SwordItem> MARSHMALLOW_SWORD = createSword("marshmallow_sword", CTiers.MARSHMALLOW, 3, -2.4F).save();
@@ -233,16 +236,10 @@ public class CItems {
 	 */
 	@Environment(EnvType.CLIENT)
 	public static void registerItemColors(BlockColors blockColors, ItemColors itemColors) {
-		itemColors.register((item, tintindex) -> {
-			return PuddingColor.getDefaultColor();
-		}, CUSTARD_PUDDING);
-		itemColors.register((item, tintindex) -> {
-			LocalPlayer player = Minecraft.getInstance().player;
-			if (player != null) {
-				Level level = player.level();
-				return level.getBlockTint(player.blockPosition(), PuddingColor.PUDDING_COLOR_RESOLVER);
-			} else return PuddingColor.getDefaultColor();
-		}, MAGICAL_LEAVES, MAGICAL_LEAF);
+		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor()
+				, CUSTARD_PUDDING);
+		itemColors.register((item, tintindex) -> PuddingColor.getDefaultEnchantColor(),
+				MAGICAL_LEAVES, MAGICAL_LEAF);
 		
 	}
 	
@@ -321,6 +318,11 @@ public class CItems {
 	
 	@ExpectPlatform
 	public static Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
+		return impossibleCode();
+	}
+	
+	@ExpectPlatform
+	private static MobBucketItem _mob_bucket(Supplier<EntityType<? extends Mob>> entityType, Supplier<Fluid> fluid, Supplier<SoundEvent> empty, Properties p) {
 		return impossibleCode();
 	}
 }

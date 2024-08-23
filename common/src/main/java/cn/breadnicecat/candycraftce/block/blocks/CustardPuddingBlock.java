@@ -20,7 +20,7 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.PUDDING;
  * @see net.minecraft.world.level.block.SpreadingSnowyDirtBlock
  */
 public class CustardPuddingBlock extends Block {
-	public static final Block DIRT_LIKE = PUDDING.get();
+	public static final Block DIRT_ALT = PUDDING.get();
 	
 	public CustardPuddingBlock(Properties properties) {
 		super(properties);
@@ -49,7 +49,7 @@ public class CustardPuddingBlock extends Block {
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		//恢复
 		if (!canBeGrass(state, level, pos)) {
-			level.setBlockAndUpdate(pos, DIRT_LIKE.defaultBlockState());
+			level.setBlockAndUpdate(pos, DIRT_ALT.defaultBlockState());
 //			return;
 		}
 //		奶皮怎么传播？

@@ -29,6 +29,8 @@ public class CBlockTags {
 	public static final TagKey<Block> BT_WHITE_ORE_OVERRIDEABLE = create("ore_white_overrideable");
 	public static final TagKey<Block> BT_BLACK_ORE_OVERRIDEABLE = create("ore_black_overrideable");
 	public static final TagKey<Block> BT_ORES = create("ores");
+	
+	public static final TagKey<Block> BT_CANDY_ANIMAL_SPAWNABLE_ON = create("candy_animal_spawnable_on");
 	//类似矿辞
 	public static final BiTagKey BT_MARSHMALLOW_LOGS = bind("marshmallow_logs");
 	public static final BiTagKey BT_MARSHMALLOW_PLANKS = bind("marshmallow_planks");

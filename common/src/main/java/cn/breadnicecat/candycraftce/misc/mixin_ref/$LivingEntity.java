@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.mixin_ref;
+package cn.breadnicecat.candycraftce.misc.mixin_ref;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

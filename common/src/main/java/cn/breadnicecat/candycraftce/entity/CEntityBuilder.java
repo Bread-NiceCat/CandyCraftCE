@@ -4,6 +4,7 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.tools.Triple;
 import com.google.common.collect.ImmutableMap;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.Environment;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.register;
 import static cn.breadnicecat.candycraftce.item.CItems._spawn_egg;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
@@ -44,11 +47,13 @@ public class CEntityBuilder<T extends Entity> {
 	private final Class<T> clazz;
 	private final EntityType.Builder<T> builder;
 	private Supplier<AttributeSupplier.Builder> attribute;
+	private Triple<SpawnPlacements.Type, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> placement;
 	private Function<EntityEntry<T>, Supplier<ItemEntry<SpawnEggItem>>> egg;
 	
 	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs = new ArrayList<>();
-	//涉及到ResourceReload，所以不删除
-	private static @NotNull HashMap<ModelLayerLocation, Supplier<LayerDefinition>> layers = new HashMap<>();
+	
+	//涉及到ResourceReload，所以初始化完后保留
+	private static final @NotNull HashMap<ModelLayerLocation, Supplier<LayerDefinition>> layers = new HashMap<>();
 	
 	static {
 		//把蛋都排到最后去
@@ -74,6 +79,15 @@ public class CEntityBuilder<T extends Entity> {
 	
 	public CEntityBuilder<T> modify(Consumer<EntityType.Builder<T>> consumer) {
 		consumer.accept(builder);
+		return this;
+	}
+	
+	/**
+	 * 地形生成时生成实体的要求
+	 * 只允许Mob调用
+	 */
+	public CEntityBuilder<T> setPlacements(SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
+		placement = Triple.of(decoratorType, heightMapType, decoratorPredicate);
 		return this;
 	}
 	
@@ -113,13 +127,16 @@ public class CEntityBuilder<T extends Entity> {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public EntityEntry<T> save() {
 		ResourceLocation prefix = prefix(name);
 		EntityEntry<T> s = new EntityEntry<>(clazz, register(ENTITY_TYPE, prefix, () -> builder.build(prefix.toString())));
+		assertTrue(CEntities.ENTITIES.put(name, s) == null, () -> "重复注册" + prefix);
 		if (attribute != null) registerAttribute((EntityEntry<LivingEntity>) s, attribute);
 		if (egg != null) eggs.add(egg.apply(s));
-		assertTrue(CEntities.ENTITIES.put(name, s) == null, () -> "重复注册" + prefix);
+		if (placement != null) {
+			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate) placement.c()));
+		}
 		return s;
 	}
 	
@@ -141,5 +158,6 @@ public class CEntityBuilder<T extends Entity> {
 		LOGGER.info("create model roots");
 		layers.forEach((k, v) -> builder.put(k, v.get()));
 	}
+	
 }
 	

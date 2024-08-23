@@ -30,9 +30,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EatBlockGoal.class)
 public abstract class MixinEatBlockGoal {
 	@Shadow
-	private int eatAnimationTick;
-	
-	@Shadow
 	@Final
 	private Mob mob;
 	
@@ -60,7 +57,7 @@ public abstract class MixinEatBlockGoal {
 			if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 				//2001
 				this.level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, below, Block.getId(CBlocks.CUSTARD_PUDDING.defaultBlockState()));
-				this.level.setBlock(below, CustardPuddingBlock.DIRT_LIKE.defaultBlockState(), 2);
+				this.level.setBlock(below, CustardPuddingBlock.DIRT_ALT.defaultBlockState(), 2);
 			}
 			this.mob.ate();
 		}

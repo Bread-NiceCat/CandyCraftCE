@@ -21,19 +21,19 @@ import org.jetbrains.annotations.Nullable;
  * @see cn.breadnicecat.candycraftce.mixin.MixinFarmBlock [Mixin]
  */
 public class PuddingFarmBlock extends FarmBlock {
-
-	public static final Block DIRT_LIKE = CustardPuddingBlock.DIRT_LIKE;
-
+	
+	public static final Block DIRT_LIKE = CustardPuddingBlock.DIRT_ALT;
+	
 	public PuddingFarmBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	public static void turnToDirt(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
 		BlockState blockState = FarmBlock.pushEntitiesUp(state, DIRT_LIKE.defaultBlockState(), level, pos);
 		level.setBlockAndUpdate(pos, blockState);
 		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
 	}
-
+	
 	public static boolean shouldMaintainFarmland(BlockGetter level, BlockPos pos) {
 //		TODO #MAINTAINS_FARMLAND，或许直接检测是否有植物就行了
 		return level.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND);

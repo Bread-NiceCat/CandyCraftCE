@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
 import cn.breadnicecat.candycraftce.entity.entities.mobs.Bunny;
-import cn.breadnicecat.candycraftce.entity.layers.BunnyEyeLayer;
+import cn.breadnicecat.candycraftce.entity.layers.BunnyBodyLayer;
 import cn.breadnicecat.candycraftce.entity.models.ModelBunny;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -20,11 +20,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
  * <p>
  **/
 public class RendererBunny extends MobRenderer<Bunny, ModelBunny> {
-	private static final ResourceLocation TEX = entityTex("bunny/body");
+	private static final ResourceLocation TEX = entityTex("bunny/eye");
 	
 	public RendererBunny(EntityRendererProvider.Context context) {
 		super(context, new ModelBunny(context), 0.3f);
-		addLayer(new BunnyEyeLayer(this));
+		addLayer(new BunnyBodyLayer(this));
 	}
 	
 	@Override

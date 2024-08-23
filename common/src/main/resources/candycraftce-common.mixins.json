@@ -6,7 +6,6 @@
   "client": [
     "MixinBlockColors",
     "MixinBlockEntityWithoutLevelRenderer",
-    "MixinClientLevel",
     "MixinItemColors",
     "MixinItemRenderer",
     "MixinLayerDefinitions",
@@ -19,6 +18,7 @@
   "mixins": [
     "AxeItemAccessor",
     "MixinAbstractArrow",
+    "MixinBiome",
     "MixinBucketItem",
     "MixinEatBlockGoal",
     "MixinEntity",
@@ -27,7 +27,6 @@
     "MixinLivingEntity",
     "MixinNoiseBasedChunkGenerator",
     "MixinPlayer",
-    "MixinRaidGardenGoal",
     "ThrownTridentAccessor"
   ],
   "injectors": {
