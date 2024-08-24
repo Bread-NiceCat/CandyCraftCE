@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "*": {
+      "item": "candycraftce:sugar_crystal"
+    }
+  },
+  "pattern": [
+    " * ",
+    "* *"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:sugar_spikes"
+  }
+}

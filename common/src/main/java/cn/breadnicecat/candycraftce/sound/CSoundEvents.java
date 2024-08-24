@@ -17,7 +17,6 @@ public class CSoundEvents {
 	
 	private static final Logger LOGGER = CLogUtils.sign();
 	
-	
 	public static final SoundEntry CD_o = register("o");
 	public static final SoundEntry CD_1 = register("cd-1");
 	public static final SoundEntry CD_2 = register("cd-2");

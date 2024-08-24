@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 6.0,
+  "ingredient": {
+    "tag": "candycraftce:ore_pez"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:pez"
+  }
+}

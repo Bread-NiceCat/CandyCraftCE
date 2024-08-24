@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 0.5,
+  "ingredient": {
+    "item": "candycraftce:round_caramel_glass"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:caramel_glass"
+  }
+}

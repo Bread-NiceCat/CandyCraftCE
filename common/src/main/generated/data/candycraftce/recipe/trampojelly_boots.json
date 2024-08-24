@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "candycraftce:sugar_crystal"
+    },
+    "@": {
+      "item": "candycraftce:jelly_shock_absorber"
+    }
+  },
+  "pattern": [
+    "# #",
+    "@ @"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:trampojelly_boots"
+  }
+}

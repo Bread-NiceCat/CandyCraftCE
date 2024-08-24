@@ -36,9 +36,10 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CItemBuilder<I extends Item> {
 	private final String name;
-	private Function<Properties, I> factory;
+	private final Function<Properties, I> factory;
 	public Properties properties = new Properties();
 	public boolean ctab = true;
+	private Function<Properties, Properties> propertiesMu = p -> p;
 	
 	public static <I extends Item> CItemBuilder<I> create(String name, Function<Properties, I> factory) {
 		return new CItemBuilder<>(name, factory);
@@ -62,11 +63,16 @@ public class CItemBuilder<I extends Item> {
 	
 	
 	/**
-	 * 新的Properties
+	 * 新的Properties,不会自动copy
 	 * 注:默认直接是新的Properties
 	 */
 	public CItemBuilder<I> setProperties(@NotNull Properties prop) {
 		this.properties = Objects.requireNonNull(prop);
+		return this;
+	}
+	
+	public CItemBuilder<I> modifyProperties(@NotNull Function<Properties, Properties> prop) {
+		this.propertiesMu = propertiesMu.andThen(prop);
 		return this;
 	}
 	
@@ -91,7 +97,7 @@ public class CItemBuilder<I extends Item> {
 	public CItemBuilder<I> setFood(int nutrition, int saturation, @Nullable Consumer<FoodProperties> modifier) {
 		float saturationModifier = saturation / 2f / nutrition;
 		FoodProperties food = new FoodProperties.Builder()
-				.nutrition(nutrition).saturationMod(saturationModifier).build();
+				.nutrition(nutrition).saturationModifier(saturationModifier).build();
 		if (modifier != null) modifier.accept(food);
 		return setFood(food);
 	}
@@ -106,7 +112,7 @@ public class CItemBuilder<I extends Item> {
 //	}
 	
 	public ItemEntry<I> save() {
-		ItemEntry<I> entry = register(name, () -> factory.apply(properties));
+		ItemEntry<I> entry = register(name, () -> factory.apply(propertiesMu.apply(properties)));
 		CItems.ITEMS.add(entry);
 		if (ctab) CCTab.add(entry);
 		return entry;

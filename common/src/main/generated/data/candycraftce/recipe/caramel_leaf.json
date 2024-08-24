@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "advanced": false,
+  "ingredient": {
+    "item": "candycraftce:caramel_leaves"
+  },
+  "result": {
+    "count": 2,
+    "id": "candycraftce:caramel_leaf"
+  }
+}

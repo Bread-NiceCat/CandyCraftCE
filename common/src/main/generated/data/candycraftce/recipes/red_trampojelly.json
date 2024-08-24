@@ -1,9 +1,0 @@
-{
-  "type": "candycraftce:sugar_factory",
-  "ingredient": {
-    "item": "candycraftce:trampojelly"
-  },
-  "result": {
-    "item": "candycraftce:red_trampojelly"
-  }
-}

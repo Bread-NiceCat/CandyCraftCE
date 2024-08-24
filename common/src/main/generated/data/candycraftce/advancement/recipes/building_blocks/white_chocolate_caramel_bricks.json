@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_caramel_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:caramel_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:white_chocolate_caramel_bricks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_caramel_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:white_chocolate_caramel_bricks"
+    ]
+  }
+}

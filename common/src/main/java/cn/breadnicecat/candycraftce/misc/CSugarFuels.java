@@ -12,6 +12,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 public class CSugarFuels {
 	//	public static final Codec<CSugarFuels> CODEC= TODO
 	public static final Object2IntOpenHashMap<Item> FUELS = apply(new Object2IntOpenHashMap<>(), (m) -> {
+		m.put(Items.SUGAR, 100);//半个物品
 		m.put(PEZ.get(), 1000);
 	});
 	

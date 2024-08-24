@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -52,10 +53,9 @@ public abstract class MixinLivingEntity {
 	}
 	
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))
-	protected void defineSynchedData(CallbackInfo ci) {
-		LivingEntity ent = (LivingEntity) (Object) this;
+	protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
 		//记录被焦糖箭打中的次数
-		ent.getEntityData().define($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID, 0);
+		builder.define($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID, 0);
 	}
 	
 	/**

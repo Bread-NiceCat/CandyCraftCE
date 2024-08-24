@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "candycraftce:sugar_crystal"
+    },
+    "@": {
+      "item": "candycraftce:cranfish_scale"
+    }
+  },
+  "pattern": [
+    "###",
+    "#@#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:water_mask"
+  }
+}

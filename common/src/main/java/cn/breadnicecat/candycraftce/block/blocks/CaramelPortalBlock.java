@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.item.CItemTags;
+import cn.breadnicecat.candycraftce.level.CDims;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.particle.CParticles;
@@ -28,6 +29,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -109,12 +113,10 @@ public class CaramelPortalBlock extends Block {
 		return flag;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return AABBs[getShapeIndex(state)];
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
 		if (!neighborState.is(this)) {
@@ -133,7 +135,6 @@ public class CaramelPortalBlock extends Block {
 //		if (getShapeIndex(state) == 0) level.removeBlock(pos, false);
 //	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (level.isClientSide()) return;
@@ -150,23 +151,13 @@ public class CaramelPortalBlock extends Block {
 //				}
 //			}
 //		}else
-		if (entity.isAlive() && !entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions()) {
+		if (entity.isAlive() && !entity.isPassenger() && !entity.isVehicle()) {
 			//传送
-			ResourceKey<Level> destination = getDestination(level, entity);
-			if (destination != null) {
-				MinecraftServer server = level.getServer();
-				if (server != null) {
-					ServerLevel cl = server.getLevel(destination);
-					if (cl != null) {
-						if (entity instanceof LivingEntity livE) {
-							//cn.breadnicecat.candycraftce.mixin.MixinEntity#findDimensionEntryPoint
-							if (livE.changeDimension(cl) instanceof LivingEntity newLivE) {
-								newLivE.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, (int) (16 * TickUtils.SEC2TICK), 5));
-							}
-						}
-					}
-				}
+			DimensionTransition destination = getDestination(level, pos, entity);
+			if (destination != null && entity.canChangeDimensions(level, destination.newLevel())) {
+				entity.changeDimension(destination);
 			}
+			
 		}
 	}
 	
@@ -197,11 +188,20 @@ public class CaramelPortalBlock extends Block {
 	/**
 	 * @return null, 如果无法传送
 	 */
-	protected @Nullable ResourceKey<Level> getDestination(Level level, Entity entity) {
+	protected @Nullable DimensionTransition getDestination(Level level, BlockPos pos, Entity entity) {
 		boolean works = level.getGameRules().getBoolean(CGameRules.CARAMEL_PORTAL_WORKS);
+		MinecraftServer server = level.getServer();
+		if (!works || server == null) return null;
+		
 		ResourceKey<Level> ori = level.dimension();
 		if (ori == OVERWORLD) {
-			return CANDYLAND;
+			Vec3 dest = new Vec3(entity.getX(), CDims.DUNGEONS_MAX_Y, entity.getZ());
+			ServerLevel ccl = server.getLevel(CANDYLAND);
+			return new DimensionTransition(ccl, dest, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
+				if (e instanceof LivingEntity li) {
+					li.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, (int) (16 * TickUtils.SEC2TICK), 5));
+				}
+			});
 		} else if (ori == CANDYLAND) {
 			//困难模式，且手上和身上没有返程票。
 			boolean blocked = false;
@@ -214,7 +214,21 @@ public class CaramelPortalBlock extends Block {
 					}
 				}
 			}
-			if (!blocked) return OVERWORLD;
+			ServerLevel overworld = blocked ? server.getLevel(ori) : server.overworld();
+			BlockPos dest;
+			int xOff = 0, zOff = 0;
+			do {
+				switch (level.random.nextInt(0, 4)) {
+					case 0 -> xOff++;
+					case 1 -> xOff--;
+					case 2 -> zOff++;
+					case 3 -> zOff--;
+				}
+				dest = overworld.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, pos.offset(xOff, 0, zOff));
+			} while (overworld.getBlockState(dest).is(this));
+			
+			return new DimensionTransition(overworld, dest.getCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
+			});
 		}
 		return null;
 	}

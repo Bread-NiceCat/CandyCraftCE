@@ -10,6 +10,7 @@ import cn.breadnicecat.candycraftce.utils.ItemStackList;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -21,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -28,9 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
-import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor.of;
 import static net.minecraft.world.item.Items.SUGAR;
 
@@ -41,7 +41,7 @@ import static net.minecraft.world.item.Items.SUGAR;
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class SugarFactoryBE extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class SugarFactoryBE extends BlockEntity implements MenuProvider, WorldlyContainer, RecipeInput {
 	public static final int[] SLOT_FOR_OTHER = {0};
 	public static final int[] SLOT_FOR_DOWN = {1};
 	public static final int OUTPUT_SLOT = 1;
@@ -54,7 +54,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	public static final int COMMON_TYPE = 1;
 	public static final int SUGARY_TYPE = 2;
 	
-	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(prefix("__sugary__"), Ingredient.of(CBlockTags.BT_SUGARY.it()), SUGAR, 1, false);
+	public static final SugarFactoryRecipe SUGARY = new SugarFactoryRecipe(Ingredient.of(CBlockTags.BT_SUGARY.it()), SUGAR.getDefaultInstance(), false);
 	
 	protected static final int COMMON_TICKED_TOTAL = (int) (10 * TickUtils.SEC2TICK);
 	
@@ -106,10 +106,9 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 			}
 			//检查配方
 			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
-				Optional<SugarFactoryRecipe> opt = quickCheck.getRecipeFor(this, level);
-				recipeUsed = opt.orElse(null);
+				var opt = quickCheck.getRecipeFor(this, level);
+				recipeUsed = opt.map(RecipeHolder::value).orElse(null);
 			}
-			
 			//判断输出 输出阻塞
 			for (int i = 0; i < 2; i++) {//循环两次
 				if (i == 0 && recipeUsed == null) {//没找到匹配的配方
@@ -122,8 +121,8 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 						recipeUsed = SUGARY;
 					} else break;
 				}
-				//输出内容不是配方输出内容 或者 和大于最大堆叠数
-				if (!output.isEmpty() && (!output.is(recipeUsed.result) || output.getCount() + recipeUsed.count > output.getMaxStackSize())) {
+				//输出内容不是配方输出内容 或者 之和大于最大堆叠数
+				if (!output.isEmpty() && (!ItemStack.isSameItemSameComponents(output, recipeUsed.getResult()) || output.getCount() + recipeUsed.getCount() > output.getMaxStackSize())) {
 					recipeUsed = null;
 				}
 			}
@@ -149,17 +148,17 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	}
 	
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
-		ContainerHelper.loadAllItems(tag.getCompound("items"), items);
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		ContainerHelper.loadAllItems(tag.getCompound("items"), items, registries);
 		ticked = tag.getInt("ticked");
 	}
 	
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		CompoundTag items = new CompoundTag();
-		ContainerHelper.saveAllItems(items, this.items);
+		ContainerHelper.saveAllItems(items, this.items, registries);
 		tag.put("items", items);
 		tag.putInt("ticked", ticked);
 	}
@@ -201,6 +200,11 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	@Override
 	public @NotNull ItemStack getItem(int slot) {
 		return items.get(slot);
+	}
+	
+	@Override
+	public int size() {
+		return getContainerSize();
 	}
 	
 	@Override

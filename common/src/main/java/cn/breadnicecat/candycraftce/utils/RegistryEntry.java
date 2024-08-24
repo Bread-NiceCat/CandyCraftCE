@@ -39,4 +39,5 @@ public abstract class RegistryEntry<R> {
 	public int hashCode() {
 		return Objects.hash(key.registry(), key.location());
 	}
+	
 }

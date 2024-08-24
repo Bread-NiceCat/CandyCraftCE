@@ -5,6 +5,7 @@ on:
       - '.github/**'
       - '.docs/**'
       - 'README.md'
+      - 'README_cn.md'
       - 'LICENSE'
       - '.gitignore'
       - '.gitattributes'
@@ -13,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [ 17 ]
+        java: [ 21 ]
         os: [ windows-latest ]
 
     runs-on: ${{ matrix.os }}

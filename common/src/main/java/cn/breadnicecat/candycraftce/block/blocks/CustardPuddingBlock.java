@@ -45,7 +45,6 @@ public class CustardPuddingBlock extends Block {
 //	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		//恢复
 		if (!canBeGrass(state, level, pos)) {

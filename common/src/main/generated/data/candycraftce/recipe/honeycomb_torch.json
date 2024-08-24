@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "*": {
+      "item": "candycraftce:honeycomb"
+    },
+    "/": {
+      "item": "candycraftce:marshmallow_stick"
+    }
+  },
+  "pattern": [
+    "*  ",
+    "/  "
+  ],
+  "result": {
+    "count": 4,
+    "id": "candycraftce:honeycomb_torch"
+  }
+}

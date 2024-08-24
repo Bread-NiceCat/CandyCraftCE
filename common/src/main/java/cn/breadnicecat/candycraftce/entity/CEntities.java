@@ -28,7 +28,7 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.create;
 import static cn.breadnicecat.candycraftce.entity.CEntityBuilder.registerLayer;
 import static net.minecraft.world.entity.MobCategory.*;
-import static net.minecraft.world.entity.SpawnPlacements.Type.ON_GROUND;
+import static net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND;
 import static net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES;
 
 /**

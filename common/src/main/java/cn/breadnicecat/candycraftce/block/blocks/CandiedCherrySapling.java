@@ -1,9 +1,8 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.block.grower.TreeGrower;
+
+import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CANDIED_CHERRY_TREE;
 
@@ -15,16 +14,11 @@ import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CANDIED_CHE
  * <p>
  */
 public class CandiedCherrySapling extends CandySaplingBlock {
-	protected CandiedCherrySapling(AbstractTreeGrower abstractTreeGrower, Properties properties) {
-		super(abstractTreeGrower, properties);
+	protected CandiedCherrySapling(TreeGrower grower, Properties properties) {
+		super(grower, properties);
 	}
-
+	
 	public CandiedCherrySapling(Properties properties) {
-		super(new AbstractTreeGrower() {
-			@Override
-			protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return CANDIED_CHERRY_TREE;
-			}
-		}, properties);
+		this(new TreeGrower("candied_cherry_tree", Optional.empty(), Optional.of(CANDIED_CHERRY_TREE), Optional.empty()), properties);
 	}
 }

@@ -39,7 +39,7 @@ public class LayerGingerbreadManJob extends RenderLayer<GingerbreadMan, ModelGin
 		if (job != GingerbreadMan.GingerbreadJob.NONE) {
 			ModelGingerbreadMan m = getParentModel();
 			m.setupAnim(entity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-			m.renderToBuffer(pPoseStack, pBuffer.getBuffer(RenderType.entityCutout(TEXTURES.get(job.ordinal() - 1))), pPackedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1f, 1f, 1f, 1f);
+			m.renderToBuffer(pPoseStack, pBuffer.getBuffer(RenderType.entityCutout(TEXTURES.get(job.ordinal() - 1))), pPackedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F));
 		}
 	}
 }

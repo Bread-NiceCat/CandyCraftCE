@@ -49,7 +49,7 @@ public abstract class MixinBlockEntityWithoutLevelRenderer {
 			poseStack.pushPose();
 			poseStack.scale(1.0f, -1.0f, -1.0f);
 			VertexConsumer vertexConsumer2 = ItemRenderer.getFoilBufferDirect(buffer, candycraftce$spearModel.renderType(RendererLicoriceSpear.TEX), false, stack.hasFoil());
-			this.candycraftce$spearModel.renderToBuffer(poseStack, vertexConsumer2, packedLight, packedOverlay, 1.0f, 1.0f, 1.0f, 1.0f);
+			this.candycraftce$spearModel.renderToBuffer(poseStack, vertexConsumer2, packedLight, packedOverlay);
 			poseStack.popPose();
 		}
 	}

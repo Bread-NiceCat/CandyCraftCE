@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "candycraftce:caramel_brick"
+    },
+    "@": {
+      "item": "candycraftce:white_chocolate_brick"
+    }
+  },
+  "pattern": [
+    "#@",
+    "@#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:white_chocolate_caramel_bricks"
+  }
+}

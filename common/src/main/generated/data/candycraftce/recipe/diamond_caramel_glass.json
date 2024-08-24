@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "candycraftce:round_caramel_glass"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:diamond_caramel_glass"
+  }
+}

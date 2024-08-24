@@ -1,11 +1,14 @@
 package cn.breadnicecat.candycraftce.item.items;
 
+import cn.breadnicecat.candycraftce.item.CDataComponents;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.JsonOps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -21,14 +24,12 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,10 +62,11 @@ public class IIDebugItem extends Item {
 	@Override
 	public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
 		ItemStack item = player.getItemInHand(usedHand);
-		if (level.isClientSide) return InteractionResultHolder.success(item);
+		
 		if (player.isShiftKeyDown() && usedHand == InteractionHand.MAIN_HAND) {
 			//切换模式
-			CompoundTag tag = item.getOrCreateTag();
+			CompoundTag tag = item.getOrDefault(CDataComponents.NBT.get(), new CompoundTag());
+//			CompoundTag tag = item.getOrCreateTag();
 			int ord = getFunOrd(tag);
 			if (player.isShiftKeyDown()) {
 				if (--ord < 0) {
@@ -76,6 +78,7 @@ public class IIDebugItem extends Item {
 			IIDebugFunction fun = FUNCTIONS.get(ord);
 			player.sendSystemMessage(CUR_FUN.copy().append(fun.getName()));
 			tag.putInt(FUN_ORD_KEY, ord);
+			item.set(CDataComponents.NBT.get(), tag);
 			return InteractionResultHolder.consume(item);
 		}
 		return InteractionResultHolder.fail(item);
@@ -88,20 +91,27 @@ public class IIDebugItem extends Item {
 			return InteractionResult.FAIL;
 		}
 		Level level = pContext.getLevel();
+
+//		if (level.isClientSide()) return InteractionResult.SUCCESS;
+		
 		BlockPos pos = pContext.getClickedPos();
 		ItemStack item = pContext.getItemInHand();
-		CompoundTag tag = item.getOrCreateTag();
+		
+		CompoundTag tag = item.getOrDefault(CDataComponents.NBT.get(), new CompoundTag());
+//		CompoundTag tag= item.getOrCreateTag();
 		int ord = getFunOrd(tag);
 		IIDebugFunction fun = FUNCTIONS.get(ord);
 		
 		String ord_s = String.valueOf(ord);
 		CompoundTag nbt = tag.getCompound(ord_s);
-		fun.onRightClickOn(level.getBlockState(pos), level, pos, pContext.getClickedFace(), player, item, nbt);
-		tag.put(ord_s, nbt);
 		
-		{
-			int used = (tag.contains(USED_TIMES_KEY) ? tag.getInt(USED_TIMES_KEY) : 0) + 1;
-			tag.putInt(USED_TIMES_KEY, used);
+		fun.onRightClickOn(level.getBlockState(pos), level, pos, pContext.getClickedFace(), player, item, nbt);
+		if (level.isClientSide()) {
+			fun.onRightClickOn_Client(level.getBlockState(pos), (ClientLevel) level, pos, pContext.getClickedFace(), player, item, nbt);
+		}
+		int used = (tag.contains(USED_TIMES_KEY) ? tag.getInt(USED_TIMES_KEY) : 0) + 1;
+		tag.putInt(USED_TIMES_KEY, used);
+		if (!level.isClientSide()) {
 			if (used > 0 && used % 666 == 0) {
 				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_o.getDefaultInstance());
 				LevelUtils.spawnItemEntity(level, pos, Items.JUKEBOX.getDefaultInstance());
@@ -109,26 +119,28 @@ public class IIDebugItem extends Item {
 				player.sendSystemMessage(Component.literal("这是你第" + used + "次使用").withStyle(YELLOW).append(getName(item)).withStyle(BLUE));
 			}
 		}
+		
+		tag.put(ord_s, nbt);
+		item.set(CDataComponents.NBT.get(), tag);
 		return InteractionResult.sidedSuccess(level.isClientSide);
 	}
 	
-	public boolean canAttackBlock(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer) {
+	public boolean canAttackBlock(@NotNull BlockState pState, @NotNull Level level, @NotNull BlockPos pPos, @NotNull Player pPlayer) {
 		ItemStack item = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-		
-		CompoundTag tag = item.getOrCreateTag();
+
+//		CompoundTag tag = item.getOrCreateTag();
+		CompoundTag tag = item.getComponents().getOrDefault(CDataComponents.NBT.get(), new CompoundTag());
 		int ord = getFunOrd(tag);
 		IIDebugFunction fun = FUNCTIONS.get(ord);
 		
 		String ord_s = String.valueOf(ord);
 		CompoundTag nbt = tag.getCompound(ord_s);
-		fun.onLeftClickOn(pState, pLevel, pPos, pPlayer, item, nbt);
+		fun.onLeftClickOn(pState, level, pPos, pPlayer, item, nbt);
+		if (level.isClientSide()) {
+			fun.onLeftClickOn_Client(pState, (ClientLevel) level, pPos, pPlayer, item, nbt);
+		}
 		tag.put(ord_s, nbt);
 		return false;
-	}
-	
-	@Override
-	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-		super.inventoryTick(stack, level, entity, slotId, isSelected);
 	}
 	
 	public boolean isFoil(@NotNull ItemStack pStack) {
@@ -136,19 +148,21 @@ public class IIDebugItem extends Item {
 	}
 	
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced) {
-		CompoundTag root = stack.getOrCreateTag();
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltips, TooltipFlag isAdvanced) {
+//		CompoundTag root = stack.getOrCreateTag();
+		CompoundTag root = stack.getComponents().getOrDefault(CDataComponents.NBT.get(), new CompoundTag());
 		int ord = getFunOrd(root);
 		IIDebugFunction fun = FUNCTIONS.get(ord);
 		tooltips.add(CUR_FUN.copy().append(fun.getName()));
 		tooltips.add(SWITCH_FUN);
 		CompoundTag nbt = root.getCompound(String.valueOf(ord));
-		fun.appendExtraHoverText(stack, level, tooltips, isAdvanced, nbt);
+		fun.appendExtraHoverText(stack, tooltips, isAdvanced, nbt);
 	}
 	
 	@Override
 	public @NotNull Component getName(ItemStack stack) {
-		return super.getName(stack).copy().append("(").append(FUNCTIONS.get(getFunOrd(stack.getOrCreateTag())).getName()).append(")");
+		CompoundTag tag = stack.getComponents().getOrDefault(CDataComponents.NBT.get(), new CompoundTag());
+		return super.getName(stack).copy().append("(").append(FUNCTIONS.get(getFunOrd(tag)).getName().copy().withStyle(AQUA)).append(")");
 	}
 	
 	private int getFunOrd(CompoundTag tag) {
@@ -172,7 +186,7 @@ public class IIDebugItem extends Item {
 		
 		@Override
 		public void onRightClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			if (level.isClientSide) return;
+			if (level.isClientSide()) return;
 			int[] zero = nbt.contains(ZERO) ? nbt.getIntArray(ZERO) : new int[]{0, 0, 0};
 			int rx = pos.getX() - zero[0];
 			int ry = pos.getY() - zero[1];
@@ -183,14 +197,14 @@ public class IIDebugItem extends Item {
 		
 		@Override
 		public void onLeftClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			if (level.isClientSide) return;
+			if (level.isClientSide()) return;
 			int[] po = player.isShiftKeyDown() ? new int[]{0, 0, 0} : new int[]{pos.getX(), pos.getY(), pos.getZ()};
 			nbt.putIntArray(ZERO, po);
 			player.sendSystemMessage(NAME.copy().append(" 调零: %s".formatted(Arrays.toString(po))).withStyle(ChatFormatting.GREEN));
 		}
 		
 		@Override
-		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		public void appendExtraHoverText(ItemStack stack, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
 			tooltips.add(SET);
 			tooltips.add(RESET);
 			tooltips.add(GET);
@@ -208,12 +222,11 @@ public class IIDebugItem extends Item {
 		}
 		
 		@Override
-		public void onRightClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
-			if (!level.isClientSide) return;
+		public void onRightClickOn_Client(@NotNull BlockState state, @NotNull ClientLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 			long stt = System.nanoTime();
 			Optional<VectorPortalShape> portal = Optional.empty();
 			pos = move(pos, clickedFace, 1);
-			LevelUtils.particleBlock(ParticleTypes.FALLING_WATER, (ClientLevel) level, pos, 1 / 4d);
+			LevelUtils.particleBlock(ParticleTypes.BUBBLE, level, pos, 1 / 4d);
 			if (CONFIG.isEmpty(level.getBlockState(pos))) {
 				portal = VectorPortalShape.findPortal(level, pos, CONFIG);
 			}
@@ -224,7 +237,7 @@ public class IIDebugItem extends Item {
 				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
 				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
 				//viewable
-				shape.getUnits().forEach(unit -> LevelUtils.particleBlock(FLAME, (ClientLevel) level, unit.bottomLeft, unit.getTopRight(), 1 / 4d));
+				shape.getUnits().forEach(unit -> LevelUtils.particleBlock(FLAME, level, unit.bottomLeft, unit.getTopRight(), 1 / 4d));
 				//colorful outputs
 				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.COMPRESSED.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
 //				player.sendSystemMessage(Component.literal(shape.toString()));
@@ -236,7 +249,7 @@ public class IIDebugItem extends Item {
 		}
 		
 		@Override
-		public void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		public void appendExtraHoverText(ItemStack stack, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
 			tooltips.add(TEST);
 		}
 	};
@@ -248,14 +261,24 @@ public class IIDebugItem extends Item {
 	public interface IIDebugFunction {
 		Component getName();
 		
+		//Common
 		default void onRightClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 		
+		@Environment(EnvType.CLIENT)
+		default void onRightClickOn_Client(@NotNull BlockState state, @NotNull ClientLevel level, @NotNull BlockPos pos, Direction clickedFace, @NotNull Player player, ItemStack item, CompoundTag nbt) {
+		}
 		
+		//Common
 		default void onLeftClickOn(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
 		
-		default void appendExtraHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		@Environment(EnvType.CLIENT)
+		default void onLeftClickOn_Client(@NotNull BlockState state, @NotNull ClientLevel level, @NotNull BlockPos pos, @NotNull Player player, ItemStack item, CompoundTag nbt) {
 		}
+		
+		default void appendExtraHoverText(ItemStack stack, List<Component> tooltips, TooltipFlag isAdvanced, CompoundTag nbt) {
+		}
+		
 	}
 }

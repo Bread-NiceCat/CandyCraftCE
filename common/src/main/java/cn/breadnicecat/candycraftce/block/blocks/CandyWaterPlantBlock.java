@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -25,29 +26,29 @@ public class CandyWaterPlantBlock extends CandyPlantBlock implements LiquidBlock
 	public CandyWaterPlantBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		return state.getFluidState().is(FluidTags.WATER) && super.canSurvive(state, level, pos);
 	}
-
-
+	
+	
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		return fluidState.is(Fluids.WATER) ? super.getStateForPlacement(context) : null;
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	public @NotNull FluidState getFluidState(BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
-
+	
 	@Override
-	public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
-
+	
+	
 	@Override
 	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;

@@ -59,9 +59,9 @@ public class GingerbreadMan extends PathfinderMob {
 	}
 	
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(JOB_CODE, GingerbreadJob.NONE.ordinal());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(JOB_CODE, GingerbreadJob.NONE.ordinal());
 	}
 	
 	@NotNull

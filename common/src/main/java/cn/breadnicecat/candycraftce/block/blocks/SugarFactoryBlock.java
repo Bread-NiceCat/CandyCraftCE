@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFactoryBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,22 +29,21 @@ public class SugarFactoryBlock extends Block implements EntityBlock {
 	public SugarFactoryBlock(Properties properties) {
 		super(properties);
 	}
-
+	
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return CBlockEntities.SUGAR_FACTORY_BE.create(pos, state);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
-	public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SugarFactoryBE sf) {
 			player.openMenu(sf);
 		}
 		return InteractionResult.sidedSuccess(level.isClientSide());
 	}
-
+	
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
@@ -55,8 +53,7 @@ public class SugarFactoryBlock extends Block implements EntityBlock {
 			}
 		};
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
 		if (state.is(newState.getBlock())) {
@@ -67,14 +64,12 @@ public class SugarFactoryBlock extends Block implements EntityBlock {
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));

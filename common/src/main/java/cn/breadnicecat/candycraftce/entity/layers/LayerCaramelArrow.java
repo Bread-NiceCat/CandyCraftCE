@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.entity.layers.ArrowLayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.projectile.Arrow;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 
@@ -47,7 +46,7 @@ public class LayerCaramelArrow extends ArrowLayer<AbstractClientPlayer, PlayerMo
 	@Override
 	protected void renderStuckItem(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Entity entity, float x, float y, float z, float partialTick) {
 		float f = Mth.sqrt(x * x + z * z);
-		Arrow arrow = new CaramelArrow(entity.level(), entity.getX(), entity.getY(), entity.getZ());
+		CaramelArrow arrow = new CaramelArrow(entity.getX(), entity.getY(), entity.getZ(), entity.level());
 		arrow.setYRot((float) (Math.atan2(x, z) * 57.2957763671875));
 		arrow.setXRot((float) (Math.atan2(y, f) * 57.2957763671875));
 		arrow.yRotO = arrow.getYRot();

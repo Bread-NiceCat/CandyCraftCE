@@ -26,11 +26,11 @@ import static cn.breadnicecat.candycraftce.misc.mixin_ref.$ItemRenderer.ItemRend
 @Mixin(ModelBakery.class)
 public abstract class MixinModelBakery {
 	@Shadow
-	protected abstract void loadTopLevel(ModelResourceLocation location);
+	protected abstract void loadSpecialItemModelAndDependencies(ModelResourceLocation modelLocation);
 	
 	@SuppressWarnings("rawtypes")
 	@Inject(method = "<init>", at = @At(value = "TAIL"))
 	void init(BlockColors blockColors, ProfilerFiller profilerFiller, Map modelResources, Map blockStateResources, CallbackInfo ci) {
-		loadTopLevel(ItemRenderer$SPEAR_IN_HAND_MODEL);
+		loadSpecialItemModelAndDependencies(ItemRenderer$SPEAR_IN_HAND_MODEL);
 	}
 }

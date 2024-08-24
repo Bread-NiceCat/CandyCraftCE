@@ -4,11 +4,11 @@ import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created in 2024/7/1 23:45
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>
  **/
-public class CaramelArrow extends Arrow {
+public class CaramelArrow extends AbstractArrow {
 	
 	public CaramelArrow(EntityType<? extends CaramelArrow> entityType, Level level) {
 		super(entityType, level);
@@ -29,21 +29,27 @@ public class CaramelArrow extends Arrow {
 		this(CEntities.CARAMEL_ARROW.get(), level);
 	}
 	
-	public CaramelArrow(Level level, double x, double y, double z) {
+	public CaramelArrow(double x, double y, double z, Level level) {
 		this(level);
 		setPos(x, y, z);
 	}
 	
-	public CaramelArrow(Level level, LivingEntity shooter) {
-		this(level, shooter.getX(), shooter.getEyeY() - (double) 0.1f, shooter.getZ());
-		this.setOwner(shooter);
-		if (shooter instanceof Player) {
-			this.pickup = Pickup.ALLOWED;
-		}
+	
+	public CaramelArrow(double x, double y, double z, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CEntities.CARAMEL_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
+	}
+	
+	public CaramelArrow(LivingEntity owner, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CEntities.CARAMEL_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
 	}
 	
 	@Override
 	protected @NotNull ItemStack getPickupItem() {
+		return CItems.HONEYCOMB_ARROW.getDefaultInstance();
+	}
+	
+	@Override
+	protected @NotNull ItemStack getDefaultPickupItem() {
 		return CItems.HONEYCOMB_ARROW.getDefaultInstance();
 	}
 	

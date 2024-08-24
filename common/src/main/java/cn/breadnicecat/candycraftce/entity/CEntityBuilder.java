@@ -47,7 +47,7 @@ public class CEntityBuilder<T extends Entity> {
 	private final Class<T> clazz;
 	private final EntityType.Builder<T> builder;
 	private Supplier<AttributeSupplier.Builder> attribute;
-	private Triple<SpawnPlacements.Type, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> placement;
+	private Triple<SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<?>> placement;
 	private Function<EntityEntry<T>, Supplier<ItemEntry<SpawnEggItem>>> egg;
 	
 	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs = new ArrayList<>();
@@ -86,8 +86,8 @@ public class CEntityBuilder<T extends Entity> {
 	 * 地形生成时生成实体的要求
 	 * 只允许Mob调用
 	 */
-	public CEntityBuilder<T> setPlacements(SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
-		placement = Triple.of(decoratorType, heightMapType, decoratorPredicate);
+	public CEntityBuilder<T> setPlacements(SpawnPlacementType placement, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate) {
+		this.placement = Triple.of(placement, heightmapType, predicate);
 		return this;
 	}
 	
@@ -137,6 +137,7 @@ public class CEntityBuilder<T extends Entity> {
 		if (placement != null) {
 			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate) placement.c()));
 		}
+		
 		return s;
 	}
 	

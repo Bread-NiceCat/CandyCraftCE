@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_marshmallow_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#candycraftce:marshmallow_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:marshmallow_axe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_marshmallow_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:marshmallow_axe"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "candycraftce:honeycomb"
+    },
+    "/": {
+      "item": "candycraftce:honeycomb_torch"
+    }
+  },
+  "pattern": [
+    "###",
+    "#/#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:honeycomb_lamp"
+  }
+}

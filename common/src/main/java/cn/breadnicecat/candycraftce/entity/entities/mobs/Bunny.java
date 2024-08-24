@@ -57,10 +57,11 @@ public class Bunny extends Rabbit {
 	}
 	
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(RGB_ID, Color.MAGENTA.getRGB());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(RGB_ID, Color.MAGENTA.getRGB());
 	}
+	
 	
 	@Override
 	public boolean isFood(ItemStack stack) {

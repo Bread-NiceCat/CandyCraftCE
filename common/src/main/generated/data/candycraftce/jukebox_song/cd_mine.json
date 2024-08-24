@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.candycraftce.cd_mine"
+  },
+  "length_in_seconds": 128.0,
+  "sound_event": "candycraftce:o"
+}

@@ -1,9 +1,0 @@
-{
-  "type": "candycraftce:sugar_factory",
-  "ingredient": {
-    "tag": "candycraftce:ore_pez"
-  },
-  "result": {
-    "item": "candycraftce:pez_dust"
-  }
-}

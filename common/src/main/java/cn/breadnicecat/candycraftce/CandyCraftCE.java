@@ -8,14 +8,15 @@ import cn.breadnicecat.candycraftce.gui.block.CMenus;
 import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
+import cn.breadnicecat.candycraftce.misc.CEggProject;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
-import cn.breadnicecat.candycraftce.misc.CGenshin;
 import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.mojang.datafixers.util.Pair;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -78,7 +79,7 @@ public final class CandyCraftCE {
 //      尤其是含register的类
 		CItems.init();
 		CMenus.init();
-		CGenshin.init();
+		CEggProject.init();
 		CFluids.init();
 		CBlocks.init();
 		CDimInit.init();
@@ -121,6 +122,11 @@ public final class CandyCraftCE {
 		return impossibleCode();
 	}
 	
+	@ExpectPlatform
+	public static <R, S extends R> Holder<R> registerForHolder(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+		return impossibleCode();
+	}
+	
 	public static void hookPostBootstrap(Runnable runnable) {
 		bootstrapHooks.add(runnable);
 	}
@@ -150,7 +156,7 @@ public final class CandyCraftCE {
 	}
 	
 	public enum ModPlatform {
-		FORGE,
+		@Deprecated FORGE,
 		FABRIC,
 		NEOFORGE,//1.20+
 		QUILT//Quilt兼容Fabric,暂时不单独开发

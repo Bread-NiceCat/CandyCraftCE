@@ -6,8 +6,7 @@ import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
-import cn.breadnicecat.candycraftce.sound.CSoundEvents;
-import cn.breadnicecat.candycraftce.sound.SoundEntry;
+import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
@@ -16,6 +15,7 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,7 +24,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.redstone.Redstone;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -39,6 +38,7 @@ import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.setTab;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
+import static net.minecraft.world.item.ArmorItem.Type.*;
 import static net.minecraft.world.level.material.Fluids.WATER;
 
 /**
@@ -47,7 +47,7 @@ import static net.minecraft.world.level.material.Fluids.WATER;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
- * 传送门: Datagen: {@link cn.breadnicecat.candycraftce.datagen.forge}
+ * 传送门: Datagen: {@link cn.breadnicecat.candycraftce.datagen.neoforge}
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
@@ -112,15 +112,14 @@ public class CItems {
 //        .register();
 	
 	/*唱片*/
-	public static final ItemEntry<RecordItem> RECORD_o = create("record_o",
-			p -> _record_o(Redstone.SIGNAL_MAX, CSoundEvents.CD_o, p, 2 * 60 + 8))
-			.setProperties(new Properties().stacksTo(1).rarity(Rarity.EPIC))
+	public static final ItemEntry<Item> RECORD_o = createRecord("record_o", CJukeboxSound.CD_MINE)
+			.modifyProperties(p -> p.rarity(Rarity.EPIC))
 			.setCtab(false)
 			.save();
-	public static final ItemEntry<RecordItem> RECORD_1 = createRecord("record_1", 1, CSoundEvents.CD_1, 316).save();
-	public static final ItemEntry<RecordItem> RECORD_2 = createRecord("record_2", 2, CSoundEvents.CD_2, 98).save();
-	public static final ItemEntry<RecordItem> RECORD_3 = createRecord("record_3", 3, CSoundEvents.CD_3, 112).save();
-	public static final ItemEntry<RecordItem> RECORD_4 = createRecord("record_4", 4, CSoundEvents.CD_4, 188).save();
+	public static final ItemEntry<Item> RECORD_1 = createRecord("record_1", CJukeboxSound.CD_1).save();
+	public static final ItemEntry<Item> RECORD_2 = createRecord("record_2", CJukeboxSound.CD_2).save();
+	public static final ItemEntry<Item> RECORD_3 = createRecord("record_3", CJukeboxSound.CD_3).save();
+	public static final ItemEntry<Item> RECORD_4 = createRecord("record_4", CJukeboxSound.CD_4).save();
 	public static final ItemEntry<Item> GINGERBREAD_EMBLEM = create("gingerbread_emblem").save();
 	public static final ItemEntry<Item> JELLY_EMBLEM = create("jelly_emblem").save();
 	public static final ItemEntry<Item> SKY_EMBLEM = create("sky_emblem").save();
@@ -214,26 +213,23 @@ public class CItems {
 	@Environment(EnvType.CLIENT)
 	private static void declareItemProperties() {
 		LOGGER.info("declareItemProperties");
-		ItemProperties.register(CARAMEL_BOW.get(), new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
-			if (livingEntity == null) {
+		ItemProperties.register(CARAMEL_BOW.get(), ResourceLocation.parse("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+			if (livingEntity == null || livingEntity.getUseItem() != itemStack) {
 				return 0.0f;
 			}
-			if (livingEntity.getUseItem() != itemStack) {
-				return 0.0f;
-			}
-			return (float) (itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0f;
+			return (float) (itemStack.getUseDuration(livingEntity) - livingEntity.getUseItemRemainingTicks()) / 20.0f;
 		});
-		ItemProperties.register(CARAMEL_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
-		ItemProperties.register(LICORICE_SPEAR.get(), new ResourceLocation("throwing"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
+		ItemProperties.register(CARAMEL_BOW.get(), ResourceLocation.parse("pulling"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
+		ItemProperties.register(LICORICE_SPEAR.get(), ResourceLocation.parse("throwing"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0f : 0.0f);
 		
 	}
 	
 	public static void init() {
+		//初始化
+		CArmorMaterials.init();
+		CDataComponents.init();
 	}
 	
-	/**
-	 * 由Mixin调用
-	 */
 	@Environment(EnvType.CLIENT)
 	public static void registerItemColors(BlockColors blockColors, ItemColors itemColors) {
 		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor()
@@ -262,67 +258,65 @@ public class CItems {
 		return (p) -> sup.get();
 	}
 	
-	private static CItemBuilder<RecordItem> createRecord(String name, int analog, SoundEntry evt, int lengthInSeconds) {
-		return create(name, (p) -> _recordItem(analog, evt, p, lengthInSeconds))
+	private static CItemBuilder<Item> createRecord(String name, ResourceKey<JukeboxSong> song) {
+		return create(name, (p) -> _recordItem(song, p))
 				.setProperties(new Properties().stacksTo(1));
 	}
 	//工具
 	
 	private static CItemBuilder<SwordItem> createSword(String name, Tier tier, int baseDamage, float baseSpeed) {
-		return create(name, (p) -> new SwordItem(tier, baseDamage, baseSpeed, p));
+		return create(name, (p) -> new SwordItem(tier, p.attributes(SwordItem.createAttributes(tier, baseDamage, baseSpeed))));
 	}
 	
 	private static CItemBuilder<ShovelItem> createShovel(String name, Tier tier, float baseDamage, float baseSpeed) {
-		return create(name, (p) -> new ShovelItem(tier, baseDamage, baseSpeed, p));
+		return create(name, (p) -> new ShovelItem(tier, p.attributes(ShovelItem.createAttributes(tier, baseDamage, baseSpeed))));
 	}
 	
 	private static CItemBuilder<PickaxeItem> createPickaxe(String name, Tier tier, int baseDamage, float baseSpeed) {
-		return create(name, (p) -> new PickaxeItem(tier, baseDamage, baseSpeed, p));
+		return create(name, (p) -> new PickaxeItem(tier, p.attributes(PickaxeItem.createAttributes(tier, baseDamage, baseSpeed))));
 	}
 	
 	private static CItemBuilder<AxeItem> createAxe(String name, Tier tier, float baseDamage, float baseSpeed) {
-		return create(name, (p) -> new AxeItem(tier, baseDamage, baseSpeed, p));
+		return create(name, (p) -> new AxeItem(tier, p.attributes(AxeItem.createAttributes(tier, baseDamage, baseSpeed))));
 	}
 	
 	private static CItemBuilder<HoeItem> createHoe(String name, Tier tier, int baseDamage, float baseSpeed) {
-		return create(name, (p) -> new HoeItem(tier, baseDamage, baseSpeed, p));
+		return create(name, (p) -> new HoeItem(tier, p.attributes(HoeItem.createAttributes(tier, baseDamage, baseSpeed))));
 	}
 	
 	//盔甲
-	private static CItemBuilder<ArmorItem> createHelmet(String name, ArmorMaterial material) {
-		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.HELMET, p));
+	private static CItemBuilder<ArmorItem> createHelmet(String name, CArmorMaterials material) {
+		return create(name, (p) -> new ArmorItem(material.holder, HELMET, p.durability(HELMET.getDurability(material.durabilityMultiplier))));
 	}
 	
-	private static CItemBuilder<ArmorItem> createChestplate(String name, ArmorMaterial material) {
-		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.CHESTPLATE, p));
+	private static CItemBuilder<ArmorItem> createChestplate(String name, CArmorMaterials material) {
+		return create(name, (p) -> new ArmorItem(material.holder, CHESTPLATE, p.durability(CHESTPLATE.getDurability(material.durabilityMultiplier))));
 	}
 	
-	private static CItemBuilder<ArmorItem> createLeggings(String name, ArmorMaterial material) {
-		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.LEGGINGS, p));
+	private static CItemBuilder<ArmorItem> createLeggings(String name, CArmorMaterials material) {
+		return create(name, (p) -> new ArmorItem(material.holder, LEGGINGS, p.durability(LEGGINGS.getDurability(material.durabilityMultiplier))));
 	}
 	
-	private static CItemBuilder<ArmorItem> createBoots(String name, ArmorMaterial material) {
-		return create(name, (p) -> new ArmorItem(material, ArmorItem.Type.BOOTS, p));
+	private static CItemBuilder<ArmorItem> createBoots(String name, CArmorMaterials material) {
+		return create(name, (p) -> new ArmorItem(material.holder, BOOTS, p.durability(BOOTS.getDurability(material.durabilityMultiplier))));
 	}
 	
 	//平台差异
 	@ExpectPlatform
-	private static RecordItem _recordItem(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
-		return impossibleCode();
-	}
-	
-	@ExpectPlatform
-	private static RecordItem _record_o(int analog, SoundEntry evt, Properties prop, int lengthInSeconds) {
-		return impossibleCode();
-	}
-	
-	@ExpectPlatform
-	public static Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
+	public static Item _recordItem(ResourceKey<JukeboxSong> jukeSong, Item.Properties prop) {
 		return impossibleCode();
 	}
 	
 	@ExpectPlatform
 	private static MobBucketItem _mob_bucket(Supplier<EntityType<? extends Mob>> entityType, Supplier<Fluid> fluid, Supplier<SoundEvent> empty, Properties p) {
+		return impossibleCode();
+	}
+	
+	/**
+	 * Supplier延迟new
+	 */
+	@ExpectPlatform
+	public static Supplier<ItemEntry<SpawnEggItem>> _spawn_egg(EntityEntry<? extends Mob> entity, int backgroundColor, int highlightColor, @Nullable Item.Properties properties) {
 		return impossibleCode();
 	}
 }

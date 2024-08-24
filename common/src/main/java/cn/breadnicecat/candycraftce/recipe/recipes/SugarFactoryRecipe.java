@@ -3,15 +3,12 @@ package cn.breadnicecat.candycraftce.recipe.recipes;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFactoryBE;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
-import cn.breadnicecat.candycraftce.recipe.RecipeSerializerExt;
-import cn.breadnicecat.candycraftce.utils.ItemUtils;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,9 +16,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 
 /**
  * Created in 2024/2/4
@@ -31,21 +27,23 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
  * <p>
  */
 public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
-	public final ResourceLocation id;
-	public final Item result;
-	public final int count;
+	private final ItemStack result;
 	public final Ingredient ingredient;
 	public final boolean advanced;
 	
-	public SugarFactoryRecipe(ResourceLocation id, Ingredient ingredient, Item result, int count, boolean advanced) {
-		this.id = id;
+	public SugarFactoryRecipe(Ingredient ingredient, ItemStack result, boolean advanced) {
 		this.ingredient = ingredient;
 		this.result = result;
-		assertTrue(count > 0, "count <= 0 in recipe" + id);
-		this.count = count;
 		this.advanced = advanced;
 	}
 	
+	public ItemStack getResult() {
+		return result.copy();
+	}
+	
+	public int getCount() {
+		return result.getCount();
+	}
 	
 	private static boolean isAdvanced(SugarFactoryBE be) {
 		return be.getType() == CBlockEntities.ADVANCED_SUGAR_FACTORY_BE.get();
@@ -57,10 +55,8 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 	}
 	
 	@Override
-	public @NotNull ItemStack assemble(SugarFactoryBE container, RegistryAccess registryAccess) {
-		ItemStack stack = result.getDefaultInstance();
-		stack.setCount(count);
-		return stack;
+	public @NotNull ItemStack assemble(SugarFactoryBE input, HolderLookup.Provider registries) {
+		return result.copy();
 	}
 	
 	@Override
@@ -74,15 +70,8 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 	}
 	
 	@Override
-	public @NotNull ItemStack getResultItem(@Nullable RegistryAccess registryAccess) {
-		ItemStack stack = result.getDefaultInstance();
-		stack.setCount(count);
-		return stack;
-	}
-	
-	@Override
-	public @NotNull ResourceLocation getId() {
-		return id;
+	public @NotNull ItemStack getResultItem(HolderLookup.Provider registries) {
+		return result.copy();
 	}
 	
 	@Override
@@ -95,44 +84,34 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 		return CRecipeTypes.SUGAR_FACTORY_TYPE.get();
 	}
 	
-	public static class Serializer implements RecipeSerializerExt<SugarFactoryRecipe> {
-		@Override
-		public @NotNull SugarFactoryRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-			JsonObject result = json.get("result").getAsJsonObject();
-			return new SugarFactoryRecipe(recipeId,
-					Ingredient.fromJson(json.get("ingredient")),
-					ItemUtils.getItem(result.get("item")),
-					result.has("count") ? result.get("count").getAsInt() : 1,
-					json.has("advanced") && json.get("advanced").getAsBoolean());
-		}
+	public static class Serializer extends RecipeSerializerExt<SugarFactoryRecipe> {
+		
 		
 		@Override
-		public void toJson(JsonObject object, SugarFactoryRecipe recipe) {
-			object.add("result", make(() -> {
-				JsonObject result = new JsonObject();
-				result.addProperty("item", ItemUtils.getKey(recipe.result).toString());
-				if (recipe.count != 1) result.addProperty("count", recipe.count);
-				return result;
-			}));
-			object.add("ingredient", recipe.ingredient.toJson());
-			if (recipe.advanced) object.addProperty("advanced", true);
-		}
-		
-		@Override
-		public @NotNull SugarFactoryRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-			return new SugarFactoryRecipe(recipeId,
-					Ingredient.fromNetwork(buffer),
-					buffer.readById(BuiltInRegistries.ITEM),
-					buffer.readVarInt(),
+		public @NotNull SugarFactoryRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+			return new SugarFactoryRecipe(
+					Ingredient.CONTENTS_STREAM_CODEC.decode(buffer),
+					ItemStack.STREAM_CODEC.decode(buffer),
 					buffer.readBoolean());
 		}
 		
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, SugarFactoryRecipe recipe) {
-			recipe.ingredient.toNetwork(buffer);
-			buffer.writeId(BuiltInRegistries.ITEM, recipe.result);
-			buffer.writeVarInt(recipe.count);
+		public void toNetwork(RegistryFriendlyByteBuf buffer, SugarFactoryRecipe recipe) {
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
+			ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
 			buffer.writeBoolean(recipe.advanced);
 		}
+		
+		public static final MapCodec<SugarFactoryRecipe> CODEC = RecordCodecBuilder.mapCodec(
+				i -> i.group(
+						Ingredient.CODEC.fieldOf("ingredient").forGetter(t -> t.ingredient),
+						ItemStack.CODEC.fieldOf("result").forGetter(t -> t.result),
+						Codec.BOOL.fieldOf("advanced").forGetter(t -> t.advanced)
+				).apply(i, SugarFactoryRecipe::new));
+		
+		@Override
+		public @NotNull MapCodec<SugarFactoryRecipe> codec() {
+			return CODEC;
+		}
+		
 	}
 }

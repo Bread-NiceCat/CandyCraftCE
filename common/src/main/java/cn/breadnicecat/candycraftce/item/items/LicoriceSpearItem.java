@@ -1,20 +1,20 @@
 package cn.breadnicecat.candycraftce.item.items;
 
 import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TridentItem;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created in 2024/7/3 上午11:50
@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
  *
  * <p>
  **/
-public class LicoriceSpearItem extends TridentItem {
+public class LicoriceSpearItem extends Item implements ProjectileItem {
 	public LicoriceSpearItem(Properties properties) {
 		super(properties);
 	}
@@ -33,52 +33,34 @@ public class LicoriceSpearItem extends TridentItem {
 	/**
 	 * Vanilla Copy
 	 */
-	@SuppressWarnings("unused")
 	@Override
-	public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
-		if (!(livingEntity instanceof Player player2)) {
+	public void releaseUsing(ItemStack stack, Level level, LivingEntity e, int timeCharged) {
+		if (!(e instanceof Player player)) {
 			return;
 		}
-		int i = this.getUseDuration(stack) - timeCharged;
+		int i = this.getUseDuration(stack, player) - timeCharged;
 		if (i < 10) {
 			return;
 		}
-		int j = EnchantmentHelper.getRiptide(stack);
-		if (j > 0 && !player2.isInWaterOrRain()) {
-			return;
-		}
 		if (!level.isClientSide) {
-			stack.hurtAndBreak(1, player2, player -> player.broadcastBreakEvent(livingEntity.getUsedItemHand()));
-			if (j == 0) {
-				LicoriceSpear thrownTrident = new LicoriceSpear(level, player2, stack);
-				thrownTrident.shootFromRotation(player2, player2.getXRot(), player2.getYRot(), 0.0f, 2.5f + (float) j * 0.5f, 1.0f);
-				if (player2.getAbilities().instabuild) {
-					thrownTrident.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-				}
-				level.addFreshEntity(thrownTrident);
-				level.playSound(null, thrownTrident, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0f, 1.0f);
-				if (!player2.getAbilities().instabuild) {
-					player2.getInventory().removeItem(stack);
-				}
+			LicoriceSpear spear = new LicoriceSpear(level, player, stack);
+			spear.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
+			if (player.hasInfiniteMaterials()) {
+				spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+			}
+			level.addFreshEntity(spear);
+			level.playSound(null, spear, SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
+			if (!player.hasInfiniteMaterials()) {
+				player.getInventory().removeItem(stack);
 			}
 		}
-		player2.awardStat(Stats.ITEM_USED.get(this));
-		if (j > 0) {
-			float f = player2.getYRot();
-			float g = player2.getXRot();
-			float h = -Mth.sin(f * ((float) Math.PI / 180)) * Mth.cos(g * ((float) Math.PI / 180));
-			float k = -Mth.sin(g * ((float) Math.PI / 180));
-			float l = Mth.cos(f * ((float) Math.PI / 180)) * Mth.cos(g * ((float) Math.PI / 180));
-			float m = Mth.sqrt(h * h + k * k + l * l);
-			float n = 3.0f * ((1.0f + (float) j) / 4.0f);
-			player2.push(h *= n / m, k *= n / m, l *= n / m);
-			player2.startAutoSpinAttack(20);
-			if (player2.onGround()) {
-				float o = 1.1999999f;
-				player2.move(MoverType.SELF, new Vec3(0.0, 1.1999999284744263, 0.0));
-			}
-			SoundEvent soundEvent = j >= 3 ? SoundEvents.TRIDENT_RIPTIDE_3 : (j == 2 ? SoundEvents.TRIDENT_RIPTIDE_2 : SoundEvents.TRIDENT_RIPTIDE_1);
-			level.playSound(null, player2, soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);
-		}
+		player.awardStat(Stats.ITEM_USED.get(this));
+	}
+	
+	@Override
+	public @NotNull Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
+		LicoriceSpear spear = new LicoriceSpear(level, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
+		spear.pickup = AbstractArrow.Pickup.ALLOWED;
+		return spear;
 	}
 }

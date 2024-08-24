@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_banana_seaweed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:banana_seaweed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:banana_seaweeds_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_banana_seaweed"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:banana_seaweeds_block"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/Bread-Nicecat/CandyCraftCE/issues"
+license = "GNU LGPL v3"
+[[mixins]]
+config = "candycraftce-common.mixins.json"
+[[mixins]]
+config = "candycraftce.mixins.json"
+[[mods]]
+modId = "candycraftce"
+version = "${version}"
+displayName = "CandyCraft CE"
+authors = "Bread_NiceCat, Star_Ocean_Sama(Texture)"
+credits = "Architectury-Loom"
+description = '''
+'''
+logoFile = "icon.png"

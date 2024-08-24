@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "x": {
+      "tag": "candycraftce:marshmallow_logs"
+    }
+  },
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "result": {
+    "count": 16,
+    "id": "candycraftce:marshmallow_stick"
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "type": "candycraftce:sugar_factory",
-  "ingredient": {
-    "item": "candycraftce:white_chocolate_stone"
-  },
-  "result": {
-    "item": "candycraftce:white_chocolate_brick"
-  }
-}

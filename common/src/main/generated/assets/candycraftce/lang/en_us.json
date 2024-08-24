@@ -229,13 +229,10 @@
   "item.candycraftce.pez_shovel": "PEZ Shovel",
   "item.candycraftce.pez_sword": "PEZ Sword",
   "item.candycraftce.record_1": "Jelly Queen's Secret Record",
-  "item.candycraftce.record_1.desc": "Caution & Crisis C418 - Sweden (Caution & Crisis Remix)",
   "item.candycraftce.record_2": "Suguard's Secret Record",
-  "item.candycraftce.record_2.desc": "Jakim - Every",
   "item.candycraftce.record_3": "Rainbow Record",
-  "item.candycraftce.record_3.desc": "Jean Jacques Perrey - Brazilian Flower",
   "item.candycraftce.record_4": "Licorice beetle's Secret Record",
-  "item.candycraftce.record_4.desc": "Little End - Rain travel in the MineCraft",
+  "item.candycraftce.record_o": "Bread_NiceCat's Secret Record",
   "item.candycraftce.sky_emblem": "Sky Emblem",
   "item.candycraftce.spawn_egg": "%s Spawn Egg",
   "item.candycraftce.sugar_crystal": "Sugar Crystal",
@@ -247,5 +244,10 @@
   "item.candycraftce.white_chocolate_brick": "White Chocolate Brick",
   "item.candycraftce.white_chocolate_leaf": "White Chocolate Leaf",
   "itemGroup.candycraftce": "CandyCraft CE",
-  "jei.sugar_furnace.title": "Jei.sugar Furnace.title"
+  "jei.sugar_furnace.title": "Jei.sugar Furnace.title",
+  "jukebox_song.candycraftce.cd_1": "Caution & Crisis C418 - Sweden (Caution & Crisis Remix)",
+  "jukebox_song.candycraftce.cd_2": "Jakim - Every",
+  "jukebox_song.candycraftce.cd_3": "Jean Jacques Perrey - Brazilian Flower",
+  "jukebox_song.candycraftce.cd_4": "Little End - Rain travel in the MineCraft",
+  "jukebox_song.candycraftce.cd_mine": "J.D.K. - 鉄橋を越えて"
 }

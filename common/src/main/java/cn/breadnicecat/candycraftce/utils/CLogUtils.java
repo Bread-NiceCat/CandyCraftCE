@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.utils;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -24,18 +25,18 @@ public class CLogUtils {
 	public static Logger getModLogger() {
 		return getModLogger(getCaller());
 	}
-
+	
 	public static Logger getModLogger(Class<?> clazz) {
 		return VALIDATOR.computeIfAbsent(clazz, (k) -> getModLogger(k.getSimpleName()));
 	}
-
-
+	
+	
 	public static Logger getModLogger(String name) {
 		String id = CandyCraftCE.MOD_NAME + "/" + name;
 		return CACHE.computeIfAbsent(id, LoggerFactory::getLogger);
 	}
-
-
+	
+	@NotNull
 	public static Logger sign() {
 		Class<?> caller = getCaller();
 		boolean dup = VALIDATOR.containsKey(caller);
@@ -44,7 +45,7 @@ public class CLogUtils {
 		if (dup) l.warn("Duplicate sign for {}", caller.getName());
 		return l;
 	}
-
+	
 	public static void printStackTrace() {
 		Logger logger = getModLogger(getCaller());
 		Thread thread = Thread.currentThread();
@@ -57,5 +58,5 @@ public class CLogUtils {
 			logger.info(STACK_TRACE_MARKER, "\tat " + traceElement);
 		}
 	}
-
+	
 }

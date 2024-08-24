@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 2.0,
+  "ingredient": {
+    "tag": "candycraftce:ore_jelly"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:trampojelly"
+  }
+}

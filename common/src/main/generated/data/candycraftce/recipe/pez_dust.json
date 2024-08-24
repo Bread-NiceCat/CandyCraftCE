@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_factory",
+  "advanced": false,
+  "ingredient": {
+    "tag": "candycraftce:ore_pez"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:pez_dust"
+  }
+}

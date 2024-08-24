@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
@@ -23,10 +24,18 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  */
 public class LicoriceFurnaceBlock extends AbstractFurnaceBlock {
+	
+	private static final MapCodec<LicoriceFurnaceBlock> CODEC = simpleCodec(LicoriceFurnaceBlock::new);
+	
 	public LicoriceFurnaceBlock(Properties properties) {
 		super(properties);
 	}
-
+	
+	@Override
+	protected @NotNull MapCodec<? extends AbstractFurnaceBlock> codec() {
+		return CODEC;
+	}
+	
 	@Override
 	protected void openContainer(@NotNull Level level, BlockPos pos, Player player) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
@@ -34,7 +43,7 @@ public class LicoriceFurnaceBlock extends AbstractFurnaceBlock {
 			player.openMenu(fbe);
 		}
 	}
-
+	
 	@Override
 	public void onRemove(@NotNull BlockState state, Level level, BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
 		if (state.is(newState.getBlock())) {
@@ -48,13 +57,13 @@ public class LicoriceFurnaceBlock extends AbstractFurnaceBlock {
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
-
+	
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return CBlockEntities.LICORICE_FURNACE_BE.create(pos, state);
 	}
-
+	
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {

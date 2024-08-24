@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFactoryCateg
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFactorySugarCategory;
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
-import cn.breadnicecat.candycraftce.utils.ItemUtils;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -15,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +26,7 @@ import static cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFacto
 import static cn.breadnicecat.candycraftce.integration.jei.CJeiRecipes.*;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FACTORY_TYPE;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
@@ -52,12 +52,12 @@ public class CJeiPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-		registration.addRecipes(SUGAR_FURNACE_JEI, manager.getAllRecipesFor(SUGAR_FURNACE_TYPE.get()));
-		registration.addRecipes(SUGAR_FACTORY_JEI, manager.getAllRecipesFor(SUGAR_FACTORY_TYPE.get()));
-		registration.addRecipes(SUGAR_FACTORY_SUGAR_JEI, apply(Arrays.stream(SUGARY.ingredient.getItems())
-				.map(i -> new SugarFactoryRecipe(ItemUtils.getKey(i.getItem()).withSuffix("__sugary"),
-						Ingredient.of(i), Items.SUGAR, 1, false))
-				.collect(Collectors.toList()), (i) -> i.add(0, SUGARY)));
+		registration.addRecipes(SUGAR_FURNACE_JEI, manager.getAllRecipesFor(SUGAR_FURNACE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+		registration.addRecipes(SUGAR_FACTORY_JEI, manager.getAllRecipesFor(SUGAR_FACTORY_TYPE.get()).stream().map(RecipeHolder::value).toList());
+		registration.addRecipes(SUGAR_FACTORY_SUGAR_JEI, make(Arrays.stream(SUGARY.ingredient.getItems())
+						.map(i -> new SugarFactoryRecipe(Ingredient.of(i), Items.SUGAR.getDefaultInstance(), false))
+						.collect(Collectors.toList()),
+				(i) -> i.addFirst(SUGARY)));
 	}
 	
 	@Override

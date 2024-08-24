@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "candycraftce:red_trampojelly"
+    },
+    "$": {
+      "item": "candycraftce:sugar_factory"
+    },
+    "%": {
+      "item": "candycraftce:candied_cherry"
+    }
+  },
+  "pattern": [
+    "#%#",
+    "%$%",
+    "#%#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:advanced_sugar_factory"
+  }
+}

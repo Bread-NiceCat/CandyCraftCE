@@ -1,9 +1,0 @@
-{
-  "type": "candycraftce:sugar_factory",
-  "ingredient": {
-    "item": "candycraftce:fraise_tagada_flower"
-  },
-  "result": {
-    "item": "candycraftce:honeycomb_shard"
-  }
-}

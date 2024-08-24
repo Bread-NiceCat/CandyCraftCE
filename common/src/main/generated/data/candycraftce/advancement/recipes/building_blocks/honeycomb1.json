@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_honeycomb_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:honeycomb_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "candycraftce:honeycomb1"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_honeycomb_shard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "candycraftce:honeycomb1"
+    ]
+  }
+}

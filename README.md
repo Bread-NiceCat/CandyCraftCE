@@ -1,4 +1,4 @@
-# Candycraft Community Edition
+# Candycraft Community Edition 1.21
 
 <hr>
 

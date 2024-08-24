@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.level.foliage_placer;
 
 import cn.breadnicecat.candycraftce.level.CDimInit;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  **/
 public class FancyCaramelFoliagePlacer extends FoliagePlacer {
-	public static final Codec<FancyCaramelFoliagePlacer> CODEC = Codec.unit(FancyCaramelFoliagePlacer::new);
+	public static final MapCodec<FancyCaramelFoliagePlacer> CODEC = MapCodec.unit(FancyCaramelFoliagePlacer::new);
 	
 	public FancyCaramelFoliagePlacer() {
 		super(ConstantInt.of(3), ConstantInt.of(1));

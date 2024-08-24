@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.MapColor;
 import org.slf4j.Logger;
 
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import static net.minecraft.world.level.block.Blocks.*;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
+@SuppressWarnings("deprecation")
 public class CBlocks {
 	
 	private static final Logger LOGGER = CLogUtils.sign();
@@ -69,7 +71,7 @@ public class CBlocks {
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_CARAMEL_BRICKS = create("white_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
 //	public static final BlockEntry<Block> BLACK_CHOCOLATE_CARAMEL_BRICKS = create("black_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
 	
-	public static final BlockEntry<Block> PUDDING = create("pudding").setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save();
+	public static final BlockEntry<PuddingBlock> PUDDING = create("pudding", PuddingBlock::new).setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save(MapColor.WOOL);
 	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<Block> ICE_CREAM = create("ice_cream", Block::new).setProperties(SNOW_BLOCK, null).save();
@@ -130,16 +132,21 @@ public class CBlocks {
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_STONE_TILE = create("white_chocolate_stone_tile").setProperties(CHOCOLATE_STONE_TILE, null).save();
 //	public static final BlockEntry<Block> BLACK_CHOCOLATE_STONE_TILE = create("black_chocolate_stone_tile").setProperties(CHOCOLATE_STONE_TILE, null).save();
 	
-	public static final BlockEntry<DropExperienceBlock> JELLY_ORE = create("jelly_ore", DropExperienceBlock::new).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> NOUGAT_ORE = create("nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> LICORICE_ORE = create("licorice_ore", DropExperienceBlock::new).setProperties(COAL_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> HONEYCOMB_ORE = create("honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(IRON_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> PEZ_ORE = create("pez_ore", DropExperienceBlock::new).setProperties(DIAMOND_ORE, p -> p.lightLevel(i -> 8)).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_JELLY_ORE = create("white_jelly_ore", DropExperienceBlock::new).setProperties(JELLY_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_NOUGAT_ORE = create("white_nougat_ore", p -> new DropExperienceBlock(p, UniformInt.of(1, 5))).setProperties(NOUGAT_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_LICORICE_ORE = create("white_licorice_ore", DropExperienceBlock::new).setProperties(LICORICE_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_HONEYCOMB_ORE = create("white_honeycomb_ore", p -> new DropExperienceBlock(p, UniformInt.of(0, 3))).setProperties(HONEYCOMB_ORE, null).save();
-	public static final BlockEntry<DropExperienceBlock> WHITE_PEZ_ORE = create("white_pez_ore", DropExperienceBlock::new).setProperties(PEZ_ORE, null).save();
+	public static final BlockEntry<Block> JELLY_ORE = create("jelly_ore", Block::new).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<Block> WHITE_JELLY_ORE = create("white_jelly_ore", Block::new).setProperties(JELLY_ORE, null).save();
+	
+	public static final BlockEntry<DropExperienceBlock> NOUGAT_ORE = create("nougat_ore", p -> new DropExperienceBlock(UniformInt.of(1, 5), p)).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_NOUGAT_ORE = create("white_nougat_ore", p -> new DropExperienceBlock(UniformInt.of(1, 5), p)).setProperties(NOUGAT_ORE, null).save();
+	
+	public static final BlockEntry<Block> LICORICE_ORE = create("licorice_ore", Block::new).setProperties(COAL_ORE, null).save();
+	public static final BlockEntry<Block> WHITE_LICORICE_ORE = create("white_licorice_ore", Block::new).setProperties(LICORICE_ORE, null).save();
+	
+	public static final BlockEntry<DropExperienceBlock> HONEYCOMB_ORE = create("honeycomb_ore", p -> new DropExperienceBlock(UniformInt.of(0, 3), p)).setProperties(IRON_ORE, null).save();
+	public static final BlockEntry<DropExperienceBlock> WHITE_HONEYCOMB_ORE = create("white_honeycomb_ore", p -> new DropExperienceBlock(UniformInt.of(0, 3), p)).setProperties(HONEYCOMB_ORE, null).save();
+	
+	public static final BlockEntry<Block> PEZ_ORE = create("pez_ore", Block::new).setProperties(DIAMOND_ORE, p -> p.lightLevel(i -> 8)).save();
+	public static final BlockEntry<Block> WHITE_PEZ_ORE = create("white_pez_ore", Block::new).setProperties(PEZ_ORE, null).save();
+	
 	
 	public static final BlockEntry<Block> CANDY_CANE_BLOCK = create("candy_cane_block").setProperties(STONE, null).save();
 	public static final BlockEntry<Block> LICORICE_BLOCK = create("licorice_block").setProperties(Blocks.COAL_BLOCK, null).save();
@@ -202,20 +209,20 @@ public class CBlocks {
 	public static final BlockEntry<StairBlock> MINT_ICE_CREAM_STAIRS = stairBlock("mint_ice_cream_stairs", MINT_ICE_CREAM::defaultBlockState).setProperties(MINT_ICE_CREAM, null).save();
 	public static final BlockEntry<StairBlock> STRAWBERRY_ICE_CREAM_STAIRS = stairBlock("strawberry_ice_cream_stairs", STRAWBERRY_ICE_CREAM::defaultBlockState).setProperties(STRAWBERRY_ICE_CREAM, null).save();
 	public static final BlockEntry<StairBlock> BLUEBERRY_ICE_CREAM_STAIRS = stairBlock("blueberry_ice_cream_stairs", BLUEBERRY_ICE_CREAM::defaultBlockState).setProperties(BLUEBERRY_ICE_CREAM, null).save();
-	
-	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
-	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
-	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> new DoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
-	public static final BlockEntry<TrapDoorBlock> MARSHMALLOW_TRAPDOOR = create("marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.OAK)).setProperties(OAK_TRAPDOOR, null).save();
-	public static final BlockEntry<TrapDoorBlock> LIGHT_MARSHMALLOW_TRAPDOOR = create("light_marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
-	public static final BlockEntry<TrapDoorBlock> DARK_MARSHMALLOW_TRAPDOOR = create("dark_marshmallow_trapdoor", p -> new TrapDoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
-	public static final BlockEntry<FenceGateBlock> MARSHMALLOW_FENCE_GATE = create("marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
-	public static final BlockEntry<FenceGateBlock> LIGHT_MARSHMALLOW_FENCE_GATE = create("light_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.BAMBOO)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
-	public static final BlockEntry<FenceGateBlock> DARK_MARSHMALLOW_FENCE_GATE = create("dark_marshmallow_fence_gate", p -> new FenceGateBlock(p, WoodType.DARK_OAK)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
+	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> _doorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<TrapDoorBlock> MARSHMALLOW_TRAPDOOR = create("marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.OAK)).setProperties(OAK_TRAPDOOR, null).save();
+	public static final BlockEntry<TrapDoorBlock> LIGHT_MARSHMALLOW_TRAPDOOR = create("light_marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
+	public static final BlockEntry<TrapDoorBlock> DARK_MARSHMALLOW_TRAPDOOR = create("dark_marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
+	public static final BlockEntry<FenceGateBlock> MARSHMALLOW_FENCE_GATE = create("marshmallow_fence_gate", p -> _fenceGateBlock(p, WoodType.OAK)).setProperties(OAK_FENCE_GATE, null).save();
+	public static final BlockEntry<FenceGateBlock> LIGHT_MARSHMALLOW_FENCE_GATE = create("light_marshmallow_fence_gate", p -> _fenceGateBlock(p, WoodType.BAMBOO)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
+	public static final BlockEntry<FenceGateBlock> DARK_MARSHMALLOW_FENCE_GATE = create("dark_marshmallow_fence_gate", p -> _fenceGateBlock(p, WoodType.DARK_OAK)).setProperties(MARSHMALLOW_FENCE_GATE, null).save();
 	
 	public static final BlockEntry<WebBlock> COTTON_CANDY_WEB = create("cotton_candy_web", WebBlock::new).setProperties(COBWEB, null).save();
 	public static final BlockEntry<ChewingGumPuddleBlock> CHEWING_GUM_PUDDLE = create("chewing_gum_puddle", ChewingGumPuddleBlock::new).setProperties(SLIME_BLOCK, p -> p.destroyTime(2.5F).noCollission()).save();
-	public static final BlockEntry<LadderBlock> MARSHMALLOW_LADDER = create("marshmallow_ladder", LadderBlock::new).setProperties(LADDER, null).save();
+	public static final BlockEntry<? extends LadderBlock> MARSHMALLOW_LADDER = create("marshmallow_ladder", p -> new LadderBlock(p) {
+	}).setProperties(LADDER, null).save();
 	
 	public static final BlockEntry<JellyBlock> TRAMPOJELLY = create("trampojelly", (p) -> new JellyBlock(p, JellyType.GREEN)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
 	public static final BlockEntry<JellyBlock> RED_TRAMPOJELLY = create("red_trampojelly", (p) -> new JellyBlock(p, JellyType.RED)).setProperties(SLIME_BLOCK, p -> p.strength(5F, 2000F)).save();
@@ -227,20 +234,28 @@ public class CBlocks {
 	public static final BlockEntry<SpikesBlock> CRANBERRY_SPIKES = create("cranberry_spikes", SpikesBlock::new).setProperties(SUGAR_SPIKES, null).save();
 	
 	public static final BlockEntry<IceBlock> GRENADINE_ICE = create("grenadine_block", IceBlock::new).setProperties(ICE, null).save();
-	public static final BlockEntry<GlassBlock> CARAMEL_GLASS = create("caramel_glass", GlassBlock::new).setProperties(GLASS, null).save();
-	public static final BlockEntry<GlassBlock> ROUND_CARAMEL_GLASS = create("round_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
-	public static final BlockEntry<GlassBlock> DIAMOND_CARAMEL_GLASS = create("diamond_caramel_glass", GlassBlock::new).setProperties(CARAMEL_GLASS, null).save();
+	public static final BlockEntry<? extends TransparentBlock> CARAMEL_GLASS = create("caramel_glass", p -> new TransparentBlock(p) {
+	}).setProperties(GLASS, null).save();
+	public static final BlockEntry<? extends TransparentBlock> ROUND_CARAMEL_GLASS = create("round_caramel_glass", p -> new TransparentBlock(p) {
+	}).setProperties(CARAMEL_GLASS, null).save();
+	public static final BlockEntry<? extends TransparentBlock> DIAMOND_CARAMEL_GLASS = create("diamond_caramel_glass", p -> new TransparentBlock(p) {
+	}).setProperties(CARAMEL_GLASS, null).save();
 	
-	public static final BlockEntry<IronBarsBlock> CARAMEL_GLASS_PANE = create("caramel_glass_pane", IronBarsBlock::new).setProperties(GLASS_PANE, null).save();
-	public static final BlockEntry<IronBarsBlock> ROUND_CARAMEL_GLASS_PANE = create("round_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
-	public static final BlockEntry<IronBarsBlock> DIAMOND_CARAMEL_GLASS_PANE = create("diamond_caramel_glass_pane", IronBarsBlock::new).setProperties(CARAMEL_GLASS_PANE, null).save();
+	public static final BlockEntry<? extends IronBarsBlock> CARAMEL_GLASS_PANE = create("caramel_glass_pane", p -> new IronBarsBlock(p) {
+	}).setProperties(GLASS_PANE, null).save();
+	public static final BlockEntry<? extends IronBarsBlock> ROUND_CARAMEL_GLASS_PANE = create("round_caramel_glass_pane", p -> new IronBarsBlock(p) {
+	}).setProperties(CARAMEL_GLASS_PANE, null).save();
+	public static final BlockEntry<? extends IronBarsBlock> DIAMOND_CARAMEL_GLASS_PANE = create("diamond_caramel_glass_pane", p -> new IronBarsBlock(p) {
+	}).setProperties(CARAMEL_GLASS_PANE, null).save();
 	
 	public static final BlockEntry<Block> JAWBREAKER_BRICKS = create("jawbreaker_bricks").setProperties(Blocks.BEDROCK, null).save();
 	public static final BlockEntry<Block> JAWBREAKER_LIGHT = create("jawbreaker_light").setProperties(JAWBREAKER_BRICKS, p -> p.lightLevel(b -> 14)).save();
 	
 	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
-	public static final BlockEntry<TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(p, ParticleTypes.FLAME)).setProperties(Blocks.TORCH, null).noBlockItem().save();
-	public static final BlockEntry<WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(p, ParticleTypes.FLAME)).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
+	public static final BlockEntry<? extends TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(ParticleTypes.FLAME, p) {
+	}).setProperties(Blocks.TORCH, null).noBlockItem().save();
+	public static final BlockEntry<? extends WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(ParticleTypes.FLAME, p) {
+	}).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 	
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
 	
@@ -252,10 +267,6 @@ public class CBlocks {
 		}
 	}
 	
-	
-	/**
-	 * 由Mixin调用
-	 */
 	@Environment(EnvType.CLIENT)
 	public static void registerBlockColors(BlockColors colors) {
 		LOGGER.info("Register Block Colors");
@@ -315,10 +326,25 @@ public class CBlocks {
 		impossibleCode();
 	}
 	
-	
 	private static CBlockBuilder<StairBlock> stairBlock(String name, Supplier<BlockState> base) {
 		return create(name, p -> _stairBlock(base, p));
 	}
+	
+	private static DoorBlock _doorBlock(Properties p, BlockSetType type) {
+		return new DoorBlock(type, p) {
+		};
+	}
+	
+	private static TrapDoorBlock _trapDoorBlock(Properties p, BlockSetType type) {
+		return new TrapDoorBlock(type, p) {
+		};
+	}
+	
+	private static FenceGateBlock _fenceGateBlock(Properties p, WoodType type) {
+		return new FenceGateBlock(type, p) {
+		};
+	}
+	
 	
 	//Platform difference
 	@ExpectPlatform

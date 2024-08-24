@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "@": {
+      "item": "candycraftce:licorice"
+    }
+  },
+  "pattern": [
+    "@@@",
+    "@ @",
+    "@ @"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:licorice_leggings"
+  }
+}

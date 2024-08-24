@@ -1,10 +1,8 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.grower.TreeGrower;
+
+import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CHOCOLATE_FANCY_TREE;
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CHOCOLATE_TREE;
@@ -17,16 +15,11 @@ import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CHOCOLATE_T
  * <p>
  */
 public class ChocolateSaplingBlock extends CandySaplingBlock {
-	protected ChocolateSaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
+	protected ChocolateSaplingBlock(TreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
-
+	
 	public ChocolateSaplingBlock(Properties properties) {
-		super(new AbstractTreeGrower() {
-			@Override
-			protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return random.nextFloat() < 0.1 ? CHOCOLATE_FANCY_TREE : CHOCOLATE_TREE;
-			}
-		}, properties);
+		super(new TreeGrower("chocolate_tree", 0.1f, Optional.empty(), Optional.empty(), Optional.of(CHOCOLATE_TREE), Optional.of(CHOCOLATE_FANCY_TREE), Optional.empty(), Optional.empty()), properties);
 	}
 }

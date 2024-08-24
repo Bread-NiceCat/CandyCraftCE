@@ -40,7 +40,7 @@ public abstract class MixinEatBlockGoal {
 	@Inject(method = "canUse", at = @At("HEAD"), cancellable = true)
 	private void canUse(CallbackInfoReturnable<Boolean> cir) {
 		if (mob instanceof WaffleSheep) {
-			if (this.mob.getRandom().nextInt(this.mob.isBaby() ? 50 : 1000) != 0) {
+			if (this.mob.getRandom().nextInt(this.mob.isBaby() ? 100 : 2000) != 0) {
 				cir.setReturnValue(false);
 			} else {
 				BlockPos blockPos = this.mob.blockPosition();

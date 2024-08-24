@@ -17,7 +17,6 @@ candycraftce:cranfish_bucket,蔓越莓鱼桶, -
 candycraftce:cranfish_cooked,烤蔓越莓鱼, - 
 candycraftce:cranfish_scale,蔓越莓鱼鱼鳞, - 
 candycraftce:fork,叉子, - 
-candycraftce:genshin_launcher,item.candycraftce.genshin_launcher, - 
 candycraftce:gingerbread_emblem,姜饼人徽章, - 
 candycraftce:gummy,软糖, - 
 candycraftce:honeycomb,蜜蜡, - 
@@ -39,6 +38,7 @@ candycraftce:jelly_boss_key,果冻国王的钥匙, -
 candycraftce:jelly_crown,果冻国王的皇冠, - 
 candycraftce:jelly_emblem,果冻徽章, - 
 candycraftce:jelly_sentry_key,果冻守卫的钥匙, - 
+candycraftce:launcher,item.candycraftce.launcher, - 
 candycraftce:licorice,盐甘草糖, - 
 candycraftce:licorice_axe,盐甘草糖斧, - 
 candycraftce:licorice_boots,盐甘草糖靴子, - 
@@ -75,7 +75,7 @@ candycraftce:record_1,果冻皇后的私藏唱片, -
 candycraftce:record_2,姜饼人守卫的私藏唱片, - 
 candycraftce:record_3,彩虹唱片, - 
 candycraftce:record_4,盐甘草糖甲虫的私藏唱片, - 
-candycraftce:record_o,item.candycraftce.record_o, - 
+candycraftce:record_o,奶猫的私藏唱片, - 
 candycraftce:sky_emblem,天空徽章, - 
 candycraftce:sugar_crystal,冰糖, - 
 candycraftce:suguard_emblem,姜饼人守卫徽章, - 

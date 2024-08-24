@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "candycraftce:candy_cane_block"
+    },
+    "/": {
+      "item": "candycraftce:candy_cane"
+    }
+  },
+  "pattern": [
+    "#/#",
+    "#/#"
+  ],
+  "result": {
+    "count": 6,
+    "id": "candycraftce:candy_cane_fence"
+  }
+}

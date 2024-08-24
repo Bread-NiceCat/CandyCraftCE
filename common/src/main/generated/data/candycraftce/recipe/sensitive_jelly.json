@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "candycraftce:trampojelly"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:sensitive_jelly"
+  }
+}

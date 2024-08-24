@@ -21,7 +21,6 @@ public class AcidMintFlowerBlock extends CandyPlantBlock {
 		super(properties);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity living && level.random.nextFloat() < 0.1 / TickUtils.TICK_PER_SEC) {

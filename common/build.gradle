@@ -17,8 +17,8 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy:3.0.19'
 //    modCompileOnly "curse.maven:jei-238222:4690096"
 
-    modCompileOnly("mezz.jei:jei-1.20.1-common-api:15.2.0.25")
-    modRuntimeOnly("mezz.jei:jei-1.20.1-common:15.2.0.25")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}-common:${rootProject.jei_version}")
 }
 
 sourceSets {

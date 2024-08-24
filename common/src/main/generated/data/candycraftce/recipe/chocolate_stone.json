@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 0.5,
+  "ingredient": {
+    "item": "candycraftce:chocolate_cobblestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:chocolate_stone"
+  }
+}

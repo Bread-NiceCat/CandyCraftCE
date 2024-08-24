@@ -17,8 +17,8 @@ import static net.minecraft.world.item.ItemStack.EMPTY;
  * <p>
  */
 public class ItemStackList extends NonNullList<ItemStack> {
-
-
+	
+	
 	public ItemStackList(int size) {
 		super(make(() -> {
 			ItemStack[] stacks = new ItemStack[size];
@@ -26,7 +26,7 @@ public class ItemStackList extends NonNullList<ItemStack> {
 			return Arrays.asList(stacks);
 		}), EMPTY);
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		for (ItemStack stack : this) {
@@ -34,15 +34,15 @@ public class ItemStackList extends NonNullList<ItemStack> {
 		}
 		return true;
 	}
-
+	
 	public boolean isEmpty(int index) {
 		return get(index).isEmpty();
 	}
-
+	
 	public ItemStack extract(int index, int amount) {
 		return ContainerHelper.removeItem(this, index, amount);
 	}
-
+	
 	/**
 	 * @return false->未插入 true->插入部分或全部
 	 */
@@ -57,7 +57,7 @@ public class ItemStackList extends NonNullList<ItemStack> {
 			return true;
 		}
 		int left = cur.getMaxStackSize() - cur.getCount();//能插的最大数量
-		if (left != 0 && ItemStack.isSameItemSameTags(cur, item)) {
+		if (left != 0 && ItemStack.isSameItemSameComponents(cur, item)) {
 			int itemCnt = item.getCount();
 			if (left >= itemCnt) {//剩余 >= 外来
 				cur.grow(itemCnt);
@@ -70,7 +70,7 @@ public class ItemStackList extends NonNullList<ItemStack> {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public ItemStack remove(int i) {
 		return set(i, EMPTY);

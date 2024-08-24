@@ -11,6 +11,7 @@ import cn.breadnicecat.candycraftce.utils.ItemStackList;
 import cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,11 +34,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 import static cn.breadnicecat.candycraftce.utils.TickUtils.SEC2TICK;
 
-public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer, RecipeInput {
 	
 	public static final int INPUT_SLOT = 0;
 	public static final int FUEL_SLOT = 1;
@@ -94,14 +94,14 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			//检查配方
 			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
 				//寻找新配方
-				Optional<SugarFurnaceRecipe> recipe = quickCheck.getRecipeFor(this, level);
+				var recipe = quickCheck.getRecipeFor(this, level);
 				if (recipe.isEmpty()) {
 					recipeUsed = null;
 				} else {
 					//检查输出 输出堵塞
-					recipeUsed = recipe.get();
+					recipeUsed = recipe.get().value();
 					ItemStack out = items.get(OUTPUT_SLOT);
-					if (!out.isEmpty() && (!out.is(recipeUsed.result) || (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize()))) {
+					if (!out.isEmpty() && (!out.is(recipeUsed.result.getItem()) || (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize()))) {
 						recipeUsed = null;
 					}
 				}
@@ -175,23 +175,23 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	
 	
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		ContainerHelper.saveAllItems(tag, this.items);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		ContainerHelper.saveAllItems(tag, this.items, registries);
 		tag.putFloat("exp", exp);
 		tag.putInt("litTime", litTime);
 		tag.putInt("litTimeTotal", litTimeTotal);
 		tag.putInt("ticked", ticked);
-		super.saveAdditional(tag);
+		super.saveAdditional(tag, registries);
 	}
 	
 	@Override
-	public void load(CompoundTag tag) {
-		ContainerHelper.loadAllItems(tag, this.items);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		ContainerHelper.loadAllItems(tag, this.items, registries);
 		exp = tag.getFloat("exp");
 		litTime = tag.getInt("litTime");
 		litTimeTotal = tag.getInt("litTimeTotal");
 		ticked = tag.getInt("ticked");
-		super.load(tag);
+		super.loadAdditional(tag, registries);
 	}
 	
 	@Override
@@ -205,18 +205,12 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	
 	@Override
 	public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
-		return direction != null && switch (direction) {
-			case DOWN -> false;
-			default -> true;
-		};
+		return direction != null && direction != Direction.DOWN;
 	}
 	
 	@Override
 	public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-		return switch (direction) {
-			case DOWN -> true;
-			default -> false;
-		};
+		return direction == Direction.DOWN;
 	}
 	
 	@Override
@@ -232,6 +226,11 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	@Override
 	public @NotNull ItemStack getItem(int slot) {
 		return items.get(slot);
+	}
+	
+	@Override
+	public int size() {
+		return getContainerSize();
 	}
 	
 	@Override

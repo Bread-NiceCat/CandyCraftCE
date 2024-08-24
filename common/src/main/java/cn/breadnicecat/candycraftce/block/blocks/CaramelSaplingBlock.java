@@ -1,10 +1,8 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.grower.TreeGrower;
+
+import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CARAMEL_TREE;
 
@@ -17,16 +15,11 @@ import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.CARAMEL_TRE
  */
 public class CaramelSaplingBlock extends CandySaplingBlock {
 	
-	protected CaramelSaplingBlock(AbstractTreeGrower abstractTreeGrower, Properties properties) {
+	protected CaramelSaplingBlock(TreeGrower abstractTreeGrower, Properties properties) {
 		super(abstractTreeGrower, properties);
 	}
 	
 	public CaramelSaplingBlock(Properties properties) {
-		super(new AbstractTreeGrower() {
-			@Override
-			protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return CARAMEL_TREE;
-			}
-		}, properties);
+		super(new TreeGrower("caramel_tree", Optional.empty(), Optional.of(CARAMEL_TREE), Optional.empty()), properties);
 	}
 }

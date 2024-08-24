@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "/": {
+      "item": "candycraftce:marshmallow_stick"
+    },
+    "@": {
+      "item": "candycraftce:pez"
+    }
+  },
+  "pattern": [
+    "@@ ",
+    " / ",
+    " / "
+  ],
+  "result": {
+    "count": 1,
+    "id": "candycraftce:pez_hoe"
+  }
+}

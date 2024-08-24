@@ -42,7 +42,7 @@ public class LayerWaffleSheepFur extends RenderLayer<Sheep, SheepModel<Sheep>> {
 			model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
 			model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEX));
-			model.renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0f), 1f, 1f, 1f, 1.0f);
+			model.renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0f));
 		}
 	}
 }

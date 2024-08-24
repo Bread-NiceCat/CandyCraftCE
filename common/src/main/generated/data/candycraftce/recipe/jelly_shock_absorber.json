@@ -1,0 +1,11 @@
+{
+  "type": "candycraftce:sugar_furnace",
+  "exp": 2.0,
+  "ingredient": {
+    "item": "candycraftce:red_trampojelly"
+  },
+  "result": {
+    "count": 1,
+    "id": "candycraftce:jelly_shock_absorber"
+  }
+}

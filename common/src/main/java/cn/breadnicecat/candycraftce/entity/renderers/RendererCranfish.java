@@ -28,11 +28,11 @@ public class RendererCranfish extends MobRenderer<Cranfish, ModelCranfish> {
 	}
 	
 	@Override
-	protected void setupRotations(Cranfish entityLiving, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-		super.setupRotations(entityLiving, poseStack, ageInTicks, rotationYaw, partialTicks);
-		float f = 4.3f * Mth.sin(0.6f * ageInTicks);
+	protected void setupRotations(Cranfish entity, PoseStack poseStack, float bob, float yBodyRot, float partialTick, float scale) {
+		super.setupRotations(entity, poseStack, bob, yBodyRot, partialTick, scale);
+		float f = 4.3f * Mth.sin(0.6f * bob);
 		poseStack.mulPose(Axis.YP.rotationDegrees(f));
-		if (!entityLiving.isInWater()) {
+		if (!entity.isInWater()) {
 			poseStack.translate(0.1f, 0.1f, -0.1f);
 			poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
 		}

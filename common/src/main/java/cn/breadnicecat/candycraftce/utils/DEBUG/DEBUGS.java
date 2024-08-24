@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.utils.DEBUG;
 
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import com.ibm.icu.impl.Pair;
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 import org.jetbrains.annotations.Nullable;
@@ -8,7 +9,9 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.DEV;
 
@@ -40,6 +43,14 @@ public class DEBUGS {
 		LOGGER.warn("DEBUGS ON!");
 		LOGGER.warn("=".repeat(40));
 		if (!DEV) throw new IllegalStateException("Not in DEV");
+	}
+	
+	public static <T> Consumer<T> generateConsumer(List<T> con) {
+		return con::add;
+	}
+	
+	public static List<?> extractPair(List<Pair> con, int or) {
+		return con.stream().map(i -> or < 0 ? i.second : i.first).toList();
 	}
 
 //	public static Class<?> loadClass(File directory, String className) {

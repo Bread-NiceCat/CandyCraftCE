@@ -69,9 +69,12 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 	
+	/**
+	 * 自动copy
+	 */
 	public CBlockBuilder<B> setProperties(Supplier<? extends Block> blockSupplier, @Nullable Consumer<Properties> modifier) {
 		setProperties(() -> {
-			Properties prop = Properties.copy(blockSupplier.get());
+			Properties prop = Properties.ofFullCopy(blockSupplier.get());
 			return (modifier == null ? prop : apply(prop, modifier));
 		});
 		return this;

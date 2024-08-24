@@ -23,37 +23,37 @@ import static java.lang.Math.min;
  * @date 2023/1/20 14:29
  */
 public class CandyCropBlock extends CandyPlantBlock implements ISugarTarget {
-
+	
 	public static final int MAX_AGE = 7;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 	protected final VoxelShape[] shapes;
-	private static VoxelShape[] SHAPE_L4 = new VoxelShape[]{
+	private static final VoxelShape[] SHAPE_L4 = new VoxelShape[]{
 			box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),//0
 			box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),//1
 			box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),//2
 			box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),//3
 	};
-
-
+	
+	
 	public int getMaxAge() {
 		return MAX_AGE;
 	}
-
+	
 	public CandyCropBlock(Properties properties, VoxelShape[] shapes) {
 		super(properties);
 		this.shapes = shapes;
 		registerDefaultState(stateDefinition.any().setValue(AGE, 0));
 	}
-
+	
 	public static CandyCropBlock createL4(Properties properties) {
 		return new CandyCropBlock(properties, SHAPE_L4);
 	}
-
+	
 	public int getAge(BlockState b) {
 		return b.getValue(AGE);
 	}
-
-
+	
+	
 	/**
 	 * @return [0, {@code shapes.length}]
 	 */
@@ -65,22 +65,20 @@ public class CandyCropBlock extends CandyPlantBlock implements ISugarTarget {
 			default -> 3;
 		};
 	}
-
-
-	@SuppressWarnings("deprecation")
+	
+	
 	@Override
 	public @NotNull VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
 		return shapes[getStage(pState)];
 	}
-
+	
 	public boolean canSurvive(@NotNull BlockState pState, @NotNull LevelReader pLevel, @NotNull BlockPos pPos) {
 		return pLevel.getBlockState(pPos.below()).is(CBlocks.PUDDING_FARMLAND.get())
 				&& ((pLevel.getRawBrightness(pPos, 0) >= 8 || pLevel.canSeeSky(pPos)) && super.canSurvive(pState, pLevel, pPos));
 	}
-
-
+	
+	
 	//[VanillaCopy]net.minecraft.world.level.block.CropBlock
-	@SuppressWarnings("deprecation")
 	@Override
 	public void randomTick(BlockState state, @NotNull ServerLevel level, BlockPos pos, RandomSource random) {
 		int age;
@@ -88,7 +86,7 @@ public class CandyCropBlock extends CandyPlantBlock implements ISugarTarget {
 			level.setBlock(pos, state.setValue(AGE, age + 1), 2);
 		}
 	}
-
+	
 	//[VanillaCopy]net.minecraft.world.level.block.CropBlock
 	protected float getGrowthSpeed(Block block, BlockGetter level, @NotNull BlockPos pos) {
 		boolean bl2;
@@ -127,27 +125,27 @@ public class CandyCropBlock extends CandyPlantBlock implements ISugarTarget {
 		}
 		return f;
 	}
-
+	
 	@Override
 	public boolean isRandomlyTicking(@NotNull BlockState pState) {
 		return getAge(pState) < getMaxAge();
 	}
-
+	
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(AGE);
 	}
-
+	
 	@Override
 	public boolean isValidSugarTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
 		return getAge(state) < getMaxAge();
 	}
-
+	
 	@Override
 	public boolean isSugarSuccess(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
 		return rand.nextFloat() < 0.80;
 	}
-
+	
 	@Override
 	public void performSugar(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state) {
 		int age = min(getAge(state) + Mth.nextInt(level.random, 2, 5), getMaxAge());

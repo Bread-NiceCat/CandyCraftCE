@@ -5,10 +5,12 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -51,6 +53,12 @@ public class CandyCraftCEImpl implements ModInitializer {
 	
 	public static boolean isLoaded(String modid) {
 		return FabricLoaderImpl.INSTANCE.isModLoaded(modid);
+	}
+	
+	
+	public static <R, S extends R> @NotNull Holder<R> registerForHolder(Registry<R> registry, ResourceLocation key, @NotNull Supplier<S> factory) {
+		return Registry.registerForHolder(registry, key, factory.get());
+		
 	}
 	
 	

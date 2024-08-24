@@ -28,5 +28,4 @@ public class SimpleEntry<R, T extends R> extends RegistryEntry<R> implements Sup
 	public T get() {
 		return getter.get();
 	}
-	
 }
