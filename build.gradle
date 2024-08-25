@@ -6,16 +6,21 @@ plugins {
 architectury {
     minecraft = minecraft_version
 }
+
+def githubVer = System.getenv("GITHUB_SHA")
+def giteeVer = System.getenv("GITEE_COMMIT")
+def gitSha = githubVer ?: giteeVer
+def gitSource = githubVer == null ? "gitee" : "github"
+
 allprojects {
     apply plugin: "java"
     apply plugin: "idea"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = archives_base_name
     version = mod_version
     group = maven_group
-
+    archivesBaseName = archives_base_name.replace('${commit_sha}', gitSha == null ? "" : "-${gitSource}-${gitSha.substring(7)}")
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese
@@ -64,12 +69,12 @@ allprojects {
     jar {
         manifest {
             attributes(BuiltTime: new Date())
+            if (gitSha != null) attributes(CommitSHA: gitSha)
         }
     }
 }
 subprojects {
     apply plugin: "dev.architectury.loom"
-
     dependencies {
         minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.layered() {

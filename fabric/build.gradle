@@ -6,6 +6,7 @@ architectury {
     platformSetupLoomIde()
     fabric()
 }
+archivesBaseName = archivesBaseName.replace('${engine}', "-fabric");
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     runs {

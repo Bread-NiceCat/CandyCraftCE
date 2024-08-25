@@ -7,10 +7,11 @@ architectury {
     neoForge()
 }
 def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
-
+archivesBaseName = archivesBaseName.replace('${engine}', "-neoforge")
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
-
+    neoForge {
+    }
     runs {
         data {
             data()
@@ -64,7 +65,6 @@ processResources {
 shadowJar {
     exclude "fabric.mod.json"
     exclude "architectury.common.json"
-
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev-shadow"
 }
@@ -72,6 +72,7 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
+    atAccessWideners.add "candycraftce.accesswidener"
 }
 
 sourcesJar {
@@ -87,10 +88,5 @@ components.java {
 }
 
 publishing {
-    publications {
-        mavenForge(MavenPublication) {
-            artifactId = archives_base_name + "-" + project.name
-            from components.java
-        }
-    }
+    //https://github.com/architectury/architectury-api/blob/1.21/neoforge/build.gradle
 }

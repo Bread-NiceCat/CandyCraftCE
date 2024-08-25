@@ -10,7 +10,9 @@ import java.util.function.Supplier;
  * Wisdom Util ;)
  */
 public interface Accessor<T> extends Consumer<T>, Supplier<T> {
-	
+	/**
+	 * @deprecated use `set` instead
+	 */
 	@Override
 	@Deprecated
 	default void accept(T t) {
