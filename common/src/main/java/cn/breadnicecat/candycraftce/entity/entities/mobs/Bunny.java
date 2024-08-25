@@ -29,13 +29,16 @@ import static cn.breadnicecat.candycraftce.item.CItems.LICORICE;
  * <p>
  **/
 public class Bunny extends Rabbit {
-	private static final EntityDataAccessor<Integer> RGB_ID = SynchedEntityData.defineId(Bunny.class, EntityDataSerializers.INT);
-	private static final String COLOR_KEY = "color";
+	private static final EntityDataAccessor<Integer> RGB_A_ID = SynchedEntityData.defineId(Bunny.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> RGB_B_ID = SynchedEntityData.defineId(Bunny.class, EntityDataSerializers.INT);
+	private static final String COLOR_A_KEY = "color_a";
+	private static final String COLOR_B_KEY = "color_b";
 	private static final Ingredient FOOD = Ingredient.of(LICORICE);
 	
 	public Bunny(EntityType<? extends Rabbit> entityType, Level level) {
 		super(entityType, level);
-		setRGB(level.random.nextInt(0xffffff));
+		setRGB_A(level.random.nextInt(0xffffff));
+		setRGB_B(level.random.nextInt(0xffffff));
 	}
 	
 	@Override
@@ -53,13 +56,17 @@ public class Bunny extends Rabbit {
 	@Nullable
 	@Override
 	public Bunny getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return CEntities.BUNNY.get().create(level);
+		Bunny bunny = CEntities.BUNNY.get().create(level);
+		bunny.setRGB_A(getRGB_A());
+		bunny.setRGB_B(((Bunny) otherParent).getRGB_B());
+		return bunny;
 	}
 	
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(RGB_ID, Color.MAGENTA.getRGB());
+		builder.define(RGB_A_ID, Color.WHITE.getRGB());
+		builder.define(RGB_B_ID, Color.WHITE.getRGB());
 	}
 	
 	
@@ -71,25 +78,35 @@ public class Bunny extends Rabbit {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt(COLOR_KEY, getRGB());
+		compound.putInt(COLOR_A_KEY, getRGB());
+		compound.putInt(COLOR_B_KEY, getRGB());
 	}
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		if (compound.contains(COLOR_KEY)) setRGB(compound.getInt(COLOR_KEY));
+		if (compound.contains(COLOR_A_KEY)) setRGB_A(compound.getInt(COLOR_A_KEY));
+		if (compound.contains(COLOR_B_KEY)) setRGB_B(compound.getInt(COLOR_B_KEY));
 	}
 	
 	public int getRGB() {
-		return entityData.get(RGB_ID);
+		return getRGB_A() & getRGB_B();
 	}
 	
-	public void setRGB(int red, int green, int blue) {
-		setRGB(red << 16 | green << 8 | blue);
+	public int getRGB_A() {
+		return entityData.get(RGB_A_ID);
 	}
 	
-	public void setRGB(int rgb) {
-		entityData.set(RGB_ID, rgb);
+	public int getRGB_B() {
+		return entityData.get(RGB_B_ID);
+	}
+	
+	public void setRGB_A(int rgb) {
+		entityData.set(RGB_A_ID, rgb);
+	}
+	
+	public void setRGB_B(int rgb) {
+		entityData.set(RGB_B_ID, rgb);
 	}
 }
 

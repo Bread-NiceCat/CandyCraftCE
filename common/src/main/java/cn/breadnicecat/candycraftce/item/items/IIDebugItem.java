@@ -76,7 +76,7 @@ public class IIDebugItem extends Item {
 				ord = 0;
 			}
 			IIDebugFunction fun = FUNCTIONS.get(ord);
-			player.sendSystemMessage(CUR_FUN.copy().append(fun.getName()));
+			if (!level.isClientSide()) player.sendSystemMessage(CUR_FUN.copy().append(fun.getName()));
 			tag.putInt(FUN_ORD_KEY, ord);
 			item.set(CDataComponents.NBT.get(), tag);
 			return InteractionResultHolder.consume(item);
@@ -239,7 +239,7 @@ public class IIDebugItem extends Item {
 				//viewable
 				shape.getUnits().forEach(unit -> LevelUtils.particleBlock(FLAME, level, unit.bottomLeft, unit.getTopRight(), 1 / 4d));
 				//colorful outputs
-				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.COMPRESSED.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
+				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.INSTANCE.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
 //				player.sendSystemMessage(Component.literal(shape.toString()));
 			} else {
 				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);

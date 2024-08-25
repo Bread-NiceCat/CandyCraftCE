@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
-import cn.breadnicecat.candycraftce.item.CItemTags;
 import cn.breadnicecat.candycraftce.level.CDims;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
@@ -20,7 +19,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -42,7 +40,6 @@ import java.util.function.BiFunction;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.level.CDims.CANDYLAND;
-import static net.minecraft.world.Difficulty.HARD;
 import static net.minecraft.world.level.Level.OVERWORLD;
 import static net.minecraft.world.level.block.Blocks.LAVA;
 
@@ -205,27 +202,30 @@ public class CaramelPortalBlock extends Block {
 		} else if (ori == CANDYLAND) {
 			//困难模式，且手上和身上没有返程票。
 			boolean blocked = false;
-			if (level.getDifficulty() == HARD && entity instanceof LivingEntity live) {
-				blocked = true;
-				for (ItemStack slot : live.getAllSlots()) {
-					if (slot.is(CItemTags.IT_RETURN_TICKET)) {
-						blocked = false;
-						break;
-					}
-				}
-			}
+			//TODO WIP FEATURES
+//			if (true) {
+//				if (level.getDifficulty() == Difficulty.HARD && entity instanceof LivingEntity live) {
+//					blocked = true;
+//					for (ItemStack slot : live.getAllSlots()) {
+//						if (slot.is(CItemTags.IT_RETURN_TICKET)) {
+//							blocked = false;
+//							break;
+//						}
+//					}
+//				}
+//			}
 			ServerLevel overworld = blocked ? server.getLevel(ori) : server.overworld();
-			BlockPos dest;
+			BlockPos.MutableBlockPos dest = pos.mutable();
 			int xOff = 0, zOff = 0;
 			do {
-				switch (level.random.nextInt(0, 4)) {
+				switch (level.random.nextInt(0, 2)) {
 					case 0 -> xOff++;
-					case 1 -> xOff--;
-					case 2 -> zOff++;
-					case 3 -> zOff--;
+					case 1 -> zOff++;
 				}
-				dest = overworld.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, pos.offset(xOff, 0, zOff));
-			} while (overworld.getBlockState(dest).is(this));
+				dest.move(xOff, 0, zOff);
+				int y = overworld.getChunk(dest).getHeight(Heightmap.Types.MOTION_BLOCKING, dest.getX() + xOff, dest.getZ() + zOff) + 1;
+				dest.setY(y);
+			} while (overworld.getBlockState(dest).is(this) || dest.getY() <= level.getMinBuildHeight());
 			
 			return new DimensionTransition(overworld, dest.getCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
 			});

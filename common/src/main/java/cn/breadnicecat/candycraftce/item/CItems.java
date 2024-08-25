@@ -8,6 +8,7 @@ import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.TickUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -66,7 +67,7 @@ public class CItems {
 	public static final ItemEntry<Item> LICORICE = create("licorice").setFood(3, 2f).save();
 	public static final ItemEntry<Item> HONEYCOMB = create("honeycomb").setFood(6, 3f).save();
 	public static final ItemEntry<Item> HONEYCOMB_SHARD = create("honeycomb_shard").setFood(1, 0.34f).save();
-	public static final ItemEntry<Item> PEZ = create("pez").setFood(10, 10f, p -> p.effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 60), 1F)).save();
+	public static final ItemEntry<Item> PEZ = create("pez").setFood(10, 10f, p -> p.effect(new MobEffectInstance(MobEffects.NIGHT_VISION, (int) (60 * TickUtils.SEC2TICK)), 1F)).save();
 	public static final ItemEntry<Item> MARSHMALLOW_STICK = create("marshmallow_stick").setFood(1, 1f).save();
 	public static final ItemEntry<Item> SUGAR_CRYSTAL = create("sugar_crystal").setFood(4, 2f).save();
 	public static final ItemEntry<Item> CARAMEL_BRICK = create("caramel_brick").setFood(2, 1f).save();
@@ -74,11 +75,11 @@ public class CItems {
 	public static final ItemEntry<Item> WHITE_CHOCOLATE_BRICK = create("white_chocolate_brick").setFood(2, 1f).save();
 	//	public static final ItemEntry<Item> BLACK_CHOCOLATE_BRICK = create("black_chocolate_brick").save();
 	public static final ItemEntry<Item> COTTON_CANDY = create("cotton_candy").setFood(1, 1f).save();
-	public static final ItemEntry<Item> GUMMY = create("gummy").setFood(1, 1f, p -> p.effect(new MobEffectInstance(MobEffects.CONFUSION, 10), 0.8f)).save();
+	public static final ItemEntry<Item> GUMMY = create("gummy").setFood(1, 1f, p -> p.effect(new MobEffectInstance(MobEffects.CONFUSION, (int) (10 * TickUtils.SEC2TICK)), 0.8f)).save();
 	public static final ItemEntry<Item> HOT_GUMMY = create("hot_gummy").setFood(2, 2f).save();
-	public static final ItemEntry<Item> CHOCOLATE_COIN = create("chocolate_coin").setFood(5, 10f, p -> p.effect(new MobEffectInstance(MobEffects.GLOWING, 5), 1f)).save();
+	public static final ItemEntry<Item> CHOCOLATE_COIN = create("chocolate_coin").setFood(5, 10f, p -> p.effect(new MobEffectInstance(MobEffects.GLOWING, (int) (5 * TickUtils.SEC2TICK)), 1f)).save();
 	public static final ItemEntry<Item> NOUGAT_POWDER = create("nougat_powder").save();
-	public static final ItemEntry<Item> PEZ_DUST = create("pez_dust").setFood(10, 8f, p -> p.effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 60), 1F).fast().alwaysEdible()).save();
+	public static final ItemEntry<Item> PEZ_DUST = create("pez_dust").setFood(10, 8f, p -> p.effect(new MobEffectInstance(MobEffects.NIGHT_VISION, (int) (60 * TickUtils.SEC2TICK)), 1F).fast().alwaysEdible()).save();
 	public static final ItemEntry<Item> WAFFLE = create("waffle").setFood(6, 3f).save();
 	public static final ItemEntry<Item> WAFFLE_NUGGET = create("waffle_nugget").setFood(1, 1f).save();
 	public static final ItemEntry<Item> CANDIED_CHERRY = create("candied_cherry").setFood(1, 1f).save();
@@ -90,7 +91,7 @@ public class CItems {
 	public static final ItemEntry<Item> CARAMEL_LEAF = create("caramel_leaf").setFood(1, 1f).save();
 	public static final ItemEntry<Item> CANDIED_CHERRY_LEAF = create("candied_cherry_leaf").setFood(1, 1f).save();
 	public static final ItemEntry<Item> MAGICAL_LEAF = create("magical_leaf").setFood(1, 1f).save();
-	public static final ItemEntry<Item> CRANFISH = create("cranfish").setFood(2, 1f, p -> p.effect(new MobEffectInstance(MobEffects.WATER_BREATHING, 60), 1f)).save();
+	public static final ItemEntry<Item> CRANFISH = create("cranfish").setFood(2, 1f, p -> p.effect(new MobEffectInstance(MobEffects.WATER_BREATHING, (int) (60 * TickUtils.SEC2TICK)), 1f)).save();
 	public static final ItemEntry<Item> CRANFISH_COOKED = create("cranfish_cooked").setFood(4, 4f).save();
 	public static final ItemEntry<Item> CRANFISH_SCALE = create("cranfish_scale").save();
 	public static final ItemEntry<ItemNameBlockItem> DRAGIBUS = create("dragibus", (p) -> new ItemNameBlockItem(DRAGIBUS_CROPS.get(), p)).setFood(2, 2f).save();
@@ -234,10 +235,10 @@ public class CItems {
 	
 	@Environment(EnvType.CLIENT)
 	public static void registerItemColors(BlockColors blockColors, ItemColors itemColors) {
-		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor()
-				, CUSTARD_PUDDING);
-		itemColors.register((item, tintindex) -> PuddingColor.getDefaultEnchantColor(),
-				MAGICAL_LEAVES, MAGICAL_LEAF);
+		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor(),
+				CUSTARD_PUDDING);
+//		itemColors.register((item, tintindex) -> PuddingColor.getDefaultEnchantColor(),
+//				MAGICAL_LEAVES, MAGICAL_LEAF);
 		
 	}
 	

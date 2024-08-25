@@ -23,7 +23,7 @@ public class ModelBunny extends EntityModel<Bunny> {
 	private final ModelPart bb_main;
 	
 	public ModelBunny(ModelPart root) {
-		super(RenderType::entityTranslucent);
+		super(RenderType::entityCutout);
 		this.root = root;
 		this.bb_main = root.getChild("bb_main");
 	}

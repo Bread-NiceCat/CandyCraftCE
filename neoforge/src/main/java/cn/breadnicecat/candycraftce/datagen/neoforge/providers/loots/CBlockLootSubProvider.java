@@ -117,10 +117,10 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				, HONEYCOMB_ORE, WHITE_HONEYCOMB_ORE);
 		
 		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.get(), SUGAR, ConstantValue.exactly(4)));
-		otherWhenSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get());
+		add(CHOCOLATE_STONE, createSingleItemTableWithSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get()));
 		//		otherWhenSilkTouch(BLACK_CHOCOLATE_STONE.get(), BLACK_CHOCOLATE_COBBLESTONE.get());
-		otherWhenSilkTouch(WHITE_CHOCOLATE_STONE.get(), WHITE_CHOCOLATE_COBBLESTONE.get());
-		otherWhenSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get());
+		add(WHITE_CHOCOLATE_STONE, createSingleItemTableWithSilkTouch(WHITE_CHOCOLATE_STONE.get(), WHITE_CHOCOLATE_COBBLESTONE.get()));
+		add(CUSTARD_PUDDING, createSingleItemTableWithSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get()));
 		dropOther(PUDDING_FARMLAND.get(), PUDDING.get());
 	}
 	

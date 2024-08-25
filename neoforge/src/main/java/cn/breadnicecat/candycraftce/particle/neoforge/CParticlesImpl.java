@@ -8,6 +8,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -24,7 +25,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  */
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CParticlesImpl {
 	static HashMap<ParticleEntry<?>, ParticleEngine.SpriteParticleRegistration<?>> providers = new HashMap<>();
 	

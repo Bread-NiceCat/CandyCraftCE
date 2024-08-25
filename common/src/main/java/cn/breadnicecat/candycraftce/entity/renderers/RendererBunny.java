@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
 import cn.breadnicecat.candycraftce.entity.entities.mobs.Bunny;
-import cn.breadnicecat.candycraftce.entity.layers.BunnyBodyLayer;
+import cn.breadnicecat.candycraftce.entity.layers.LayerBunnyBody;
 import cn.breadnicecat.candycraftce.entity.models.ModelBunny;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -24,11 +24,12 @@ public class RendererBunny extends MobRenderer<Bunny, ModelBunny> {
 	
 	public RendererBunny(EntityRendererProvider.Context context) {
 		super(context, new ModelBunny(context), 0.3f);
-		addLayer(new BunnyBodyLayer(this));
+		addLayer(new LayerBunnyBody(this));
 	}
 	
 	@Override
 	public @NotNull ResourceLocation getTextureLocation(Bunny entity) {
 		return TEX;
 	}
+	
 }

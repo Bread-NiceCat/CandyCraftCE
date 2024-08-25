@@ -1,4 +1,5 @@
-// 1.21	2024-08-25T02:44:20.7428942	Tags for minecraft:block mod id candycraftce
+// 1.21	2024-08-25T22:43:32.9311251	Tags for minecraft:block mod id candycraftce
+fba5ec75e0e07aae24ab92183402b25321f6bc71 data/candycraftce/tags/block/candy_animal_spawnable_on.json
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/block/candy_plant_suitable.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/block/caramel_portal_frame.json
 0e1a36c7e43d76094031bcc85a30d0d8c95f196a data/candycraftce/tags/block/carver_overrideable.json

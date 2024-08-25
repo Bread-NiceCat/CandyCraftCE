@@ -21,10 +21,10 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
  *
  * <p>
  **/
-public class BunnyBodyLayer extends RenderLayer<Bunny, ModelBunny> {
+public class LayerBunnyBody extends RenderLayer<Bunny, ModelBunny> {
 	private static final ResourceLocation TEX = entityTex("bunny/body");
 	
-	public BunnyBodyLayer(RenderLayerParent<Bunny, ModelBunny> renderer) {
+	public LayerBunnyBody(RenderLayerParent<Bunny, ModelBunny> renderer) {
 		super(renderer);
 	}
 	
@@ -33,6 +33,6 @@ public class BunnyBodyLayer extends RenderLayer<Bunny, ModelBunny> {
 		ModelBunny m = getParentModel();
 		m.setupAnim(bunny, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		int color = bunny.getRGB();
-		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), color);
+		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutout(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), color);
 	}
 }

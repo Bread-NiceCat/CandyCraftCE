@@ -8,6 +8,8 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -29,10 +31,12 @@ public class CBlocksImpl {
 	}
 	
 	@SuppressWarnings("deprecation")
+	@OnlyIn(Dist.CLIENT)
 	public static void setRendererType(Block block, RenderType rt) {
 		ItemBlockRenderTypes.setRenderLayer(block, rt);
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	public static void setRendererType(Fluid fluid, RenderType rt) {
 		ItemBlockRenderTypes.setRenderLayer(fluid, rt);
 	}

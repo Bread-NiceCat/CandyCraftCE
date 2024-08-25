@@ -78,18 +78,19 @@ public final class CandyCraftCE {
 //		防止某些类未被链式调用导致不会被初始化，不计顺序
 //      尤其是含register的类
 		CItems.init();
-		CMenus.init();
-		CEggProject.init();
-		CFluids.init();
 		CBlocks.init();
-		CDimInit.init();
+		CBlockEntities.init();
 		CEntities.init();
-		CParticles.init();
+		CFluids.init();
+		CDimInit.init();
+		CMenus.init();
 		CGameRules.init();
 		CRecipeTypes.init();
 		CSoundEvents.init();
-		CBlockEntities.init();
-		
+		CEggProject.init();
+		if (isClient()) {
+			CParticles.init();
+		}
 		if (isLoaded("jei")) new CJeiPlugin();
 		
 		bootstrapHooks.forEach(Runnable::run);
