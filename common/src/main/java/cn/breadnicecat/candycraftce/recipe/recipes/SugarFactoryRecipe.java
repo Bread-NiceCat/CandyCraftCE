@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.recipe.recipes;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
+import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFactoryBE;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import com.mojang.serialization.Codec;
@@ -26,7 +27,7 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
+public class SugarFactoryRecipe implements Recipe<ContainerRecipeInput<SugarFactoryBE>> {
 	private final ItemStack result;
 	public final Ingredient ingredient;
 	public final boolean advanced;
@@ -49,13 +50,15 @@ public class SugarFactoryRecipe implements Recipe<SugarFactoryBE> {
 		return be.getType() == CBlockEntities.ADVANCED_SUGAR_FACTORY_BE.get();
 	}
 	
+	
 	@Override
-	public boolean matches(SugarFactoryBE container, Level level) {
+	public boolean matches(ContainerRecipeInput<SugarFactoryBE> input, Level level) {
+		SugarFactoryBE container = input.container();
 		return (!advanced || isAdvanced(container)) && ingredient.test(container.getItem(SugarFactoryBE.INPUT_SLOT));
 	}
 	
 	@Override
-	public @NotNull ItemStack assemble(SugarFactoryBE input, HolderLookup.Provider registries) {
+	public ItemStack assemble(ContainerRecipeInput<SugarFactoryBE> input, HolderLookup.Provider registries) {
 		return result.copy();
 	}
 	

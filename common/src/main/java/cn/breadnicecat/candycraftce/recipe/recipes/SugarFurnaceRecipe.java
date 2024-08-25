@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.recipe.recipes;
 
+import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import static cn.breadnicecat.candycraftce.recipe.CRecipeTypes.SUGAR_FURNACE_TYPE;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.apply;
 
-public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
+public class SugarFurnaceRecipe implements Recipe<ContainerRecipeInput<LicoriceFurnaceBE>> {
 	public final ItemStack result;
 	public final Ingredient ingredient;
 	public final float exp;
@@ -27,11 +28,6 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 		this.result = result;
 		this.ingredient = ingredient;
 		this.exp = exp;
-	}
-	
-	@Override
-	public boolean matches(LicoriceFurnaceBE container, Level level) {
-		return ingredient.test(container.getItem(LicoriceFurnaceBE.INPUT_SLOT));
 	}
 	
 	public ItemStack getResult() {
@@ -47,7 +43,12 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 	}
 	
 	@Override
-	public @NotNull ItemStack assemble(LicoriceFurnaceBE input, HolderLookup.Provider registries) {
+	public boolean matches(ContainerRecipeInput<LicoriceFurnaceBE> input, Level level) {
+		return ingredient.test(input.container().getItem(LicoriceFurnaceBE.INPUT_SLOT));
+	}
+	
+	@Override
+	public @NotNull ItemStack assemble(ContainerRecipeInput<LicoriceFurnaceBE> input, HolderLookup.Provider registries) {
 		return result.copy();
 	}
 	
@@ -70,6 +71,7 @@ public class SugarFurnaceRecipe implements Recipe<LicoriceFurnaceBE> {
 	public @NotNull RecipeType<SugarFurnaceRecipe> getType() {
 		return SUGAR_FURNACE_TYPE.get();
 	}
+	
 	
 	@Override
 	public boolean canCraftInDimensions(int width, int height) {

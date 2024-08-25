@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
+import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
 import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnaceBlock;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
 import cn.breadnicecat.candycraftce.misc.CSugarFuels;
@@ -24,7 +25,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static cn.breadnicecat.candycraftce.utils.TickUtils.SEC2TICK;
 
-public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer, RecipeInput {
+public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer {
 	
 	public static final int INPUT_SLOT = 0;
 	public static final int FUEL_SLOT = 1;
@@ -61,10 +61,11 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	
 	private int ticked;
 	private int tickedTotal;
-	
+	//不能直接实现这个接口Unfixable conflicts
+	private final ContainerRecipeInput<LicoriceFurnaceBE> checker = new ContainerRecipeInput<>(this);
 	
 	private @Nullable SugarFurnaceRecipe recipeUsed = null;
-	private final RecipeManager.CachedCheck<LicoriceFurnaceBE, SugarFurnaceRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FURNACE_TYPE.get());
+	private final RecipeManager.CachedCheck<ContainerRecipeInput<LicoriceFurnaceBE>, SugarFurnaceRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FURNACE_TYPE.get());
 	
 	public final CDataAccessors data = new CDataAccessors(
 			LambdaAccessor.of(() -> this.ticked, (t) -> this.ticked = t),
@@ -92,9 +93,9 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 				break check;
 			}
 			//检查配方
-			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
+			if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
 				//寻找新配方
-				var recipe = quickCheck.getRecipeFor(this, level);
+				var recipe = quickCheck.getRecipeFor(checker, level);
 				if (recipe.isEmpty()) {
 					recipeUsed = null;
 				} else {
@@ -139,7 +140,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 			//已经完成
 			if (++ticked >= tickedTotal) {
 				items.extract(INPUT_SLOT, 1);
-				items.insert(OUTPUT_SLOT, recipeUsed.assemble(this, level.registryAccess()));
+				items.insert(OUTPUT_SLOT, recipeUsed.assemble(checker, level.registryAccess()));
 				exp += recipeUsed.getExp();
 				ticked = 0;
 			}
@@ -229,11 +230,6 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	}
 	
 	@Override
-	public int size() {
-		return getContainerSize();
-	}
-	
-	@Override
 	public @NotNull ItemStack removeItem(int slot, int amount) {
 		return ContainerHelper.removeItem(items, slot, amount);
 	}
@@ -258,4 +254,5 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	public void clearContent() {
 		items.clear();
 	}
+	
 }

@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
+import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
 import cn.breadnicecat.candycraftce.gui.block.menus.SugarFactoryMenu;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
@@ -23,7 +24,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -41,7 +41,7 @@ import static net.minecraft.world.item.Items.SUGAR;
  * @author <a href="https://github.com/Bread-NiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class SugarFactoryBE extends BlockEntity implements MenuProvider, WorldlyContainer, RecipeInput {
+public class SugarFactoryBE extends BlockEntity implements MenuProvider, WorldlyContainer {
 	public static final int[] SLOT_FOR_OTHER = {0};
 	public static final int[] SLOT_FOR_DOWN = {1};
 	public static final int OUTPUT_SLOT = 1;
@@ -63,7 +63,9 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	private int tickedTotal;
 	private int recipeType = NULL_TYPE;
 	private @Nullable SugarFactoryRecipe recipeUsed;
-	private final RecipeManager.CachedCheck<SugarFactoryBE, SugarFactoryRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FACTORY_TYPE.get());
+	
+	private final ContainerRecipeInput<SugarFactoryBE> checker = new ContainerRecipeInput<>(this);
+	private final RecipeManager.CachedCheck<ContainerRecipeInput<SugarFactoryBE>, SugarFactoryRecipe> quickCheck = RecipeManager.createCheck(CRecipeTypes.SUGAR_FACTORY_TYPE.get());
 	
 	protected CDataAccessors data = new CDataAccessors(
 			of(() -> ticked, (t) -> ticked = t),
@@ -105,8 +107,8 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 				} else break check;
 			}
 			//检查配方
-			if (recipeUsed == null || !recipeUsed.matches(this, level)) {
-				var opt = quickCheck.getRecipeFor(this, level);
+			if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
+				var opt = quickCheck.getRecipeFor(checker, level);
 				recipeUsed = opt.map(RecipeHolder::value).orElse(null);
 			}
 			//判断输出 输出阻塞
@@ -117,7 +119,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 					//通过第一次判断
 					if (recipeUsed != null) break;
 					//验证是否符合制糖模式
-					if (SUGARY.matches(this, level)) {
+					if (SUGARY.matches(checker, level)) {
 						recipeUsed = SUGARY;
 					} else break;
 				}
@@ -135,7 +137,7 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 			if (tickedTotal != 0 && ++ticked > tickedTotal) {
 				ticked = 0;
 				items.extract(INPUT_SLOT, 1);
-				items.insert(OUTPUT_SLOT, recipeUsed.assemble(this, level.registryAccess()));
+				items.insert(OUTPUT_SLOT, recipeUsed.assemble(checker, level.registryAccess()));
 			}
 			changed = true;
 		} else if (ticked > 0) {
@@ -200,11 +202,6 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	@Override
 	public @NotNull ItemStack getItem(int slot) {
 		return items.get(slot);
-	}
-	
-	@Override
-	public int size() {
-		return getContainerSize();
 	}
 	
 	@Override
