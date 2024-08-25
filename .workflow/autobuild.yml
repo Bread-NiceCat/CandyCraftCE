@@ -7,7 +7,6 @@ triggers:
     branches:
       include:
         - .+
-        
 stages:
   - name: stage-d5ea25af
     displayName: 构建
@@ -25,9 +24,9 @@ stages:
           - chmod +x ./gradlew
           - ./gradlew build
         artifacts:
-          - name: FORGE
+          - name: NEOFORGE
             path:
-              - forge/build/libs/candycraftce-*.*.*[0-9].jar
+              - neoforge/build/libs/candycraftce-*.*.*[0-9].jar
           - name: FABRIC
             path:
               - fabric/build/libs/candycraftce-*.*.*[0-9].jar
@@ -45,8 +44,8 @@ stages:
       - step: publish@general_artifacts
         name: publish_general_artifacts1
         displayName: 上传制品
-        dependArtifact: FORGE
-        artifactName: forge
+        dependArtifact: NEOFORGE
+        artifactName: neoforge
         notify: [ ]
         strategy:
           retry: '0'

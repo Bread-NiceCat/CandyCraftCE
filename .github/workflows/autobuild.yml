@@ -36,8 +36,8 @@ jobs:
       - name: upload forge
         uses: actions/upload-artifact@v4
         with:
-          name: forge
-          path: forge/build/libs/candycraftce-*.*.*[0-9].jar
+          name: neoforge
+          path: neoforge/build/libs/candycraftce-*.*.*[0-9].jar
           if-no-files-found: error
 
       - name: upload fabric
