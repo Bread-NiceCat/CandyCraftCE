@@ -6,7 +6,7 @@ architectury {
     platformSetupLoomIde()
     fabric()
 }
-archivesBaseName = archivesBaseName.replace('${engine}', "-fabric");
+archivesBaseName = archivesBaseName + "-neoforge"
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     runs {

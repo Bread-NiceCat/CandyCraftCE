@@ -20,7 +20,7 @@ allprojects {
 
     version = mod_version
     group = maven_group
-    archivesBaseName = archives_base_name.replace('${commit_sha}', gitSha == null ? "" : "-${gitSource}-${gitSha.substring(7)}")
+    archivesBaseName = archives_base_name + (gitSha == null ? "" : "-${gitSource}-${gitSha.substring(0, 7)}")
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese
@@ -69,7 +69,10 @@ allprojects {
     jar {
         manifest {
             attributes(BuiltTime: new Date())
-            if (gitSha != null) attributes(CommitSHA: gitSha)
+            if (gitSha != null) {
+                attributes(GitSha: gitSha)
+                attributes(GitSource: gitSource)
+            }
         }
     }
 }

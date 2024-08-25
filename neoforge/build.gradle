@@ -7,7 +7,7 @@ architectury {
     neoForge()
 }
 def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
-archivesBaseName = archivesBaseName.replace('${engine}', "-neoforge")
+archivesBaseName = archivesBaseName + "-neoforge"
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     neoForge {
