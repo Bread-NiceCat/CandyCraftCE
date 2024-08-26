@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.datagen.forge.providers;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import cn.breadnicecat.candycraftce.misc.CEggProject;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -39,6 +40,7 @@ public class CItemTagsProvider extends ItemTagsProvider {
 		add(BT_SUGARY.it(), apply(new HashSet<>(ITEMS), (i) -> {
 			i.remove(RECORD_o);
 			i.remove(IIDEBUG);
+			i.remove(CEggProject.launcher);
 		}).toArray(ItemEntry[]::new));
 		
 		add(MUSIC_DISCS, RECORD_1, RECORD_2, RECORD_3, RECORD_4, RECORD_o);

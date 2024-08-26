@@ -2,9 +2,9 @@ name: build
 on:
   push:
     paths-ignore:
-      - '.github/**'
       - '.docs/**'
       - 'README.md'
+      - 'README_cn.md'
       - 'LICENSE'
       - '.gitignore'
       - '.gitattributes'

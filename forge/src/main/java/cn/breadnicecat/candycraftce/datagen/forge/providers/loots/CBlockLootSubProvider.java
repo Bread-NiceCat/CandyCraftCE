@@ -1,11 +1,11 @@
 package cn.breadnicecat.candycraftce.datagen.forge.providers.loots;
 
-import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
@@ -66,7 +67,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				ALCHEMY_MIXER, MARSHMALLOW_LOG, DARK_MARSHMALLOW_LOG, LIGHT_MARSHMALLOW_LOG,
 				MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS, DARK_MARSHMALLOW_PLANKS, HONEYCOMB_TORCH,
 				JELLY_ORE, LICORICE_ORE, PEZ_ORE, CHOCOLATE_SAPLING, WHITE_CHOCOLATE_SAPLING, CARAMEL_SAPLING, CANDIED_CHERRY_SAPLING,
-				WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE,
+				WHITE_JELLY_ORE, WHITE_LICORICE_ORE, WHITE_PEZ_ORE,
 				LICORICE_BLOCK, LICORICE_BRICKS, LICORICE_WALL, LICORICE_BRICK_WALL, LICORICE_SLAB, LICORICE_BRICK_SLAB, LICORICE_STAIRS, LICORICE_BRICK_STAIRS,
 				MARSHMALLOW_FENCE, LIGHT_MARSHMALLOW_FENCE, DARK_MARSHMALLOW_FENCE, MARSHMALLOW_SLAB, LIGHT_MARSHMALLOW_SLAB,
 				DARK_MARSHMALLOW_SLAB, MARSHMALLOW_STAIRS, LIGHT_MARSHMALLOW_STAIRS, DARK_MARSHMALLOW_STAIRS,
@@ -107,13 +108,16 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 		add(CARAMEL_LEAVES, createCandyLeavesDrops(CARAMEL_LEAVES.get(), CARAMEL_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 		add(CANDIED_CHERRY_LEAVES, createCandyLeavesDrops(CANDIED_CHERRY_LEAVES.get(), CANDIED_CHERRY_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 		
-		add(NOUGAT_ORE, createSingleItemTable(NOUGAT_POWDER, UniformGenerator.between(2, 5)));
-		add(HONEYCOMB_ORE, createSingleItemTable(HONEYCOMB_SHARD, UniformGenerator.between(2, 5)));
+		accept(b -> add(b, createSingleItemTable(NOUGAT_POWDER, UniformGenerator.between(2, 5)))
+				, NOUGAT_ORE, WHITE_NOUGAT_ORE);
+		accept(b -> add(b, createSingleItemTable(HONEYCOMB_SHARD, UniformGenerator.between(2, 5)))
+				, HONEYCOMB_ORE, WHITE_HONEYCOMB_ORE);
+		
 		add(SUGAR_BLOCK, createSingleItemTableWithSilkTouch(SUGAR_BLOCK.get(), SUGAR, ConstantValue.exactly(4)));
-		otherWhenSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get());
+		add(CHOCOLATE_STONE, createSingleItemTableWithSilkTouch(CHOCOLATE_STONE.get(), CHOCOLATE_COBBLESTONE.get()));
 		//		otherWhenSilkTouch(BLACK_CHOCOLATE_STONE.get(), BLACK_CHOCOLATE_COBBLESTONE.get());
-		otherWhenSilkTouch(WHITE_CHOCOLATE_STONE.get(), WHITE_CHOCOLATE_COBBLESTONE.get());
-		otherWhenSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get());
+		add(WHITE_CHOCOLATE_STONE, createSingleItemTableWithSilkTouch(WHITE_CHOCOLATE_STONE.get(), WHITE_CHOCOLATE_COBBLESTONE.get()));
+		add(CUSTARD_PUDDING, createSingleItemTableWithSilkTouch(CUSTARD_PUDDING.get(), PUDDING.get()));
 		dropOther(PUDDING_FARMLAND.get(), PUDDING.get());
 	}
 	
@@ -127,14 +131,16 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	
 	@Override
 	protected void add(Block block, LootTable.@NotNull Builder builder) {
-		assertTrue(this.map.put(block.getLootTable(), builder) == null, () -> "Duplicate LootTable for " + block);
+		ResourceLocation table = block.getLootTable();
+		assertTrue(table.getNamespace().equals(MOD_ID), () -> "Unexpected LootTable Namespace:" + table + " for " + block);
+		assertTrue(this.map.put(table, builder) == null, () -> "Duplicate LootTable for " + block);
 	}
 	
 	@Override
 	@SuppressWarnings("deprecation")
 	protected @NotNull Iterable<Block> getKnownBlocks() {
 		return BuiltInRegistries.BLOCK.entrySet().stream()
-				.filter(p -> p.getKey().location().getNamespace().equals(CandyCraftCE.MOD_ID))
+				.filter(p -> p.getKey().location().getNamespace().equals(MOD_ID))
 				.map(Map.Entry::getValue)
 				.collect(Collectors.toSet());
 	}

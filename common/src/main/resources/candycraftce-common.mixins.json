@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "MixinBiome",
     "MixinBlockColors",
     "MixinBlockEntityWithoutLevelRenderer",
     "MixinItemColors",
@@ -12,13 +13,11 @@
     "MixinModelBakery",
     "MixinParticleEngine",
     "MixinPlayerRenderer",
-    "MixinSplashManager",
     "ThrownTridentRendererAccessor"
   ],
   "mixins": [
     "AxeItemAccessor",
     "MixinAbstractArrow",
-    "MixinBiome",
     "MixinBucketItem",
     "MixinEatBlockGoal",
     "MixinEntity",

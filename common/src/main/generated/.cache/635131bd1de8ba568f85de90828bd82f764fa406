@@ -1,4 +1,5 @@
-// 1.20.1	2024-08-21T02:30:29.7336226	Tags for minecraft:block mod id candycraftce
+// 1.20.1	2024-08-26T10:31:45.2918794	Tags for minecraft:block mod id candycraftce
+fba5ec75e0e07aae24ab92183402b25321f6bc71 data/candycraftce/tags/blocks/candy_animal_spawnable_on.json
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/blocks/candy_plant_suitable.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/blocks/caramel_portal_frame.json
 0e1a36c7e43d76094031bcc85a30d0d8c95f196a data/candycraftce/tags/blocks/carver_overrideable.json
@@ -29,6 +30,7 @@ a03af02750f908bdf792bbf5f879b3dbab9395cb data/minecraft/tags/blocks/mineable/pic
 c3eccae64518d34087c7a9fced6c2d1c5e5d7ffd data/minecraft/tags/blocks/needs_diamond_tool.json
 e648803b9dd26a7e095003fd44c36e6660283906 data/minecraft/tags/blocks/needs_iron_tool.json
 f6be15f3c8593b45938ab41db4cc140757653525 data/minecraft/tags/blocks/needs_stone_tool.json
+67151a49fa9ee0d913e03472deae5a800e33aa6c data/minecraft/tags/blocks/overworld_carver_replaceables.json
 47f5b6a1c72b6e8aa97d5cd3fa0068e55b368e17 data/minecraft/tags/blocks/portals.json
 830be772da3334b9d91797b2cd496143e69564f1 data/minecraft/tags/blocks/saplings.json
 b41938e3d48acf37a569956c9dc41fa34ce75f9a data/minecraft/tags/blocks/slabs.json

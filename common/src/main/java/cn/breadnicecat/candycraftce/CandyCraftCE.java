@@ -8,8 +8,8 @@ import cn.breadnicecat.candycraftce.gui.block.CMenus;
 import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
+import cn.breadnicecat.candycraftce.misc.CEggProject;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
-import cn.breadnicecat.candycraftce.misc.CGenshin;
 import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
@@ -77,18 +77,19 @@ public final class CandyCraftCE {
 //		防止某些类未被链式调用导致不会被初始化，不计顺序
 //      尤其是含register的类
 		CItems.init();
-		CMenus.init();
-		CGenshin.init();
-		CFluids.init();
 		CBlocks.init();
-		CDimInit.init();
+		CBlockEntities.init();
 		CEntities.init();
-		CParticles.init();
+		CFluids.init();
+		CDimInit.init();
+		CMenus.init();
 		CGameRules.init();
 		CRecipeTypes.init();
 		CSoundEvents.init();
-		CBlockEntities.init();
-		
+		CEggProject.init();
+		if (isClient()) {
+			CParticles.init();
+		}
 		if (isLoaded("jei")) new CJeiPlugin();
 		
 		bootstrapHooks.forEach(Runnable::run);
