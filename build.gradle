@@ -20,7 +20,7 @@ allprojects {
 
     version = mod_version
     group = maven_group
-    archivesBaseName = archives_base_name + (gitSha == null ? "" : "-${gitSource}-${gitSha.substring(0, 7)}")
+    archivesBaseName = "$archives_base_name-$minecraft_version" + (gitSha == null ? "" : "-${gitSource}-${gitSha.substring(0, 7)}")
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese
