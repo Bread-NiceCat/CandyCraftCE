@@ -7,7 +7,7 @@ architectury {
     forge()
 }
 def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
-
+archivesBaseName = archivesBaseName + "-forge"
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     forge {
