@@ -1,24 +1,17 @@
-package cn.breadnicecat.candycraftce.mixin;
+package cn.breadnicecat.candycraftce.mixin.forge;
 
-import cn.breadnicecat.candycraftce.block.CBlocks;
-import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFIG;
-import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.PLACER;
 
 /**
  * Created in 2024/6/6 下午12:49
@@ -31,23 +24,12 @@ import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.PLACE
  **/
 @Mixin(BucketItem.class)
 public abstract class MixinBucketItem {
-	@Shadow
-	@Final
-	private Fluid content;
+	
+	@Shadow(remap = false)
+	public abstract Fluid getFluid();
 	
 	@Inject(method = "checkExtraContent", at = @At("HEAD"), cancellable = true)
 	public void checkExtraContent(Player player, Level level, ItemStack containerStack, BlockPos pos, CallbackInfo ci) {
-		if (this.content.isSame(Fluids.LAVA)) {
-			VectorPortalShape.findPortal(level, pos, CONFIG).ifPresent(t -> {
-				for (BlockPos frame : t.getAllFrames()) {
-					BlockState state = level.getBlockState(frame);
-					if (state.is(CBlocks.SUGAR_BLOCK.get())) {
-						level.setBlockAndUpdate(frame, CBlocks.CARAMEL_BLOCK.defaultBlockState());
-					}
-				}
-				t.build(level, PLACER);
-				ci.cancel();
-			});
-		}
+		if (CaramelPortalBlock.onBucketUse(player, level, pos, containerStack, getFluid())) ci.cancel();
 	}
 }

@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
+import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.item.CItemTags;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
@@ -19,6 +20,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,12 +30,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.function.BiFunction;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
@@ -232,4 +237,24 @@ public class CaramelPortalBlock extends Block {
 		};
 	}
 	
+	/**
+	 * @return true代表消费，应该直接取消事件继续进行
+	 */
+	public static boolean onBucketUse(Player player, Level level, BlockPos pos, ItemStack stack, Fluid content) {
+		if (content != null && content.isSame(Fluids.LAVA)) {
+			Optional<VectorPortalShape> portal = VectorPortalShape.findPortal(level, pos, CONFIG);
+			if (portal.isPresent()) {
+				VectorPortalShape t = portal.get();
+				for (BlockPos frame : t.getAllFrames()) {
+					BlockState state = level.getBlockState(frame);
+					if (state.is(CBlocks.SUGAR_BLOCK.get())) {
+						level.setBlockAndUpdate(frame, CBlocks.CARAMEL_BLOCK.defaultBlockState());
+					}
+				}
+				t.build(level, PLACER);
+				return true;
+			}
+		}
+		return false;
+	}
 }
