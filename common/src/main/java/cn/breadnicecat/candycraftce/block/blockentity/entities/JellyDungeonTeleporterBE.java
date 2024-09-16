@@ -1,18 +1,15 @@
 package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.poi.CPoiTypes;
+import cn.breadnicecat.candycraftce.level.data.DungeonData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Optional;
 
 /**
  * Created in 2024/2/3
@@ -36,31 +33,29 @@ public class JellyDungeonTeleporterBE extends BlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        blockPos = NbtUtils.readBlockPos(tag, "TeleportTarget").orElse(null);
+        this.generated = tag.getBoolean("Teleported");
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+
         if (blockPos != null) {
             tag.put("TeleportTarget", NbtUtils.writeBlockPos(blockPos));
         }
         tag.putBoolean("Teleported", this.generated);
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        blockPos = NbtUtils.readBlockPos(tag, "TeleportTarget").orElse(null);
-        this.generated = tag.getBoolean("Teleported");
-    }
-
-    public BlockPos findDungeons(ServerLevel level, BlockPos blockPos) {
+    public BlockPos findDungeons(ServerLevel level) {
         if (this.blockPos == null) {
-            Optional<BlockPos> optional = level.getPoiManager().findClosest(poiTypeHolder -> {
-                return poiTypeHolder.value() == CPoiTypes.JELLY_DUNGEON_TELEPORTER.get();
-            }, blockPos, 128, PoiManager.Occupancy.ANY);
-            if (optional.isPresent()) {
-                //If found nearest teleporter. set and return pos
-                this.blockPos = optional.get();
-                return optional.get();
-            }
-            this.blockPos = blockPos;
-            return blockPos;
+            DungeonData data = DungeonData.get(level);
+
+            BlockPos zeroPos = new BlockPos(data.getDungeonsSize() * 32 * 16, 64, 0);
+            this.blockPos = zeroPos;
+            this.setChanged();
+            data.increaseDungeonsSize();
+            return zeroPos;
         } else {
             return this.blockPos;
         }

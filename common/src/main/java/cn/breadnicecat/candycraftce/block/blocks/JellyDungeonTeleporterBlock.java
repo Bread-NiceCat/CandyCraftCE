@@ -57,7 +57,7 @@ public class JellyDungeonTeleporterBlock extends BaseEntityBlock {
             if (blockEntity instanceof JellyDungeonTeleporterBE jellyDungeonTeleporterBE && level instanceof ServerLevel serverLevel) {
                 MinecraftServer server = serverLevel.getServer();
                 ServerLevel dungeonLevel = server.getLevel(DUNGEONS);
-                BlockPos dungeonPos = jellyDungeonTeleporterBE.findDungeons(dungeonLevel, pos.mutable().set(pos.getX(), JellyDungeonGenerator.GENERATED_Y, pos.getZ()).immutable());
+                BlockPos dungeonPos = jellyDungeonTeleporterBE.findDungeons(dungeonLevel);
 
                 if (!jellyDungeonTeleporterBE.generated) {
                     jellyDungeonTeleporterBE.generated = true;
