@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.level.generator;
 
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -53,7 +53,7 @@ public class JellyDungeonGenerator {
     public static final BlockState redstone_lamp = REDSTONE_LAMP.defaultBlockState();
 
     public static final Random random = new Random();
-    public final Logger logger = LogUtils.getLogger();
+    public final Logger logger = CLogUtils.getModLogger();
     private final Map<BlockPos, Placer> blocks = new HashMap<>();
 
     public Placer litableWallBlock(int denominator) {
