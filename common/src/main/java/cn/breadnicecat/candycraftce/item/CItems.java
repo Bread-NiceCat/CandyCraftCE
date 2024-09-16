@@ -113,6 +113,9 @@ public class CItems {
 //        .addElement(SKY_DUNGEON_KEY, ItemDungeonKey.DungeonTypes.UNDEFINED)
 //        .addElement(SUGUARD_DUNGEON_KEY, ItemDungeonKey.DungeonTypes.UNDEFINED)
 //        .register();
+	public static final ItemEntry<DungeonsKeyItem> JELLY_DUNGEON_KEY = create("jelly_dungeon_key", properties -> new DungeonsKeyItem(JELLY_DUNGEON_TELEPORTER.get(), properties))
+			.setProperties(new Properties().stacksTo(1).rarity(Rarity.UNCOMMON))
+			.save();
 	
 	/*唱片*/
 	public static final ItemEntry<Item> RECORD_o = createRecord("record_o", CJukeboxSound.CD_MINE)

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
@@ -121,5 +122,9 @@ public class CommonUtils {
 	
 	public static <T> T orElse(T value, Supplier<T> defaultValue) {
 		return value == null ? defaultValue.get() : value;
+	}
+
+	public static boolean probability(Random random, int denominator) {
+		return random.nextInt(denominator) == 0;
 	}
 }

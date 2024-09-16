@@ -90,6 +90,7 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 				STRIPPED_MARSHMALLOW_LOG, STRIPPED_DARK_MARSHMALLOW_LOG, STRIPPED_LIGHT_MARSHMALLOW_LOG
 		);
 		accept(m -> add(m, noDrop()), CARAMEL_PORTAL);
+		accept(m -> add(m, noDrop()), JELLY_DUNGEON_TELEPORTER);
 		accept(m -> add(m, createDoorTable(m.get())), MARSHMALLOW_DOOR, LIGHT_MARSHMALLOW_DOOR, DARK_MARSHMALLOW_DOOR);
 		//SilkTouch || Shear
 		accept(m -> add(m, createSilkTouchOrShearsDispatchTable(m.get(), EmptyLootItem.emptyItem())),

@@ -258,7 +258,8 @@ public class CBlocks {
 	}).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 	
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
-	
+	public static final BlockEntry<JellyDungeonTeleporterBlock> JELLY_DUNGEON_TELEPORTER = create("jelly_dungeon_teleporter", JellyDungeonTeleporterBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
+
 	//	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
 	
 	static {

@@ -23,7 +23,7 @@ loom {
         }
         client {
             vmArg "-Dmixin.debug.export=true"
-            vmArg "-XX:+AllowEnhancedClassRedefinition"
+            //vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
     }
 }

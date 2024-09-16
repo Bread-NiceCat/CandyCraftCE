@@ -12,7 +12,7 @@ loom {
     runs {
         client {
             vmArg "-Dmixin.debug.export=true"
-            vmArg "-XX:+AllowEnhancedClassRedefinition"
+            //vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
 
         //坑爹datagen

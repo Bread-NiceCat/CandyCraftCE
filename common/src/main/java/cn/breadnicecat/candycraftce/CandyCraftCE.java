@@ -11,6 +11,7 @@ import cn.breadnicecat.candycraftce.level.CDimInit;
 import cn.breadnicecat.candycraftce.misc.CEggProject;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.particle.CParticles;
+import cn.breadnicecat.candycraftce.poi.CPoiTypes;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -82,6 +83,7 @@ public final class CandyCraftCE {
 		CBlockEntities.init();
 		CEntities.init();
 		CFluids.init();
+		CPoiTypes.init();
 		CDimInit.init();
 		CMenus.init();
 		CGameRules.init();

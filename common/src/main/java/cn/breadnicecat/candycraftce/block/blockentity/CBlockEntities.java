@@ -1,9 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
-import cn.breadnicecat.candycraftce.block.blockentity.entities.AdvancedFactoryBE;
-import cn.breadnicecat.candycraftce.block.blockentity.entities.ChocolateFurnaceBE;
-import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
-import cn.breadnicecat.candycraftce.block.blockentity.entities.SugarFactoryBE;
+import cn.breadnicecat.candycraftce.block.blockentity.entities.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import org.slf4j.Logger;
 
@@ -22,7 +19,8 @@ public class CBlockEntities {
 	public static final BlockEntityEntry<ChocolateFurnaceBE> CHOCOLATE_FURNACE_BE = create(CHOCOLATE_FURNACE.getName(), ChocolateFurnaceBE::new).setValidBlocks(CHOCOLATE_FURNACE, WHITE_CHOCOLATE_FURNACE/*, BLACK_CHOCOLATE_FURNACE*/).save();
 	public static final BlockEntityEntry<SugarFactoryBE> SUGAR_FACTORY_BE = create(SUGAR_FACTORY.getName(), SugarFactoryBE::new).setValidBlocks(SUGAR_FACTORY).save();
 	public static final BlockEntityEntry<AdvancedFactoryBE> ADVANCED_SUGAR_FACTORY_BE = create(ADVANCED_SUGAR_FACTORY.getName(), AdvancedFactoryBE::new).setValidBlocks(ADVANCED_SUGAR_FACTORY).save();
-	
+	public static final BlockEntityEntry<JellyDungeonTeleporterBE> JELLY_DUNGEON_TELEPORTER_BE = create(JELLY_DUNGEON_TELEPORTER.getName(), JellyDungeonTeleporterBE::new).setValidBlocks(JELLY_DUNGEON_TELEPORTER).save();
+
 	private static final Logger LOGGER = CLogUtils.sign();
 	
 	public static void init() {
