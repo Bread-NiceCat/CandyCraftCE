@@ -18,3 +18,4 @@ classes/
 *.launch
 
 .legacy
+/common/src/main/generated/.cache/
