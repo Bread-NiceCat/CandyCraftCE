@@ -10,8 +10,8 @@ config = "candycraftce.mixins.json"
 modId = "candycraftce"
 version = "${version}"
 displayName = "CandyCraft CE"
-authors = "Bread_NiceCat, Star_Ocean_Sama(Texture)"
-credits = "Architectury-Loom"
+authors = "Bread_NiceCat, Star_Ocean_Sama, bagu_chan"
+credits = "Architectury"
 description = '''
 '''
 logoFile = "logo.png"

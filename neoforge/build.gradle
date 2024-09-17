@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'com.github.johnrengelman.shadow'
 }
 
 architectury {
@@ -7,6 +7,7 @@ architectury {
     neoForge()
 }
 def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
+def use_jbr_feature = rootProject.ext.use_jbr_feature
 archivesBaseName = archivesBaseName + "-neoforge"
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
@@ -23,7 +24,9 @@ loom {
         }
         client {
             vmArg "-Dmixin.debug.export=true"
-            //vmArg "-XX:+AllowEnhancedClassRedefinition"
+            if (use_jbr_feature) {
+                vmArg "-XX:+AllowEnhancedClassRedefinition"
+            }
         }
     }
 }

@@ -1,17 +1,40 @@
 plugins {
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
+    id 'java'
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.4-SNAPSHOT'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "io.github.pacifistmc.forgix" version "1.2.+"
 }
 
 architectury {
     minecraft = minecraft_version
 }
+ext {
+    use_jbr_feature = (println(compileJava.javaCompiler.get().metadata.vendor)) == "JetBrains"
+}
+String archive_file_base_name = "${archives_base_name}-${minecraft_version}"
+forgix {
+    group = maven_group
+    mergedJarName = "${archive_file_base_name}-merged-${mod_version}.jar"
+    outputDir = "build/libs/merged"
+    neoforge {
+        println(jarLocation = "build/libs/${archive_file_base_name}-neoforge-${mod_version}.jar")
+        return null
+    }
+    fabric {
+        println(jarLocation = "build/libs/${archive_file_base_name}-fabric-${mod_version}.jar")
+        return null
+    }
+}
+mergeJars {
+    dependsOn ':fabric:build'
+    dependsOn ':neoforge:build'
+}
+build {
+    finalizedBy mergeJars
+}
 
-def githubVer = System.getenv("GITHUB_SHA")
-def giteeVer = System.getenv("GITEE_COMMIT")
-def gitSha = githubVer ?: giteeVer
-def gitSource = githubVer == null ? "gitee" : "github"
-
+def githubSha = System.getenv("GITHUB_SHA")
 allprojects {
     apply plugin: "java"
     apply plugin: "idea"
@@ -20,7 +43,7 @@ allprojects {
 
     version = mod_version
     group = maven_group
-    archivesBaseName = "$archives_base_name-$minecraft_version" + (gitSha == null ? "" : "-${gitSource}-${gitSha.substring(0, 7)}")
+    archivesBaseName = "$archive_file_base_name${githubSha == null ? "" : "-${githubSha.substring(0, 7)}"}"
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese
@@ -69,9 +92,8 @@ allprojects {
     jar {
         manifest {
             attributes(BuiltTime: new Date())
-            if (gitSha != null) {
-                attributes(GitSha: gitSha)
-                attributes(GitSource: gitSource)
+            if (githubSha != null) {
+                attributes(GitSha: githubSha)
             }
         }
     }

@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'com.github.johnrengelman.shadow'
 }
 
 architectury {
@@ -7,12 +7,15 @@ architectury {
     fabric()
 }
 archivesBaseName = archivesBaseName + "-fabric"
+def use_jbr_feature = rootProject.ext.use_jbr_feature
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     runs {
         client {
             vmArg "-Dmixin.debug.export=true"
-            //vmArg "-XX:+AllowEnhancedClassRedefinition"
+            if (use_jbr_feature) {
+                vmArg "-XX:+AllowEnhancedClassRedefinition"
+            }
         }
 
         //坑爹datagen

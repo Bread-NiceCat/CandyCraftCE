@@ -6,7 +6,8 @@
   "description": "",
   "authors": [
     "Bread_NiceCat",
-    "Star_Ocean_Sama(Texture)"
+    "Star_Ocean_Sama",
+    "bagu_chan"
   ],
   "contact": {
     "homepage": "https://github.com/Bread-Nicecat/CandyCraftCE",
@@ -31,6 +32,6 @@
   },
   "depends": {
     "fabric": "*",
-    "minecraft": "*"
+    "minecraft": ">=1.21"
   }
 }
