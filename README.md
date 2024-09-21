@@ -24,9 +24,6 @@ The mod is distributed under [LGPLv3](LICENSE).
 ## Compile
 
 1. Simply execute the command `./gradlew build` in project root directory
-2. Check products in `${EngineName}\build\libs\candycraft-x.x.x.jar`
-   ***NOTE***: if *Unable to download wrapper*,
-   please edit [gradle-wrapper.properties](gradle/wrapper/gradle-wrapper.properties):
-    - `distributionUrl` to `https\://services.gradle.org/distributions/gradle-8.6-bin.zip`
+2. Check products in `build\libs\merged\candycraft-xxx-merged-x.x.x.jar`
 
 <hr>

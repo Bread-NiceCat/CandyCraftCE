@@ -115,7 +115,7 @@ public class IIDebugItem extends Item {
 			if (used > 0 && used % 666 == 0) {
 				LevelUtils.spawnItemEntity(level, pos, CItems.RECORD_o.getDefaultInstance());
 				LevelUtils.spawnItemEntity(level, pos, Items.JUKEBOX.getDefaultInstance());
-				level.playSound(player, pos, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.BLOCKS);
+				level.playSound(player, pos, SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, SoundSource.PLAYERS);
 				player.sendSystemMessage(Component.literal("这是你第" + used + "次使用").withStyle(YELLOW).append(getName(item)).withStyle(BLUE));
 			}
 		}
@@ -234,7 +234,7 @@ public class IIDebugItem extends Item {
 			
 			if (portal.isPresent()) {
 				VectorPortalShape shape = portal.get();
-				level.playSound(null, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.BLOCKS);
+				level.playSound(player, pos, SoundEvents.NOTE_BLOCK_PLING.value(), SoundSource.PLAYERS);
 				player.sendSystemMessage(NAME.copy().append(" 框架已找到").withStyle(ChatFormatting.GREEN));
 				//viewable
 				shape.getUnits().forEach(unit -> LevelUtils.particleBlock(FLAME, level, unit.bottomLeft, unit.getTopRight(), 1 / 4d));
@@ -242,7 +242,7 @@ public class IIDebugItem extends Item {
 				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.INSTANCE.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
 //				player.sendSystemMessage(Component.literal(shape.toString()));
 			} else {
-				level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+				level.playSound(player, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS);
 				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(RED));
 			}
 			player.sendSystemMessage(NAME.copy().append(" 共耗时: " + ttt + " ms (" + ttt / TickUtils.MS_PER_TICK + " tick)").withStyle(ChatFormatting.GOLD));

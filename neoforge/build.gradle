@@ -89,7 +89,3 @@ components.java {
         skip()
     }
 }
-
-publishing {
-    //https://github.com/architectury/architectury-api/blob/1.21/neoforge/build.gradle
-}
