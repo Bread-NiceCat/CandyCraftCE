@@ -12,20 +12,21 @@ architectury {
 ext {
     def vendor = compileJava.javaCompiler.get().metadata.vendor
     def jbr = (vendor == "JetBrains")
-    println("'jvm_vendor=${vendor}'${jbr ? "(recognized as JetBrainsRuntime)" : ""}")
+    println("jvm_vendor: '${vendor}'${jbr ? "(recognized as JetBrainsRuntime)" : ""}")
     use_jbr_feature = jbr
 }
-String archive_file_base_name = "${mod_id}-${minecraft_version}"
+String githubSha = System.getenv("GITHUB_SHA")
+String archive_file_base_name = "${mod_id}-${minecraft_version}${(githubSha != null ? "-${githubSha.substring(0, 7)}" : "")}"
 forgix {
     group = maven_group
     mergedJarName = "${archive_file_base_name}-merged-${mod_version}.jar"
     outputDir = "build/libs/merged"
     neoforge {
-        println("neoforge_jar_input :neoforge/" + (jarLocation = "build/libs/${archive_file_base_name}-neoforge-${mod_version}.jar"))
+        println("neoforge_jar_input: ':neoforge/${jarLocation = "build/libs/${archive_file_base_name}-neoforge-${mod_version}.jar"}'")
         return null
     }
     fabric {
-        println("fabric_jar_input :fabric" + (jarLocation = "build/libs/${archive_file_base_name}-fabric-${mod_version}.jar"))
+        println("fabric_jar_input: ':fabric${jarLocation = "build/libs/${archive_file_base_name}-fabric-${mod_version}.jar"}'")
         return null
     }
 }
@@ -37,7 +38,6 @@ build {
     finalizedBy mergeJars
 }
 
-def githubSha = System.getenv("GITHUB_SHA")
 allprojects {
     apply plugin: "java"
     apply plugin: "idea"
@@ -46,7 +46,7 @@ allprojects {
 
     version = mod_version
     group = maven_group
-    archivesBaseName = "${archive_file_base_name}${githubSha == null ? "" : "-${githubSha.substring(0, 7)}"}"
+    archivesBaseName = archive_file_base_name
     repositories {
         if (Locale.getDefault() == Locale.CHINA) {
             //Faster Repo For Chinese
