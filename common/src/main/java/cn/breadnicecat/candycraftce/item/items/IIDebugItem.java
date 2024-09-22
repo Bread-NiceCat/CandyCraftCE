@@ -2,7 +2,7 @@ package cn.breadnicecat.candycraftce.item.items;
 
 import cn.breadnicecat.candycraftce.item.CDataComponents;
 import cn.breadnicecat.candycraftce.item.CItems;
-import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
+import cn.breadnicecat.candycraftce.level.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import com.google.common.collect.Lists;

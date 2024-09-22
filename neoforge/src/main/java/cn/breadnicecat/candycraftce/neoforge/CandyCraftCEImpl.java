@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.neoforge;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.CandyCraftCE.ModPlatform;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import com.mojang.datafixers.util.Pair;
+import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -76,9 +76,9 @@ public class CandyCraftCEImpl {
 		return ModPlatform.NEOFORGE;
 	}
 	
-	public static <R, S extends R> Pair<ResourceKey<R>, Supplier<S>> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+	public static <R, S extends R> WrappedEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		DeferredHolder<R, S> object = (DeferredHolder<R, S>) registerForHolder(registry, key, factory);
-		return Pair.of(object.getKey(), object);
+		return WrappedEntry.of(object.getKey(), object, object);
 	}
 	
 	public static <R, S extends R> Holder<R> registerForHolder(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {

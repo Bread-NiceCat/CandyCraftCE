@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.fabric;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import com.mojang.datafixers.util.Pair;
+import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
@@ -10,7 +10,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -45,20 +44,15 @@ public class CandyCraftCEImpl implements ModInitializer {
 		return CandyCraftCE.ModPlatform.FABRIC;
 	}
 	
-	public static <R, S extends R> Pair<ResourceKey<R>, Supplier<S>> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+	public static <R, S extends R> WrappedEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		ResourceKey<R> k = ResourceKey.create(registry.key(), key);
-		S s = Registry.register(registry, k, factory.get());
-		return Pair.of(k, () -> s);
+		S v = factory.get();
+		Holder.Reference<R> holder = Registry.registerForHolder(registry, k, v);
+		return WrappedEntry.of(k, () -> v, holder);
 	}
 	
 	public static boolean isLoaded(String modid) {
 		return FabricLoaderImpl.INSTANCE.isModLoaded(modid);
-	}
-	
-	
-	public static <R, S extends R> @NotNull Holder<R> registerForHolder(Registry<R> registry, ResourceLocation key, @NotNull Supplier<S> factory) {
-		return Registry.registerForHolder(registry, key, factory.get());
-		
 	}
 	
 	

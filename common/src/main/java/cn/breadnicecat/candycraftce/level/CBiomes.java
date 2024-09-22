@@ -17,15 +17,9 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  **/
 public class CBiomes {
-	public static ResourceKey<Biome> CARAMEL_FOREST = create(prefix("caramel_forest"));
 	public static ResourceKey<Biome> CHOCOLATE_FOREST = create(prefix("chocolate_forest"));
-	public static ResourceKey<Biome> DEEP_SUGAR_OCEAN = create(prefix("deep_sugar_ocean"));
-	public static ResourceKey<Biome> ENCHANTED_FOREST = create(prefix("enchanted_forest"));
 	public static ResourceKey<Biome> ICE_CREAM_FOREST = create(prefix("ice_cream_forest"));
 	public static ResourceKey<Biome> ICE_CREAM_PLAINS = create(prefix("ice_cream_plains"));
-	public static ResourceKey<Biome> PUDDING_PLAINS = create(prefix("pudding_plains"));
-	public static ResourceKey<Biome> SUGAR_OCEAN = create(prefix("sugar_ocean"));
-	public static ResourceKey<Biome> SUGAR_RIVER = create(prefix("sugar_river"));
 	
 	private static ResourceKey<Biome> create(ResourceLocation loc) {
 		return ResourceKey.create(Registries.BIOME, loc);

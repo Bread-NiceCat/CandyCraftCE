@@ -2,8 +2,8 @@ package cn.breadnicecat.candycraftce.block.blocks;
 
 import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.level.CDims;
+import cn.breadnicecat.candycraftce.level.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
-import cn.breadnicecat.candycraftce.misc.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.particle.CParticles;
 import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.TickUtils;

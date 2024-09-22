@@ -51,7 +51,6 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
 		
 		generator.addProvider(evt.includeServer(), new NoisingSettingsProvider(pack));
-		generator.addProvider(true, new CExportProvider(pack, lang.getZhLookup()));
 		
 		generator.addProvider(true, new CTerminalStateProvider(STATE));
 	}

@@ -4,7 +4,7 @@ import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
 import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnaceBlock;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
-import cn.breadnicecat.candycraftce.misc.CSugarFuels;
+import cn.breadnicecat.candycraftce.item.CSugarFuels;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CDataAccessors;
@@ -117,7 +117,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 		//有东西烧且燃料接近耗尽
 		//补充燃料
 		if (!items.isEmpty(FUEL_SLOT) && recipeUsed != null && litTime <= 1) {
-			int fu = CSugarFuels.getBurnDuration(items.extract(FUEL_SLOT, 1).getItem());
+			int fu = CSugarFuels.getBurnDuration(items.extract(FUEL_SLOT, 1));
 			if (fu != 0) {
 				litTime += fu;
 				litTimeTotal = fu;

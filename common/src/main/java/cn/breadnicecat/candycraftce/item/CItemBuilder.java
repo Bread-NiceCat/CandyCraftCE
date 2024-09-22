@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
-import com.mojang.datafixers.util.Pair;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -89,9 +88,8 @@ public class CItemBuilder<I extends Item> {
 	
 	/**
 	 * @param nutrition  饱食度
-	 * @param saturation 饱和度 # 饱和度=2*饱食度*饱和度修饰符,这里已经进行转化
-	 * @param modifier   可以为null,对FoodProperties进行最后的修饰
-	 * @apiNote 注意:不是对现有的FoodProperties修饰,而是直接构建一个新的去setFood
+	 * @param saturation 饱和度
+	 * @apiNote 注意:不是对现有的FoodProperties修饰,而是直接构建一个新的FoodProperties去setFood
 	 * @see FoodData#eat(int, float)
 	 */
 	public CItemBuilder<I> setFood(int nutrition, float saturation) {
@@ -111,6 +109,14 @@ public class CItemBuilder<I extends Item> {
 		return setFood(builder.build());
 	}
 	
+	/**
+	 * @param duration tick
+	 */
+	public CItemBuilder<I> sugarFuel(int duration) {
+		properties.component(CDataComponents.SUGAR_BURN_TIME.get(), duration);
+		return this;
+	}
+	
 	public CItemBuilder<I> setCtab(boolean ctab) {
 		this.ctab = ctab;
 		return this;
@@ -128,8 +134,7 @@ public class CItemBuilder<I extends Item> {
 	}
 	
 	private static <I extends Item> @NotNull ItemEntry<I> register(String name, Supplier<I> factory) {
-		Pair<ResourceKey<Item>, Supplier<I>> pair = CandyCraftCE.register(BuiltInRegistries.ITEM, prefix(name), factory);
-		return new ItemEntry<>(pair);
+		return new ItemEntry<>(CandyCraftCE.register(BuiltInRegistries.ITEM, prefix(name), factory));
 	}
 	
 	@SafeVarargs

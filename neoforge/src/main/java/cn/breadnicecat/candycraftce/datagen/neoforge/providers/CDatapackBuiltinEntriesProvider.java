@@ -1,9 +1,10 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.datagen.neoforge.providers.builtins.CConfiguredFeaturesData;
-import cn.breadnicecat.candycraftce.datagen.neoforge.providers.builtins.CDamageTypesData;
-import cn.breadnicecat.candycraftce.datagen.neoforge.providers.builtins.CJukeboxSoundData;
+import cn.breadnicecat.candycraftce.item.CEnchantments;
+import cn.breadnicecat.candycraftce.level.CConfiguredFeaturesData;
+import cn.breadnicecat.candycraftce.misc.CDamageTypes;
+import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.PackOutput;
@@ -27,8 +28,9 @@ public class CDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProvi
 	public CDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, new RegistrySetBuilder()
 						.add(CONFIGURED_FEATURE, CConfiguredFeaturesData::bootstrap)
-						.add(DAMAGE_TYPE, CDamageTypesData::bootstrap)
-						.add(JUKEBOX_SONG, CJukeboxSoundData::bootstrap)
+						.add(DAMAGE_TYPE, CDamageTypes::bootstrap)
+						.add(JUKEBOX_SONG, CJukeboxSound::bootstrap)
+						.add(ENCHANTMENT, CEnchantments::bootstrap)
 				, Set.of(CandyCraftCE.MOD_ID));
 	}
 }

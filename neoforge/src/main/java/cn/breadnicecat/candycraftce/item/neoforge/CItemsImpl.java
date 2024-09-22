@@ -58,7 +58,7 @@ public class CItemsImpl {
 	
 	@SubscribeEvent
 	public static void onItemColor(RegisterColorHandlersEvent.Item event) {
-		CItems.registerItemColors(event.getBlockColors(), event.getItemColors());
+		CItems._registerItemColors(event.getBlockColors(), event.getItemColors());
 	}
 	
 }

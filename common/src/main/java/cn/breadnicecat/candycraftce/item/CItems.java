@@ -134,7 +134,7 @@ public class CItems {
 	public static final ItemEntry<Item> CRANBERRY_EMBLEM = create("cranberry_emblem").save();
 	public static final ItemEntry<Item> NESSIE_EMBLEM = create("nessie_emblem").save();
 	public static final ItemEntry<Item> SUGUARD_EMBLEM = create("suguard_emblem").save();
-	public static final ItemEntry<ForkItem> FORK = create("fork", ForkItem::new).setProperties(new Properties().stacksTo(1)).save();
+	public static final ItemEntry<ForkItem> FORK = create("fork", ForkItem::new).setProperties(new Properties().stacksTo(1).durability(200)).save();
 	
 	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
 	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).setProperties(new Properties().stacksTo(1).durability(384)).save();
@@ -218,7 +218,7 @@ public class CItems {
 	
 	@Environment(EnvType.CLIENT)
 	private static void declareItemProperties() {
-		LOGGER.info("declareItemProperties");
+		LOGGER.info("Declare Item Properties");
 		ItemProperties.register(CARAMEL_BOW.get(), ResourceLocation.parse("pull"), (itemStack, clientLevel, livingEntity, i) -> {
 			if (livingEntity == null || livingEntity.getUseItem() != itemStack) {
 				return 0.0f;
@@ -231,13 +231,12 @@ public class CItems {
 	}
 	
 	public static void init() {
-		//初始化
 		CArmorMaterials.init();
 		CDataComponents.init();
 	}
 	
 	@Environment(EnvType.CLIENT)
-	public static void registerItemColors(BlockColors blockColors, ItemColors itemColors) {
+	public static void _registerItemColors(BlockColors blockColors, ItemColors itemColors) {
 		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor(),
 				CUSTARD_PUDDING);
 //		itemColors.register((item, tintindex) -> PuddingColor.getDefaultEnchantColor(),
@@ -292,19 +291,19 @@ public class CItems {
 	
 	//盔甲
 	private static CItemBuilder<ArmorItem> createHelmet(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.holder, HELMET, p.durability(HELMET.getDurability(material.durabilityMultiplier))));
+		return create(name, (p) -> new ArmorItem(material.getHolder(), HELMET, p.durability(HELMET.getDurability(material.durabilityMultiplier))));
 	}
 	
 	private static CItemBuilder<ArmorItem> createChestplate(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.holder, CHESTPLATE, p.durability(CHESTPLATE.getDurability(material.durabilityMultiplier))));
+		return create(name, (p) -> new ArmorItem(material.getHolder(), CHESTPLATE, p.durability(CHESTPLATE.getDurability(material.durabilityMultiplier))));
 	}
 	
 	private static CItemBuilder<ArmorItem> createLeggings(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.holder, LEGGINGS, p.durability(LEGGINGS.getDurability(material.durabilityMultiplier))));
+		return create(name, (p) -> new ArmorItem(material.getHolder(), LEGGINGS, p.durability(LEGGINGS.getDurability(material.durabilityMultiplier))));
 	}
 	
 	private static CItemBuilder<ArmorItem> createBoots(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.holder, BOOTS, p.durability(BOOTS.getDurability(material.durabilityMultiplier))));
+		return create(name, (p) -> new ArmorItem(material.getHolder(), BOOTS, p.durability(BOOTS.getDurability(material.durabilityMultiplier))));
 	}
 	
 	//平台差异

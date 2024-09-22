@@ -1,7 +1,6 @@
-package cn.breadnicecat.candycraftce.datagen.neoforge.providers.builtins;
+package cn.breadnicecat.candycraftce.level;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
-import cn.breadnicecat.candycraftce.level.CConfiguredFeatures;
 import cn.breadnicecat.candycraftce.level.foliage_placer.CandiedCherryFoliagePlacer;
 import cn.breadnicecat.candycraftce.level.foliage_placer.FancyCaramelFoliagePlacer;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -31,7 +30,7 @@ import static net.minecraft.data.worldgen.features.FeatureUtils.register;
  * Project: candycraftce
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
- * @see net.minecraft.data.worldgen.features.TreeFeatures#bootstrap(net.minecraft.data.worldgen.BootstapContext)
+ * @see net.minecraft.data.worldgen.features.TreeFeatures#bootstrap
  * <p>
  */
 public class CConfiguredFeaturesData extends CConfiguredFeatures {

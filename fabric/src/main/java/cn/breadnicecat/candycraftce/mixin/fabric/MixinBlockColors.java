@@ -23,6 +23,6 @@ public abstract class MixinBlockColors {
 			at = @At(value = "RETURN")
 	)
 	private static void createDefault(CallbackInfoReturnable<BlockColors> cir, @Local BlockColors blockColors) {
-		CBlocks.registerBlockColors(blockColors);
+		CBlocks._registerBlockColors(blockColors);
 	}
 }

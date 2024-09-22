@@ -1,11 +1,8 @@
 package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceKey;
+import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.world.level.material.Fluid;
-
-import java.util.function.Supplier;
 
 /**
  * Created in 2024/4/4 0:43
@@ -15,11 +12,8 @@ import java.util.function.Supplier;
  * <p>
  */
 public class FluidEntry<T extends Fluid> extends SimpleEntry<Fluid, T> {
-	public FluidEntry(ResourceKey<Fluid> key, Supplier<T> getter) {
-		super(key, getter);
-	}
-
-	public FluidEntry(Pair<ResourceKey<Fluid>, Supplier<T>> wrapper) {
+	
+	public FluidEntry(WrappedEntry<Fluid, T> wrapper) {
 		super(wrapper);
 	}
 }

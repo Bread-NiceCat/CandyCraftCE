@@ -24,6 +24,6 @@ public abstract class MixinItemColors {
 			at = @At(value = "RETURN")
 	)
 	private static void createDefault(BlockColors blockColors, CallbackInfoReturnable<ItemColors> cir, @Local ItemColors itemColors) {
-		CItems.registerItemColors(blockColors, itemColors);
+		CItems._registerItemColors(blockColors, itemColors);
 	}
 }

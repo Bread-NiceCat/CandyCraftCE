@@ -5,7 +5,6 @@ import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.entity.CEntities;
 import cn.breadnicecat.candycraftce.gui.block.CMenus;
-import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
 import cn.breadnicecat.candycraftce.misc.CEggProject;
@@ -15,11 +14,9 @@ import cn.breadnicecat.candycraftce.poi.CPoiTypes;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import com.mojang.datafixers.util.Pair;
+import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
 import org.slf4j.Logger;
@@ -76,24 +73,26 @@ public final class CandyCraftCE {
 		}
 		LOGGER.info("=".repeat(64));
 
-//		防止某些类未被链式调用导致不会被初始化，不计顺序
-//      尤其是含register的类
+//		Prevent certain classes from not being chained and not being initialized,
+//		regardless of order,
+//      especially some classes which contains `register` ops.
+//      note: some class only contains `RegistryKey<>` (like `CEnchantments`) needn't this!
+		
 		CItems.init();
-		CBlocks.init();
-		CBlockEntities.init();
-		CEntities.init();
-		CFluids.init();
-		CPoiTypes.init();
-		CDimInit.init();
 		CMenus.init();
+		CBlocks.init();
+		CFluids.init();
+		CDimInit.init();
+		CEntities.init();
+		CPoiTypes.init();
 		CGameRules.init();
+		CEggProject.init();
 		CRecipeTypes.init();
 		CSoundEvents.init();
-		CEggProject.init();
+		CBlockEntities.init();
 		if (isClient()) {
 			CParticles.init();
 		}
-		if (isLoaded("jei")) new CJeiPlugin();
 		
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
@@ -121,12 +120,7 @@ public final class CandyCraftCE {
 	}
 	
 	@ExpectPlatform
-	public static <R, S extends R> Pair<ResourceKey<R>, Supplier<S>> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
-		return impossibleCode();
-	}
-	
-	@ExpectPlatform
-	public static <R, S extends R> Holder<R> registerForHolder(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+	public static <R, S extends R> WrappedEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		return impossibleCode();
 	}
 	

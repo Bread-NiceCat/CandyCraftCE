@@ -1,4 +1,4 @@
-// 1.21	2024-08-25T22:43:32.9311251	Tags for minecraft:block mod id candycraftce
+// 1.21	2024-09-22T08:42:01.6864548	Tags for minecraft:block mod id candycraftce
 fba5ec75e0e07aae24ab92183402b25321f6bc71 data/candycraftce/tags/block/candy_animal_spawnable_on.json
 1d9df2b6201ee7a3b3612948e4da97fa7ac8f65a data/candycraftce/tags/block/candy_plant_suitable.json
 44772db1ca1d6922296fb06d710679ae148ea2b1 data/candycraftce/tags/block/caramel_portal_frame.json
@@ -16,7 +16,7 @@ e1169a3ee44ecbd2b15644823a090935a97b8e4c data/candycraftce/tags/block/ore_honeyc
 511f1b726a205f85bdf6e2e334f5d3ae1853aff7 data/candycraftce/tags/block/ore_nougat.json
 be6f9612730e4a2fba1fd5e3cce83b44a9e240a2 data/candycraftce/tags/block/ore_pez.json
 2ea817b1c761c7d9f04935572315b3c991f0f5d0 data/candycraftce/tags/block/ore_white_overrideable.json
-f36841845c9b12a77b69f59a9344e4691f3fd4a8 data/candycraftce/tags/block/sugary.json
+d325dfcdf76f6a7108a111ba4999a054c52efeda data/candycraftce/tags/block/sugary.json
 e2f51ab5e1647ef130148f4533afba97f4cfce61 data/minecraft/tags/block/climbable.json
 10df8474d7b1fd747804027494023fb637f38452 data/minecraft/tags/block/doors.json
 4fc00cb442e2166900e5cee7d1650aef7b680f27 data/minecraft/tags/block/fences.json

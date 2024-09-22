@@ -1,21 +1,23 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
 import cn.breadnicecat.candycraftce.block.BlockEntry;
-import cn.breadnicecat.candycraftce.datagen.neoforge.providers.builtins.CJukeboxSoundData;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.ZhCnCLanguageProvider;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.item.CCTab;
+import cn.breadnicecat.candycraftce.item.CEnchantments;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
+import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.JukeboxSong;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -321,6 +323,7 @@ public class CLanguageProvider implements DataProvider {
 		addJukeboxSong(CD_3, "Jean Jacques Perrey - Brazilian Flower", null);
 		addJukeboxSong(CD_4, "Little End - Rain travel in the MineCraft", null);
 		addJukeboxSong(CD_MINE, "J.D.K. - 鉄橋を越えて", null);
+		addEnchantment(CEnchantments.DEVOURER, "Devourer", "吞噬");
 	}
 	
 	/**
@@ -340,7 +343,11 @@ public class CLanguageProvider implements DataProvider {
 	}
 	
 	public void addJukeboxSong(ResourceKey<JukeboxSong> song, String en_us, String zh_cn) {
-		add(CJukeboxSoundData.getTransKey(song), en_us, zh_cn);
+		add(CJukeboxSound.getTransKey(song), en_us, zh_cn);
+	}
+	
+	public void addEnchantment(ResourceKey<Enchantment> song, String en_us, String zh_cn) {
+		add(song.location().toLanguageKey("enchantment"), en_us, zh_cn);
 	}
 	
 	public void addItemById(ItemEntry<?> ie, String zh_cn) {

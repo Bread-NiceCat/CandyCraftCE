@@ -43,7 +43,7 @@ public class CBlocksImpl {
 	
 	@SubscribeEvent
 	public static void onItemColor(RegisterColorHandlersEvent.Block event) {
-		CBlocks.registerBlockColors(event.getBlockColors());
+		CBlocks._registerBlockColors(event.getBlockColors());
 	}
 	
 }

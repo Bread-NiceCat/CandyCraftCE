@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.utils.RegistryEntry;
-import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -42,7 +41,7 @@ public class CCTab {
 	}
 	
 	private static RegistryEntry<CreativeModeTab> register(String name, Supplier<CreativeModeTab> builder) {
-		return new SimpleEntry<>(CandyCraftCE.register(BuiltInRegistries.CREATIVE_MODE_TAB, prefix(name), builder));
+		return CandyCraftCE.register(BuiltInRegistries.CREATIVE_MODE_TAB, prefix(name), builder).asSimpleEntry();
 	}
 	
 	@ExpectPlatform

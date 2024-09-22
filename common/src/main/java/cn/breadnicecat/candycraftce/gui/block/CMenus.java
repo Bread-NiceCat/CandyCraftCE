@@ -26,32 +26,32 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 public class CMenus {
 	private static final Logger LOGGER = CLogUtils.sign();
-
+	
 	static {
 		if (isClient()) hookMinecraftSetup(CMenus::declareScreen);
 	}
-
+	
 	public static final MenuEntry<LicoriceFurnaceMenu> LICORICE_FURNACE_MENU = register(LICORICE_FURNACE_BE.getName(), LicoriceFurnaceMenu::new);
 	public static final MenuEntry<ChocolateFurnaceMenu> CHOCOLATE_FURNACE_MENU = register(CHOCOLATE_FURNACE_BE.getName(), ChocolateFurnaceMenu::new);
 	public static final MenuEntry<SugarFactoryMenu> SUGAR_FACTORY_MENU = register(SUGAR_FACTORY_BE.getName(), SugarFactoryMenu::new);
 	public static final MenuEntry<AdvancedSugarFactoryMenu> ADVANCED_SUGAR_FACTORY_MENU = register(ADVANCED_SUGAR_FACTORY_BE.getName(), AdvancedSugarFactoryMenu::new);
-
+	
 	public static void init() {
 	}
-
+	
 	@Environment(EnvType.CLIENT)
 	public static void declareScreen() {
-		LOGGER.info("declareScreen");
+		LOGGER.info("Declare Screens");
 		MenuScreens.register(LICORICE_FURNACE_MENU.get(), LicoriceFurnaceScreen::new);
 		MenuScreens.register(CHOCOLATE_FURNACE_MENU.get(), ChocolateFurnaceScreen::new);
 		MenuScreens.register(SUGAR_FACTORY_MENU.get(), SugarFactoryScreen::new);
 		MenuScreens.register(ADVANCED_SUGAR_FACTORY_MENU.get(), AdvancedFactoryScreen::new);
 	}
-
+	
 	private static <M extends AbstractContainerMenu> MenuEntry<M> register(String key, MenuType.MenuSupplier<M> factory) {
 		return new MenuEntry<>(CandyCraftCE.register(BuiltInRegistries.MENU, prefix(key),
 				() -> new MenuType<>(factory, FeatureFlagSet.of())));
 	}
-
-
+	
+	
 }

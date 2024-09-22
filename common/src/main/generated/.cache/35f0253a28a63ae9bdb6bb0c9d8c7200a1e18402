@@ -1,4 +1,4 @@
-// 1.21	2024-08-25T02:44:20.718937	Item Models: candycraftce
+// 1.21	2024-09-22T08:42:01.6864548	Item Models: candycraftce
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/bunny_spawn_egg.json
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 1db7252b22afc34130202c06fec63a7e983ff1a9 assets/candycraftce/models/item/candied_cherry_leaf.json
@@ -39,6 +39,7 @@ e758428c1dca85af56c927d84c0326688be7850a assets/candycraftce/models/item/honeyco
 0e4a8bf336fcf1289003f1636bd717a091ff459a assets/candycraftce/models/item/iidebug.json
 119c09a127f3a4c7c37f30967bafb45734e7d168 assets/candycraftce/models/item/jelly_boss_key.json
 19775cd2cc03f98bc9b67b1039b6a04ea218560a assets/candycraftce/models/item/jelly_crown.json
+659151a74bda6f517614a6a45771a92a3ea18d6c assets/candycraftce/models/item/jelly_dungeon_key.json
 bc86903fd943d3170ebab06f383446be5ed232ed assets/candycraftce/models/item/jelly_emblem.json
 7c0810cf70b04efa9f8dcdccf7d10c67d1bf2007 assets/candycraftce/models/item/jelly_sentry_key.json
 d35ed402323bf26f865e7ffcdcaaf2344beb0be8 assets/candycraftce/models/item/licorice.json

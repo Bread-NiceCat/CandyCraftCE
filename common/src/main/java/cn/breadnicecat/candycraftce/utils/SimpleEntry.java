@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.utils;
 
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.Holder;
 
 import java.util.function.Supplier;
 
@@ -12,20 +11,22 @@ import java.util.function.Supplier;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  */
-public class SimpleEntry<R, T extends R> extends RegistryEntry<R> implements Supplier<T> {
-	private final Supplier<T> getter;
+public class SimpleEntry<R, T extends R> extends RegistryEntry<R> implements Supplier<T>, HolderSupplier<R> {
+	private final WrappedEntry<R, T> wrapper;
 	
-	public SimpleEntry(ResourceKey<R> key, Supplier<T> getter) {
-		super(key);
-		this.getter = getter;
-	}
 	
-	public SimpleEntry(Pair<ResourceKey<R>, Supplier<T>> wrapper) {
-		this(wrapper.getFirst(), wrapper.getSecond());
+	public SimpleEntry(WrappedEntry<R, T> wrapper) {
+		super(wrapper.getKey());
+		this.wrapper = wrapper;
 	}
 	
 	@Override
 	public T get() {
-		return getter.get();
+		return wrapper.get();
 	}
+	
+	public Holder<R> getHolder() {
+		return wrapper.getHolder();
+	}
+	
 }

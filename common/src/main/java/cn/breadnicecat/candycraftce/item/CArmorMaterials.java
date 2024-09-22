@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import cn.breadnicecat.candycraftce.utils.tools.LazySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -39,7 +40,7 @@ public enum CArmorMaterials {
 	//	JAWBREAKER("jawbreaker", 37, new int[]{3, 6, 8, 3}, 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(CItemTags.JAWBREAKER.getTagKey()));
 	private static final Logger LOGGER = CLogUtils.sign();
 	public final int durabilityMultiplier;
-	public final Holder<ArmorMaterial> holder;
+	public final WrappedEntry<ArmorMaterial, ArmorMaterial> wrapper;
 	
 	CArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType,
 	                int enchantmentValue, Holder<SoundEvent> sound, float toughness,
@@ -47,7 +48,7 @@ public enum CArmorMaterials {
 		this.durabilityMultiplier = durabilityMultiplier;
 		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(name)));
 		repairIngredient = LazySupplier.of(repairIngredient);
-		holder = register(name, protectionFunctionForType, enchantmentValue, sound, toughness, knockbackResistance, repairIngredient, list);
+		wrapper = register(name, protectionFunctionForType, enchantmentValue, sound, toughness, knockbackResistance, repairIngredient, list);
 	}
 	
 	CArmorMaterials(String name, int durabilityMultiplier, int[] protectionFunctionForType, int enchantmentValue, Holder<SoundEvent> sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
@@ -58,12 +59,16 @@ public enum CArmorMaterials {
 		}), enchantmentValue, sound, toughness, knockbackResistance, repairIngredient);
 	}
 	
-	private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngridient, List<ArmorMaterial.Layer> layers) {
+	private static WrappedEntry<ArmorMaterial, ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngridient, List<ArmorMaterial.Layer> layers) {
 		EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<>(ArmorItem.Type.class);
 		for (ArmorItem.Type type : ArmorItem.Type.values()) {
 			enumMap.put(type, defense.get(type));
 		}
-		return CandyCraftCE.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.parse(name), () -> new ArmorMaterial(enumMap, enchantmentValue, equipSound, repairIngridient, layers, toughness, knockbackResistance));
+		return CandyCraftCE.register(BuiltInRegistries.ARMOR_MATERIAL, ResourceLocation.parse(name), () -> new ArmorMaterial(enumMap, enchantmentValue, equipSound, repairIngridient, layers, toughness, knockbackResistance));
+	}
+	
+	public Holder<ArmorMaterial> getHolder() {
+		return wrapper.getHolder();
 	}
 	
 	public static void init() {
