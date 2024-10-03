@@ -21,7 +21,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  **/
 public class CJukeboxSound {
-	public static final ResourceKey<JukeboxSong> CD_MINE = create("cd_mine");
+	public static final ResourceKey<JukeboxSong> CD_o = create("cd_o");
 	public static final ResourceKey<JukeboxSong> CD_1 = create("cd_1");
 	public static final ResourceKey<JukeboxSong> CD_2 = create("cd_2");
 	public static final ResourceKey<JukeboxSong> CD_3 = create("cd_3");
@@ -36,7 +36,7 @@ public class CJukeboxSound {
 		register(context, CD_2, CSoundEvents.CD_2.getHolder(), 98, 2);
 		register(context, CD_3, CSoundEvents.CD_3.getHolder(), 112, 3);
 		register(context, CD_4, CSoundEvents.CD_4.getHolder(), 188, 4);
-		register(context, CD_MINE, CSoundEvents.CD_o.getHolder(), 128, Redstone.SIGNAL_MAX);
+		register(context, CD_o, CSoundEvents.CD_o.getHolder(), 128, Redstone.SIGNAL_MAX);
 		
 	}
 	

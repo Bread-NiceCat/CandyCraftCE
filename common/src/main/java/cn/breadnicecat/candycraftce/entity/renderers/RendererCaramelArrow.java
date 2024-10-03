@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
-import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.misc.CaramelArrow;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

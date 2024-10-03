@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce;
 import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.gui.block.CMenus;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.level.CDimInit;
@@ -14,7 +14,7 @@ import cn.breadnicecat.candycraftce.poi.CPoiTypes;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -83,7 +83,7 @@ public final class CandyCraftCE {
 		CBlocks.init();
 		CFluids.init();
 		CDimInit.init();
-		CEntities.init();
+		CEntityTypes.init();
 		CPoiTypes.init();
 		CGameRules.init();
 		CEggProject.init();
@@ -120,7 +120,7 @@ public final class CandyCraftCE {
 	}
 	
 	@ExpectPlatform
-	public static <R, S extends R> WrappedEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+	public static <R, S extends R> SimpleEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		return impossibleCode();
 	}
 	
@@ -129,7 +129,7 @@ public final class CandyCraftCE {
 	}
 	
 	/**
-	 * Forge: FMLCommonSetupEvent
+	 * Neo/Forge: FMLCommonSetupEvent
 	 * <p>
 	 * Fabric: onInitialize()
 	 */

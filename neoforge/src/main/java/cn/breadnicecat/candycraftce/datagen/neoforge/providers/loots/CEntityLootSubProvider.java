@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers.loots;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.advancements.critereon.EntityFlagsPredicate;
@@ -10,6 +10,7 @@ import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
-import static cn.breadnicecat.candycraftce.entity.CEntities.*;
+import static cn.breadnicecat.candycraftce.entity.CEntityTypes.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 
 /**
@@ -47,7 +48,7 @@ public class CEntityLootSubProvider extends EntityLootSubProvider {
 	public void generate() {
 		//NONE
 		accept((i) -> add(i, LootTable.lootTable()),
-				GINGERBREAD_MAN);
+				GINGERBREAD_MAN, MINT_JELLY, SEA_BANANA_JELLY, STRAWBERRY_JELLY);
 		add(CRANFISH, LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1f))
@@ -91,6 +92,25 @@ public class CEntityLootSubProvider extends EntityLootSubProvider {
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, NOT_BABY))
 				)
 		);
+		add(BUNNY, LootTable.lootTable()
+				.withPool(LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1.0f))
+						.add((LootItem.lootTableItem(CItems.GUMMY)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0f, 1f)))
+						)
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, NOT_BABY))
+				)
+		);
+		add(COOKIE_CREEPER, LootTable.lootTable()
+				.withPool(LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1.0f))
+						.add((LootItem.lootTableItem(Items.COOKIE)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0f, 1f)))
+						)
+				)
+		);
 		
 	}
 	
@@ -104,6 +124,6 @@ public class CEntityLootSubProvider extends EntityLootSubProvider {
 	
 	@Override
 	protected @NotNull Stream<EntityType<?>> getKnownEntityTypes() {
-		return CEntities.ENTITIES.values().stream().filter(EntityEntry::isLivingEntity).map(EntityEntry::get);
+		return CEntityTypes.ENTITIES.values().stream().filter(EntityEntry::isLivingEntity).map(EntityEntry::get);
 	}
 }

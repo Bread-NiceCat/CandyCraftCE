@@ -152,8 +152,12 @@
   "enchantment.candycraftce.devourer": "Devourer",
   "entity.candycraftce.bunny": "Gummy Bunny",
   "entity.candycraftce.candy_cane_pig": "Candy Cane Pig",
+  "entity.candycraftce.cookie_creeper": "Cookie Creeper",
   "entity.candycraftce.cranfish": "Cranfish",
   "entity.candycraftce.gingerbread_man": "Gingerbread Man",
+  "entity.candycraftce.mint_jelly": "Mint Jelly",
+  "entity.candycraftce.sea_banana_jelly": "Sea Banana Jelly",
+  "entity.candycraftce.strawberry_jelly": "Strawberry Jelly",
   "entity.candycraftce.waffle_sheep": "Waffle Sheep",
   "gamerule.doCaramelPortalWorks": "Enable Caramel Portal Teleport Player.",
   "item.candycraftce.candied_cherry": "Candied Cherry",
@@ -250,5 +254,5 @@
   "jukebox_song.candycraftce.cd_2": "Jakim - Every",
   "jukebox_song.candycraftce.cd_3": "Jean Jacques Perrey - Brazilian Flower",
   "jukebox_song.candycraftce.cd_4": "Little End - Rain travel in the MineCraft",
-  "jukebox_song.candycraftce.cd_mine": "J.D.K. - 鉄橋を越えて"
+  "jukebox_song.candycraftce.cd_o": "J.D.K. - 鉄橋を越えて"
 }

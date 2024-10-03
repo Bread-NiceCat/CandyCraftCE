@@ -1,9 +1,8 @@
 package cn.breadnicecat.candycraftce.mixin;
 
-import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
-import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
+import cn.breadnicecat.candycraftce.entity.entities.misc.CaramelArrow;
+import cn.breadnicecat.candycraftce.misc.mixin_ref.LivingEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -30,11 +29,11 @@ public abstract class MixinAbstractArrow {
 			)
 	)
 	protected void onHitEntity(@NotNull EntityHitResult result, CallbackInfo ci) {
-		LivingEntity instance = (LivingEntity) result.getEntity();
+		net.minecraft.world.entity.LivingEntity instance = (net.minecraft.world.entity.LivingEntity) result.getEntity();
 		if ((AbstractArrow) (Object) this instanceof CaramelArrow) {
 			SynchedEntityData data = instance.getEntityData();
-			data.set($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID,
-					data.get($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID) + 1);
+			data.set(LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID,
+					data.get(LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID) + 1);
 			instance.setArrowCount(instance.getArrowCount() - 1);
 			
 		}

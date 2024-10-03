@@ -7,9 +7,12 @@ import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.tools.Triple;
 import com.google.common.collect.ImmutableMap;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -20,20 +23,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
-import static cn.breadnicecat.candycraftce.CandyCraftCE.register;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.*;
 import static cn.breadnicecat.candycraftce.item.CItems._spawn_egg;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
-import static net.fabricmc.api.EnvType.CLIENT;
 import static net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE;
 
 /**
@@ -50,10 +51,9 @@ public class CEntityBuilder<T extends Entity> {
 	private Triple<SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<?>> placement;
 	private Function<EntityEntry<T>, Supplier<ItemEntry<SpawnEggItem>>> egg;
 	
-	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs = new ArrayList<>();
+	private Consumer<ClientBuilder<T>> clientBuilder;
 	
-	//涉及到ResourceReload，所以初始化完后保留
-	private static final @NotNull HashMap<ModelLayerLocation, Supplier<LayerDefinition>> layers = new HashMap<>();
+	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs = new LinkedList<>();
 	
 	static {
 		//把蛋都排到最后去
@@ -77,7 +77,7 @@ public class CEntityBuilder<T extends Entity> {
 		return this;
 	}
 	
-	public CEntityBuilder<T> modify(Consumer<EntityType.Builder<T>> consumer) {
+	public CEntityBuilder<T> modify(@NotNull Consumer<EntityType.Builder<T>> consumer) {
 		consumer.accept(builder);
 		return this;
 	}
@@ -90,6 +90,7 @@ public class CEntityBuilder<T extends Entity> {
 		this.placement = Triple.of(placement, heightmapType, predicate);
 		return this;
 	}
+	
 	
 	public CEntityBuilder<T> clientTrackingRange(int clientTrackingRange) {
 		builder.clientTrackingRange(clientTrackingRange);
@@ -126,24 +127,41 @@ public class CEntityBuilder<T extends Entity> {
 		return this;
 	}
 	
+	public CEntityBuilder<T> client(Consumer<ClientBuilder<T>> consumer) {
+		if (isClient()) {
+			assertTrue(clientBuilder == null, "You have created a ClientBuilder");
+			clientBuilder = consumer;
+		}
+		return this;
+	}
 	
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({"unchecked"})
 	public EntityEntry<T> save() {
 		ResourceLocation prefix = prefix(name);
 		EntityEntry<T> s = new EntityEntry<>(clazz, register(ENTITY_TYPE, prefix, () -> builder.build(prefix.toString())));
-		assertTrue(CEntities.ENTITIES.put(name, s) == null, () -> "重复注册" + prefix);
-		if (attribute != null) registerAttribute((EntityEntry<LivingEntity>) s, attribute);
-		if (egg != null) eggs.add(egg.apply(s));
+		CEntityTypes.ENTITIES.put(name, s);
+		if (clientBuilder != null) {
+			hookMinecraftSetup(() -> {
+				LOGGER.info("Creating EntityClientBuilder for {}", prefix);
+				ClientBuilder<T> cb = new ClientBuilder<>();
+				clientBuilder.accept(cb);
+				EntityRenderers.register(s.get(), cb.rendererProvider);
+			});
+		}
+		if (attribute != null) {
+			assertTrue(s.isLivingEntity(), "Only LivingEntity has Attribute");
+			registerAttribute((EntityEntry<LivingEntity>) s, attribute);
+		}
+		if (egg != null) {
+			assertTrue(s.isMob(), "Only Mob has SpawnEgg");
+			eggs.add(egg.apply(s));
+		}
 		if (placement != null) {
-			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate) placement.c()));
+			assertTrue(s.isMob(), "Only Mob have SpawnPlacement");
+			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType<Mob>) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate<Mob>) placement.c()));
 		}
 		
 		return s;
-	}
-	
-	@Environment(CLIENT)
-	public static void registerLayer(ModelLayerLocation location, Supplier<LayerDefinition> layer) {
-		layers.put(location, layer);
 	}
 	
 	@ExpectPlatform
@@ -154,11 +172,41 @@ public class CEntityBuilder<T extends Entity> {
 	/**
 	 * 由mixin调用,注册layer
 	 */
-	@Environment(CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static void _createRoots(ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder) {
-		LOGGER.info("create model roots");
-		layers.forEach((k, v) -> builder.put(k, v.get()));
+		LOGGER.info("Create Model Roots");
+		ClientBuilder.layers.forEach((k, v) -> builder.put(k, v.get()));
 	}
 	
+	//NOTE: although we won't use it in client,it needs to load this class when generate a lambda expression
+	//	@Environment(EnvType.CLIENT)
+	public static class ClientBuilder<T extends Entity> {
+		
+		//涉及到ResourceReload，所以初始化完后保留
+		private static final HashMap<ModelLayerLocation, Supplier<LayerDefinition>> layers = new HashMap<>();
+		
+		
+		private ClientBuilder() {
+			assertTrue(isClient(), "not in client!");
+		}
+		
+		private EntityRendererProvider<T> rendererProvider;
+		
+		public ClientBuilder<T> setRenderer(EntityRendererProvider<T> provider) {
+			rendererProvider = provider;
+			return this;
+		}
+		
+		@SuppressWarnings({"rawtypes", "unchecked"})
+		public ClientBuilder<T> setRendererForce(EntityRendererProvider provider) {
+			rendererProvider = provider;
+			return this;
+		}
+		
+		public ClientBuilder<T> addLayer(ModelLayerLocation location, Supplier<LayerDefinition> layer) {
+			layers.put(location, layer);
+			return this;
+		}
+	}
 }
 	

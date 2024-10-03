@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.item.CItems._SPAWN_EGG_TRANS_KEY;
+import static cn.breadnicecat.candycraftce.item.CItems.SPAWN_EGG_KEY;
 
 /**
  * Created in 2023/12/29 23:54
@@ -35,7 +35,7 @@ public class CItemsImpl {
 			CItemBuilder<SpawnEggItem> builder = CItemBuilder.create(entity.getName() + "_spawn_egg", (p) -> new SpawnEggItem(entity.get(), backgroundColor, highlightColor, p) {
 				@Override
 				public @NotNull Component getName(ItemStack stack) {
-					return Component.translatable(_SPAWN_EGG_TRANS_KEY, I18n.get(entity.get().getDescriptionId()));
+					return Component.translatable(SPAWN_EGG_KEY, I18n.get(entity.get().getDescriptionId()));
 				}
 			});
 			if (properties != null) builder.setProperties(properties);

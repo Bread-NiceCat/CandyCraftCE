@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.world.level.material.Fluid;
 
 /**
@@ -13,7 +12,7 @@ import net.minecraft.world.level.material.Fluid;
  */
 public class FluidEntry<T extends Fluid> extends SimpleEntry<Fluid, T> {
 	
-	public FluidEntry(WrappedEntry<Fluid, T> wrapper) {
+	public FluidEntry(SimpleEntry<Fluid, T> wrapper) {
 		super(wrapper);
 	}
 }

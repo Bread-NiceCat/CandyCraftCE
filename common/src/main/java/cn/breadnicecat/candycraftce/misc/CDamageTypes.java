@@ -58,6 +58,6 @@ public class CDamageTypes {
 	
 	
 	public static void bootstrap(BootstrapContext<DamageType> context) {
-		context.register(STEP_ON_SPIKES, new DamageType("step_on_spikes", 0.1f));
+		context.register(STEP_ON_SPIKES, new DamageType(STEP_ON_SPIKES.location().toLanguageKey(), 0.1f));
 	}
 }

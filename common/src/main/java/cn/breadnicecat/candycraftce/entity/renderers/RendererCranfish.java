@@ -30,6 +30,7 @@ public class RendererCranfish extends MobRenderer<Cranfish, ModelCranfish> {
 	@Override
 	protected void setupRotations(Cranfish entity, PoseStack poseStack, float bob, float yBodyRot, float partialTick, float scale) {
 		super.setupRotations(entity, poseStack, bob, yBodyRot, partialTick, scale);
+		//extra Fish rot
 		float f = 4.3f * Mth.sin(0.6f * bob);
 		poseStack.mulPose(Axis.YP.rotationDegrees(f));
 		if (!entity.isInWater()) {

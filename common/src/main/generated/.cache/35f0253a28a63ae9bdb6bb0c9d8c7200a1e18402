@@ -1,4 +1,4 @@
-// 1.21	2024-09-22T08:42:01.6864548	Item Models: candycraftce
+// 1.21	2024-10-03T21:43:51.5382076	Item Models: candycraftce
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/bunny_spawn_egg.json
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets/candycraftce/models/item/candied_cherry.json
 1db7252b22afc34130202c06fec63a7e983ff1a9 assets/candycraftce/models/item/candied_cherry_leaf.json
@@ -11,9 +11,11 @@ b09f6bf8f81d4e406d1f436a1e10b677d085be35 assets/candycraftce/models/item/caramel
 f05a32a6c8e3d22f43377a15b2240a878fd3bc56 assets/candycraftce/models/item/chocolate_brick.json
 36a290152b04fc2ddd02418098a2625affb3ffbc assets/candycraftce/models/item/chocolate_coin.json
 43b034a6557d318ebae9ed5d87a6dcc994af7a77 assets/candycraftce/models/item/chocolate_leaf.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/cookie_creeper_spawn_egg.json
 65762dc772bd33462a030b271cd5d2663d000cb6 assets/candycraftce/models/item/cotton_candy.json
 7ebf26bc3703e7835753d4d43aac0575b1b8ebd6 assets/candycraftce/models/item/cranberry_emblem.json
 ae5d5883cc0df9ab9684aab87ee2d118a888fe54 assets/candycraftce/models/item/cranfish.json
+8b06d7d048595e89aa7c74cb86127982c6f75c39 assets/candycraftce/models/item/cranfish_bucket.json
 d010c80060a62816224315552fc1d36db41a0483 assets/candycraftce/models/item/cranfish_cooked.json
 2a628cdd206f486f50f651a8eda2326908686e66 assets/candycraftce/models/item/cranfish_scale.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/cranfish_spawn_egg.json
@@ -62,6 +64,7 @@ c51be6432cc5cdd6b8644d3d13640a4013c97051 assets/candycraftce/models/item/marshma
 4bfd67ddd63f47a5a4dbf2570d883f801e2ee400 assets/candycraftce/models/item/marshmallow_shovel.json
 21d61ba9f83c0e247af6d9f038be1d2ee8de860b assets/candycraftce/models/item/marshmallow_stick.json
 8fe562a083a718e836bfc5eda8c09b5d0f526b68 assets/candycraftce/models/item/marshmallow_sword.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/mint_jelly_spawn_egg.json
 303b5c2adcce08566217fdc4384c26c438a6bdd8 assets/candycraftce/models/item/nessie_emblem.json
 67887a0cb781ea14c94a694c6f94840ff14b5345 assets/candycraftce/models/item/nougat_powder.json
 e610e3261c3f489e65e13c858567054112eff316 assets/candycraftce/models/item/pez.json
@@ -80,7 +83,9 @@ b2dfe62aec0fb50c520c48b98f221f0b35aeceb3 assets/candycraftce/models/item/pez_swo
 ceb5743a25b272d1e667d30394a00ec2227aa34a assets/candycraftce/models/item/record_3.json
 8034a0a0b9ca6ceda968ce3e9307023fbb085134 assets/candycraftce/models/item/record_4.json
 fa33fd693a2aa79d337e43a3e02d2c64757bfd6d assets/candycraftce/models/item/record_o.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/sea_banana_jelly_spawn_egg.json
 985ed6daff3644b8858ebd90e28b1972165567ae assets/candycraftce/models/item/sky_emblem.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/candycraftce/models/item/strawberry_jelly_spawn_egg.json
 fc4e671f33fc4c1b5d041154503c6be4f56ca423 assets/candycraftce/models/item/sugar_crystal.json
 9113e7d2f26ae7f2cd94b517c841965297207e08 assets/candycraftce/models/item/suguard_emblem.json
 1da64dad6e6f70cffa1104f3ae7e437f65bd5d91 assets/candycraftce/models/item/trampojelly_boots.json

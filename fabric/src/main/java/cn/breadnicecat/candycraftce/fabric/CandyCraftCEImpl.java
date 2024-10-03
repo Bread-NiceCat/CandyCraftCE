@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.fabric;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
@@ -44,11 +44,11 @@ public class CandyCraftCEImpl implements ModInitializer {
 		return CandyCraftCE.ModPlatform.FABRIC;
 	}
 	
-	public static <R, S extends R> WrappedEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
+	public static <R, S extends R> SimpleEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		ResourceKey<R> k = ResourceKey.create(registry.key(), key);
 		S v = factory.get();
 		Holder.Reference<R> holder = Registry.registerForHolder(registry, k, v);
-		return WrappedEntry.of(k, () -> v, holder);
+		return SimpleEntry.of(k, () -> v, holder);
 	}
 	
 	public static boolean isLoaded(String modid) {

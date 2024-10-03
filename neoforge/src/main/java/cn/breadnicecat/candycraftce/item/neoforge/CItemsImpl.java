@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.item.CItems._SPAWN_EGG_TRANS_KEY;
+import static cn.breadnicecat.candycraftce.item.CItems.SPAWN_EGG_KEY;
 
 /**
  * Created in 2023/12/29 23:55
@@ -44,7 +44,7 @@ public class CItemsImpl {
 				
 				@Override
 				public @NotNull Component getName(@NotNull ItemStack stack) {
-					return name == null ? name = Component.translatable(_SPAWN_EGG_TRANS_KEY, I18n.get(entity.get().getDescriptionId())) : name;
+					return name == null ? name = Component.translatable(SPAWN_EGG_KEY, I18n.get(entity.get().getDescriptionId())) : name;
 				}
 			});
 			if (properties != null) builder.setProperties(properties);

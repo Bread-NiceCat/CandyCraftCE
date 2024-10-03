@@ -23,6 +23,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static cn.breadnicecat.candycraftce.level.CDims.CANDYLAND;
@@ -36,86 +37,86 @@ import static cn.breadnicecat.candycraftce.level.CDims.DUNGEONS;
  * <p>
  */
 public class JellyDungeonTeleporterBlock extends BaseEntityBlock {
-    private static final MapCodec<JellyDungeonTeleporterBlock> CODEC = simpleCodec(JellyDungeonTeleporterBlock::new);
-
-    private static final VoxelShape DEFAULT = Shapes.empty();
-
-    public JellyDungeonTeleporterBlock(Properties properties) {
-        super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
-
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (player.isAlive() && !player.isPassenger() && !player.isVehicle()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof JellyDungeonTeleporterBE jellyDungeonTeleporterBE && level instanceof ServerLevel serverLevel) {
-                MinecraftServer server = serverLevel.getServer();
-                ServerLevel dungeonLevel = server.getLevel(DUNGEONS);
-                BlockPos dungeonPos = jellyDungeonTeleporterBE.findDungeons(dungeonLevel);
-
-                if (!jellyDungeonTeleporterBE.generated) {
-                    jellyDungeonTeleporterBE.generated = true;
-                    JellyDungeonGenerator jellyDungeonGenerator = new JellyDungeonGenerator();
-                    jellyDungeonGenerator.generate(dungeonLevel, dungeonPos.below());
-                }
-                //传送
-                DimensionTransition destination = getDestination(level, dungeonPos, player);
-                if (destination != null && player.canChangeDimensions(level, destination.newLevel())) {
-
-                    player.changeDimension(destination);
-                    return ItemInteractionResult.SUCCESS;
-                }
-            }
-
-        }
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-    }
-
-    /**
-     * @return null, 如果无法传送
-     */
-    protected @Nullable DimensionTransition getDestination(Level level, BlockPos pos, Entity entity) {
-        MinecraftServer server = level.getServer();
-        if (server == null) return null;
-
-        ResourceKey<Level> ori = level.dimension();
-        if (ori == DUNGEONS) {
-            ServerLevel candyworld = server.getLevel(CANDYLAND);
-            BlockPos.MutableBlockPos dest = pos.mutable();
-            int xOff = 0, zOff = 0;
-            do {
-                switch (level.random.nextInt(0, 2)) {
-                    case 0 -> xOff++;
-                    case 1 -> zOff++;
-                }
-                dest.move(xOff, 0, zOff);
-                int y = candyworld.getChunk(dest).getHeight(Heightmap.Types.MOTION_BLOCKING, dest.getX() + xOff, dest.getZ() + zOff) + 1;
-                dest.setY(y);
-            } while (candyworld.getBlockState(dest).is(this) || dest.getY() <= level.getMinBuildHeight());
-
-            return new DimensionTransition(candyworld, dest.getCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
-            });
-
-        } else {
-            Vec3 dest = pos.getCenter();
-            ServerLevel ccl = server.getLevel(DUNGEONS);
-
-            return new DimensionTransition(ccl, dest, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
-                if (e instanceof LivingEntity li) {
-                }
-            });
-        }
-    }
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new JellyDungeonTeleporterBE(pos, state);
-    }
-
+	private static final MapCodec<JellyDungeonTeleporterBlock> CODEC = simpleCodec(JellyDungeonTeleporterBlock::new);
+	
+	private static final VoxelShape DEFAULT = Shapes.empty();
+	
+	public JellyDungeonTeleporterBlock(Properties properties) {
+		super(properties);
+	}
+	
+	@Override
+	protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
+	}
+	
+	
+	@Override
+	protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (player.isAlive() && !player.isPassenger() && !player.isVehicle()) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof JellyDungeonTeleporterBE teleporterBE && level instanceof ServerLevel serverLevel) {
+				MinecraftServer server = serverLevel.getServer();
+				ServerLevel dungeonLevel = server.getLevel(DUNGEONS);
+				BlockPos dungeonPos = teleporterBE.findDungeons(dungeonLevel);
+				
+				if (!teleporterBE.generated) {
+					teleporterBE.generated = true;
+					JellyDungeonGenerator generator = new JellyDungeonGenerator();
+					generator.generate(dungeonLevel, dungeonPos.below());
+				}
+				//传送
+				DimensionTransition destination = getDestination(level, dungeonPos, player);
+				if (destination != null && player.canChangeDimensions(level, destination.newLevel())) {
+					
+					player.changeDimension(destination);
+					return ItemInteractionResult.SUCCESS;
+				}
+			}
+			
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+	
+	/**
+	 * @return null, 如果无法传送
+	 */
+	protected @Nullable DimensionTransition getDestination(Level level, BlockPos pos, Entity entity) {
+		MinecraftServer server = level.getServer();
+		if (server == null) return null;
+		
+		ResourceKey<Level> ori = level.dimension();
+		if (ori == DUNGEONS) {
+			ServerLevel candyworld = server.getLevel(CANDYLAND);
+			BlockPos.MutableBlockPos dest = pos.mutable();
+			int xOff = 0, zOff = 0;
+			do {
+				switch (level.random.nextInt(0, 2)) {
+					case 0 -> xOff++;
+					case 1 -> zOff++;
+				}
+				dest.move(xOff, 0, zOff);
+				int y = candyworld.getChunk(dest).getHeight(Heightmap.Types.MOTION_BLOCKING, dest.getX() + xOff, dest.getZ() + zOff) + 1;
+				dest.setY(y);
+			} while (candyworld.getBlockState(dest).is(this) || dest.getY() <= level.getMinBuildHeight());
+			
+			return new DimensionTransition(candyworld, dest.getCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
+			});
+			
+		} else {
+			Vec3 dest = pos.getCenter();
+			ServerLevel ccl = server.getLevel(DUNGEONS);
+			
+			return new DimensionTransition(ccl, dest, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), (e) -> {
+				if (e instanceof LivingEntity li) {
+				}
+			});
+		}
+	}
+	
+	@Override
+	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new JellyDungeonTeleporterBE(pos, state);
+	}
+	
 }

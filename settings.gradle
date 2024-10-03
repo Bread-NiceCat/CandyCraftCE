@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+//		maven{ url = '../local-plugin-repository'}
         if (Locale.getDefault() == Locale.CHINA) {
             maven { url "https://maven.aliyun.com/repository/public" }
         }

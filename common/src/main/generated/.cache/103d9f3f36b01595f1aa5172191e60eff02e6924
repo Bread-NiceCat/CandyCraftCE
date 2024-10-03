@@ -1,11 +1,11 @@
-// 1.21	2024-09-22T12:37:27.3741977	Registries
-76a948b500acfa5670404247818d8ff45cc7b04d data/candycraftce/damage_type/step_on_spikes.json
+// 1.21	2024-10-03T21:43:51.5352158	Registries
+b111e6f6a49f5b8b58503e860da63099055679b1 data/candycraftce/damage_type/step_on_spikes.json
 4a1f47b984b2177383cee7508ef9f7c3bcdf67fe data/candycraftce/enchantment/devourer.json
 3e67fbcbf398046ce75133cb84518cb59807a90a data/candycraftce/jukebox_song/cd_1.json
 902ed5911a92e467c722eba8482f4a2486b9d970 data/candycraftce/jukebox_song/cd_2.json
 e9d99f4c8124eeb2f22f6c69db7bc0590c5b4d61 data/candycraftce/jukebox_song/cd_3.json
 c244d0258f2c6e7d2dd2fb575135d0f3c36d67d2 data/candycraftce/jukebox_song/cd_4.json
-ec1eab004f9ebf8d65626036fdc0b137950e6f42 data/candycraftce/jukebox_song/cd_mine.json
+df1ebfb2fb9012f52c4bcc7c9560e8ec6102c79a data/candycraftce/jukebox_song/cd_o.json
 54ad30a0452d3006ffbc2f7aca5ff68576865cdc data/candycraftce/worldgen/configured_feature/candied_cherry_tree.json
 17b2707d43aa309b91c5b19aac6e80a232ab2bd3 data/candycraftce/worldgen/configured_feature/caramel_fancy_tree.json
 c916458025771d2dc1dd6b30b7b4d8713a422eab data/candycraftce/worldgen/configured_feature/caramel_tree.json

@@ -1,34 +1,22 @@
 {
   "cd-1": {
     "sounds": [
-      {
-        "name": "candycraftce:cd-1",
-        "stream": true
-      }
+      "candycraftce:cd-1"
     ]
   },
   "cd-2": {
     "sounds": [
-      {
-        "name": "candycraftce:cd-2",
-        "stream": true
-      }
+      "candycraftce:cd-2"
     ]
   },
   "cd-3": {
     "sounds": [
-      {
-        "name": "candycraftce:cd-3",
-        "stream": true
-      }
+      "candycraftce:cd-3"
     ]
   },
   "cd-4": {
     "sounds": [
-      {
-        "name": "candycraftce:cd-4",
-        "stream": true
-      }
+      "candycraftce:cd-4"
     ]
   },
   "jelly_dig": {
@@ -47,10 +35,7 @@
   },
   "o": {
     "sounds": [
-      {
-        "name": "candycraftce:o",
-        "stream": true
-      }
+      "candycraftce:o"
     ]
   }
 }

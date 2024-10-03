@@ -28,47 +28,21 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 	
 	@Override
 	public void registerSounds() {
-		asMusicDisc(CD_1, CD_1.getId());
-		asMusicDisc(CD_2, CD_2.getId());
-		asMusicDisc(CD_3, CD_3.getId());
-		asMusicDisc(CD_4, CD_4.getId());
-		asMusicDisc(CD_o, CD_o.getId());
-		simple(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
-		simple(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
+		base(CD_1, CD_1.getId());
+		base(CD_2, CD_2.getId());
+		base(CD_3, CD_3.getId());
+		base(CD_4, CD_4.getId());
+		base(CD_o, CD_o.getId());
+		base(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
+		base(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
 	}
 	
-	public void asStepSound(SoundEntry sound, ResourceLocation... soundLocs) {
-		withSubtitle(sound, "subtitles.block.generic.footsteps", soundLocs);
-	}
-	
-	public void asBreakSound(SoundEntry sound, ResourceLocation... soundLocs) {
-		withSubtitle(sound, "subtitles.block.generic.break", soundLocs);
-	}
-	
-	public void asPlaceSound(SoundEntry sound, ResourceLocation... soundLocs) {
-		withSubtitle(sound, "subtitles.block.generic.place", soundLocs);
-	}
-	
-	public void asMusicDisc(SoundEntry sound, ResourceLocation soundLoc) {
-		add(sound, SoundDefinition.definition()
-				.with(SoundDefinition.Sound.sound(soundLoc, SoundDefinition.SoundType.SOUND).stream())
-		);
-	}
-	
-	public void withSubtitle(SoundEntry sound, String subtitle, ResourceLocation... soundLocs) {
-		SoundDefinition definition = base(soundLocs).subtitle(subtitle);
-		add(sound, definition);
-	}
-	
-	public void simple(SoundEntry sound, ResourceLocation... soundLocs) {
-		add(sound, base(soundLocs));
-	}
-	
-	public SoundDefinition base(ResourceLocation... soundLocs) {
+	public SoundDefinition base(SoundEntry sound, ResourceLocation... soundLocs) {
 		SoundDefinition definition = SoundDefinition.definition();
 		for (ResourceLocation loc : soundLocs) {
 			definition.with(SoundDefinition.Sound.sound(loc, SoundDefinition.SoundType.SOUND));
 		}
+		add(sound, definition);
 		return definition;
 	}
 	

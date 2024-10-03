@@ -22,35 +22,34 @@ import org.jetbrains.annotations.NotNull;
 public class JellyBlock extends Block {
 	private final VoxelShape SHAPE = Shapes.create(0d, 0d, 0d, 1d, 0.995d, 1d);
 	private final JellyType type;
-
+	
 	public JellyBlock(Properties properties, JellyType type) {
 		super(properties);
 		this.type = type;
-
+		
 	}
-
+	
 	//  ORIGIN
 	//    public static final Block trampojelly = new BlockJelly(2.0D).setHardness(3.0F).setResistance(2000.0F);
 	//    public static final Block redTrampojelly = new BlockJelly(4.0D).setHardness(3.0F).setResistance(2000.0F);
 	//    public static final Block yellowTrampojelly = new BlockJelly(1.0D).setHardness(3.0F).setResistance(2000.0F);
 	//    public static final Block jellyShockAbsorber = new BlockJelly(-1.0D).setHardness(3.0F).setResistance(2000.0F);
 	//    public static final Block purpleJellyJump = new BlockJelly(2.1D).setLightLevel(0.8F).setHardness(3.0F).setResistance(2000.0F);
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
-
+	
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, @NotNull Entity entity, float fallDistance) {
 		entity.causeFallDamage(fallDistance, type.fallDamageMultiplier, entity.damageSources().fall());
 	}
-
-
+	
+	
 	/**
 	 * note: stepOn方法，只要玩家在{@code pos.above()}一格方块内就会被调用，不准确
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, @NotNull Entity entity) {
 		Vec3 movement = entity.getDeltaMovement();
@@ -59,7 +58,7 @@ public class JellyBlock extends Block {
 		}
 		super.entityInside(state, level, pos, entity);
 	}
-
+	
 	/**
 	 * @param deltaYMovement       Y加速度
 	 * @param fallDamageMultiplier 摔落减伤,[0-1],0=无伤,1=全伤
@@ -70,5 +69,5 @@ public class JellyBlock extends Block {
 		public static final JellyType SOFT = new JellyType(2.0, 0F);
 		public static final JellyType BLUE = new JellyType(0.0, 0F);
 	}
-
+	
 }

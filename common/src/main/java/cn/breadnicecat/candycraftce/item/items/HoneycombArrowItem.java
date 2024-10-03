@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.item.items;
 
-import cn.breadnicecat.candycraftce.entity.entities.entity.CaramelArrow;
+import cn.breadnicecat.candycraftce.entity.entities.misc.CaramelArrow;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.world.entity.LivingEntity;

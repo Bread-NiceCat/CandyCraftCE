@@ -3,7 +3,6 @@ package cn.breadnicecat.candycraftce.misc.mixin_ref;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.LivingEntity;
 
 /**
  * Created in 2024/7/3 上午1:17
@@ -14,9 +13,9 @@ import net.minecraft.world.entity.LivingEntity;
  *
  * <p>
  **/
-public class $LivingEntity {
+public interface LivingEntity {
 	/**
 	 * For Mixin
 	 */
-	public static final EntityDataAccessor<Integer> LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
+	EntityDataAccessor<Integer> DATA_CARAMEL_ARROW_COUNT_ID = SynchedEntityData.defineId(net.minecraft.world.entity.LivingEntity.class, EntityDataSerializers.INT);
 }

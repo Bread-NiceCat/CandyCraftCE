@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.entity;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,7 @@ import java.util.function.Supplier;
 public class EntityEntry<T extends Entity> extends SimpleEntry<EntityType<?>, EntityType<T>> implements Supplier<EntityType<T>> {
 	public final Class<T> clazz;
 	
-	public EntityEntry(Class<T> clazz, WrappedEntry<EntityType<?>, EntityType<T>> wrapper) {
+	public EntityEntry(Class<T> clazz, SimpleEntry<EntityType<?>, EntityType<T>> wrapper) {
 		super(wrapper);
 		this.clazz = clazz;
 		

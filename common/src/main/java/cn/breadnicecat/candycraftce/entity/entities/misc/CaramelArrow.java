@@ -1,6 +1,6 @@
-package cn.breadnicecat.candycraftce.entity.entities.entity;
+package cn.breadnicecat.candycraftce.entity.entities.misc;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,7 +26,7 @@ public class CaramelArrow extends AbstractArrow {
 	}
 	
 	public CaramelArrow(Level level) {
-		this(CEntities.CARAMEL_ARROW.get(), level);
+		this(CEntityTypes.CARAMEL_ARROW.get(), level);
 	}
 	
 	public CaramelArrow(double x, double y, double z, Level level) {
@@ -36,11 +36,11 @@ public class CaramelArrow extends AbstractArrow {
 	
 	
 	public CaramelArrow(double x, double y, double z, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
-		super(CEntities.CARAMEL_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
+		super(CEntityTypes.CARAMEL_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
 	}
 	
 	public CaramelArrow(LivingEntity owner, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
-		super(CEntities.CARAMEL_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
+		super(CEntityTypes.CARAMEL_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blockentity;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>
  */
 public class BlockEntityEntry<B extends BlockEntity> extends SimpleEntry<BlockEntityType<?>, BlockEntityType<B>> {
-	public BlockEntityEntry(WrappedEntry<BlockEntityType<?>, BlockEntityType<B>> wrapper) {
+	public BlockEntityEntry(SimpleEntry<BlockEntityType<?>, BlockEntityType<B>> wrapper) {
 		super(wrapper);
 	}
 	

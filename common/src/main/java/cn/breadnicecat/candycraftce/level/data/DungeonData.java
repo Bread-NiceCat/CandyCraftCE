@@ -1,74 +1,56 @@
 package cn.breadnicecat.candycraftce.level.data;
 
+import cn.breadnicecat.candycraftce.level.CDims;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class DungeonData extends SavedData {
-
-    private static final String IDENTIFIER = "candy_dungeons_data";
-    private int dungeonsSize;
-    private final ServerLevel server;
-    private static Map<Level, DungeonData> dataMap = new HashMap<>();
-
-
-    public DungeonData(ServerLevel p_300199_) {
-        super();
-        this.server = p_300199_;
-    }
-
-    public static DungeonData get(Level world) {
-        if (world instanceof ServerLevel serverLevel) {
-            ServerLevel level = world.getServer().getLevel(world.dimension());
-            DungeonData fromMap = dataMap.get(level);
-            if (fromMap == null) {
-                DimensionDataStorage storage = level.getDataStorage();
-                DungeonData data = storage.computeIfAbsent(DungeonData.factory(serverLevel), IDENTIFIER);
-                if (data != null) {
-                    data.setDirty();
-                }
-                dataMap.put(world, data);
-                return data;
-            }
-            return fromMap;
-        }
-        return null;
-    }
-
-    public static SavedData.Factory<DungeonData> factory(ServerLevel p_300199_) {
-        return new SavedData.Factory<>(() -> {
-            return new DungeonData(p_300199_);
-        }, (p_296865_, provider) -> {
-            return load(p_300199_, p_296865_);
-        }, DataFixTypes.SAVED_DATA_RAIDS);
-    }
-
-    public static DungeonData load(ServerLevel p_300199_, CompoundTag nbt) {
-        DungeonData data = new DungeonData(p_300199_);
-        if (nbt.contains("DungeonSize", 99)) {
-            data.dungeonsSize = nbt.getInt("DungeonSize");
-        }
-        return data;
-    }
-
-    public int getDungeonsSize() {
-        return dungeonsSize;
-    }
-
-    public void increaseDungeonsSize() {
-        this.dungeonsSize++;
-    }
-
-    @Override
-    public CompoundTag save(CompoundTag compound, HolderLookup.Provider p_323640_) {
-        compound.putInt("DungeonSize", this.dungeonsSize);
-        return compound;
-    }
+	
+	public static final String IDENTIFIER = "candy_dungeons_data";
+	public static final String COUNT_KEY = "dungeons_count";
+	public static final Factory<DungeonData> DATA_FACTORY = new SavedData.Factory<>(
+			DungeonData::new,
+			DungeonData::load,
+			DataFixTypes.SAVED_DATA_RAIDS);
+	
+	private int dungeonCount;
+	
+	public DungeonData() {
+	}
+	
+	public static @NotNull DungeonData get(MinecraftServer server) {
+		ServerLevel level = Objects.requireNonNull(server.getLevel(CDims.DUNGEONS), "Unable to access dim-dungeons.");
+		DimensionDataStorage storage = level.getDataStorage();
+		DungeonData data = storage.computeIfAbsent(DATA_FACTORY, IDENTIFIER);
+		return data;
+	}
+	
+	public static @NotNull DungeonData load(CompoundTag nbt, HolderLookup.Provider provider) {
+		DungeonData data = new DungeonData();
+		if (nbt.contains(COUNT_KEY, CompoundTag.TAG_INT)) data.dungeonCount = nbt.getInt(COUNT_KEY);
+		return data;
+	}
+	
+	@Override
+	public @NotNull CompoundTag save(CompoundTag compound, HolderLookup.Provider provider) {
+		compound.putInt(COUNT_KEY, this.dungeonCount);
+		return compound;
+	}
+	
+	public int getDungeonCount() {
+		return dungeonCount;
+	}
+	
+	public void increaseDungeonCount() {
+		this.dungeonCount++;
+		setDirty();
+	}
 }

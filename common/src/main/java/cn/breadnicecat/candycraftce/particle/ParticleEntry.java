@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.particle;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.core.particles.ParticleType;
 
 /**
@@ -13,7 +12,7 @@ import net.minecraft.core.particles.ParticleType;
  */
 public class ParticleEntry<T extends ParticleType<?>> extends SimpleEntry<ParticleType<?>, T> {
 	
-	public ParticleEntry(WrappedEntry<ParticleType<?>, T> wrapper) {
+	public ParticleEntry(SimpleEntry<ParticleType<?>, T> wrapper) {
 		super(wrapper);
 	}
 }

@@ -33,6 +33,6 @@ public class LayerBunnyBody extends RenderLayer<Bunny, ModelBunny> {
 		ModelBunny m = getParentModel();
 		m.setupAnim(bunny, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		int color = bunny.getRGB();
-		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutout(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), color);
+		m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(TEX)), packedLight, LivingEntityRenderer.getOverlayCoords(bunny, 0.0F), color);
 	}
 }

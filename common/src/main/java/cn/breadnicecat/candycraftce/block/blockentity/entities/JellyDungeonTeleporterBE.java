@@ -19,45 +19,45 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>
  */
 public class JellyDungeonTeleporterBE extends BlockEntity {
-    public BlockPos blockPos;
-    public boolean generated;
-
-    protected JellyDungeonTeleporterBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(blockEntityType, blockPos, blockState);
-    }
-
-    public JellyDungeonTeleporterBE(BlockPos blockPos, BlockState blockState) {
-        this(CBlockEntities.JELLY_DUNGEON_TELEPORTER_BE.get(), blockPos, blockState);
-    }
-
-    @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        blockPos = NbtUtils.readBlockPos(tag, "TeleportTarget").orElse(null);
-        this.generated = tag.getBoolean("Teleported");
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-
-        if (blockPos != null) {
-            tag.put("TeleportTarget", NbtUtils.writeBlockPos(blockPos));
-        }
-        tag.putBoolean("Teleported", this.generated);
-    }
-
-    public BlockPos findDungeons(ServerLevel level) {
-        if (this.blockPos == null) {
-            DungeonData data = DungeonData.get(level);
-
-            BlockPos zeroPos = new BlockPos(data.getDungeonsSize() * 32 * 16, 64, 0);
-            this.blockPos = zeroPos;
-            this.setChanged();
-            data.increaseDungeonsSize();
-            return zeroPos;
-        } else {
-            return this.blockPos;
-        }
-    }
+	public BlockPos blockPos;
+	public boolean generated;
+	
+	protected JellyDungeonTeleporterBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+		super(blockEntityType, blockPos, blockState);
+	}
+	
+	public JellyDungeonTeleporterBE(BlockPos blockPos, BlockState blockState) {
+		this(CBlockEntities.JELLY_DUNGEON_TELEPORTER_BE.get(), blockPos, blockState);
+	}
+	
+	@Override
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		blockPos = NbtUtils.readBlockPos(tag, "TeleportTarget").orElse(null);
+		this.generated = tag.getBoolean("Teleported");
+	}
+	
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+		
+		if (blockPos != null) {
+			tag.put("TeleportTarget", NbtUtils.writeBlockPos(blockPos));
+		}
+		tag.putBoolean("Teleported", this.generated);
+	}
+	
+	public BlockPos findDungeons(ServerLevel level) {
+		if (this.blockPos == null) {
+			DungeonData data = DungeonData.get(level.getServer());
+			
+			BlockPos zeroPos = new BlockPos(data.getDungeonCount() * 1024, 64, 0);
+			this.blockPos = zeroPos;
+			this.setChanged();
+			data.increaseDungeonCount();
+			return zeroPos;
+		} else {
+			return this.blockPos;
+		}
+	}
 }

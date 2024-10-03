@@ -23,31 +23,28 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpikesBlock extends Block {
 	public static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D);
-
+	
 	public SpikesBlock(Properties properties) {
 		super(properties);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, @NotNull BlockPos pos) {
 		return canSupportCenter(level, pos.below(), Direction.UP);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		entity.makeStuckInBlock(state, new Vec3(0.6, 0.4, 0.6));
 		entity.hurt(CDamageTypes.stepOnSpikes(level.registryAccess()), 2);
 		super.entityInside(state, level, pos, entity);
 	}
-
+	
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
 		entity.causeFallDamage(fallDistance, 2.5F, CDamageTypes.stepOnSpikes(level.registryAccess()));

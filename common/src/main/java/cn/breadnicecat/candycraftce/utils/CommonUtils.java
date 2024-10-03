@@ -1,11 +1,10 @@
 package cn.breadnicecat.candycraftce.utils;
 
+import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -53,6 +52,8 @@ public class CommonUtils {
 	
 	/**
 	 * 让visitor依次拜访每个house
+	 *
+	 * @return visitor
 	 */
 	@SafeVarargs
 	public static <I> I apply(I visitor, Consumer<I>... houses) {
@@ -64,19 +65,30 @@ public class CommonUtils {
 	
 	/**
 	 * 依次让所有guest拜访house
+	 *
+	 * @return house
 	 */
 	@SafeVarargs
-	public static <I> void accept(Consumer<I> house, I... guests) {
+	public static <I> Consumer<I> accept(Consumer<I> house, I... guests) {
 		for (I guest : guests) {
 			house.accept(guest);
 		}
+		return house;
 	}
 	
 	
+	/**
+	 * @return {@code factory.get()}
+	 */
 	public static <T> T make(@NotNull Supplier<T> factory) {
 		return factory.get();
 	}
 	
+	/**
+	 * accept and return
+	 *
+	 * @return ori
+	 */
 	public static <T> T make(T ori, @NotNull Consumer<T> factory) {
 		factory.accept(ori);
 		return ori;
@@ -85,33 +97,22 @@ public class CommonUtils {
 	/**
 	 * 线性插值
 	 *
-	 * @param p  插值点坐标
-	 * @param p1 顶点坐标1
-	 * @param p2 顶点坐标2
-	 * @param v1 顶点数值1
-	 * @param v2 顶点数值2
-	 * @return 插值后的数值
+	 * @param x  插值点坐标
+	 * @param x1 顶点坐标1
+	 * @param x2 顶点坐标2
+	 * @param y1 顶点数值1
+	 * @param y2 顶点数值2
+	 * @return yx 插值后的数值
 	 */
-	public static float linearInterpolation(float p, float p1, float p2, float v1, float v2) {
-		if (v1 == v2 || p1 == p2) {
+	public static float linear(float x, float x1, float x2, float y1, float y2) {
+		if (y1 == y2 || x1 == x2) {
 			//value值相等 距离为0 不进行插值计算
-			return v1;
+			return y1;
 		} else {
-			return ((p2 - p) / (p2 - p1) * v1) + ((p - p1) / (p2 - p1) * v2);
+			return ((x2 - x) / (x2 - x1) * y1) + ((x - x1) / (x2 - x1) * y2);
 		}
 	}
 	
-	public static int[] listInt2int(List<Integer> listInt) {
-		int[] res = new int[listInt.size()];
-		int i = 0;
-		for (int num : listInt) {
-			res[i++] = num;
-		}
-		return res;
-		
-	}
-	
-	@Contract()//把->fail顶掉
 	public static <T> T impossibleCode() {
 		throw new AssertionError("Impossible code invoked. It's a bug, please report it to us");
 	}
@@ -123,8 +124,12 @@ public class CommonUtils {
 	public static <T> T orElse(T value, Supplier<T> defaultValue) {
 		return value == null ? defaultValue.get() : value;
 	}
-
+	
 	public static boolean probability(Random random, int denominator) {
+		return random.nextInt(denominator) == 0;
+	}
+	
+	public static boolean probability(RandomSource random, int denominator) {
 		return random.nextInt(denominator) == 0;
 	}
 }

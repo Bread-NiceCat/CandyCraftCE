@@ -3,7 +3,9 @@ package cn.breadnicecat.candycraftce.block;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
 import cn.breadnicecat.candycraftce.item.CItems;
+import cn.breadnicecat.candycraftce.item.ICandyBuilder;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -13,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -29,13 +32,13 @@ import static net.minecraft.core.registries.BuiltInRegistries.BLOCK;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class CBlockBuilder<B extends Block> {
+public class CBlockBuilder<B extends Block> implements ICandyBuilder<CBlockBuilder<B>> {
 	private static List<Supplier<ItemEntry<BlockItem>>> items = new LinkedList<>();
 	
 	private final String name;
 	private final Function<Properties, B> factory;
 	private Supplier<Properties> properties;
-	private Function<BlockEntry<B>, ItemEntry<BlockItem>> item;
+	private Function<BlockEntry<B>, CItemBuilder<BlockItem>> item = CItemBuilder::block;
 	
 	static {
 		//把block都排到最后去
@@ -55,7 +58,6 @@ public class CBlockBuilder<B extends Block> {
 	protected CBlockBuilder(String name, Function<Properties, B> factory) {
 		this.name = name;
 		this.factory = factory;
-		this.simpleBlockItem(null);
 	}
 	
 	
@@ -90,38 +92,49 @@ public class CBlockBuilder<B extends Block> {
 		return this;
 	}
 	
-	public CBlockBuilder<B> simpleBlockItem(@Nullable Consumer<CItemBuilder<BlockItem>> modifier) {
-		blockItem((t) -> {
-			CItemBuilder<BlockItem> builder = CItemBuilder.block(t);
-			if (modifier != null) modifier.accept(builder);
-			return builder.save();
+	public CBlockBuilder<B> modifyBlockItem(@NotNull Consumer<CItemBuilder<BlockItem>> modifier) {
+		Objects.requireNonNull(modifier);
+		item = item.andThen(b -> {
+			modifier.accept(b);
+			return b;
 		});
 		return this;
 	}
 	
-	public CBlockBuilder<B> blockItem(Function<BlockEntry<B>, ItemEntry<BlockItem>> item) {
-		this.item = item;
+	public CBlockBuilder<B> blockItem(@NotNull Function<BlockEntry<B>, CItemBuilder<BlockItem>> item) {
+		this.item = Objects.requireNonNull(item);
 		return this;
 	}
+	
 	
 	@Deprecated
 	public BlockEntry<B> save() {
-		return save(null);
+		return save(MapColor.NONE);
 	}
 	
-	public BlockEntry<B> save(@Nullable MapColor mapColor) {
-		BlockEntry<B> entry = register(name, () -> {
+	public BlockEntry<B> save(@NotNull MapColor mapColor) {
+		BlockEntry<B> block = register(name, () -> {
 			Properties prop = (properties == null ? Properties.of() : properties.get());
-			if (mapColor != null) prop.mapColor(mapColor);
+			prop.mapColor(mapColor);
 			return factory.apply(prop);
 		});
-		if (item != null) items.add(() -> item.apply(entry));
-		CBlocks.BLOCKS.add(entry);
-		return entry;
+		if (item != null) items.add(() -> item.apply(block).save());
+		CBlocks.BLOCKS.add(block);
+		return block;
 	}
 	
 	
 	private static <B extends Block> BlockEntry<B> register(String name, Supplier<B> factory) {
 		return new BlockEntry<>(CandyCraftCE.register(BLOCK, prefix(name), factory));
+	}
+	
+	@Override
+	public CBlockBuilder<B> setFood(FoodProperties food) {
+		return modifyBlockItem(p -> p.setFood(food));
+	}
+	
+	@Override
+	public CBlockBuilder<B> sugarFuel(int duration) {
+		return modifyBlockItem(p -> p.sugarFuel(duration));
 	}
 }

@@ -29,15 +29,7 @@ public class CEggProject {
 		date = calendar.get(Calendar.DATE);
 	}
 	
-	public static boolean isXiao = isToday(4, 17);
-	public static boolean isDiluc = isToday(4, 30);
-	public static boolean isPaimon_itto = isToday(6, 1);
-	public static boolean isFurina = isToday(10, 13);
-	public static boolean isNahida = isToday(10, 27);
-	public static boolean isKazuha = isToday(10, 29);
-	public static boolean isBread = isToday(11, 18);
-	public static boolean isTighnari = isToday(12, 29);
-	public static boolean shouldLaunch = DEV | isXiao | isDiluc | isPaimon_itto | isFurina | isNahida | isKazuha | isTighnari | isBread;
+	public static boolean shouldLaunch = DEV;
 	
 	public static boolean isToday(int month, int date) {
 		return CEggProject.month == month && CEggProject.date == date;

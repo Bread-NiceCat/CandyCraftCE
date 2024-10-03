@@ -18,7 +18,6 @@ import static net.minecraft.world.item.ItemStack.EMPTY;
  */
 public class ItemStackList extends NonNullList<ItemStack> {
 	
-	
 	public ItemStackList(int size) {
 		super(make(() -> {
 			ItemStack[] stacks = new ItemStack[size];

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
@@ -45,7 +45,7 @@ public class CandyCanePig extends Pig {
 	@Nullable
 	@Override
 	public CandyCanePig getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return CEntities.CANDY_CANE_PIG.get().create(level);
+		return CEntityTypes.CANDY_CANE_PIG.get().create(level);
 	}
 	
 	@Override

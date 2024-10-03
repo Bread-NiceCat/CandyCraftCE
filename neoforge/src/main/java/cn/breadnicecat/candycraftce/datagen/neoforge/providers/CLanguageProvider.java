@@ -9,12 +9,14 @@ import cn.breadnicecat.candycraftce.item.CCTab;
 import cn.breadnicecat.candycraftce.item.CEnchantments;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import cn.breadnicecat.candycraftce.misc.CDamageTypes;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -29,8 +31,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
-import static cn.breadnicecat.candycraftce.entity.CEntities.CRANFISH;
-import static cn.breadnicecat.candycraftce.entity.CEntities.*;
+import static cn.breadnicecat.candycraftce.entity.CEntityTypes.CRANFISH;
+import static cn.breadnicecat.candycraftce.entity.CEntityTypes.*;
 import static cn.breadnicecat.candycraftce.item.CItems.LICORICE_SPEAR;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.sound.CJukeboxSound.*;
@@ -63,8 +65,8 @@ public class CLanguageProvider implements DataProvider {
 	protected void addTranslations() {
 		add(CCTab.TITLE_KEY, "CandyCraft CE", "糖果世界非官方版");
 		add(CGameRules.CARAMEL_PORTAL_WORKS.getDescriptionId(), "Enable Caramel Portal Teleport Player.", "允许焦糖传送门传送玩家");
-		addDamage("candycraftce.step_on_spikes", "%s's feet was pierced.", "%s的脚被刺穿了");
-		addDamageBy("candycraftce.step_on_spikes", "%s's feet was accidentally pierced while he escapes from %s", "%s在逃离%s的时候不慎被尖刺刺穿了脚");
+		addDamage(CDamageTypes.STEP_ON_SPIKES, "%s's feet was pierced.", "%s的脚被刺穿了");
+		addDamageBy(CDamageTypes.STEP_ON_SPIKES, "%s's feet was accidentally pierced while he escapes from %s", "%s在逃离%s的时候不慎被尖刺刺穿了脚");
 		addItemById(LICORICE, "盐甘草糖");
 		addItemById(HONEYCOMB, "蜜蜡");
 		addItemById(HONEYCOMB_SHARD, "蜜蜡碎片");
@@ -312,8 +314,12 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(STRIPPED_DARK_MARSHMALLOW_LOG, "去皮深色棉花软糖原木");
 		addBlockById(STRIPPED_LIGHT_MARSHMALLOW_LOG, "去皮浅色棉花软糖原木");
 		//=====================Entity====================
-		add(_SPAWN_EGG_TRANS_KEY, "%s Spawn Egg", "%s刷怪蛋");
+		add(SPAWN_EGG_KEY, "%s Spawn Egg", "%s刷怪蛋");
 		addEntityById(GINGERBREAD_MAN, "姜饼人");
+		addEntityById(MINT_JELLY, "薄荷果冻");
+		addEntityById(SEA_BANANA_JELLY, "香蕉果冻");
+		addEntityById(STRAWBERRY_JELLY, "草莓果冻");
+		addEntityById(COOKIE_CREEPER, "曲奇苦力怕");
 		addEntityById(CRANFISH, "蔓越莓鱼");
 		addEntityById(CANDY_CANE_PIG, "拐杖糖猪");
 		addEntityById(WAFFLE_SHEEP, "华夫饼羊");
@@ -322,15 +328,15 @@ public class CLanguageProvider implements DataProvider {
 		addJukeboxSong(CD_2, "Jakim - Every", null);
 		addJukeboxSong(CD_3, "Jean Jacques Perrey - Brazilian Flower", null);
 		addJukeboxSong(CD_4, "Little End - Rain travel in the MineCraft", null);
-		addJukeboxSong(CD_MINE, "J.D.K. - 鉄橋を越えて", null);
+		addJukeboxSong(CD_o, "J.D.K. - 鉄橋を越えて", null);
 		addEnchantment(CEnchantments.DEVOURER, "Devourer", "吞噬");
 	}
 	
 	/**
 	 * 包含一个玩家名参数
 	 */
-	private void addDamage(String msgId, String en_us, String zh_cn) {
-		add("death.attack." + msgId, en_us, zh_cn);
+	private void addDamage(ResourceKey<DamageType> msgId, String en_us, String zh_cn) {
+		add(msgId.location().toLanguageKey("death.attack"), en_us, zh_cn);
 	}
 	
 	/**
@@ -338,8 +344,8 @@ public class CLanguageProvider implements DataProvider {
 	 *
 	 * @see net.minecraft.world.damagesource.DamageSource#getLocalizedDeathMessage(LivingEntity)
 	 */
-	public void addDamageBy(String msgId, String en_us, String zh_cn) {
-		add("death.attack." + msgId + ".player", en_us, zh_cn);
+	public void addDamageBy(ResourceKey<DamageType> msgId, String en_us, String zh_cn) {
+		add(msgId.location().toLanguageKey("death.attack", "player"), en_us, zh_cn);
 	}
 	
 	public void addJukeboxSong(ResourceKey<JukeboxSong> song, String en_us, String zh_cn) {

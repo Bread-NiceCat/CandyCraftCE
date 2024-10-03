@@ -13,7 +13,7 @@ public class CSugarFuels {
 	
 	public static int getBurnDuration(@NotNull ItemStack stack) {
 		if (stack.isEmpty()) return 0;
-		Integer i = stack.get(SUGAR_BURN_TIME.get());
-		return i != null ? i : 0;
+		var v = stack.get(SUGAR_BURN_TIME.get());
+		return v != null ? v : 0;
 	}
 }

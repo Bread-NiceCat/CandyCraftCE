@@ -3,11 +3,9 @@ package cn.breadnicecat.candycraftce.entity.models;
 // Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
 
 import cn.breadnicecat.candycraftce.entity.entities.mobs.GingerbreadMan;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -16,10 +14,10 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.breadnicecat.candycraftce.entity.CEntities.GINGERBREAD_MAN;
+import static cn.breadnicecat.candycraftce.entity.CEntityTypes.GINGERBREAD_MAN;
 
 @Environment(EnvType.CLIENT)
-public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
+public class ModelGingerbreadMan extends HierarchicalModel<GingerbreadMan> {
 	public static final ModelLayerLocation MAIN = new ModelLayerLocation(GINGERBREAD_MAN.getId(), "main");
 	
 	private final ModelPart Head;
@@ -56,8 +54,8 @@ public class ModelGingerbreadMan extends EntityModel<GingerbreadMan> {
 	}
 	
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+	public @NotNull ModelPart root() {
+		return root;
 	}
 	
 	@Override

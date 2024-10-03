@@ -5,7 +5,7 @@ import cn.breadnicecat.candycraftce.recipe.recipes.RecipeSerializerExt;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFactoryRecipe;
 import cn.breadnicecat.candycraftce.recipe.recipes.SugarFurnaceRecipe;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
+import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
@@ -25,7 +25,7 @@ public class CRecipeTypes {
 	
 	public static <T extends Recipe<?>> RecipeTypeEntry<T> register(String name, Supplier<RecipeSerializerExt<T>> serializer) {
 		ResourceLocation id = prefix(name);
-		WrappedEntry<RecipeType<?>, RecipeType<T>> wrap1 = CandyCraftCE.register(BuiltInRegistries.RECIPE_TYPE, id, () -> new RecipeType<>() {
+		SimpleEntry<RecipeType<?>, RecipeType<T>> wrap1 = CandyCraftCE.register(BuiltInRegistries.RECIPE_TYPE, id, () -> new RecipeType<>() {
 			@Override
 			public String toString() {
 				return id.toString();

@@ -1,6 +1,6 @@
-package cn.breadnicecat.candycraftce.entity.entities.entity;
+package cn.breadnicecat.candycraftce.entity.entities.misc;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,11 +24,11 @@ public class LicoriceSpear extends AbstractArrow {
 	}
 	
 	public LicoriceSpear(Level level, double x, double y, double z, ItemStack itemStack) {
-		super(CEntities.LICORICE_SPEAR.get(), x, y, z, level, itemStack, null);
+		super(CEntityTypes.LICORICE_SPEAR.get(), x, y, z, level, itemStack, null);
 	}
 	
 	public LicoriceSpear(Level level, LivingEntity shooter, ItemStack stack) {
-		super(CEntities.LICORICE_SPEAR.get(), shooter, level, stack, null);
+		super(CEntityTypes.LICORICE_SPEAR.get(), shooter, level, stack, null);
 	}
 	
 	@Override

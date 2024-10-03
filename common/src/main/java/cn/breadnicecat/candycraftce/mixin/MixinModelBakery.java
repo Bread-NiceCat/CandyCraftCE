@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-import static cn.breadnicecat.candycraftce.misc.mixin_ref.$ItemRenderer.ItemRenderer$SPEAR_IN_HAND_MODEL;
+import static cn.breadnicecat.candycraftce.misc.mixin_ref.ItemRenderer.SPEAR_IN_HAND_MODEL;
 
 /**
  * Created in 2024/7/3 下午4:00
@@ -31,6 +31,6 @@ public abstract class MixinModelBakery {
 	@SuppressWarnings("rawtypes")
 	@Inject(method = "<init>", at = @At(value = "TAIL"))
 	void init(BlockColors blockColors, ProfilerFiller profilerFiller, Map modelResources, Map blockStateResources, CallbackInfo ci) {
-		loadSpecialItemModelAndDependencies(ItemRenderer$SPEAR_IN_HAND_MODEL);
+		loadSpecialItemModelAndDependencies(SPEAR_IN_HAND_MODEL);
 	}
 }

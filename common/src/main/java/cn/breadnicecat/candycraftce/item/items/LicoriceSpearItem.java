@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.item.items;
 
-import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
+import cn.breadnicecat.candycraftce.entity.entities.misc.LicoriceSpear;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.sounds.SoundEvents;
@@ -10,9 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>
  **/
-public class LicoriceSpearItem extends Item implements ProjectileItem {
+public class LicoriceSpearItem extends TridentItem implements ProjectileItem {
 	public LicoriceSpearItem(Properties properties) {
 		super(properties);
 	}
@@ -43,6 +43,7 @@ public class LicoriceSpearItem extends Item implements ProjectileItem {
 			return;
 		}
 		if (!level.isClientSide) {
+			//changed
 			LicoriceSpear spear = new LicoriceSpear(level, player, stack);
 			spear.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
 			if (player.hasInfiniteMaterials()) {

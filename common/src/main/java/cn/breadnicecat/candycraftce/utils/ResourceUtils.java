@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.utils;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 
@@ -32,6 +33,10 @@ public class ResourceUtils {
 	
 	public static ModelResourceLocation model(String location, String path) {
 		return new ModelResourceLocation(prefix(location), path);
+	}
+	
+	public static ModelLayerLocation layer(String location, String layer) {
+		return new ModelLayerLocation(prefix(location), layer);
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.renderers;
 
-import cn.breadnicecat.candycraftce.entity.entities.entity.LicoriceSpear;
+import cn.breadnicecat.candycraftce.entity.entities.misc.LicoriceSpear;
 import cn.breadnicecat.candycraftce.entity.models.ModelLicoriceSpear;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

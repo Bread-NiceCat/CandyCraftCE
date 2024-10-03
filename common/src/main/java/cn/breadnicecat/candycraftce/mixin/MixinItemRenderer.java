@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static cn.breadnicecat.candycraftce.misc.mixin_ref.$ItemRenderer.ItemRenderer$SPEAR_IN_HAND_MODEL;
+import static cn.breadnicecat.candycraftce.misc.mixin_ref.ItemRenderer.SPEAR_IN_HAND_MODEL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.orElse;
 import static net.minecraft.world.item.ItemDisplayContext.*;
 
@@ -48,7 +48,7 @@ public abstract class MixinItemRenderer {
 	
 	@Inject(method = "onResourceManagerReload", at = @At("HEAD"))
 	public void onResourceManagerReload(ResourceManager resourceManager, CallbackInfo ci) {
-		candycraftce$handSpearModel = itemModelShaper.getModelManager().getModel(ItemRenderer$SPEAR_IN_HAND_MODEL);
+		candycraftce$handSpearModel = itemModelShaper.getModelManager().getModel(SPEAR_IN_HAND_MODEL);
 	}
 	
 	@Inject(method = "renderStatic(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/level/Level;III)V",

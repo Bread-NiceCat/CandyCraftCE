@@ -4,28 +4,25 @@ package cn.breadnicecat.candycraftce.entity.models;
 // Paste this class into your mod and generate all required imports
 
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.entity.entities.mobs.Bunny;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import org.jetbrains.annotations.NotNull;
 
-public class ModelBunny extends EntityModel<Bunny> {
+public class ModelBunny extends HierarchicalModel<Bunny> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation MAIN = new ModelLayerLocation(CEntities.BUNNY.getId(), "main");
+	public static final ModelLayerLocation MAIN = new ModelLayerLocation(CEntityTypes.BUNNY.getId(), "main");
 	private final ModelPart root;
-	private final ModelPart bb_main;
 	
 	public ModelBunny(ModelPart root) {
 		super(RenderType::entityCutout);
 		this.root = root;
-		this.bb_main = root.getChild("bb_main");
 	}
 	
 	public ModelBunny(EntityRendererProvider.Context context) {
@@ -35,7 +32,7 @@ public class ModelBunny extends EntityModel<Bunny> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-		PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(12, 0).mirror().addBox(1.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+		partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(12, 0).mirror().addBox(1.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(12, 0).mirror().addBox(-3.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 0).mirror().addBox(1.0F, -2.0F, 1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 0).mirror().addBox(-3.0F, -2.0F, 1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
@@ -53,7 +50,7 @@ public class ModelBunny extends EntityModel<Bunny> {
 	}
 	
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+	public @NotNull ModelPart root() {
+		return root;
 	}
 }

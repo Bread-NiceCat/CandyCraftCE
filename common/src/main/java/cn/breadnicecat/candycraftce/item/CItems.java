@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.block.PuddingColor;
-import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
@@ -39,7 +39,6 @@ import java.util.function.Supplier;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
-import static cn.breadnicecat.candycraftce.item.CItemBuilder.setTab;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 import static net.minecraft.world.level.material.Fluids.WATER;
@@ -54,14 +53,14 @@ import static net.minecraft.world.level.material.Fluids.WATER;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
-	public static final String _SPAWN_EGG_TRANS_KEY = "item.candycraftce.spawn_egg";
+	public static final String SPAWN_EGG_KEY = "item.candycraftce.spawn_egg";
 	/**
 	 * 包括BlockItem
 	 */
 	public static @NotNull HashSet<ItemEntry<?>> ITEMS = new HashSet<>();
 	
 	private static @Nullable List<Supplier<ItemEntry<BlockItem>>> blockItems;
-	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggs;
+	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggItems;
 	
 	//TODO EAT
 	public static final ItemEntry<Item> LICORICE = create("licorice").setFood(3, 2f).save();
@@ -118,7 +117,7 @@ public class CItems {
 			.save();
 	
 	/*唱片*/
-	public static final ItemEntry<Item> RECORD_o = createRecord("record_o", CJukeboxSound.CD_MINE)
+	public static final ItemEntry<Item> RECORD_o = createRecord("record_o", CJukeboxSound.CD_o)
 			.modifyProperties(p -> p.rarity(Rarity.EPIC))
 			.setCtab(false)
 			.save();
@@ -144,7 +143,7 @@ public class CItems {
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
 	
 	/*流体*/
-	public static final ItemEntry<MobBucketItem> CRANFISH_BUCKET = create("cranfish_bucket", p -> _mob_bucket(CEntities.CRANFISH::get, () -> WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, p)).setProperties(new Properties().stacksTo(1)).save();
+	public static final ItemEntry<MobBucketItem> CRANFISH_BUCKET = create("cranfish_bucket", p -> _mob_bucket(CEntityTypes.CRANFISH::get, () -> WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, p)).setProperties(new Properties().stacksTo(1)).save();
 	//	public static final ItemEntry<CaramelBucketItem> CARAMEL_BUCKET = create("caramel_bucket", CaramelBucketItem::new).setProperties(new Properties().stacksTo(1)).save();
 	/*工具*/
 	//MARSHMALLOW
@@ -195,6 +194,7 @@ public class CItems {
 			.save();
 	public static final ItemEntry<IIDebugItem> IIDEBUG = create("iidebug", higher(IIDebugItem::new))
 			.setCtab(false)
+			.setTab(CreativeModeTabs.OP_BLOCKS)
 			.save();
 	
 	//HELPER.single(GRENADINE_BUCKET, () -> new BucketItem(CFluidEntries.GRENADINE_STATIC, defaultItemProperties().stacksTo(1)), GENERATED);
@@ -204,16 +204,13 @@ public class CItems {
 		if (isClient()) {
 			CandyCraftCE.hookMinecraftSetup(CItems::declareItemProperties);
 		}
-		
-		CCTab.add(Items.SUGAR::getDefaultInstance);
-		setTab(CreativeModeTabs.OP_BLOCKS, IIDEBUG::getDefaultInstance);
-		
-		CBlockEntities.init();
+		CCTab.ENTRIES.addFirst(Items.SUGAR::getDefaultInstance);
+		CBlocks.init();
 		blockItems.forEach(Supplier::get);
 		blockItems = null;
-		CEntities.init();
-		eggs.forEach(Supplier::get);
-		eggs = null;
+		CEntityTypes.init();
+		eggItems.forEach(Supplier::get);
+		eggItems = null;
 	}
 	
 	@Environment(EnvType.CLIENT)
@@ -255,7 +252,7 @@ public class CItems {
 	 * 仅仅是为了创造模式物品栏排序
 	 */
 	public static void hookEntityEggs(List<Supplier<ItemEntry<SpawnEggItem>>> items) {
-		eggs = items;
+		eggItems = items;
 	}
 	
 	//===========模板===========

@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin;
 
 import cn.breadnicecat.candycraftce.item.CItems;
-import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
+import cn.breadnicecat.candycraftce.misc.mixin_ref.LivingEntity;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -9,7 +9,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +27,7 @@ import java.util.Objects;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-@Mixin(LivingEntity.class)
+@Mixin(net.minecraft.world.entity.LivingEntity.class)
 public abstract class MixinLivingEntity {
 	@Shadow
 	public abstract ItemStack getItemBySlot(EquipmentSlot slot);
@@ -43,7 +42,7 @@ public abstract class MixinLivingEntity {
 	
 	@Inject(method = "tick", at = @At("HEAD"))
 	protected void tickHelmet(CallbackInfo ci) {
-		LivingEntity ent = (LivingEntity) (Object) this;
+		net.minecraft.world.entity.LivingEntity ent = (net.minecraft.world.entity.LivingEntity) (Object) this;
 		ItemStack itemStack = ent.getItemBySlot(EquipmentSlot.HEAD);
 		//水下面具呼吸
 		if (itemStack.is(CItems.WATER_MASK.get()) && ent.isEyeInFluid(FluidTags.WATER)) {
@@ -55,7 +54,7 @@ public abstract class MixinLivingEntity {
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))
 	protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
 		//记录被焦糖箭打中的次数
-		builder.define($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID, 0);
+		builder.define(LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID, 0);
 	}
 	
 	/**
@@ -64,6 +63,6 @@ public abstract class MixinLivingEntity {
 	@SuppressWarnings("unused")
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void clinit(CallbackInfo ci) {
-		Objects.requireNonNull($LivingEntity.LivingEntity$DATA_CARAMEL_ARROW_COUNT_ID);
+		Objects.requireNonNull(LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID);
 	}
 }

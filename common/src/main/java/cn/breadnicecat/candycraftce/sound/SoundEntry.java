@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.sound;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.sounds.SoundEvent;
 
 /**
@@ -12,7 +11,7 @@ import net.minecraft.sounds.SoundEvent;
  * <p>
  */
 public class SoundEntry extends SimpleEntry<SoundEvent, SoundEvent> {
-	public SoundEntry(WrappedEntry<SoundEvent, SoundEvent> wrapper) {
+	public SoundEntry(SimpleEntry<SoundEvent, SoundEvent> wrapper) {
 		super(wrapper);
 	}
 }

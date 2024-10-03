@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static cn.breadnicecat.candycraftce.item.CItems.LICORICE;
 
@@ -56,7 +57,7 @@ public class Bunny extends Rabbit {
 	@Nullable
 	@Override
 	public Bunny getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		Bunny bunny = CEntities.BUNNY.get().create(level);
+		Bunny bunny = Objects.requireNonNull(CEntityTypes.BUNNY.get().create(level));
 		bunny.setRGB_A(getRGB_A());
 		bunny.setRGB_B(((Bunny) otherParent).getRGB_B());
 		return bunny;
@@ -78,8 +79,8 @@ public class Bunny extends Rabbit {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt(COLOR_A_KEY, getRGB());
-		compound.putInt(COLOR_B_KEY, getRGB());
+		compound.putInt(COLOR_A_KEY, getRGB_A());
+		compound.putInt(COLOR_B_KEY, getRGB_B());
 	}
 	
 	@Override

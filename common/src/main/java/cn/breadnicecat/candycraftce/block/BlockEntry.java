@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.block;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -17,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  */
 public class BlockEntry<B extends Block> extends SimpleEntry<Block, B> implements ItemLike {
-	public BlockEntry(WrappedEntry<Block, B> wrapper) {
+	public BlockEntry(SimpleEntry<Block, B> wrapper) {
 		super(wrapper);
 	}
 	

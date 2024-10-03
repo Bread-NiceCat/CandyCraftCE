@@ -42,6 +42,7 @@ public class CItemModelProvider extends ItemModelProvider {
 					.forEach(e -> withExistingParent(e.getKey().location().getPath(), "item/template_spawn_egg"));
 			
 			accept(((i) -> basicItem(i.get())),
+					CRANFISH_BUCKET,
 					LICORICE, HONEYCOMB, HONEYCOMB_SHARD, PEZ, MARSHMALLOW_STICK,
 					SUGAR_CRYSTAL, COTTON_CANDY, GUMMY, HOT_GUMMY, CHOCOLATE_COIN,
 					NOUGAT_POWDER, PEZ_DUST, WAFFLE, WAFFLE_NUGGET,

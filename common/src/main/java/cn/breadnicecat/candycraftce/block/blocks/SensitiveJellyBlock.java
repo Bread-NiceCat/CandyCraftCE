@@ -38,13 +38,11 @@ public class SensitiveJellyBlock extends JellyBlock {
 		this(properties, SENSITIVE);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		level.scheduleTick(pos, this, 1);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void tick(BlockState state, ServerLevel level, final BlockPos pos, RandomSource random) {
 		BlockPos detect = pos;

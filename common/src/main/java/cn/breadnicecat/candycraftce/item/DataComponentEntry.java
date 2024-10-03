@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import cn.breadnicecat.candycraftce.utils.WrappedEntry;
 import net.minecraft.core.component.DataComponentType;
 
 /**
@@ -14,7 +13,7 @@ import net.minecraft.core.component.DataComponentType;
  * <p>
  **/
 public class DataComponentEntry<T> extends SimpleEntry<DataComponentType<?>, DataComponentType<T>> {
-	public DataComponentEntry(WrappedEntry<DataComponentType<?>, DataComponentType<T>> wrapper) {
+	public DataComponentEntry(SimpleEntry<DataComponentType<?>, DataComponentType<T>> wrapper) {
 		super(wrapper);
 	}
 }

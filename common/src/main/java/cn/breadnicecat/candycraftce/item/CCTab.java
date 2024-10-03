@@ -41,7 +41,7 @@ public class CCTab {
 	}
 	
 	private static RegistryEntry<CreativeModeTab> register(String name, Supplier<CreativeModeTab> builder) {
-		return CandyCraftCE.register(BuiltInRegistries.CREATIVE_MODE_TAB, prefix(name), builder).asSimpleEntry();
+		return CandyCraftCE.register(BuiltInRegistries.CREATIVE_MODE_TAB, prefix(name), builder);
 	}
 	
 	@ExpectPlatform

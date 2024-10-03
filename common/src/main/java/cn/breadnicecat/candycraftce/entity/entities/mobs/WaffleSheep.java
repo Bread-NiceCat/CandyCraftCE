@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
-import cn.breadnicecat.candycraftce.entity.CEntities;
+import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -57,7 +57,7 @@ public class WaffleSheep extends Sheep {
 	@Nullable
 	@Override
 	public Sheep getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return CEntities.WAFFLE_SHEEP.get().create(level);
+		return CEntityTypes.WAFFLE_SHEEP.get().create(level);
 	}
 	
 	@Override
