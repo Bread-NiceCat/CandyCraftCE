@@ -18,7 +18,6 @@
     "MixinEatBlockGoal",
     "MixinFarmBlock",
     "MixinItem",
-    "MixinItemStack",
     "MixinLivingEntity",
     "MixinNoiseBasedChunkGenerator",
     "MixinPlayer"
