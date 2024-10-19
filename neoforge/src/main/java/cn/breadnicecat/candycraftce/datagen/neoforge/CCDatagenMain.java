@@ -63,7 +63,7 @@ public class CCDatagenMain {
 	private static void launchProcessTerminator() {
 		Thread main = Thread.currentThread();
 		Thread helper = new Thread(() -> {
-			LOGGER.info("Thread {} started!", Thread.currentThread().getName());
+			LOGGER.info("Terminator `{}` started!", Thread.currentThread().getName());
 			while (main.isAlive()) {
 				try {
 					Thread.sleep(1000);

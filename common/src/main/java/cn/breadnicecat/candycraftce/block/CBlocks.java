@@ -3,16 +3,11 @@ package cn.breadnicecat.candycraftce.block;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.block.blocks.JellyBlock.JellyType;
-import cn.breadnicecat.candycraftce.level.CDims;
 import cn.breadnicecat.candycraftce.mixin.AxeItemAccessor;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -273,27 +268,6 @@ public class CBlocks {
 		if (isClient()) {
 			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
 		}
-	}
-	
-	@Environment(EnvType.CLIENT)
-	public static void _registerBlockColors(BlockColors colors) {
-		LOGGER.info("Registering Block Colors");
-		colors.register((state, getter, pos, tintindex) -> {
-					if (pos != null) {
-						return PuddingColor.getEnchantColor(pos.getX(), pos.getZ());
-					} else {
-						return PuddingColor.getDefaultEnchantColor();
-					}
-				},
-				MAGICAL_LEAVES.get());
-		colors.register((state, getter, pos, tintindex) -> {
-					ClientLevel level = Minecraft.getInstance().level;
-					if (pos != null && getter != null && level != null && level.dimension() == CDims.CANDYLAND) {
-						return getter.getBlockTint(pos, BiomeColors.GRASS_COLOR_RESOLVER);
-					} else return PuddingColor.getDefaultPuddingColor();
-				},
-				CUSTARD_PUDDING.get());
-		
 	}
 	
 	/**

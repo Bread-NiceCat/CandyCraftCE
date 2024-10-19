@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin.fabric;
 
-import cn.breadnicecat.candycraftce.item.CItems;
+import cn.breadnicecat.candycraftce.level.PuddingColor;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
@@ -24,6 +24,6 @@ public abstract class MixinItemColors {
 			at = @At(value = "RETURN")
 	)
 	private static void createDefault(BlockColors blockColors, CallbackInfoReturnable<ItemColors> cir, @Local ItemColors itemColors) {
-		CItems._registerItemColors(blockColors, itemColors);
+		PuddingColor._registerItemColors(blockColors, itemColors);
 	}
 }

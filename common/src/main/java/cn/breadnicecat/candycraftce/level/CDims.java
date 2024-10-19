@@ -1,10 +1,24 @@
 package cn.breadnicecat.candycraftce.level;
 
+import cn.breadnicecat.candycraftce.block.CBlocks;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
+import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 
+import java.util.List;
+import java.util.Optional;
+
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 
 /**
@@ -23,5 +37,27 @@ public class CDims {
 	
 	public static final ResourceKey<Level> CANDYLAND = ResourceKey.create(Registries.DIMENSION, CANDYCRAFT_LOCATION);
 	public static final ResourceKey<Level> DUNGEONS = ResourceKey.create(Registries.DIMENSION, DUNGEONS_LOCATION);
+	public static final ResourceKey<LevelStem> CANDYLAND_STEM = ResourceKey.create(Registries.LEVEL_STEM, CANDYCRAFT_LOCATION);
+	public static final ResourceKey<LevelStem> DUNGEONS_STEM = ResourceKey.create(Registries.LEVEL_STEM, DUNGEONS_LOCATION);
+	
+	public static void bootstrap(BootstrapContext<LevelStem> context) {
+		HolderGetter<DimensionType> types = context.lookup(Registries.DIMENSION_TYPE);
+		HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+		context.register(DUNGEONS_STEM, new LevelStem(types.getOrThrow(CDimTypes.DUNGEONS_TYPE),
+				new FlatLevelSource(make(() -> {
+					var settings = new FlatLevelGeneratorSettings(
+							Optional.empty(),
+							biomes.getOrThrow(CBiomes.DUNGEONS),
+							List.of()
+					);
+					List<FlatLayerInfo> layersInfo = settings.getLayersInfo();
+					layersInfo.add(new FlatLayerInfo(1, CBlocks.JAWBREAKER_BRICKS.get()));
+					layersInfo.add(new FlatLayerInfo(DUNGEONS_HEIGHT - 2, Blocks.AIR));
+					layersInfo.add(new FlatLayerInfo(1, CBlocks.JAWBREAKER_BRICKS.get()));
+					settings.updateLayers();
+					return settings;
+				}))));
+		
+	}
 	
 }

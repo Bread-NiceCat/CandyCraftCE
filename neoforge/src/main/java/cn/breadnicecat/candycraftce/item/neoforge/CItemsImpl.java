@@ -2,8 +2,8 @@ package cn.breadnicecat.candycraftce.item.neoforge;
 
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
-import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
+import cn.breadnicecat.candycraftce.level.PuddingColor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -58,7 +58,7 @@ public class CItemsImpl {
 	
 	@SubscribeEvent
 	public static void onItemColor(RegisterColorHandlersEvent.Item event) {
-		CItems._registerItemColors(event.getBlockColors(), event.getItemColors());
+		PuddingColor._registerItemColors(event.getBlockColors(), event.getItemColors());
 	}
 	
 }

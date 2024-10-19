@@ -308,7 +308,7 @@ public class CLanguageProvider implements DataProvider {
 //		addBlockById(BLACK_CHOCOLATE_STONE_TILE, "黑巧克力瓦");
 		addBlockById(WHITE_CHOCOLATE_FURNACE, "白巧克力熔炉");
 //		addBlockById(BLACK_CHOCOLATE_FURNACE, "黑巧克力熔炉");
-		addById(SugarFurnaceCategory.TITLE_KEY, "糖熔炉");
+		add(SugarFurnaceCategory.TITLE_KEY, "Sugar Furnace", "糖熔炉");
 		addBlockById(GRENADINE_ICE, "红石榴糖浆冰");
 		addBlockById(STRIPPED_MARSHMALLOW_LOG, "去皮棉花软糖原木");
 		addBlockById(STRIPPED_DARK_MARSHMALLOW_LOG, "去皮深色棉花软糖原木");

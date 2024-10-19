@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin.fabric;
 
-import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.level.PuddingColor;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.color.block.BlockColors;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,6 +23,6 @@ public abstract class MixinBlockColors {
 			at = @At(value = "RETURN")
 	)
 	private static void createDefault(CallbackInfoReturnable<BlockColors> cir, @Local BlockColors blockColors) {
-		CBlocks._registerBlockColors(blockColors);
+		PuddingColor._registerBlockColors(blockColors);
 	}
 }

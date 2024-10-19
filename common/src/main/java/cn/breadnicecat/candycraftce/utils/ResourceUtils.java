@@ -28,7 +28,11 @@ public class ResourceUtils {
 	 * @return MOD_ID:path
 	 */
 	public static ResourceLocation prefix(String path) {
-		return ResourceLocation.parse(simplePrefix(path));
+		return ResourceLocation.fromNamespaceAndPath(CandyCraftCE.MOD_ID, path);
+	}
+	
+	public static ResourceLocation prefixDefault(String path) {
+		return path.contains(":") ? ResourceLocation.parse(path) : prefix(path);
 	}
 	
 	public static ModelResourceLocation model(String location, String path) {

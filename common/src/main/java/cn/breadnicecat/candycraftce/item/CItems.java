@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.item;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.CBlocks;
-import cn.breadnicecat.candycraftce.block.PuddingColor;
 import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
@@ -12,8 +11,6 @@ import cn.breadnicecat.candycraftce.utils.TickUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -230,15 +227,6 @@ public class CItems {
 	public static void init() {
 		CArmorMaterials.init();
 		CDataComponents.init();
-	}
-	
-	@Environment(EnvType.CLIENT)
-	public static void _registerItemColors(BlockColors blockColors, ItemColors itemColors) {
-		itemColors.register((item, tintindex) -> PuddingColor.getDefaultPuddingColor(),
-				CUSTARD_PUDDING);
-//		itemColors.register((item, tintindex) -> PuddingColor.getDefaultEnchantColor(),
-//				MAGICAL_LEAVES, MAGICAL_LEAF);
-		
 	}
 	
 	/**

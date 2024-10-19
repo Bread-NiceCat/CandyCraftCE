@@ -1,5 +1,5 @@
 {
-  "type": "candycraftce:candyland_type",
+  "type": "candycraftce:candyland",
   "generator": {
     "type": "minecraft:noise",
     "settings": "candycraftce:candyland_settings",

@@ -9,6 +9,7 @@ architectury {
 def generatedResources = new File(project(":common").getProjectDir(), "/src/main/generated")
 def use_jbr_feature = rootProject.ext.use_jbr_feature
 archivesBaseName = archivesBaseName + "-neoforge"
+def candyTestMode = false;
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     neoForge {

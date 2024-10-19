@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.block.neoforge;
 
-import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.level.PuddingColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
@@ -43,7 +43,7 @@ public class CBlocksImpl {
 	
 	@SubscribeEvent
 	public static void onItemColor(RegisterColorHandlersEvent.Block event) {
-		CBlocks._registerBlockColors(event.getBlockColors());
+		PuddingColor._registerBlockColors(event.getBlockColors());
 	}
 	
 }

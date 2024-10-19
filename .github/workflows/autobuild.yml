@@ -24,14 +24,18 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Candy Server Test
+        run: ./gradlew runCandyServerTest
+        timeout-minutes: 2
+
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: merged
-          path: build/libs/merged/*[0-9].jar
+      #      - name: Upload Artifact
+      #        uses: actions/upload-artifact@v4
+      #        with:
+      #          name: merged
+      #          path: build/libs/merged/*[0-9].jar
 
       - name: Upload Neoforge
         uses: actions/upload-artifact@v4

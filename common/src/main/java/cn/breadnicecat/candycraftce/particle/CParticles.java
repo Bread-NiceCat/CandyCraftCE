@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.particle;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.particle.particles.CaramelPortalParticle;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.ParticleOptions;

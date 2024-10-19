@@ -3,8 +3,7 @@ plugins {
     id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "io.github.pacifistmc.forgix" version "1.2.+"
-//    id "io.github.pacifistmc.forgix" version "1.3.+"
+//    id "io.github.pacifistmc.forgix" version "1.2.+"
 }
 
 architectury {
@@ -18,27 +17,27 @@ ext {
 }
 String githubSha = System.getenv("GITHUB_SHA")
 String archive_file_base_name = "${mod_id}-${minecraft_version}${(githubSha != null ? "-${githubSha.substring(0, 7)}" : "")}"
-forgix {
-    group = maven_group
-    mergedJarName = "${archive_file_base_name}-merged-${mod_version}.jar"
-    outputDir = "build/libs/merged"
-    neoforge {
-        println("neoforge_jar_input: ':neoforge/${jarLocation = "build/libs/${archive_file_base_name}-neoforge-${mod_version}.jar"}'")
-        return null
-    }
-    fabric {
-        println("fabric_jar_input: ':fabric${jarLocation = "build/libs/${archive_file_base_name}-fabric-${mod_version}.jar"}'")
-        return null
-    }
-}
-mergeJars {
-    //dependsOn ':fabric:build'
-    //dependsOn ':neoforge:build'
-}
-build {
-    finalizedBy mergeJars
-}
 
+//forgix {
+//    group = maven_group
+//    mergedJarName = "${archive_file_base_name}-merged-${mod_version}.jar"
+//    outputDir = "build/libs/merged"
+//    neoforge {
+//        println("neoforge_jar_input: ':neoforge/${jarLocation = "build/libs/${archive_file_base_name}-neoforge-${mod_version}.jar"}'")
+//        return null
+//    }
+//    fabric {
+//        println("fabric_jar_input: ':fabric${jarLocation = "build/libs/${archive_file_base_name}-fabric-${mod_version}.jar"}'")
+//        return null
+//    }
+//}
+//mergeJars {
+//    //dependsOn ':fabric:build'
+//    //dependsOn ':neoforge:build'
+//}
+//build {
+//    finalizedBy mergeJars
+//
 allprojects {
     apply plugin: "java"
     apply plugin: "idea"
@@ -95,9 +94,9 @@ allprojects {
 
     jar {
         manifest {
-            attributes(BuiltTime: new Date())
+            attributes("Built-Time": new Date())
             if (githubSha != null) {
-                attributes(GitSha: githubSha)
+                attributes("Git-Sha": githubSha)
             }
         }
     }

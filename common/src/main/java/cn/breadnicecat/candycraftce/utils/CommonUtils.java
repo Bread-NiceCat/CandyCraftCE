@@ -132,4 +132,17 @@ public class CommonUtils {
 	public static boolean probability(RandomSource random, int denominator) {
 		return random.nextInt(denominator) == 0;
 	}
+	
+	public static void dumpAllStackTraces() {
+		Thread.getAllStackTraces().forEach((t, trace) -> {
+			System.out.printf("Thread: `%s` %s State: %s%n",
+					t.getName(),
+					t.isDaemon() ? "(Daemon)" : "",
+					t.getState()
+			);
+			for (StackTraceElement element : t.getStackTrace()) {
+				System.out.println("\tat " + element);
+			}
+		});
+	}
 }

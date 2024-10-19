@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.particle;
+package cn.breadnicecat.candycraftce.particle.particles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,14 +25,14 @@ public class CaramelPortalParticle extends PortalParticle {
 		gCol = f * 0.3f + 0.5f;
 		bCol = f;
 	}
-
+	
 	public static class CaramelProvider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
-
+		
 		public CaramelProvider(SpriteSet sprite) {
 			this.sprite = sprite;
 		}
-
+		
 		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			PortalParticle portalParticle = new CaramelPortalParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
 			portalParticle.pickSprite(this.sprite);
