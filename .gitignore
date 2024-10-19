@@ -19,3 +19,4 @@ classes/
 
 .legacy
 /common/src/main/generated/.cache/
+/logs/

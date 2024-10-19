@@ -16,6 +16,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.slf4j.Logger;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.CUSTARD_PUDDING;
@@ -53,7 +55,7 @@ public class PuddingColor {
 			return getDefaultPuddingColor();
 		}
 		ResourceKey<Biome> key = op.get();
-		if (key == CBiomes.ENCHANTED_FOREST) {
+		if (key == ENCHANTED_FOREST) {
 			return getEnchantColor(x, z);
 		}
 		return puddingColors.getInt(key);
@@ -61,12 +63,24 @@ public class PuddingColor {
 	
 	private final static NormalNoise GRASS_COLOR_NOISE = NormalNoise.create(RandomSource.create(8526L), -7, 1);
 	
+	@Deprecated(forRemoval = true)
+	public static void main(String[] args) throws IOException {
+		try (var s = new FileWriter("build/grass_color_noise_x1000.csv")) {
+			for (int i = 0; i < 1000; i++) {
+				for (int j = 0; j < 1000; j++) {
+					s.append("%.2f,".formatted(GRASS_COLOR_NOISE.getValue(j, 0, i)));
+				}
+				s.append("\n");
+			}
+		}
+	}
+	
 	/**
 	 * @return #b0ecff 淡蓝色 #b0b0ff 淡紫色 #a376da 深紫色
 	 */
 	public static int getEnchantColor(double x, double z) {
 		double d0 = GRASS_COLOR_NOISE.getValue(x, 0, z);
-		return (d0 < -0.4d) ? 0xb0ecff : ((d0 < 0.4d) ? 0xb0b0ff : 0xa376da);
+		return (d0 < -0.2) ? 0xb0ecff : d0 > 0.4 ? 0xa376da : 0xb0b0ff;
 	}
 	
 	/**
@@ -86,7 +100,9 @@ public class PuddingColor {
 	@Environment(EnvType.CLIENT)
 	public static void _registerBlockColors(BlockColors colors) {
 		LOGGER.info("Registering Block Colors");
-		colors.register((state, getter, pos, tintindex) -> getter.getBlockTint(pos, PUDDING_COLOR_RESOLVER),
+		colors.register((state, getter, pos, tintindex) ->
+						getter != null ? getter.getBlockTint(pos, PUDDING_COLOR_RESOLVER)
+								: getDefaultEnchantColor(),
 				CUSTARD_PUDDING.get(), MAGICAL_LEAVES.get());
 		
 	}
