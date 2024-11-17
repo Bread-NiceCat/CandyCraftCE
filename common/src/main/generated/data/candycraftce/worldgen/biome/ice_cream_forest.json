@@ -1,0 +1,78 @@
+{
+  "carvers": {
+    "air": [
+      "candycraftce:cave",
+      "candycraftce:cave_extra_underground",
+      "candycraftce:canyon"
+    ]
+  },
+  "downfall": 0.4,
+  "effects": {
+    "fog_color": -8722,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.game"
+    },
+    "sky_color": -2302756,
+    "water_color": -6635286,
+    "water_fog_color": -5847577
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "candycraftce:ore_licorice_lower",
+      "candycraftce:ore_licorice_upper",
+      "candycraftce:ore_honeycomb_lower",
+      "candycraftce:ore_honeycomb_middle",
+      "candycraftce:ore_honeycomb_upper",
+      "candycraftce:ore_jelly",
+      "candycraftce:ore_pez"
+    ],
+    [],
+    [],
+    [
+      "candycraftce:trees_white_forest",
+      "candycraftce:flower_white_forest",
+      "candycraftce:grass_white_forest"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "candycraftce:waffle_sheep",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 12
+      },
+      {
+        "type": "candycraftce:candy_cane_pig",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "candycraftce:bunny",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.0
+}

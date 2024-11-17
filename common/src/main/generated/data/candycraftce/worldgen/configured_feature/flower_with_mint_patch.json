@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "candycraftce:fraise_tagada_flower"
+                },
+                "weight": 6
+              },
+              {
+                "data": {
+                  "Name": "candycraftce:golden_sugar_flower"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "candycraftce:acid_mint_flower"
+                },
+                "weight": 3
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "candycraftce:fraise_tagada_flower"
+            }
+          }
+        }
+      ]
+    },
+    "tries": 64,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

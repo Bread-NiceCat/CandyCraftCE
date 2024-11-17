@@ -2,12 +2,14 @@ package cn.breadnicecat.candycraftce.particle;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.particle.particles.CaramelPortalParticle;
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
@@ -22,6 +24,9 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public class CParticles {
+	
+	private static final Logger LOGGER = CLogUtils.sign();
+	
 	public static ParticleEntry<SimpleParticleType> CARAMEL_PORTAL_PARTICLE_TYPE = create("caramel_portal_particle", false, CaramelPortalParticle.CaramelProvider::new);
 	
 	private static ParticleEntry<SimpleParticleType> create(String name, boolean overrideLimiter, ParticleEngine.SpriteParticleRegistration<SimpleParticleType> provider) {

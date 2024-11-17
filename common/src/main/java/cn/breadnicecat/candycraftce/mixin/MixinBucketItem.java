@@ -27,6 +27,7 @@ import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.PLACE
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  * 放置岩浆的时候点燃焦糖门
+ * required(fabric lack api
  * <p>
  **/
 @Mixin(BucketItem.class)

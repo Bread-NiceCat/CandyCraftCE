@@ -4,12 +4,12 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "MixinBlockEntityWithoutLevelRenderer",
-    "MixinClientLevel",
-    "MixinItemRenderer",
     "MixinLayerDefinitions",
-    "MixinModelBakery",
-    "MixinPlayerRenderer"
+    "MixinPlayerRenderer",
+    "pudding_tint.MixinClientLevel",
+    "spear.MixinBlockEntityWithoutLevelRenderer",
+    "spear.MixinItemRenderer",
+    "spear.MixinModelBakery"
   ],
   "mixins": [
     "AxeItemAccessor",
@@ -19,8 +19,8 @@
     "MixinFarmBlock",
     "MixinItem",
     "MixinLivingEntity",
-    "MixinNoiseBasedChunkGenerator",
-    "MixinPlayer"
+    "MixinPlayer",
+    "world.MixinNoiseBasedChunkGenerator"
   ],
   "injectors": {
     "defaultRequire": 1

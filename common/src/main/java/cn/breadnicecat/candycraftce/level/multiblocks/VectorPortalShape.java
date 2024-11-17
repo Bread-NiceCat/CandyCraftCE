@@ -420,6 +420,7 @@ public abstract class VectorPortalShape {
 					sets.get(flag).add(mutable.immutable());
 				} else if (flag == 2) {
 					//extra
+					//nop
 				} else return null;
 			}
 		}
@@ -430,7 +431,6 @@ public abstract class VectorPortalShape {
 		return switch (axis) {
 			case X -> new Axis[]{Z, Y};
 			case Z -> new Axis[]{X, Y};
-			
 			case Y -> new Axis[]{X, Z};
 		};
 	}

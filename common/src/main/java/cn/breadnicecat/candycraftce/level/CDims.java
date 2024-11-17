@@ -57,6 +57,18 @@ public class CDims {
 					settings.updateLayers();
 					return settings;
 				}))));
+//		HolderLookup.Provider provider = VanillaRegistries.createLookup();
+//		var presets = provider.lookup(Registries.WORLD_PRESET).orElseThrow();
+//		WorldPresets.bootstrap((BootstrapContext) context);
+//		var presets = context.lookup(Registries.WORLD_PRESET);
+//		WorldPreset normal = presets.getOrThrow(WorldPresets.NORMAL).value();
+//		LevelStem overworld = normal.overworld().orElseThrow();
+//		context.register(CANDYLAND_STEM, new LevelStem(types.getOrThrow(CDimTypes.CANDYLAND_TYPE),
+//				make(() -> {
+//					return new NoiseBasedChunkGenerator(overworld.generator().getBiomeSource(),
+//							Holder.direct(((NoiseBasedChunkGenerator) overworld.generator()).generatorSettings().value()));
+//				}))
+//		);
 		
 	}
 	

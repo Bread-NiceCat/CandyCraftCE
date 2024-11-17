@@ -4,6 +4,7 @@ import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -144,5 +145,15 @@ public class CommonUtils {
 				System.out.println("\tat " + element);
 			}
 		});
+	}
+	
+	public static boolean isDev() {
+		//检查是否处于Dev环境
+		boolean inDev = false;
+		try {
+			inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
+		} catch (Exception ignored) {
+		}
+		return inDev;
 	}
 }

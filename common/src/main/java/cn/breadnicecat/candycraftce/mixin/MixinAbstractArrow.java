@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  * 给实体添加被焦糖箭打中的属性
+ * required
  * <p>
  **/
 @Mixin(AbstractArrow.class)

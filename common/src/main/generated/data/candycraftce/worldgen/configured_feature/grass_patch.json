@@ -1,0 +1,62 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "candycraftce:sweet_grass_0"
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "candycraftce:sweet_grass_1"
+                },
+                "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "candycraftce:sweet_grass_2"
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "candycraftce:sweet_grass_3"
+                },
+                "weight": 4
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "candycraftce:sweet_grass_0"
+            }
+          }
+        }
+      ]
+    },
+    "tries": 32,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

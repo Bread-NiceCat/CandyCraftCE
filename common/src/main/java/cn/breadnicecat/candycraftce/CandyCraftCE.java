@@ -17,6 +17,7 @@ import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.Registry;
@@ -25,7 +26,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.jfr.Environment;
 import org.slf4j.Logger;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.function.Supplier;
 
@@ -39,18 +39,10 @@ public final class CandyCraftCE {
 	private static final Logger LOGGER = CLogUtils.sign();
 	
 	
-	public static final boolean DEV;
+	public static final boolean DEV = CommonUtils.isDev();
+	public static final Environment ENVIRONMENT = getEnvironment();
+	public static final ModPlatform PLATFORM = getPlatform();
 	
-	static {
-		//检查是否处于Dev环境
-		boolean inDev = false;
-		try {
-			inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
-		} catch (Exception ignored) {
-		} finally {
-			DEV = inDev;
-		}
-	}
 	
 	public static LinkedList<Runnable> bootstrapHooks = new LinkedList<>();
 	private static boolean postBootstrap = false;
@@ -63,16 +55,15 @@ public final class CandyCraftCE {
 		if (preBootstrap) {
 			LOGGER.error(MOD_ID + " has been bootstrapped");
 			Thread.dumpStack();
+			return;
 		}
 		preBootstrap = true;
-		Environment environment = getEnvironment();
-		ModPlatform platform = getPlatform();
 		
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
 		
 		LOGGER.info("=".repeat(64));
-		LOGGER.info(MOD_ID + " Running in {} with {}", environment, platform);
+		LOGGER.info(MOD_ID + " Running in {} with {}", ENVIRONMENT, PLATFORM);
 		if (DEV) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
@@ -110,7 +101,7 @@ public final class CandyCraftCE {
 	}
 	
 	public static boolean isClient() {
-		return getEnvironment() == Environment.CLIENT;
+		return ENVIRONMENT == Environment.CLIENT;
 	}
 	
 	@ExpectPlatform
@@ -119,12 +110,12 @@ public final class CandyCraftCE {
 	}
 	
 	@ExpectPlatform
-	public static Environment getEnvironment() {
+	private static Environment getEnvironment() {
 		return impossibleCode();
 	}
 	
 	@ExpectPlatform
-	public static ModPlatform getPlatform() {
+	private static ModPlatform getPlatform() {
 		return impossibleCode();
 	}
 	
@@ -163,10 +154,12 @@ public final class CandyCraftCE {
 	
 	public static RegistrySetBuilder getDataSetBuilder() {
 		return new RegistrySetBuilder()
-				.add(CONFIGURED_FEATURE, CConfiguredFeatures::bootstrap)
 				.add(DAMAGE_TYPE, CDamageTypes::bootstrap)
 				.add(JUKEBOX_SONG, CJukeboxSound::bootstrap)
 				.add(ENCHANTMENT, CEnchantments::bootstrap)
+				.add(CONFIGURED_CARVER, CConfiguredCarver::bootstrap)
+				.add(CONFIGURED_FEATURE, CConfiguredFeatures::bootstrap)
+				.add(PLACED_FEATURE, CPlacedFeatures::bootstrap)
 				.add(BIOME, CBiomes::bootstrap)
 				.add(DIMENSION_TYPE, CDimTypes::bootstrap)
 				.add(LEVEL_STEM, CDims::bootstrap);

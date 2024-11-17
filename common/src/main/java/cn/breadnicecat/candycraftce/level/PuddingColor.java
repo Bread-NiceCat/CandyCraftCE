@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.level;
 
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -16,16 +15,13 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.slf4j.Logger;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Optional;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.CUSTARD_PUDDING;
 import static cn.breadnicecat.candycraftce.block.CBlocks.MAGICAL_LEAVES;
 import static cn.breadnicecat.candycraftce.item.CItems.MAGICAL_LEAF;
+import static cn.breadnicecat.candycraftce.level.CBiomes.BIOME_PUDDING_COLORS;
 import static cn.breadnicecat.candycraftce.level.CBiomes.ENCHANTED_FOREST;
-import static cn.breadnicecat.candycraftce.level.CBiomes.PUDDING_PLAINS;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
 
 /**
  * Created in 2024/7/6 下午9:54
@@ -39,11 +35,6 @@ import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
 @Environment(EnvType.CLIENT)
 public class PuddingColor {
 	private static final Logger LOGGER = CLogUtils.sign();
-	protected static final Object2IntOpenHashMap<ResourceKey<Biome>> puddingColors = make(new Object2IntOpenHashMap<>(), (colors) -> {
-		colors.defaultReturnValue(PuddingColor.getDefaultPuddingColor());
-		colors.put(PUDDING_PLAINS, 15641275);
-		colors.put(ENCHANTED_FOREST, -1);//custom
-	});
 	
 	public static final ColorResolver PUDDING_COLOR_RESOLVER = PuddingColor::getColor;
 	
@@ -58,22 +49,10 @@ public class PuddingColor {
 		if (key == ENCHANTED_FOREST) {
 			return getEnchantColor(x, z);
 		}
-		return puddingColors.getInt(key);
+		return BIOME_PUDDING_COLORS.getInt(key);
 	}
 	
 	private final static NormalNoise GRASS_COLOR_NOISE = NormalNoise.create(RandomSource.create(8526L), -7, 1);
-	
-	@Deprecated(forRemoval = true)
-	public static void main(String[] args) throws IOException {
-		try (var s = new FileWriter("build/grass_color_noise_x1000.csv")) {
-			for (int i = 0; i < 1000; i++) {
-				for (int j = 0; j < 1000; j++) {
-					s.append("%.2f,".formatted(GRASS_COLOR_NOISE.getValue(j, 0, i)));
-				}
-				s.append("\n");
-			}
-		}
-	}
 	
 	/**
 	 * @return #b0ecff 淡蓝色 #b0b0ff 淡紫色 #a376da 深紫色
@@ -110,10 +89,7 @@ public class PuddingColor {
 	@Environment(EnvType.CLIENT)
 	public static void _registerItemColors(BlockColors blockColors, ItemColors itemColors) {
 		LOGGER.info("Registering Item Colors");
-		itemColors.register((item, tintindex) -> getDefaultPuddingColor(),
-				CUSTARD_PUDDING);
-		itemColors.register((item, tintindex) -> getDefaultEnchantColor(),
-				MAGICAL_LEAF);
-		
+		itemColors.register((item, tintindex) -> getDefaultPuddingColor(), CUSTARD_PUDDING);
+		itemColors.register((item, tintindex) -> getDefaultEnchantColor(), MAGICAL_LEAF, MAGICAL_LEAVES.asItem());
 	}
 }

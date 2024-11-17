@@ -20,10 +20,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
  * @see net.minecraft.world.item.BoneMealItem#useOn
+ * <p>
+ * required
  */
 @Mixin(Item.class)
 public abstract class MixinItem {
-
+	
 	@Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
 	private void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
 		if ((Object) this == Items.SUGAR) {
