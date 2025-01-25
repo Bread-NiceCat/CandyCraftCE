@@ -10,20 +10,22 @@
 
 ## Licence
 
-The mod is distributed under [LGPLv3](LICENSE).
+- The mod *resource* is public but not allowed to be used without permission. [ARR] All rights reserved.
+- The *code* is open-sourced via [LGPLv3](LICENSE).
 
 <hr>
 
 ## Download
 
-- Auto-built versions([GitHub Actions](.docs/autobuild_github.md))
-- ~~Compile yourself by following "a little" steps [here](#Compile)~~
+- get release version via [mcmod](https://www.mcmod.cn/download/8526.html).
+- Auto-built(Nightly) versions([GitHub Actions](.docs/autobuild.md)).
+- Compile by yourself [here](#Compile).
 
 <hr>
 
 ## Compile
 
 1. Simply execute the command `./gradlew build` in project root directory
-2. Check products in `build\libs\merged\candycraft-xxx-merged-x.x.x.jar`
+2. Check products in `build\libs\merged\candycraftce-xxx-x.x.x.jar`
 
 <hr>

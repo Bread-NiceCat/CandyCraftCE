@@ -1,6 +1,6 @@
-# *Auto-build through GitHub Actions*
+# *通过Github工作流下载自动构建的版本*
 
-[[Gitee码云]](autobuild_gitee.md) [GitHub]
+[[简体中文]](autobuild_cn.md) [English]
 
 1. GitHub Action will build it automatically. Click ([here](https://github.com/Bread-NiceCat/CandyCraftCE/actions)).
    ![img0](/.docs/pics/autobuild/github0.png)
