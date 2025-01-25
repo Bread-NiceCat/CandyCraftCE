@@ -31,12 +31,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      #      - name: Upload Artifact
-      #        uses: actions/upload-artifact@v4
-      #        with:
-      #          name: merged
-      #          path: build/libs/merged/*[0-9].jar
-
       - name: Upload Neoforge
         uses: actions/upload-artifact@v4
         with:
@@ -54,3 +48,18 @@ jobs:
         with:
           name: fabric
           path: fabric/build/libs/*[0-9].jar
+
+#      - name: Publish Release on Gitee
+#        uses: nicennnnnnnlee/action-gitee-release@v1.0.5
+#        id: create_release
+#        with:
+#          gitee_owner: Bread-NiceCat
+#          gitee_repo: candycraftce
+#          gitee_token: ${{ secrets.GITEE_TOKEN }}
+#          gitee_tag_name:
+#          gitee_release_name: Test v1.0.0
+#          gitee_release_body:
+#          gitee_target_commitish: master
+#          gitee_upload_retry_times: 3
+#          gitee_files: |
+#            

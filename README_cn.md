@@ -28,3 +28,6 @@
 2. 编译好的mod文件将输出在 `build\libs\merged\candycraft-xxx-x.x.x.jar`
 
 <hr>
+
+
+[![Bread_NiceCat/CandyCraftCE](https://gitee.com/Bread-NiceCat/candycraftce/widgets/widget_card.svg?colors=4183c4,ffffff,ffffff,e3e9ed,666666,9b9b9b)](https://gitee.com/Bread-NiceCat/candycraftce)
