@@ -43,17 +43,19 @@ public class ItemStackList extends NonNullList<ItemStack> {
 	}
 	
 	/**
-	 * @return false->未插入 true->插入部分或全部
+	 * 注意：会额外对参数{@code item}直接修改
+	 *
+	 * @return 未被插入的部分
 	 */
-	public boolean insert(int index, ItemStack item) {
+	public ItemStack insert(int index, ItemStack item) {
 		ItemStack cur = get(index);
 		if (item.isEmpty()) {//不能插空
-			return false;
+			return item;
 		}
 		if (cur.isEmpty()) {//若空则直接放入
 			set(index, item.copy());
 			item.setCount(0);
-			return true;
+			return item;
 		}
 		int left = cur.getMaxStackSize() - cur.getCount();//能插的最大数量
 		if (left != 0 && ItemStack.isSameItemSameComponents(cur, item)) {
@@ -65,9 +67,31 @@ public class ItemStackList extends NonNullList<ItemStack> {
 				cur.grow(left);//max
 				item.shrink(left);
 			}
-			return true;
 		}
-		return false;
+		return item;
+	}
+	
+	/**
+	 * 插入，但是不对列表中的数据进行修改
+	 *
+	 * @return 未被插入的部分
+	 */
+	public ItemStack simulateInsert(int index, ItemStack item) {
+		ItemStack cur = get(index);
+		if (item.isEmpty()) {//不能插空
+			return item;
+		}
+		if (cur.isEmpty()) {//若空则直接放入
+			item.setCount(0);
+			return item;
+		}
+		int left = cur.getMaxStackSize() - cur.getCount();//能插的最大数量
+		if (left != 0 && ItemStack.isSameItemSameComponents(cur, item)) {
+			int itemCnt = item.getCount();
+			//剩余 >= 外来
+			item.shrink(Math.min(left, itemCnt));//0
+		}
+		return item;
 	}
 	
 	@Override

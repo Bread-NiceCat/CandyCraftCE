@@ -59,7 +59,6 @@ public class CItems {
 	private static @Nullable List<Supplier<ItemEntry<BlockItem>>> blockItems;
 	private static @Nullable List<Supplier<ItemEntry<SpawnEggItem>>> eggItems;
 	
-	//TODO EAT
 	public static final ItemEntry<Item> LICORICE = create("licorice").setFood(3, 2f).save();
 	public static final ItemEntry<Item> HONEYCOMB = create("honeycomb").setFood(6, 3f).save();
 	public static final ItemEntry<Item> HONEYCOMB_SHARD = create("honeycomb_shard").setFood(1, 0.34f).save();
@@ -69,7 +68,7 @@ public class CItems {
 	public static final ItemEntry<Item> CARAMEL_BRICK = create("caramel_brick").setFood(2, 1f).save();
 	public static final ItemEntry<Item> CHOCOLATE_BRICK = create("chocolate_brick").setFood(2, 1f).save();
 	public static final ItemEntry<Item> WHITE_CHOCOLATE_BRICK = create("white_chocolate_brick").setFood(2, 1f).save();
-	//	public static final ItemEntry<Item> BLACK_CHOCOLATE_BRICK = create("black_chocolate_brick").save();
+	
 	public static final ItemEntry<Item> COTTON_CANDY = create("cotton_candy").setFood(1, 1f).save();
 	public static final ItemEntry<Item> GUMMY = create("gummy").setFood(1, 1f, p -> p.effect(new MobEffectInstance(MobEffects.CONFUSION, (int) (10 * TickUtils.SEC2TICK)), 0.8f)).save();
 	public static final ItemEntry<Item> HOT_GUMMY = create("hot_gummy").setFood(2, 2f).save();

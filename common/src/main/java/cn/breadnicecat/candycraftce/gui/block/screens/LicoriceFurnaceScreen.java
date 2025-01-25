@@ -72,6 +72,7 @@ public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurna
 			guiGraphics.renderTooltip(font, Component.literal((int) (10f * litTime * TickUtils.TICK2SEC) / 10f + " s"), x, y);
 		}
 		if (tickedTotal != 0 && x >= leftPos + 80 && x <= leftPos + 102 && y >= topPos + 35 && y <= topPos + 51)
+//			guiGraphics.renderTooltip(font, Component.literal(ticked+"/"+tickedTotal),x,y);
 			guiGraphics.renderTooltip(font, Component.literal((int) (1000f * ticked / tickedTotal) / 10f + "%"), x, y);
 	}
 }

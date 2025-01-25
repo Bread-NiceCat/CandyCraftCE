@@ -47,6 +47,7 @@ public class LicoriceFurnaceMenu extends AbstractContainerMenu {
 		for (int i = 0; i < 9; ++i) {
 			this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
 		}
+		
 		addSlot(new Slot(container, LicoriceFurnaceBE.INPUT_SLOT, 56, 17));
 		addSlot(new SugarFuelSlot<>(container, LicoriceFurnaceBE.FUEL_SLOT, 56, 53));
 		addSlot(new ResultSlot(container, LicoriceFurnaceBE.OUTPUT_SLOT, 116, 35) {

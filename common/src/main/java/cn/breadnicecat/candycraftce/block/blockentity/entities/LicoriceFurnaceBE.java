@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.block.blockentity.entities;
 
 import cn.breadnicecat.candycraftce.block.blockentity.CBlockEntities;
 import cn.breadnicecat.candycraftce.block.blockentity.ContainerRecipeInput;
-import cn.breadnicecat.candycraftce.block.blocks.LicoriceFurnaceBlock;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
 import cn.breadnicecat.candycraftce.item.CSugarFuels;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
@@ -25,8 +24,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +33,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 import static cn.breadnicecat.candycraftce.utils.TickUtils.SEC2TICK;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static net.minecraft.world.level.block.AbstractFurnaceBlock.LIT;
 
 public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, WorldlyContainer {
 	
@@ -49,16 +53,11 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	public static final int[] SLOT_FOR_UP = {INPUT_SLOT};
 	public static final int[] SLOT_FOR_DOWN = {OUTPUT_SLOT};
 	public static final int[] SLOT_FOR_SIDE = {FUEL_SLOT};
-
-//	private final RecipeType<?> RECIPE_TYPE = null;
-//	private final RecipeManager.CachedCheck<?, ?> CACHE = RecipeManager.createCheck(RECIPE_TYPE);
 	
 	private final ItemStackList items = new ItemStackList(3);
 	private float exp;
 	private int litTime;
-	
 	private int litTimeTotal;
-	
 	private int ticked;
 	private int tickedTotal;
 	//不能直接实现这个接口Unfixable conflicts
@@ -84,75 +83,49 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	}
 	
 	public void serverTick() {
-		boolean isLit = litTime > 0;
-		//检查工作状态(配方,燃料,输出)
-		check:
-		{
-			if (items.get(INPUT_SLOT).isEmpty()) {
-				recipeUsed = null;
-				break check;
-			}
-			//检查配方
-			if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
-				//寻找新配方
-				var recipe = quickCheck.getRecipeFor(checker, level);
-				if (recipe.isEmpty()) {
-					recipeUsed = null;
-				} else {
-					//检查输出 输出堵塞
-					recipeUsed = recipe.get().value();
-					ItemStack out = items.get(OUTPUT_SLOT);
-					if (!out.isEmpty() && (!out.is(recipeUsed.result.getItem()) || (recipeUsed.getCount() + out.getCount() > out.getMaxStackSize()))) {
-						recipeUsed = null;
-					}
-				}
-			}
-		}
-		//方块更新
-		boolean changed = false;
-		if (isLit) {
-			litTime--;
-			changed = true;
-		}
-		//有东西烧且燃料接近耗尽
-		//补充燃料
-		if (!items.isEmpty(FUEL_SLOT) && recipeUsed != null && litTime <= 1) {
-			int fu = CSugarFuels.getBurnDuration(items.extract(FUEL_SLOT, 1));
-			if (fu != 0) {
-				litTime += fu;
-				litTimeTotal = fu;
-				changed = true;
-			}
-		}
-//:: 原版在无燃料燃烧状态下状态下不会主动从燃烧状态(lit=true)变成非燃烧状态
-		//燃料耗尽
-		if (litTime < 1) {
-			isLit = false;
-			litTimeTotal = 0;
-		} else {
-			isLit = true;
-		}
-		//不工作进度条倒退而不是清零
-		if (!isLit || (recipeUsed == null && ticked > 0)) {
-			ticked = Math.max(ticked - 2, 0);
-			changed = true;
-		} else if (recipeUsed != null) {
-			//已经完成
-			if (++ticked >= tickedTotal) {
-				items.extract(INPUT_SLOT, 1);
-				items.insert(OUTPUT_SLOT, recipeUsed.assemble(checker, level.registryAccess()));
-				exp += recipeUsed.getExp();
-				ticked = 0;
-			}
-			changed = true;
-		}
-		//更新状态 燃烧状态有改变
-		if (isLit != getBlockState().getValue(LicoriceFurnaceBlock.LIT)) {
-			level.setBlock(worldPosition, getBlockState().setValue(FurnaceBlock.LIT, isLit), 2);
-		}
-		if (changed) setChanged();
+		boolean legal = tickLegality();
+		legal &= tickFuel(legal);
+		tickProgress(legal);
 	}
 	
+	private boolean tickLegality() {
+		if (items.isEmpty(INPUT_SLOT)) return false;
+		if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
+			Optional<RecipeHolder<SugarFurnaceRecipe>> recipe = quickCheck.getRecipeFor(checker, level);
+			if (recipe.isEmpty()) return false;
+			else {
+				recipeUsed = recipe.get().value();
+			}
+		}
+		return items.simulateInsert(OUTPUT_SLOT, recipeUsed.getResultItem(level.registryAccess())).isEmpty();
+	}
+	
+	private boolean tickFuel(boolean ignite) {
+		litTime=max(0,litTime-1);
+		if (litTime == 0) {
+			if (ignite && !items.isEmpty(FUEL_SLOT)) {
+				int nf = CSugarFuels.getBurnDuration(items.extract(FUEL_SLOT, 1));
+				if (nf != 0) litTimeTotal = litTime = nf;
+			}
+		}
+		boolean lit = litTime > 0;
+		BlockState state = getBlockState();
+		if (state.getValue(LIT) != lit) {
+			state.setValue(LIT, lit);
+			setChanged();
+		}
+		return lit;
+	}
+	
+	private void tickProgress(boolean promote) {
+		if (recipeUsed != null && promote) {
+			if (++ticked >= tickedTotal) {
+				ticked=0;
+				items.extract(INPUT_SLOT, 1);
+				items.insert(OUTPUT_SLOT, recipeUsed.assemble(checker, level.registryAccess()));
+			}
+		} else ticked = max(0, ticked - 2);
+	}
 	
 	@Override
 	public @NotNull Component getDisplayName() {

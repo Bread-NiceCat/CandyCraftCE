@@ -1,8 +1,4 @@
-package cn.breadnicecat.candycraftce.misc;
-
-import cn.breadnicecat.candycraftce.item.CItemBuilder;
-import cn.breadnicecat.candycraftce.item.ItemEntry;
-import cn.breadnicecat.candycraftce.item.items.GenshinLauncherItem;
+package cn.breadnicecat.candycraftce.misc.egg_project;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -35,12 +31,8 @@ public class CEggProject {
 		return CEggProject.month == month && CEggProject.date == date;
 	}
 	
-	public static ItemEntry<GenshinLauncherItem> launcher;
 	
 	static {
-		if (shouldLaunch) {
-			launcher = CItemBuilder.create("launcher", GenshinLauncherItem::new).setCtab(false).save();
-		}
 	}
 	
 	public static void init() {
