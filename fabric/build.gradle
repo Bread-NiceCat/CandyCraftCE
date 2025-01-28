@@ -6,7 +6,22 @@ architectury {
     platformSetupLoomIde()
     fabric()
 }
-archivesBaseName = archivesBaseName + "-fabric"
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
 def use_jbr_feature = rootProject.ext.use_jbr_feature
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
@@ -17,33 +32,15 @@ loom {
                 vmArg "-XX:+AllowEnhancedClassRedefinition"
             }
         }
-
-        //坑爹datagen
-//        datagen {
-//            inherit client
-//            name "Data Generation"
-//            vmArg "-Dfabric-api.datagen"
-//            vmArg "-Dfabric-api.datagen.output-dir=" + new File(project(":common").getProjectDir(), "/src/main/generated")
-//            vmArg "-Dfabric-api.datagen.modid=candycraftce"
-//            vmArg "-Dfabric-api.datagen.strict-validation"
-//            runDir "build/datagen"
-//        }
     }
 }
 
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
-}
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     // Remove the next line if you don't want to depend on the API
-//    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
 //    modRuntimeOnly "curse.maven:appleskin-248787:4770825"
 //    modRuntimeOnly "curse.maven:cloth-config-348521:4973440"
@@ -54,9 +51,8 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-fabric-api:${rootProject.jei_version}")
     modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}-fabric:${rootProject.jei_version}")
 
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 }
 
 processResources {
@@ -68,26 +64,10 @@ processResources {
 }
 
 shadowJar {
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
 }
 
 remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+    inputFile.set shadowJar.archiveFile
 }

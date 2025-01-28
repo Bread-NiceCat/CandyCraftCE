@@ -1,4 +1,4 @@
-# *通过Github工作流下载自动构建的版本*
+# *Download Nightly version via Github Action*
 
 [[简体中文]](autobuild_cn.md) [English]
 

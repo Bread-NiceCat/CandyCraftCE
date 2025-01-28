@@ -1,20 +1,28 @@
 modLoader = "javafml"
-loaderVersion = "[1,)"
+loaderVersion = "[4,)"
 issueTrackerURL = "https://github.com/Bread-Nicecat/CandyCraftCE/issues"
 license = "GNU LGPL v3"
-[[mixins]]
-config = "candycraftce-common.mixins.json"
-[[mixins]]
-config = "candycraftce.mixins.json"
 [[mods]]
 modId = "candycraftce"
 version = "${version}"
 displayName = "CandyCraft CE"
-authors = "Bread_NiceCat, Star_Ocean_Sama, bagu_chan"
-credits = "Architectury"
+authors = "Bread_NiceCat, Star_Ocean_Sama"
+credits = "Architectury, mcmod.cn, bagu_chan"
 description = '''
 '''
 logoFile = "logo.png"
+
+[[mixins]]
+config = "candycraftce-common.mixins.json"
+[[mixins]]
+config = "candycraftce.mixins.json"
+
+[[dependencies.candycraftce]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.0,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.candycraftce]]
 modId = "minecraft"
@@ -22,10 +30,10 @@ type = "required"
 versionRange = "[1.21,)"
 ordering = "NONE"
 side = "BOTH"
-[[dependencies.candycraftce]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21.0.143,)"
-ordering = "NONE"
-side = "BOTH"
 
+[[dependencies.candycraftce]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.8,)"
+ordering = "AFTER"
+side = "BOTH"

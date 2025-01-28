@@ -1,21 +1,30 @@
 pluginManagement {
     repositories {
-//		maven{ url = '../local-plugin-repository'}
         if (Locale.getDefault() == Locale.CHINA) {
-            maven { url "https://maven.aliyun.com/repository/public" }
+            maven { url "https://maven.aliyun.com/repository/center" }
         }
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.architectury.dev/" }
         maven { url "https://maven.neoforged.net/releases/" }
-        maven { url "https://maven.minecraftforge.net/" }
         gradlePluginPortal()
     }
+    //declare repositories
+    println("=".repeat(64))
+    println("here in plugins")
+    println("repo here=>")
+    getRepositories().forEach {
+        print "\t"
+        if (it instanceof UrlArtifactRepository) {
+            println it.url
+        } else if (it instanceof FlatDirectoryArtifactRepository) {
+            println it.dirs
+        } else print it
+    }
+//================================================================//
 }
 
 include("common")
 include("fabric")
-//include("quilt")
-//include("forge")
 include("neoforge")
 
-rootProject.name = "candycraftce"
+rootProject.name = mod_id
