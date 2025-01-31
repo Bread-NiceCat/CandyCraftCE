@@ -25,7 +25,6 @@ import java.util.HashSet;
 import java.util.function.Supplier;
 
 import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
-import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlockBuilder.create;
 import static cn.breadnicecat.candycraftce.sound.CSoundTypes.JELLY;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.*;
@@ -253,19 +252,19 @@ public class CBlocks {
 	public static final BlockEntry<Block> JAWBREAKER_BRICKS = create("jawbreaker_bricks").setProperties(Blocks.BEDROCK, null).save();
 	public static final BlockEntry<Block> JAWBREAKER_LIGHT = create("jawbreaker_light").setProperties(JAWBREAKER_BRICKS, p -> p.lightLevel(b -> 14)).save();
 	
-	//火把的BlockItem: cn.breadnicecat.candycraftce.item.CItems.TORCH
+	//火把的BlockItem: CItems.TORCH
 	public static final BlockEntry<? extends TorchBlock> HONEYCOMB_TORCH = create("honeycomb_torch", p -> new TorchBlock(ParticleTypes.FLAME, p) {
 	}).setProperties(Blocks.TORCH, null).noBlockItem().save();
 	public static final BlockEntry<? extends WallTorchBlock> WALL_HONEYCOMB_TORCH = create("wall_honeycomb_torch", p -> new WallTorchBlock(ParticleTypes.FLAME, p) {
 	}).setProperties(WALL_TORCH, p -> p.dropsLike(HONEYCOMB_TORCH.get())).noBlockItem().save();
 	
 	public static final BlockEntry<CaramelPortalBlock> CARAMEL_PORTAL = create("caramel_portal", CaramelPortalBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
-	public static final BlockEntry<JellyDungeonTeleporterBlock> JELLY_DUNGEON_TELEPORTER = create("jelly_dungeon_teleporter", JellyDungeonTeleporterBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
+	public static final BlockEntry<DungeonTeleporterBlock> JELLY_DUNGEON_TELEPORTER = create("jelly_dungeon_teleporter", DungeonTeleporterBlock::new).setProperties(Blocks.NETHER_PORTAL, null).noBlockItem().save();
 	
 	//	public static final BlockEntry<LiquidBlock> CARAMEL_LIQUID = create("caramel_liquid", (p) -> new LiquidBlock(CARAMEL.get(), p)).setProperties(WATER, null).noBlockItem().save();
 	
 	static {
-		if (isClient()) {
+		if (CandyCraftCE.isClient()) {
 			CandyCraftCE.hookMinecraftSetup(CBlocks::declareRendererType);
 		}
 	}

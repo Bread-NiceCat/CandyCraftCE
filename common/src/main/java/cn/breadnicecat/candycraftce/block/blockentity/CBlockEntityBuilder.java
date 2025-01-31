@@ -26,7 +26,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 public class CBlockEntityBuilder<B extends BlockEntity> {
 	public final String name;
 	private final BlockEntitySupplier<B> factory;
-	private Supplier<? extends Block>[] valid;
+	private Supplier<? extends Block[]> valid;
 	@Nullable
 	private Type<?> dsl;
 
@@ -38,10 +38,14 @@ public class CBlockEntityBuilder<B extends BlockEntity> {
 	public static <B extends BlockEntity> CBlockEntityBuilder<B> create(String name, BlockEntitySupplier<B> factory) {
 		return new CBlockEntityBuilder<>(name, factory);
 	}
-
+	
+	public final CBlockEntityBuilder<B> setValidBlocks(Supplier<Block[]> blocks) {
+		this.valid = blocks;
+		return this;
+	}
 	@SafeVarargs
 	public final CBlockEntityBuilder<B> setValidBlocks(Supplier<? extends Block>... blocks) {
-		this.valid = blocks;
+		setValidBlocks( ()->Arrays.stream(blocks).map(Supplier::get).toArray(Block[]::new));
 		return this;
 	}
 
@@ -52,9 +56,7 @@ public class CBlockEntityBuilder<B extends BlockEntity> {
 
 	public BlockEntityEntry<B> save() {
 		Objects.requireNonNull(valid, "No valid blocks");
-		return register(name, () -> Builder.of(factory,
-				Arrays.stream(valid).map(Supplier::get).toArray(Block[]::new)
-		).build(dsl));
+		return register(name, () -> Builder.of(factory, valid.get()).build(dsl));
 	}
 
 	private static <B extends BlockEntity> BlockEntityEntry<B> register(String name, Supplier<BlockEntityType<B>> factory) {

@@ -90,6 +90,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	
 	private boolean tickLegality() {
 		if (items.isEmpty(INPUT_SLOT)) return false;
+		SugarFurnaceRecipe ru0=recipeUsed;
 		if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
 			Optional<RecipeHolder<SugarFurnaceRecipe>> recipe = quickCheck.getRecipeFor(checker, level);
 			if (recipe.isEmpty()) return false;
@@ -97,6 +98,7 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 				recipeUsed = recipe.get().value();
 			}
 		}
+		if(ru0!=recipeUsed)ticked=0;
 		return items.simulateInsert(OUTPUT_SLOT, recipeUsed.getResultItem(level.registryAccess())).isEmpty();
 	}
 	
@@ -151,20 +153,20 @@ public class LicoriceFurnaceBE extends BlockEntity implements MenuProvider, Worl
 	@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		ContainerHelper.saveAllItems(tag, this.items, registries);
-		tag.putFloat("exp", exp);
-		tag.putInt("litTime", litTime);
-		tag.putInt("litTimeTotal", litTimeTotal);
-		tag.putInt("ticked", ticked);
+		tag.putFloat("Exp", exp);
+		tag.putInt("LitTime", litTime);
+		tag.putInt("LitTimeTotal", litTimeTotal);
+		tag.putInt("Ticked", ticked);
 		super.saveAdditional(tag, registries);
 	}
 	
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		ContainerHelper.loadAllItems(tag, this.items, registries);
-		exp = tag.getFloat("exp");
-		litTime = tag.getInt("litTime");
-		litTimeTotal = tag.getInt("litTimeTotal");
-		ticked = tag.getInt("ticked");
+		exp = tag.getFloat("Exp");
+		litTime = tag.getInt("LitTime");
+		litTimeTotal = tag.getInt("LitTimeTotal");
+		ticked = tag.getInt("Ticked");
 		super.loadAdditional(tag, registries);
 	}
 	

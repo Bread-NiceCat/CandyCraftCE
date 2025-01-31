@@ -21,7 +21,7 @@ public class CBlockTags {
 	/**
 	 * 用于{@link net.minecraft.data.tags.ItemTagsProvider#copy(net.minecraft.tags.TagKey, net.minecraft.tags.TagKey)}
 	 */
-	public static HashSet<BiTagKey> _pairs_ = new HashSet<>();
+	public static HashSet<BiTagKey> pairs = new HashSet<>();
 	//仅标记,不存在item
 	public static final TagKey<Block> BT_CARAMEL_PORTAL_FRAME = create("caramel_portal_frame");
 	public static final TagKey<Block> BT_CANDY_PLANT_SUITABLE = create("candy_plant_suitable");
@@ -46,7 +46,7 @@ public class CBlockTags {
 	public static final BiTagKey BT_ORE_JELLY = bind("ore_jelly");
 	
 	static {
-		_pairs_.remove(BT_SUGARY);
+		pairs.remove(BT_SUGARY);
 	}
 	
 	private static BiTagKey bind(String name) {
@@ -54,7 +54,7 @@ public class CBlockTags {
 		TagKey<Block> k = TagKey.create(Registries.BLOCK, location);
 		TagKey<Item> v = TagKey.create(Registries.ITEM, location);
 		BiTagKey pair = new BiTagKey(k, v);
-		_pairs_.add(pair);
+		pairs.add(pair);
 		return pair;
 	}
 	

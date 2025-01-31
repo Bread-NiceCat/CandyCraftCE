@@ -18,16 +18,16 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class JellyDungeonTeleporterBE extends BlockEntity {
+public class DungeonTeleporterBE extends BlockEntity {
 	public BlockPos blockPos;
 	public boolean generated;
 	
-	protected JellyDungeonTeleporterBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+	protected DungeonTeleporterBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
 		super(blockEntityType, blockPos, blockState);
 	}
 	
-	public JellyDungeonTeleporterBE(BlockPos blockPos, BlockState blockState) {
-		this(CBlockEntities.JELLY_DUNGEON_TELEPORTER_BE.get(), blockPos, blockState);
+	public DungeonTeleporterBE(BlockPos blockPos, BlockState blockState) {
+		this(CBlockEntities.DUNGEON_TELEPORTER_BE.get(), blockPos, blockState);
 	}
 	
 	@Override

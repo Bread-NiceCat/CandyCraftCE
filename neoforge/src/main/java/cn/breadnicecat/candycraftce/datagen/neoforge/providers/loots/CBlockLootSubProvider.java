@@ -37,7 +37,7 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static net.minecraft.world.item.Items.SUGAR;
 
 /**
@@ -136,8 +136,8 @@ public class CBlockLootSubProvider extends BlockLootSubProvider {
 	@Override
 	protected void add(Block block, LootTable.@NotNull Builder builder) {
 		ResourceKey<LootTable> table = block.getLootTable();
-		assertTrue(table.location().getNamespace().equals(MOD_ID), () -> "Unexpected LootTable Namespace:" + table.location() + " for " + block);
-		assertTrue(this.map.put(table, builder) == null, () -> "Duplicate LootTable for " + block);
+		must(table.location().getNamespace().equals(MOD_ID), () -> "Unexpected LootTable Namespace:" + table.location() + " for " + block);
+		must(this.map.put(table, builder) == null, () -> "Duplicate LootTable for " + block);
 	}
 	
 	@Override

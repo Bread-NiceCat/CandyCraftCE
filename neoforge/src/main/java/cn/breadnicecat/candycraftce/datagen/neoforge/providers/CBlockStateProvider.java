@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.google.common.collect.Sets;
@@ -24,7 +25,7 @@ import java.util.function.BiConsumer;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static com.mojang.datafixers.util.Pair.of;
 
@@ -55,7 +56,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 //			accept(b -> simpleBlockWithItem(b.get(), existModelFile(b.get())),
 //					 MAGICAL_LEAVES);
 		}
-		//tint-ableLeaves : *
+		//tint-able-leaves : *
 		{
 			accept(b -> {
 				LeavesBlock block = b.get();
@@ -64,7 +65,14 @@ public class CBlockStateProvider extends BlockStateProvider {
 				simpleBlockWithItem(block, builder);
 			}, MAGICAL_LEAVES);
 		}
-		
+		//particle-only@liquid
+		{
+			accept(b -> {
+				LiquidBlock block = b.getBlock();
+				String name = b.getName();
+				simpleBlock(block, models().getBuilder(name).texture("particle", blockTexture(block)));
+			}, CFluids.CARAMEL_FLUID, CFluids.GRENADINE_FLUID);
+		}
 		//cubeAll : *
 		{
 			accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
@@ -606,7 +614,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 	 * @see #modLoc(String)
 	 */
 	private void mapping(ResourceLocation ori, ResourceLocation dest) {
-		assertTrue(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
+		must(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
 	}
 	
 	/**

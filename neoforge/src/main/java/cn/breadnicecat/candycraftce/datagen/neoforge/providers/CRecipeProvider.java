@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,7 +27,7 @@ import static cn.breadnicecat.candycraftce.datagen.neoforge.providers.recipes.Su
 import static cn.breadnicecat.candycraftce.datagen.neoforge.providers.recipes.SugarFurnaceRecipeBuilder.furnace;
 import static cn.breadnicecat.candycraftce.item.CItemTags.IT_LEAF;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static java.util.Arrays.asList;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
@@ -447,12 +448,12 @@ public class CRecipeProvider extends RecipeProvider {
 	}
 	
 	private String hasn() {
-		assertTrue(_used++ < 2, "abused");
+		CommonUtils.must(_used++ < 2, "abused");
 		return _hasK;
 	}
 	
 	private Criterion<?> has() {
-		assertTrue(_used++ < 2, "abused");
+		CommonUtils.must(_used++ < 2, "abused");
 		return _hasV;
 	}
 	
@@ -482,7 +483,7 @@ public class CRecipeProvider extends RecipeProvider {
 	private ItemLike _now;
 	
 	private <T extends ItemLike> T def(T t) {
-		assertTrue(_now == null, "previous item is unused");
+		CommonUtils.must(_now == null, "previous item is unused");
 		_now = t;
 		return t;
 	}

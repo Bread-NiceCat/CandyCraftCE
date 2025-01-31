@@ -4,6 +4,7 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import cn.breadnicecat.candycraftce.utils.tools.Triple;
 import com.google.common.collect.ImmutableMap;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -30,10 +31,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.*;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
+import static cn.breadnicecat.candycraftce.CandyCraftCE.register;
 import static cn.breadnicecat.candycraftce.item.CItems._spawn_egg;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE;
 
@@ -128,8 +130,8 @@ public class CEntityBuilder<T extends Entity> {
 	}
 	
 	public CEntityBuilder<T> client(Consumer<ClientBuilder<T>> consumer) {
-		if (isClient()) {
-			assertTrue(clientBuilder == null, "You have created a ClientBuilder");
+		if (CandyCraftCE.isClient()) {
+			CommonUtils.must(clientBuilder == null, "You have created a ClientBuilder");
 			clientBuilder = consumer;
 		}
 		return this;
@@ -149,15 +151,15 @@ public class CEntityBuilder<T extends Entity> {
 			});
 		}
 		if (attribute != null) {
-			assertTrue(s.isLivingEntity(), "Only LivingEntity has Attribute");
+			CommonUtils.must(s.isLivingEntity(), "Only LivingEntity has Attribute");
 			registerAttribute((EntityEntry<LivingEntity>) s, attribute);
 		}
 		if (egg != null) {
-			assertTrue(s.isMob(), "Only Mob has SpawnEgg");
+			CommonUtils.must(s.isMob(), "Only Mob has SpawnEgg");
 			eggs.add(egg.apply(s));
 		}
 		if (placement != null) {
-			assertTrue(s.isMob(), "Only Mob have SpawnPlacement");
+			CommonUtils.must(s.isMob(), "Only Mob have SpawnPlacement");
 			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType<Mob>) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate<Mob>) placement.c()));
 		}
 		
@@ -187,7 +189,7 @@ public class CEntityBuilder<T extends Entity> {
 		
 		
 		private ClientBuilder() {
-			assertTrue(isClient(), "not in client!");
+			must(CandyCraftCE.isClient(), "not in client!");
 		}
 		
 		private EntityRendererProvider<T> rendererProvider;

@@ -160,6 +160,7 @@
   "entity.candycraftce.strawberry_jelly": "Strawberry Jelly",
   "entity.candycraftce.waffle_sheep": "Waffle Sheep",
   "gamerule.doCaramelPortalWorks": "Enable Caramel Portal Teleport Player.",
+  "gui.candycraftce.burn_time": "Burn Time:%s",
   "item.candycraftce.candied_cherry": "Candied Cherry",
   "item.candycraftce.candied_cherry_leaf": "Candied Cherry Leaf",
   "item.candycraftce.candy_cane": "Candy Cane",

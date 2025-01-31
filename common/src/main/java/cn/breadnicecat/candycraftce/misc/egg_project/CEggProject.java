@@ -1,9 +1,10 @@
 package cn.breadnicecat.candycraftce.misc.egg_project;
 
+import cn.breadnicecat.candycraftce.CandyCraftCE;
+
 import java.util.Calendar;
 import java.util.Date;
 
-import static cn.breadnicecat.candycraftce.CandyCraftCE.DEV;
 
 /**
  * Created in 2024/8/2 上午11:48
@@ -25,15 +26,12 @@ public class CEggProject {
 		date = calendar.get(Calendar.DATE);
 	}
 	
-	public static boolean shouldLaunch = DEV;
+	public static boolean shouldLaunch = CandyCraftCE.isDev();
 	
 	public static boolean isToday(int month, int date) {
 		return CEggProject.month == month && CEggProject.date == date;
 	}
 	
-	
-	static {
-	}
 	
 	public static void init() {
 	}

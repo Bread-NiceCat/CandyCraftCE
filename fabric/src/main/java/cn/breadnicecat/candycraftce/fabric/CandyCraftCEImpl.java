@@ -1,27 +1,22 @@
 package cn.breadnicecat.candycraftce.fabric;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.profiling.jfr.Environment;
+import org.slf4j.Logger;
 
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 
 public class CandyCraftCEImpl implements ModInitializer {
 	
-	
-	private static final EnvType envType = Objects.requireNonNull(FabricLoaderImpl.InitHelper.get().getEnvironmentType());
-	private static final Environment env = envType == EnvType.CLIENT ? Environment.CLIENT : Environment.SERVER;
-	
+	private static final Logger log = CLogUtils.sign();
 	private static LinkedList<Runnable> mcSetupHooks = new LinkedList<>();
 	
 	@Override
@@ -36,23 +31,11 @@ public class CandyCraftCEImpl implements ModInitializer {
 		mcSetupHooks.add(runnable);
 	}
 	
-	public static Environment getEnvironment() {
-		return env;
-	}
-	
-	public static CandyCraftCE.ModPlatform getPlatform() {
-		return CandyCraftCE.ModPlatform.FABRIC;
-	}
-	
 	public static <R, S extends R> SimpleEntry<R, S> register(Registry<R> registry, ResourceLocation key, Supplier<S> factory) {
 		ResourceKey<R> k = ResourceKey.create(registry.key(), key);
 		S v = factory.get();
 		Holder.Reference<R> holder = Registry.registerForHolder(registry, k, v);
-		return SimpleEntry.of(k, () -> v, holder);
-	}
-	
-	public static boolean isLoaded(String modid) {
-		return FabricLoaderImpl.INSTANCE.isModLoaded(modid);
+		return new SimpleEntry<>(k, () -> v, holder);
 	}
 	
 	

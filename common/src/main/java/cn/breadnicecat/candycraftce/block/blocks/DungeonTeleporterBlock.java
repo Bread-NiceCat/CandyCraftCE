@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import cn.breadnicecat.candycraftce.block.blockentity.entities.JellyDungeonTeleporterBE;
+import cn.breadnicecat.candycraftce.block.blockentity.entities.DungeonTeleporterBE;
 import cn.breadnicecat.candycraftce.level.generator.JellyDungeonGenerator;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -36,12 +36,12 @@ import static cn.breadnicecat.candycraftce.level.CDims.DUNGEONS;
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * <p>
  */
-public class JellyDungeonTeleporterBlock extends BaseEntityBlock {
-	private static final MapCodec<JellyDungeonTeleporterBlock> CODEC = simpleCodec(JellyDungeonTeleporterBlock::new);
+public class DungeonTeleporterBlock extends BaseEntityBlock {
+	private static final MapCodec<DungeonTeleporterBlock> CODEC = simpleCodec(DungeonTeleporterBlock::new);
 	
 	private static final VoxelShape DEFAULT = Shapes.empty();
 	
-	public JellyDungeonTeleporterBlock(Properties properties) {
+	public DungeonTeleporterBlock(Properties properties) {
 		super(properties);
 	}
 	
@@ -55,7 +55,7 @@ public class JellyDungeonTeleporterBlock extends BaseEntityBlock {
 	protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.isAlive() && !player.isPassenger() && !player.isVehicle()) {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof JellyDungeonTeleporterBE teleporterBE && level instanceof ServerLevel serverLevel) {
+			if (blockEntity instanceof DungeonTeleporterBE teleporterBE && level instanceof ServerLevel serverLevel) {
 				MinecraftServer server = serverLevel.getServer();
 				ServerLevel dungeonLevel = server.getLevel(DUNGEONS);
 				BlockPos dungeonPos = teleporterBE.findDungeons(dungeonLevel);
@@ -116,7 +116,7 @@ public class JellyDungeonTeleporterBlock extends BaseEntityBlock {
 	
 	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new JellyDungeonTeleporterBE(pos, state);
+		return new DungeonTeleporterBE(pos, state);
 	}
 	
 }

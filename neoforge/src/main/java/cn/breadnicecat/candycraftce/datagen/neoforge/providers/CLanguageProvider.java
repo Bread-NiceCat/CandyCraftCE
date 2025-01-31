@@ -4,6 +4,7 @@ import cn.breadnicecat.candycraftce.block.BlockEntry;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.ZhCnCLanguageProvider;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
+import cn.breadnicecat.candycraftce.gui.block.screens.LicoriceFurnaceScreen;
 import cn.breadnicecat.candycraftce.integration.jei.categories.SugarFurnaceCategory;
 import cn.breadnicecat.candycraftce.item.CCTab;
 import cn.breadnicecat.candycraftce.item.CEnchantments;
@@ -36,7 +37,7 @@ import static cn.breadnicecat.candycraftce.entity.CEntityTypes.*;
 import static cn.breadnicecat.candycraftce.item.CItems.LICORICE_SPEAR;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.sound.CJukeboxSound.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 
 /**
  * Created in 2023/8/22 21:05
@@ -314,7 +315,7 @@ public class CLanguageProvider implements DataProvider {
 		addBlockById(STRIPPED_DARK_MARSHMALLOW_LOG, "去皮深色棉花软糖原木");
 		addBlockById(STRIPPED_LIGHT_MARSHMALLOW_LOG, "去皮浅色棉花软糖原木");
 		//=====================Entity====================
-		add(SPAWN_EGG_KEY, "%s Spawn Egg", "%s刷怪蛋");
+		add(I18_SPAWN_EGG, "%s Spawn Egg", "%s刷怪蛋");
 		addEntityById(GINGERBREAD_MAN, "姜饼人");
 		addEntityById(MINT_JELLY, "薄荷果冻");
 		addEntityById(SEA_BANANA_JELLY, "香蕉果冻");
@@ -330,6 +331,7 @@ public class CLanguageProvider implements DataProvider {
 		addJukeboxSong(CD_4, "Little End - Rain travel in the MineCraft", null);
 		addJukeboxSong(CD_o, "J.D.K. - 鉄橋を越えて", null);
 		addEnchantment(CEnchantments.DEVOURER, "Devourer", "吞噬");
+		add(LicoriceFurnaceScreen.I18_BURN_TIME,"Burn Time:%s","燃烧时间:%s");
 	}
 	
 	/**
@@ -385,7 +387,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 	
 	public void add(String key, String en_us, @Nullable String zh_cn) {
-		assertTrue(existKeys.add(key), () -> "Duplicate key: " + key);
+		must(existKeys.add(key), () -> "Duplicate key: " + key);
 		enProv.add(key, en_us);
 		if (zh_cn != null) {
 			zhProv.add(key, zh_cn);

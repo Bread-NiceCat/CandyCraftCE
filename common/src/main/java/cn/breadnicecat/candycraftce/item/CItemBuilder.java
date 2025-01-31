@@ -101,7 +101,7 @@ public class CItemBuilder<I extends Item> implements ICandyBuilder<CItemBuilder<
 	 */
 	@Override
 	public CItemBuilder<I> sugarFuel(int duration) {
-		properties.component(CDataComponents.SUGAR_BURN_TIME.get(), duration);
+		modifyProperties((p) -> p.component(CDataComponents.SUGAR_BURN_TIME.get(), duration));
 		return this;
 	}
 	

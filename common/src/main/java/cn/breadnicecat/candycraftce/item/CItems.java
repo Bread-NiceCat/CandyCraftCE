@@ -7,6 +7,7 @@ import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
@@ -50,7 +51,7 @@ import static net.minecraft.world.level.material.Fluids.WATER;
  */
 public class CItems {
 	private static final Logger LOGGER = CLogUtils.sign();
-	public static final String SPAWN_EGG_KEY = "item.candycraftce.spawn_egg";
+	public static final String I18_SPAWN_EGG = ResourceUtils.i18Key("item", "spawn_egg");
 	/**
 	 * 包括BlockItem
 	 */
@@ -190,6 +191,7 @@ public class CItems {
 			.save();
 	public static final ItemEntry<IIDebugItem> IIDEBUG = create("iidebug", higher(IIDebugItem::new))
 			.setCtab(false)
+			.sugarFuel(Integer.MAX_VALUE)
 			.setTab(CreativeModeTabs.OP_BLOCKS)
 			.save();
 	

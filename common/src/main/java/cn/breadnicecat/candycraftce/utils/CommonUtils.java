@@ -4,7 +4,6 @@ import net.minecraft.util.RandomSource;
 import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -31,15 +30,15 @@ public class CommonUtils {
 	}
 	
 	
-	public static void assertTrue(boolean bool) {
-		assertTrue(bool, "false");
+	public static void must(boolean bool) {
+		must(bool, "false");
 	}
 	
-	public static void assertTrue(boolean bool, String msg) {
+	public static void must(boolean bool, String msg) {
 		if (!bool) throw new IllegalStateException(msg);
 	}
 	
-	public static void assertTrue(boolean bool, Supplier<String> msg) {
+	public static void must(boolean bool, Supplier<String> msg) {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
 	
@@ -77,7 +76,6 @@ public class CommonUtils {
 		return house;
 	}
 	
-	
 	/**
 	 * @return {@code factory.get()}
 	 */
@@ -93,25 +91,6 @@ public class CommonUtils {
 	public static <T> T make(T ori, @NotNull Consumer<T> factory) {
 		factory.accept(ori);
 		return ori;
-	}
-	
-	/**
-	 * 线性插值
-	 *
-	 * @param x  插值点坐标
-	 * @param x1 顶点坐标1
-	 * @param x2 顶点坐标2
-	 * @param y1 顶点数值1
-	 * @param y2 顶点数值2
-	 * @return yx 插值后的数值
-	 */
-	public static float linear(float x, float x1, float x2, float y1, float y2) {
-		if (y1 == y2 || x1 == x2) {
-			//value值相等 距离为0 不进行插值计算
-			return y1;
-		} else {
-			return ((x2 - x) / (x2 - x1) * y1) + ((x - x1) / (x2 - x1) * y2);
-		}
 	}
 	
 	public static <T> T impossibleCode() {
@@ -147,13 +126,4 @@ public class CommonUtils {
 		});
 	}
 	
-	public static boolean isDev() {
-		//检查是否处于Dev环境
-		boolean inDev = false;
-		try {
-			inDev = new File(new File("").getAbsoluteFile().getParentFile(), "src").exists();
-		} catch (Exception ignored) {
-		}
-		return inDev;
-	}
 }

@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.level;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -25,7 +26,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 import static cn.breadnicecat.candycraftce.level.CConfiguredFeatures.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static net.minecraft.data.worldgen.placement.PlacementUtils.register;
 import static net.minecraft.world.level.levelgen.Heightmap.Types.*;
@@ -121,11 +121,11 @@ public class CPlacedFeatures {
 	}
 	
 	/**
-	 * @param datamap [data1,weigh1,data2,weigh2,...],length=2n,>0
+	 * @param datamap [data1,weigh1,data2,weigh2,...],length=2n>0
 	 */
 	private static WeightedListInt simpleWeighedInt(int... datamap) {
-		assertTrue(datamap.length % 2 == 0, "unmatched data map");
-		assertTrue(datamap.length > 0, "data map can't be empty");
+		CommonUtils.must(datamap.length % 2 == 0, "unmatched data map");
+		CommonUtils.must(datamap.length > 0, "data map can't be empty");
 		SimpleWeightedRandomList.Builder<IntProvider> builder = SimpleWeightedRandomList.builder();
 		for (int i = 0; i < datamap.length; i += 2) {
 			builder.add(ConstantInt.of(datamap[0]), datamap[i + 1]);

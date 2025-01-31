@@ -2,12 +2,19 @@ package cn.breadnicecat.candycraftce.gui.block.screens;
 
 import cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE;
 import cn.breadnicecat.candycraftce.gui.block.menus.LicoriceFurnaceMenu;
+import cn.breadnicecat.candycraftce.item.CSugarFuels;
+import cn.breadnicecat.candycraftce.utils.ResourceUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
+import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 import static cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE.TICKED_DATA;
 import static cn.breadnicecat.candycraftce.block.blockentity.entities.LicoriceFurnaceBE.TICKED_TOTAL_DATA;
@@ -21,6 +28,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.guiTex;
  * <p>
  */
 public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurnaceMenu> {
+	public static final String I18_BURN_TIME= ResourceUtils.i18Key("gui","burn_time");
 	public static final ResourceLocation LICORICE = guiTex("gui_licorice_furnace");
 	protected ResourceLocation guiStyle = LICORICE;
 	
@@ -74,5 +82,15 @@ public class LicoriceFurnaceScreen extends AbstractContainerScreen<LicoriceFurna
 		if (tickedTotal != 0 && x >= leftPos + 80 && x <= leftPos + 102 && y >= topPos + 35 && y <= topPos + 51)
 //			guiGraphics.renderTooltip(font, Component.literal(ticked+"/"+tickedTotal),x,y);
 			guiGraphics.renderTooltip(font, Component.literal((int) (1000f * ticked / tickedTotal) / 10f + "%"), x, y);
+	}
+	
+	@Override
+	protected @NotNull List<Component> getTooltipFromContainerItem(ItemStack stack) {
+		List<Component> list = super.getTooltipFromContainerItem(stack);
+		if (CSugarFuels.isFuel(stack)) {
+			list.add(Component.translatable(I18_BURN_TIME,
+					Float.toString(CSugarFuels.getBurnDuration(stack)*TickUtils.TICK2SEC)));
+		}
+		return list;
 	}
 }

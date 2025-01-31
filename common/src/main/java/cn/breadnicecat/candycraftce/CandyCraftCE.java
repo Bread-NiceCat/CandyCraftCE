@@ -17,13 +17,14 @@ import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
-import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import dev.architectury.injectables.targets.ArchitecturyTarget;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.profiling.jfr.Environment;
 import org.slf4j.Logger;
 
 import java.util.LinkedList;
@@ -38,33 +39,26 @@ public final class CandyCraftCE {
 	
 	private static final Logger LOGGER = CLogUtils.sign();
 	
-	
-	public static final boolean DEV = CommonUtils.isDev();
-	public static final Environment ENVIRONMENT = getEnvironment();
-	public static final ModPlatform PLATFORM = getPlatform();
-	
-	
 	public static LinkedList<Runnable> bootstrapHooks = new LinkedList<>();
-	private static boolean postBootstrap = false;
-	private static boolean preBootstrap = false;
+	
+	private static boolean bootstrapped = false;
 	
 	/**
 	 * bootstrap here
 	 */
 	public static void bootstrap() {
-		if (preBootstrap) {
+		if (bootstrapped) {
 			LOGGER.error(MOD_ID + " has been bootstrapped");
 			Thread.dumpStack();
 			return;
 		}
-		preBootstrap = true;
+		bootstrapped = true;
 		
 		hookPostBootstrap(() -> LOGGER.info("Post Bootstrap"));
 		hookMinecraftSetup(() -> LOGGER.info("Minecraft Setup"));
-		
 		LOGGER.info("=".repeat(64));
-		LOGGER.info(MOD_ID + " Running in {} with {}", ENVIRONMENT, PLATFORM);
-		if (DEV) {
+		LOGGER.info("{}(id:{}) Running in {} with {}", MOD_NAME, MOD_ID, Platform.getEnvironment(), ArchitecturyTarget.getCurrentTarget());
+		if (isDev()) {
 			LOGGER.warn("Hey! Here's running in IDE mode!");
 			LOGGER.warn("If you 're not a developer, Please report this issue!");
 		}
@@ -96,27 +90,7 @@ public final class CandyCraftCE {
 		
 		bootstrapHooks.forEach(Runnable::run);
 		bootstrapHooks = null;
-		postBootstrap = true;
-		LOGGER.info("Loaded Successfully!");
-	}
-	
-	public static boolean isClient() {
-		return ENVIRONMENT == Environment.CLIENT;
-	}
-	
-	@ExpectPlatform
-	public static boolean isLoaded(String modid) {
-		return impossibleCode();
-	}
-	
-	@ExpectPlatform
-	private static Environment getEnvironment() {
-		return impossibleCode();
-	}
-	
-	@ExpectPlatform
-	private static ModPlatform getPlatform() {
-		return impossibleCode();
+		LOGGER.info("Bootstrap Successfully!");
 	}
 	
 	@ExpectPlatform
@@ -138,20 +112,6 @@ public final class CandyCraftCE {
 		impossibleCode();
 	}
 	
-	/**
-	 * @return 完成bootstrap后为true
-	 */
-	public static boolean isBootstrapped() {
-		return postBootstrap;
-	}
-	
-	/**
-	 * @return 在bootstrap中时为true
-	 */
-	public static boolean isBootstrapping() {
-		return preBootstrap && !postBootstrap;
-	}
-	
 	public static RegistrySetBuilder getDataSetBuilder() {
 		return new RegistrySetBuilder()
 				.add(DAMAGE_TYPE, CDamageTypes::bootstrap)
@@ -165,10 +125,11 @@ public final class CandyCraftCE {
 				.add(LEVEL_STEM, CDims::bootstrap);
 	}
 	
-	public enum ModPlatform {
-		@Deprecated(forRemoval = true) FORGE,
-		FABRIC,
-		NEOFORGE,//1.20+
-		QUILT//Quilt兼容Fabric,暂时不单独开发
+	public static boolean isDev() {
+		return Platform.isDevelopmentEnvironment();
+	}
+	
+	public static boolean isClient() {
+		return Platform.getEnvironment() == Env.CLIENT;
 	}
 }

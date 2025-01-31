@@ -124,7 +124,7 @@ public class CBlockBuilder<B extends Block> implements ICandyBuilder<CBlockBuild
 	}
 	
 	
-	private static <B extends Block> BlockEntry<B> register(String name, Supplier<B> factory) {
+	static <B extends Block> BlockEntry<B> register(String name, Supplier<B> factory) {
 		return new BlockEntry<>(CandyCraftCE.register(BLOCK, prefix(name), factory));
 	}
 	

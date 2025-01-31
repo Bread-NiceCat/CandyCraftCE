@@ -1,57 +1,55 @@
-//package cn.breadnicecat.candycraftce.block.forge;
-//
-//import net.minecraft.resources.ResourceLocation;
-//import net.minecraft.sounds.SoundEvents;
-//import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-//import net.minecraftforge.fluids.FluidType;
-//import org.jetbrains.annotations.NotNull;
-//
-//import java.util.function.Consumer;
-//
-//import static net.minecraftforge.common.SoundActions.BUCKET_EMPTY;
-//import static net.minecraftforge.common.SoundActions.BUCKET_FILL;
-//
-///**
-// * Created in 2024/4/5 下午11:05
-// * Project: candycraftce
-// *
-// * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
-// * <p>
-// */
-//public class CFluidsImpl {
-//	public static CaramelFluid _caramel_fluid(ResourceLocation tex) {
-//		return new CaramelFluid() {
-//			public FluidType type = new FluidType(create()
-//					.canHydrate(true)) {
-//				@Override
-//				public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-//					consumer.accept(new IClientFluidTypeExtensions() {
-//						@Override
-//						public ResourceLocation getStillTexture() {
-//							return tex;
-//						}
-//
-//						@Override
-//						public ResourceLocation getFlowingTexture() {
-//							return tex;
-//						}
-//					});
-//				}
-//			};
-//
-//			@Override
-//			public @NotNull FluidType getFluidType() {
-//				return type;
-//			}
-//		};
-//	}
-//
-//	public static FluidType.Properties create() {
-//		return FluidType.Properties.create()
-//				.density(2000)
-//				.viscosity(10000)
-//				.sound(BUCKET_FILL, SoundEvents.BUCKET_FILL)
-//				.sound(BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY);
-//	}
-//
-//}
+package cn.breadnicecat.candycraftce.block.neoforge;
+
+import cn.breadnicecat.candycraftce.CandyCraftCE;
+import cn.breadnicecat.candycraftce.block.CFluids;
+import cn.breadnicecat.candycraftce.block.FlowingFluidEntry;
+import cn.breadnicecat.candycraftce.utils.CLogUtils;
+import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
+import dev.architectury.core.fluid.ArchitecturyFluidAttributes;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.fluids.FluidType;
+import org.slf4j.Logger;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.function.Consumer;
+
+@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+public class CFluidsImpl {
+	
+	private static final Logger log = CLogUtils.getModLogger();
+	
+	@SuppressWarnings("unchecked")
+	@SubscribeEvent
+	private static void initializeClient(RegisterClientExtensionsEvent event) throws Exception {
+		CandyCraftCE.hookMinecraftSetup(() -> {
+			log.info("Init fluid_types...");
+			try {
+				Field mapField = ArchitecturyFlowingFluid.class.getDeclaredField("FLUID_TYPE_MAP");
+				mapField.setAccessible(true);
+				Map<ArchitecturyFluidAttributes, FluidType> fluid_type_map = (Map<ArchitecturyFluidAttributes, FluidType>) mapField.get(null);
+				for (FlowingFluidEntry<?, ?> fluid : CFluids.FLUIDS.values()) {
+					try {
+						//exec Lazy logic in <init>
+						FluidType type = fluid.getSource().get().getFluidType();
+						
+						Method method = type.getClass().getDeclaredMethod("initializeClient", Consumer.class);
+						method.setAccessible(true);
+						method.invoke(type, (Consumer<IClientFluidTypeExtensions>) ext -> {
+							event.registerFluidType(ext, type);
+						});
+					} catch (Exception e) {
+						log.error("Error during init fluid_type: " + fluid, e);
+					}
+				}
+			} catch (ReflectiveOperationException e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
+}

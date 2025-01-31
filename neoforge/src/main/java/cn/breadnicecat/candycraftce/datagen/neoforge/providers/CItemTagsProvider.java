@@ -3,7 +3,6 @@ package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
-import cn.breadnicecat.candycraftce.misc.egg_project.CEggProject;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -57,7 +56,7 @@ public class CItemTagsProvider extends ItemTagsProvider {
 		add(PICKAXES, MARSHMALLOW_PICKAXE, LICORICE_PICKAXE, HONEYCOMB_PICKAXE, PEZ_PICKAXE);
 		add(SHOVELS, MARSHMALLOW_SHOVEL, LICORICE_SHOVEL, HONEYCOMB_SHOVEL, PEZ_SHOVEL);
 		
-		CBlockTags._pairs_.forEach((p) -> copy(p.bt(), p.it()));
+		CBlockTags.pairs.forEach((p) -> copy(p.bt(), p.it()));
 	}
 	
 	private void add(TagKey<Item> tagKey, ItemEntry<?>... ie) {

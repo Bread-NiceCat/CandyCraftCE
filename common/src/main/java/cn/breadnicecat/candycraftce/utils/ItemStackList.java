@@ -1,12 +1,15 @@
 package cn.breadnicecat.candycraftce.utils;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.make;
+import static java.lang.Math.min;
 import static net.minecraft.world.item.ItemStack.EMPTY;
 
 /**
@@ -38,8 +41,8 @@ public class ItemStackList extends NonNullList<ItemStack> {
 		return get(index).isEmpty();
 	}
 	
-	public ItemStack extract(int index, int amount) {
-		return ContainerHelper.removeItem(this, index, amount);
+	public ItemStack extract(int index, int expectCount) {
+		return ContainerHelper.removeItem(this, index, expectCount);
 	}
 	
 	/**
@@ -89,13 +92,50 @@ public class ItemStackList extends NonNullList<ItemStack> {
 		if (left != 0 && ItemStack.isSameItemSameComponents(cur, item)) {
 			int itemCnt = item.getCount();
 			//剩余 >= 外来
-			item.shrink(Math.min(left, itemCnt));//0
+			item.shrink(min(left, itemCnt));//0
 		}
 		return item;
 	}
 	
 	@Override
-	public ItemStack remove(int i) {
-		return set(i, EMPTY);
+	public ItemStack remove(int index) {
+		return set(index, EMPTY);
+	}
+	
+	/**
+	 * 尝试把from中{@code min(count,expectedCount)}转移到to中
+	 * @return 转移的数量
+	 */
+	public int transfer(int from,int to,int expectedCount) {
+		ItemStack ori = get(from);
+		ItemStack dest = get(to);
+		if(dest.isEmpty()){
+			ItemStack split = ori.split(expectedCount);
+			set(to, split);
+			return split.getCount();
+		}else if(dest.is(ori.getItem())){
+			int cnt=min(expectedCount,min(ori.getCount(),dest.getMaxStackSize()-dest.getCount()));
+			ori.shrink(cnt);
+			dest.grow(cnt);
+			return cnt;
+		}
+		return 0;
+	}
+	
+	/**
+	 * 交换
+	 */
+	public void shift(int from,int to) {
+		ItemStack fr = get(from);
+		ItemStack dest = get(to);
+		set(from,dest);
+		set(to,fr);
+	}
+	
+	public boolean is(int index, Item item) {
+		return get(index).is(item);
+	}
+	public boolean is(int index, TagKey<Item> tag) {
+		return get(index).is(tag);
 	}
 }

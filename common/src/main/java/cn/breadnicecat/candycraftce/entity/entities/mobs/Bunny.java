@@ -38,9 +38,12 @@ public class Bunny extends Rabbit {
 	
 	public Bunny(EntityType<? extends Rabbit> entityType, Level level) {
 		super(entityType, level);
-		setRGB_A(level.random.nextInt(0xffffff));
-		setRGB_B(level.random.nextInt(0xffffff));
+		if (!level.isClientSide) {
+			setRGB_A(level.random.nextInt(0xffffff));
+			setRGB_B(level.random.nextInt(0xffffff));
+		}
 	}
+	
 	
 	@Override
 	protected void registerGoals() {

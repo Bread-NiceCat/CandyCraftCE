@@ -4,6 +4,10 @@ import cn.breadnicecat.candycraftce.CandyCraftCE;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID;
 
 
 public class ResourceUtils {
@@ -28,7 +32,7 @@ public class ResourceUtils {
 	 * @return MOD_ID:path
 	 */
 	public static ResourceLocation prefix(String path) {
-		return ResourceLocation.fromNamespaceAndPath(CandyCraftCE.MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 	
 	public static ResourceLocation prefixDefault(String path) {
@@ -47,8 +51,11 @@ public class ResourceUtils {
 	 * 同prefix
 	 */
 	public static String simplePrefix(String path) {
-		return CandyCraftCE.MOD_ID + ":" + path;
+		return MOD_ID + ":" + path;
 	}
 	
 	
+	public static String i18Key(@Nullable String category,@NotNull String path) {
+		return (category==null?"":category)+"."+MOD_ID+"."+path.replace('/','.');
+	}
 }

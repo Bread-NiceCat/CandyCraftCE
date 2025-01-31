@@ -37,14 +37,11 @@ public enum CArmorMaterials {
 	HONEYCOMB("honeycomb", 15, new int[]{2, 5, 6, 2, 5}, 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(CItems.HONEYCOMB)),
 	PEZ("pez", 33, new int[]{3, 6, 8, 3, 11}, 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> Ingredient.of(CItems.PEZ));
 	
-	//	JAWBREAKER("jawbreaker", 37, new int[]{3, 6, 8, 3}, 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(CItemTags.JAWBREAKER.getTagKey()));
 	private static final Logger LOGGER = CLogUtils.sign();
 	public final int durabilityMultiplier;
 	public final SimpleEntry<ArmorMaterial, ArmorMaterial> wrapper;
 	
-	CArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType,
-	                int enchantmentValue, Holder<SoundEvent> sound, float toughness,
-	                float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+	CArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, Holder<SoundEvent> sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
 		this.durabilityMultiplier = durabilityMultiplier;
 		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(prefix(name)));
 		repairIngredient = LazySupplier.of(repairIngredient);

@@ -160,6 +160,7 @@
   "entity.candycraftce.strawberry_jelly": "草莓果冻",
   "entity.candycraftce.waffle_sheep": "华夫饼羊",
   "gamerule.doCaramelPortalWorks": "允许焦糖传送门传送玩家",
+  "gui.candycraftce.burn_time": "燃烧时间:%s",
   "item.candycraftce.candied_cherry": "蜜饯樱桃",
   "item.candycraftce.candied_cherry_leaf": "蜜饯樱桃树叶",
   "item.candycraftce.candy_cane": "拐杖糖",

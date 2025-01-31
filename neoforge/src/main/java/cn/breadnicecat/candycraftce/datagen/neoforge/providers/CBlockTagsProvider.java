@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import static cn.breadnicecat.candycraftce.block.CBlockTags.*;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.assertTrue;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static net.minecraft.tags.BlockTags.*;
 
 /**
@@ -134,10 +134,10 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 	private IntrinsicTagAppender<Block> add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 		
 		HashSet<BlockEntry<?>> set = new HashSet<>();
-		assertTrue(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
+		must(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
 		IntrinsicTagAppender<Block> tag = tag(tagKey);
 		accept(i -> {
-			assertTrue(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
+			must(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
 			tag.add(i.get());
 		}, be);
 		return tag;

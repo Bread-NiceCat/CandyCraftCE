@@ -23,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static cn.breadnicecat.candycraftce.utils.tools.LambdaAccessor.of;
+import static java.lang.Math.max;
 import static net.minecraft.world.item.Items.SUGAR;
 
 /**
@@ -90,70 +90,66 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 	public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 		return new SugarFactoryMenu(i, inventory, this, data);
 	}
+public void serverTick() {
+	boolean legal = tickLegality();
+	tickProgress(legal);
+}
 	
-	public void serverTick() {
-		check:
+	private boolean tickLegality() {
+		if (items.isEmpty(INPUT_SLOT)) return false;
+		//如果放入糖，则进入制糖模式
+		if(items.get(INPUT_SLOT).is(SUGAR)){
+			if(items.get(OUTPUT_SLOT).isEmpty()) {
+				items.transfer(INPUT_SLOT, OUTPUT_SLOT, 1);
+			}
+			return false;
+		}
+		final SugarFactoryRecipe ru0=recipeUsed;
+		//检查配方
+		if(items.is(OUTPUT_SLOT,SUGAR)&&SUGARY.matches(checker,level)){
+			//如果输出栏有糖，则优先进入制糖模式
+			recipeUsed=SUGARY;
+		}else if (recipeUsed == null
+				//注意：如果是制糖模式的话，每次都应该检查是否有其他的配方，防止出现输入被替换后仍然符合制糖模式要求的情况
+				|| recipeUsed==SUGARY
+				|| !recipeUsed.matches(checker, level))//不匹配
 		{
-			ItemStack output = items.get(OUTPUT_SLOT);
-			
-			if (items.isEmpty(INPUT_SLOT)) {
-				recipeUsed = null;
-				break check;
-			}
-			//如果输入是糖，则取一个糖到右边去
-			if (items.get(INPUT_SLOT).is(SUGAR)) {
-				if (output.isEmpty()) {
-					items.set(OUTPUT_SLOT, items.extract(INPUT_SLOT, 1));
-				} else break check;
-			}
-			//检查配方
-			if (recipeUsed == null || !recipeUsed.matches(checker, level)) {
-				var opt = quickCheck.getRecipeFor(checker, level);
-				recipeUsed = opt.map(RecipeHolder::value).orElse(null);
-			}
-			//判断输出 输出阻塞
-			for (int i = 0; i < 2; i++) {//循环两次
-				if (i == 0 && recipeUsed == null) {//没找到匹配的配方
-					continue;
-				} else if (i == 1) {//第二次进入
-					//通过第一次判断
-					if (recipeUsed != null) break;
-					//验证是否符合制糖模式
-					if (SUGARY.matches(checker, level)) {
-						recipeUsed = SUGARY;
-					} else break;
-				}
-				//输出内容不是配方输出内容 或者 之和大于最大堆叠数
-				if (!output.isEmpty() && (!ItemStack.isSameItemSameComponents(output, recipeUsed.getResult()) || output.getCount() + recipeUsed.getCount() > output.getMaxStackSize())) {
-					recipeUsed = null;
-				}
+			//匹配
+			var recipe = quickCheck.getRecipeFor(checker, level).orElse(null);
+			if (recipe==null) {
+				//备选，制糖模式
+				if (SUGARY.matches(checker, level)) {
+					recipeUsed = SUGARY;
+				}else return false;
+			} else {
+				recipeUsed = recipe.value();
 			}
 		}
-		
-		//更新
-		boolean changed = recipeType != (recipeType = getRecipeType(recipeUsed))
-				| tickedTotal != (tickedTotal = getTickedTimeTotal(recipeUsed));
-		if (recipeUsed != null) {
-			if (tickedTotal != 0 && ++ticked > tickedTotal) {
+		if(recipeUsed!=ru0) {
+			//如果配方改变了
+			tickedTotal = getTickTimeTotal(recipeUsed);
+			recipeType = getRecipeType(recipeUsed);
 				ticked = 0;
+		}
+		return items.simulateInsert(OUTPUT_SLOT, recipeUsed.getResultItem(level.registryAccess())).isEmpty();
+	}
+	
+	
+	private void tickProgress(boolean promote) {
+		if (recipeUsed != null && promote) {
+			if (++ticked >= tickedTotal) {
+				ticked=0;
 				items.extract(INPUT_SLOT, 1);
 				items.insert(OUTPUT_SLOT, recipeUsed.assemble(checker, level.registryAccess()));
 			}
-			changed = true;
-		} else if (ticked > 0) {
-			ticked = Math.min(0, ticked - 2);
-			changed = true;
-		}
-		
-		if (changed) setChanged();
-		
+		} else ticked = max(0, ticked - 2);
 	}
 	
 	@Override
 	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
-		ContainerHelper.loadAllItems(tag.getCompound("items"), items, registries);
-		ticked = tag.getInt("ticked");
+		ContainerHelper.loadAllItems(tag.getCompound("Items"), items, registries);
+		ticked = tag.getInt("Ticked");
 	}
 	
 	@Override
@@ -161,15 +157,15 @@ public class SugarFactoryBE extends BlockEntity implements MenuProvider, Worldly
 		super.saveAdditional(tag, registries);
 		CompoundTag items = new CompoundTag();
 		ContainerHelper.saveAllItems(items, this.items, registries);
-		tag.put("items", items);
-		tag.putInt("ticked", ticked);
+		tag.put("Items", items);
+		tag.putInt("Ticked", ticked);
 	}
 	
 	protected int getRecipeType(@Nullable SugarFactoryRecipe recipe) {
 		return recipe == null ? NULL_TYPE : (recipe == SUGARY ? SUGARY_TYPE : COMMON_TYPE);
 	}
 	
-	protected int getTickedTimeTotal(@Nullable SugarFactoryRecipe recipe) {
+	protected int getTickTimeTotal(@Nullable SugarFactoryRecipe recipe) {
 		return recipe == null ? 0 : COMMON_TICKED_TOTAL;
 	}
 	

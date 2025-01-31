@@ -42,7 +42,7 @@ public class AdvancedFactoryBE extends SugarFactoryBE {
 	}
 
 	@Override
-	protected int getTickedTimeTotal(@Nullable SugarFactoryRecipe recipe) {
-		return recipe != null && !recipe.advanced ? ADVANCED_TICKED_TOTAL : super.getTickedTimeTotal(recipe);
+	protected int getTickTimeTotal(@Nullable SugarFactoryRecipe recipe) {
+		return recipe != null && !recipe.advanced ? ADVANCED_TICKED_TOTAL : super.getTickTimeTotal(recipe);
 	}
 }
