@@ -5,6 +5,7 @@ import cn.breadnicecat.candycraftce.block.CBlocks;
 import cn.breadnicecat.candycraftce.entity.CEntityTypes;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.items.*;
+import cn.breadnicecat.candycraftce.item.items.iidebug.IIDebugItem;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.ResourceUtils;

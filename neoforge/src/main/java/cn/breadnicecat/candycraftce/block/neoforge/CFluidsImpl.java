@@ -1,6 +1,5 @@
 package cn.breadnicecat.candycraftce.block.neoforge;
 
-import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.FlowingFluidEntry;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
@@ -27,29 +26,23 @@ public class CFluidsImpl {
 	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	private static void initializeClient(RegisterClientExtensionsEvent event) throws Exception {
-		CandyCraftCE.hookMinecraftSetup(() -> {
-			log.info("Init fluid_types...");
+		log.info("Init fluid_types...");
+		Field mapField = ArchitecturyFlowingFluid.class.getDeclaredField("FLUID_TYPE_MAP");
+		mapField.setAccessible(true);
+		Map<ArchitecturyFluidAttributes, FluidType> fluid_type_map = (Map<ArchitecturyFluidAttributes, FluidType>) mapField.get(null);
+		for (FlowingFluidEntry<?, ?> fluid : CFluids.FLUIDS.values()) {
 			try {
-				Field mapField = ArchitecturyFlowingFluid.class.getDeclaredField("FLUID_TYPE_MAP");
-				mapField.setAccessible(true);
-				Map<ArchitecturyFluidAttributes, FluidType> fluid_type_map = (Map<ArchitecturyFluidAttributes, FluidType>) mapField.get(null);
-				for (FlowingFluidEntry<?, ?> fluid : CFluids.FLUIDS.values()) {
-					try {
-						//exec Lazy logic in <init>
-						FluidType type = fluid.getSource().get().getFluidType();
-						
-						Method method = type.getClass().getDeclaredMethod("initializeClient", Consumer.class);
-						method.setAccessible(true);
-						method.invoke(type, (Consumer<IClientFluidTypeExtensions>) ext -> {
-							event.registerFluidType(ext, type);
-						});
-					} catch (Exception e) {
-						log.error("Error during init fluid_type: " + fluid, e);
-					}
-				}
-			} catch (ReflectiveOperationException e) {
-				throw new RuntimeException(e);
+				//exec Lazy logic in <init>
+				FluidType type = fluid.getSource().get().getFluidType();
+				
+				Method method = type.getClass().getDeclaredMethod("initializeClient", Consumer.class);
+				method.setAccessible(true);
+				method.invoke(type, (Consumer<IClientFluidTypeExtensions>) ext -> {
+					event.registerFluidType(ext, type);
+				});
+			} catch (Exception e) {
+				log.error("Error during init fluid_type: " + fluid, e);
 			}
-		});
+		}
 	}
 }

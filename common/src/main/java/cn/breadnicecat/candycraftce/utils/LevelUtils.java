@@ -65,7 +65,7 @@ public class LevelUtils {
 	}
 	
 	public static void particleBlock(ParticleOptions particle, ClientLevel level, BlockPos pos, double step) {
-		particleBlock(particle, level, pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ(), step);
+		particleBlock(particle, level, pos, pos, step);
 	}
 	
 	public static void particleBlock(ParticleOptions particle, ClientLevel level, BlockPos from, BlockPos to, double step) {
