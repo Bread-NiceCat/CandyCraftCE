@@ -1,4 +1,5 @@
 # Candycraft Community Edition 1.21
+
 <hr>
 ## Languages
 
@@ -25,6 +26,6 @@
 ## Compile
 
 1. Simply execute the command `./gradlew build` in project root directory
-2. Check products in `build\libs\merged\candycraftce-xxx-x.x.x.jar`
+2. Check products in `${engine}\build\libs\candycraftce-xxx-x.x.x.jar`
 
 <hr>

@@ -86,4 +86,5 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
+    atAccessWideners.add "candycraftce.accesswidener"
 }

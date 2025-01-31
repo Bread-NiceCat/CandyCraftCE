@@ -16,6 +16,7 @@
 <hr>
 
 ## 下载
+
 - 通过[MC百科](https://www.mcmod.cn/download/8526.html)下载。
 - 自动构建版(Nightly)([Gitee流水线](.docs/autobuild_cn.md))。
 - 通过[一些步骤](#编译)编译。
@@ -25,7 +26,7 @@
 ## 编译
 
 1. 在根目录下运行命令:`./gradlew build`
-2. 编译好的mod文件将输出在 `build\libs\merged\candycraft-xxx-x.x.x.jar`
+2. 编译好的mod文件将输出在 `${engine}\build\libs\candycraftce-xxx-x.x.x.jar`
 
 <hr>
 
