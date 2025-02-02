@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.utils;
 
 import net.minecraft.util.RandomSource;
-import org.apache.logging.log4j.util.StackLocatorUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -13,22 +12,25 @@ import java.util.function.Supplier;
 /**
  * @author <a href="https://gitee.com/Bread_NiceCat">Bread_NiceCat</a>
  * @date 2022/12/30 15:32
- * 非mc特有
  */
 public class CommonUtils {
 	
 	
 	public static Class<?> getCaller() {
-		return StackLocatorUtil.getCallerClass(3);//因为要再调用getCaller(int)所以要+1
+		return getCaller(1);
 	}
 	
 	/**
-	 * @param depth 从深度1(此方法)开始,2调用这个方法的方法,3调用调用这个方法的方法...
+	 * @param depth 0为调用该方法的方法
 	 */
 	public static Class<?> getCaller(int depth) {
-		return StackLocatorUtil.getCallerClass(depth);
+		return StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+				.walk(c -> c
+						.skip(depth + 1)
+						.findFirst())
+				.orElseThrow()
+				.getDeclaringClass();
 	}
-	
 	
 	public static void must(boolean bool) {
 		must(bool, "false");
