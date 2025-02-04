@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static cn.breadnicecat.candycraftce.misc.mixin_ref.ItemRenderer.SPEAR_IN_HAND_MODEL;
+import static cn.breadnicecat.candycraftce.misc.mixin_ref.$ItemRenderer.SPEAR_IN_HAND_MODEL;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.orElse;
 import static net.minecraft.world.item.ItemDisplayContext.*;
 

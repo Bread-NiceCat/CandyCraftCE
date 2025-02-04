@@ -28,9 +28,6 @@ public class Cranfish extends AbstractFish {
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-
-//		this.goalSelector.addGoal(1, new FollowMobGoal(this, 1.25, 3.0f, 10f));
-		
 	}
 	
 	@Override

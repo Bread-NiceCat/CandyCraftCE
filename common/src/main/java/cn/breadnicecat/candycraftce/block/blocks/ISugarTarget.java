@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
+import cn.breadnicecat.candycraftce.mixin.plants.MixinItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  * <p>
- * @see cn.breadnicecat.candycraftce.mixin.MixinItem
+ * @see MixinItem
  */
 public interface ISugarTarget {
 	/**
@@ -33,11 +34,11 @@ public interface ISugarTarget {
 		}
 		return false;
 	}
-
+	
 	boolean isValidSugarTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient);
-
+	
 	boolean isSugarSuccess(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state);
-
+	
 	void performSugar(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state);
-
+	
 }

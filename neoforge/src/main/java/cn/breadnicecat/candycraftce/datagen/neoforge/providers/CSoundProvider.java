@@ -32,7 +32,7 @@ public class CSoundProvider extends SoundDefinitionsProvider {
 		base(CD_2, CD_2.getId());
 		base(CD_3, CD_3.getId());
 		base(CD_4, CD_4.getId());
-		base(CD_o, CD_o.getId());
+		base(O, O.getId());
 		base(CSoundEvents.JELLY_STEP, prefix("jelly1"), prefix("jelly2"), prefix("jelly3"), prefix("jelly4"));
 		base(CSoundEvents.JELLY_DIG, prefix("jelly1"), prefix("jelly2"));
 	}

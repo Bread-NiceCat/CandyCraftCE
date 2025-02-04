@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Supplier;
 
-import static cn.breadnicecat.candycraftce.level.PuddingColor.PUDDING_COLOR_RESOLVER;
+import static cn.breadnicecat.candycraftce.misc.PuddingColor.PUDDING_COLOR_RESOLVER;
 
 /**
  * Created in 2024/7/7 上午12:43

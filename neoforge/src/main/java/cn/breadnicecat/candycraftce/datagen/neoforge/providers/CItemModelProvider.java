@@ -5,6 +5,7 @@ import cn.breadnicecat.candycraftce.item.ItemEntry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -12,6 +13,10 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
+import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL_FLUID;
+import static cn.breadnicecat.candycraftce.block.CFluids.GRENADINE_FLUID;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
@@ -40,8 +45,8 @@ public class CItemModelProvider extends ItemModelProvider {
 					.filter(e -> e.getKey().location().getNamespace().equals(CandyCraftCE.MOD_ID))
 					.filter(e -> e.getValue() instanceof SpawnEggItem)
 					.forEach(e -> withExistingParent(e.getKey().location().getPath(), "item/template_spawn_egg"));
-			
-			accept(((i) -> basicItem(i.get())),
+			accept(((Supplier<? extends Item> i) -> basicItem(i.get())),
+					CARAMEL_FLUID::getBucket, GRENADINE_FLUID::getBucket,
 					CRANFISH_BUCKET,
 					LICORICE, HONEYCOMB, HONEYCOMB_SHARD, PEZ, MARSHMALLOW_STICK,
 					SUGAR_CRYSTAL, COTTON_CANDY, GUMMY, HOT_GUMMY, CHOCOLATE_COIN,

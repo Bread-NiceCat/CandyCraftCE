@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.level;
 
+import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;

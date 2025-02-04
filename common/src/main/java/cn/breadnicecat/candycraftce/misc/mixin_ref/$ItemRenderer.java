@@ -13,6 +13,6 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.model;
  *
  * <p>
  **/
-public interface ItemRenderer {
+public interface $ItemRenderer {
 	ModelResourceLocation SPEAR_IN_HAND_MODEL = model("licorice_spear_in_hand", "inventory");
 }

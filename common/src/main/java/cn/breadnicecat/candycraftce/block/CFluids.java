@@ -46,6 +46,7 @@ public class CFluids {
 			(e, a) -> a
 					.sourceTexture(prefix("block/caramel"))
 					.flowingTexture(a.getSourceTexture())
+					.overlayTexture(ResourceLocation.withDefaultNamespace("block/water_overlay"))
 					.density(3000)
 					.viscosity(6000)
 					.temperature(1300)
@@ -60,6 +61,7 @@ public class CFluids {
 			(e, a) -> a
 					.sourceTexture(prefix("block/grenadine_static"))
 					.flowingTexture(prefix("block/grenadine_flowing"))
+					.overlayTexture(ResourceLocation.withDefaultNamespace("block/water_overlay"))
 					.emptySound(SoundEvents.BUCKET_EMPTY)
 					.fillSound(SoundEvents.BUCKET_FILL)
 			, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WATER),
@@ -85,6 +87,7 @@ public class CFluids {
 		BlockEntry<ArchitecturyLiquidBlock> be = blockProp == null ? null : CBlockBuilder.register(name, () -> new ArchitecturyLiquidBlock(ref.entry.getSource(), blockProp.get()));
 		ItemEntry<ArchitecturyBucketItem> ie = bucketProp == null ? null : CItemBuilder.create(name + "_bucket", (prop) -> new ArchitecturyBucketItem(() -> ref.entry.getSource().get(), prop)).setProperties(bucketProp).save();
 		CandyCraftCE.hookPostBootstrap(() -> {
+					ref.entry.lateinit(ie, be);
 					if (be != null) ref.attr.block(be::optional);
 					if (bucketProp != null) ref.attr.bucketItem(() -> ie.optional().map($ -> $));
 					attrFactory.accept(ref.entry, ref.attr);

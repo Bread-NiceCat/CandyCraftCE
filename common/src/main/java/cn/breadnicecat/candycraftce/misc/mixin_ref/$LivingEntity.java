@@ -13,9 +13,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
  *
  * <p>
  **/
-public interface LivingEntity {
-	/**
-	 * For Mixin
-	 */
+public interface $LivingEntity {
 	EntityDataAccessor<Integer> DATA_CARAMEL_ARROW_COUNT_ID = SynchedEntityData.defineId(net.minecraft.world.entity.LivingEntity.class, EntityDataSerializers.INT);
 }

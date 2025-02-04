@@ -43,7 +43,6 @@ public class CBlockBuilder<B extends Block> implements ICandyBuilder<CBlockBuild
 	static {
 		//把block都排到最后去
 		CItems.hookBlockItems(items);
-		CandyCraftCE.hookPostBootstrap(() -> items = null);
 	}
 	
 	public static <B extends Block> CBlockBuilder<B> create(String name, Function<Properties, B> factory) {

@@ -21,7 +21,7 @@ public class ModelBunny extends HierarchicalModel<Bunny> {
 	private final ModelPart root;
 	
 	public ModelBunny(ModelPart root) {
-		super(RenderType::entityCutout);
+		super(RenderType::entityTranslucent);
 		this.root = root;
 	}
 	
@@ -32,7 +32,8 @@ public class ModelBunny extends HierarchicalModel<Bunny> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-		partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(12, 0).mirror().addBox(1.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+		partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create()
+				.texOffs(12, 0).mirror().addBox(1.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(12, 0).mirror().addBox(-3.0F, -2.0F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 0).mirror().addBox(1.0F, -2.0F, 1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
 				.texOffs(0, 0).mirror().addBox(-3.0F, -2.0F, 1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)

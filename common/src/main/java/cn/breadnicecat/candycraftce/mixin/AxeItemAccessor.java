@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Map;
 
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
+
 /**
  * Created in 2024/7/11 上午11:35
  * Project: candycraftce
@@ -21,12 +23,12 @@ import java.util.Map;
 public interface AxeItemAccessor {
 	@Accessor
 	static Map<Block, Block> getSTRIPPABLES() {
-		throw new UnsupportedOperationException();
+		return impossibleCode();
 	}
 	
 	@Mutable
 	@Accessor
 	static void setSTRIPPABLES(Map<Block, Block> STRIPPABLES) {
-		throw new UnsupportedOperationException();
+		impossibleCode();
 	}
 }

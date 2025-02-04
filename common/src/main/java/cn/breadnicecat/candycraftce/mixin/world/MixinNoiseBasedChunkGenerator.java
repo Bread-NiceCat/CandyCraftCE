@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.mixin.world;
 
 import cn.breadnicecat.candycraftce.block.CBlocks;
+import cn.breadnicecat.candycraftce.block.CFluids;
 import net.minecraft.world.level.levelgen.Aquifer;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
@@ -24,9 +25,10 @@ public abstract class MixinNoiseBasedChunkGenerator {
 	@Inject(method = "createFluidPicker", at = @At("HEAD"), cancellable = true)
 	private static void createFluidPicker(NoiseGeneratorSettings settings, CallbackInfoReturnable<Aquifer.FluidPicker> cir) {
 		if (settings.defaultBlock().is(CBlocks.CHOCOLATE_STONE.get())) {
-			//no lava places in world
-			Aquifer.FluidStatus fluidStatus2 = new Aquifer.FluidStatus(settings.seaLevel(), settings.defaultFluid());
-			cir.setReturnValue((j, k, l) -> fluidStatus2);
+			Aquifer.FluidStatus fluidStatus = new Aquifer.FluidStatus(-54, CFluids.CARAMEL_FLUID.getBlock().defaultBlockState());
+			int i = settings.seaLevel();
+			Aquifer.FluidStatus fluidStatus2 = new Aquifer.FluidStatus(i, settings.defaultFluid());
+			cir.setReturnValue((j, k, l) -> k < Math.min(-54, i) ? fluidStatus : fluidStatus2);
 		}
 	}
 }

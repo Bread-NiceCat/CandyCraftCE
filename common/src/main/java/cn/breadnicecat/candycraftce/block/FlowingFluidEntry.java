@@ -1,11 +1,16 @@
 package cn.breadnicecat.candycraftce.block;
 
+import cn.breadnicecat.candycraftce.item.ItemEntry;
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
 import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+
+import java.util.Optional;
 
 /**
  * Created in 2024/4/4 0:43
@@ -17,6 +22,8 @@ import net.minecraft.world.level.material.Fluid;
 public class FlowingFluidEntry<S extends FlowingFluid, F extends FlowingFluid> extends SimpleEntry<FlowingFluid, S> {
 	private final SimpleEntry<FlowingFluid, F> flowing;
 	private final SimpleArchitecturyFluidAttributes attributes;
+	private ItemEntry<?> bucket;
+	private BlockEntry<? extends LiquidBlock> sourceBlock;
 	
 	public FlowingFluidEntry(SimpleEntry<FlowingFluid, S> source, SimpleEntry<FlowingFluid, F> flowing, SimpleArchitecturyFluidAttributes attr) {
 		super(source);
@@ -48,12 +55,24 @@ public class FlowingFluidEntry<S extends FlowingFluid, F extends FlowingFluid> e
 		return isFlowing(fluid) || isSource(fluid);
 	}
 	
+	public Optional<ItemEntry<?>> getBucketEntry() {
+		return Optional.ofNullable(bucket);
+	}
+	
+	public Optional<BlockEntry<? extends LiquidBlock>> getBlockEntry() {
+		return Optional.ofNullable(sourceBlock);
+	}
+	
 	public Item getBucket() {
-		return attributes.getBucketItem();
+		return getBucketEntry().<Item>map(ItemEntry::get).orElse(Items.AIR);
 	}
 	
 	public LiquidBlock getBlock() {
-		return attributes.getBlock();
+		return getBlockEntry().<LiquidBlock>map(BlockEntry::get).orElse((LiquidBlock) Blocks.WATER);
 	}
 	
+	void lateinit(ItemEntry<?> bucket, BlockEntry<? extends LiquidBlock> sourceBlock) {
+		this.bucket = bucket;
+		this.sourceBlock = sourceBlock;
+	}
 }

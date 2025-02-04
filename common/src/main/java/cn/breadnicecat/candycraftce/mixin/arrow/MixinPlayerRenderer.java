@@ -1,6 +1,6 @@
-package cn.breadnicecat.candycraftce.mixin;
+package cn.breadnicecat.candycraftce.mixin.arrow;
 
-import cn.breadnicecat.candycraftce.entity.layers.LayerCaramelArrow;
+import cn.breadnicecat.candycraftce.entity.renderers.LayerCaramelArrow;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import org.spongepowered.asm.mixin.Mixin;

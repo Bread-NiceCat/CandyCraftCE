@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.item.neoforge;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
 import cn.breadnicecat.candycraftce.item.CItemBuilder;
 import cn.breadnicecat.candycraftce.item.ItemEntry;
-import cn.breadnicecat.candycraftce.level.PuddingColor;
+import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;

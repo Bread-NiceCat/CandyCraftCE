@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.mixin;
+package cn.breadnicecat.candycraftce.mixin.plants;
 
 import cn.breadnicecat.candycraftce.block.blocks.ISugarTarget;
 import net.minecraft.core.BlockPos;

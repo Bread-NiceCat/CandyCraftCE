@@ -1,4 +1,4 @@
-// 1.21	2025-01-30T19:36:00.2144208	Block States: candycraftce
+// 1.21	2025-02-02T19:07:02.0932354	Block States: candycraftce
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets/candycraftce/blockstates/acid_mint_flower.json
 10f49f3c5dec148c98ea4b1a5cef5d1c3ba5354a assets/candycraftce/blockstates/advanced_sugar_factory.json
 98461b39c30bf2626e41b87c3f4bedc2ec157939 assets/candycraftce/blockstates/alchemy_mixer.json
@@ -58,6 +58,7 @@ b34227e860f1040498c0e58f375e2f5e90ad567f assets/candycraftce/blockstates/diamond
 c06593efba0e8638b10e93af4d7eee999f25c2e8 assets/candycraftce/blockstates/dragibus_crops.json
 3c7f4b9270e2812c78205f0353463ecf604a6add assets/candycraftce/blockstates/fraise_tagada_flower.json
 c7b749a1b408d3b623dc44c5862df536b7869d16 assets/candycraftce/blockstates/golden_sugar_flower.json
+06412201a85b7ea62d319b99c802a556106d82fd assets/candycraftce/blockstates/grenadine.json
 1794d605ace8fff5fec1d670c322071950460959 assets/candycraftce/blockstates/grenadine_block.json
 1f35c0adf9bf4b6259df9ba887173ef049d4dfc9 assets/candycraftce/blockstates/honeycomb_block.json
 1a04f698f4e01e79e941c4ea2457088ebbe9166b assets/candycraftce/blockstates/honeycomb_lamp.json
@@ -266,6 +267,7 @@ b22f8da98861b8ba2d27a4ce7730064d7cad98b6 assets/candycraftce/models/block/dragib
 85471c7c9781c10de5214a6e621828d733f39051 assets/candycraftce/models/block/dragibus_crops_3.json
 c3debfc8d1855b962988eaf851e2a1e04f43305d assets/candycraftce/models/block/fraise_tagada_flower.json
 611682facbd0dbc8556900199f031638cd4d61ca assets/candycraftce/models/block/golden_sugar_flower.json
+fa169b73f4e8b1b2ea40d62fd4617edd769ccbd0 assets/candycraftce/models/block/grenadine.json
 3092bade251e4ebe96ed419262d717a7f0a68e77 assets/candycraftce/models/block/grenadine_block.json
 810986cd716d63ec956f5b2cc8cb167fde4a2999 assets/candycraftce/models/block/honeycomb_block.json
 b5b2a97c950e9f3198b5f1262e516f5f66bdfa13 assets/candycraftce/models/block/honeycomb_lamp.json

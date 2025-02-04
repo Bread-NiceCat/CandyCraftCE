@@ -1,6 +1,8 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
 import cn.breadnicecat.candycraftce.block.BlockEntry;
+import cn.breadnicecat.candycraftce.block.CFluids;
+import cn.breadnicecat.candycraftce.block.FlowingFluidEntry;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.EnUsCLanguageProvider;
 import cn.breadnicecat.candycraftce.datagen.neoforge.providers.langs.ZhCnCLanguageProvider;
 import cn.breadnicecat.candycraftce.entity.EntityEntry;
@@ -331,7 +333,17 @@ public class CLanguageProvider implements DataProvider {
 		addJukeboxSong(CD_4, "Little End - Rain travel in the MineCraft", null);
 		addJukeboxSong(CD_o, "J.D.K. - 鉄橋を越えて", null);
 		addEnchantment(CEnchantments.DEVOURER, "Devourer", "吞噬");
-		add(LicoriceFurnaceScreen.I18_BURN_TIME,"Burn Time:%s","燃烧时间:%s");
+		add(LicoriceFurnaceScreen.I18_BURN_TIME, "Burn Time:%s", "燃烧时间:%s");
+		addFluidById(CFluids.CARAMEL_FLUID, "熔融焦糖");
+		addFluidById(CFluids.GRENADINE_FLUID, "红石榴浆");
+	}
+	
+	private String zhBucket = "桶";
+	
+	private void addFluidById(FlowingFluidEntry<?, ?> entry, String zh_cn) {
+		addBlockById(entry.getBlockEntry().orElseThrow(), zh_cn);
+		addItemById(entry.getBucketEntry().orElseThrow(), zh_cn + zhBucket);
+		addById(entry.get().getFluidType().getDescriptionId(), zh_cn);
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
+import cn.breadnicecat.candycraftce.mixin.plants.MixinFarmBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author <a href="https://github.com/Bread-Nicecat">Bread_NiceCat</a>
  * @see FarmBlock [Vanilla Copy]
- * @see cn.breadnicecat.candycraftce.mixin.MixinFarmBlock [Mixin]
+ * @see MixinFarmBlock [Mixin]
  */
 public class PuddingFarmBlock extends FarmBlock {
 	

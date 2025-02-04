@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.block.neoforge;
 
-import cn.breadnicecat.candycraftce.level.PuddingColor;
+import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;

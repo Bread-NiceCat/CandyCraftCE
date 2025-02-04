@@ -9,5 +9,8 @@ package cn.breadnicecat.candycraftce.entity.entities;
  *
  * <p>
  **/
-public class IBoss {
+public interface IBoss {
+	enum BossType {
+		MiniBoss, Boss
+	}
 }

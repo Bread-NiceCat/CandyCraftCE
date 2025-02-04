@@ -1,7 +1,7 @@
-package cn.breadnicecat.candycraftce.entity.layers;
+package cn.breadnicecat.candycraftce.entity.renderers;
 
 import cn.breadnicecat.candycraftce.entity.entities.misc.CaramelArrow;
-import cn.breadnicecat.candycraftce.misc.mixin_ref.LivingEntity;
+import cn.breadnicecat.candycraftce.misc.mixin_ref.$LivingEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -37,7 +37,7 @@ public class LayerCaramelArrow extends ArrowLayer<AbstractClientPlayer, PlayerMo
 	
 	@Override
 	protected int numStuck(AbstractClientPlayer entity) {
-		return entity.getEntityData().get(LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID);
+		return entity.getEntityData().get($LivingEntity.DATA_CARAMEL_ARROW_COUNT_ID);
 	}
 	
 	/**

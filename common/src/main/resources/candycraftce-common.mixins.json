@@ -5,7 +5,7 @@
   "minVersion": "0.8",
   "client": [
     "MixinLayerDefinitions",
-    "MixinPlayerRenderer",
+    "arrow.MixinPlayerRenderer",
     "pudding_tint.MixinClientLevel",
     "spear.MixinBlockEntityWithoutLevelRenderer",
     "spear.MixinItemRenderer",
@@ -13,13 +13,12 @@
   ],
   "mixins": [
     "AxeItemAccessor",
-    "MixinAbstractArrow",
     "MixinBucketItem",
-    "MixinEatBlockGoal",
-    "MixinFarmBlock",
-    "MixinItem",
     "MixinLivingEntity",
-    "MixinPlayer",
+    "arrow.MixinAbstractArrow",
+    "arrow.MixinPlayer",
+    "plants.MixinFarmBlock",
+    "plants.MixinItem",
     "world.MixinNoiseBasedChunkGenerator"
   ],
   "injectors": {

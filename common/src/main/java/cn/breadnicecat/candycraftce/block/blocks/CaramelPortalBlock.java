@@ -1,12 +1,10 @@
 package cn.breadnicecat.candycraftce.block.blocks;
 
-import cn.breadnicecat.candycraftce.block.CBlockTags;
 import cn.breadnicecat.candycraftce.level.CDims;
-import cn.breadnicecat.candycraftce.level.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.particle.CParticles;
-import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
+import cn.breadnicecat.candycraftce.utils.multiblocks.VectorPortalShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -36,12 +34,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.BiFunction;
-
-import static cn.breadnicecat.candycraftce.block.CBlocks.CARAMEL_PORTAL;
 import static cn.breadnicecat.candycraftce.level.CDims.CANDYLAND;
 import static net.minecraft.world.level.Level.OVERWORLD;
-import static net.minecraft.world.level.block.Blocks.LAVA;
 
 /**
  * Created in 2023/12/31 9:43
@@ -54,24 +48,6 @@ public class CaramelPortalBlock extends Block {
 	public static final BooleanProperty X = BooleanProperty.create("x");
 	public static final BooleanProperty Y = BooleanProperty.create("y");
 	public static final BooleanProperty Z = BooleanProperty.create("z");
-	
-	public static final VectorPortalShape.PortalConfig CONFIG = new VectorPortalShape.PortalConfig(
-			2, 21, 3, 21,
-			true, true,
-			b -> b.isAir() || /*b.is(CARAMEL_LIQUID.get()) ||*/ b.is(LAVA) || b.is(CARAMEL_PORTAL.get()),
-			b -> b.is(CBlockTags.BT_CARAMEL_PORTAL_FRAME));
-	
-	public static final BiFunction<Axes, BlockState, BlockState> PLACER = (axes, old) -> {
-		if (old.is(CARAMEL_PORTAL.get())) {
-			return old.setValue(X, axes.hasX() | old.getValue(X))
-					.setValue(Y, axes.hasY() | old.getValue(Y))
-					.setValue(Z, axes.hasZ() | old.getValue(Z));
-		} else return CARAMEL_PORTAL.defaultBlockState()
-				.setValue(X, axes.hasX())
-				.setValue(Y, axes.hasY())
-				.setValue(Z, axes.hasZ());
-	};
-	
 	
 	private static final VoxelShape DEFAULT = Shapes.empty();
 	private static final VoxelShape X_AABB = Block.box(6.0, 0.0, 0.0, 10.0, 16.0, 16.0);
@@ -119,8 +95,8 @@ public class CaramelPortalBlock extends Block {
 		if (!neighborState.is(this)) {
 			//两个方块之间未连接
 			Direction.Axis[] axes = VectorPortalShape.axis2pipe2(direction.getAxis());
-			for (Direction.Axis axe : axes) {
-				if (state.getValue(axis2Property(axe))) return Blocks.AIR.defaultBlockState();
+			for (Direction.Axis axis : axes) {
+				if (state.getValue(axis2Property(axis))) return Blocks.AIR.defaultBlockState();
 			}
 		}
 		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);

@@ -25,7 +25,11 @@ import java.util.Map;
 public abstract class MixinLayerDefinitions {
 	
 	@Inject(method = "createRoots",
-			at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;", remap = false)
+			at = @At(
+					value = "INVOKE",
+					target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;",
+					remap = false
+			)
 	)
 	private static void createRoots(CallbackInfoReturnable<Map<ModelLayerLocation, LayerDefinition>> info, @Local ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder) {
 		CEntityBuilder._createRoots(builder);

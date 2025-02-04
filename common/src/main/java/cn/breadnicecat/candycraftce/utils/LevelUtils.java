@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Iterator;
+import java.util.stream.Stream;
 
 /**
  * @author <a href="https://gitee.com/Bread_NiceCat">Bread_NiceCat</a>
@@ -48,21 +48,11 @@ public class LevelUtils {
 		};
 	}
 	
-	public static Iterable<BlockPos> getNeighbourPos(BlockPos pos) {
-		return () -> new Iterator<>() {
-			int i = 0;
-			
-			@Override
-			public boolean hasNext() {
-				return i < Direction.values().length;
-			}
-			
-			@Override
-			public BlockPos next() {
-				return move(pos, Direction.values()[i++], 1);
-			}
-		};
+	public static Stream<BlockPos> getNeighbourPos(BlockPos pos) {
+		return Stream.of(Direction.values())
+				.map(direction -> pos.relative(direction, 1));
 	}
+	
 	
 	public static void particleBlock(ParticleOptions particle, ClientLevel level, BlockPos pos, double step) {
 		particleBlock(particle, level, pos, pos, step);

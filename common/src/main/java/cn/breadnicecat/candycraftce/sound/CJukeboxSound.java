@@ -36,7 +36,7 @@ public class CJukeboxSound {
 		register(context, CD_2, CSoundEvents.CD_2.getHolder(), 98, 2);
 		register(context, CD_3, CSoundEvents.CD_3.getHolder(), 112, 3);
 		register(context, CD_4, CSoundEvents.CD_4.getHolder(), 188, 4);
-		register(context, CD_o, CSoundEvents.CD_o.getHolder(), 128, Redstone.SIGNAL_MAX);
+		register(context, CD_o, CSoundEvents.O.getHolder(), 128, Redstone.SIGNAL_MAX);
 		
 	}
 	

@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.mixin;
+package cn.breadnicecat.candycraftce.mixin.arrow;
 
 import cn.breadnicecat.candycraftce.item.CItems;
 import net.minecraft.world.entity.player.Abilities;

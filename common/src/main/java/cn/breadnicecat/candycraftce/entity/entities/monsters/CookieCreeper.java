@@ -42,8 +42,8 @@ public class CookieCreeper extends Creeper {
 	
 	@Override
 	protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean recentlyHit) {
-		//No head
-		//Power Cookie
+		//不掉头
+		//`驯服协定`
 		if (isPowered()) {
 			ItemStack stack = Items.COOKIE.getDefaultInstance();
 			stack.setCount(32);
@@ -68,6 +68,11 @@ public class CookieCreeper extends Creeper {
 	@Override
 	protected @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.COOKIE)) {
+			ignite();
+			return InteractionResult.sidedSuccess(player.level().isClientSide);
+			
+		}
 		if (getHealth() < getMaxHealth() && FOOD.test(itemStack)) {
 			itemStack.shrink(1);
 			setHealth(getMaxHealth());
@@ -79,8 +84,7 @@ public class CookieCreeper extends Creeper {
 	
 	@Override
 	public void explodeCreeper() {
-		Level level = this.level();
-		if (!level.isClientSide) {
+		if (level() instanceof ServerLevel level) {
 			boolean powered = this.isPowered();
 			float modifier = powered ? 6F : 1F;
 			this.dead = true;
@@ -95,16 +99,16 @@ public class CookieCreeper extends Creeper {
 	private void spawnLingeringCloud(float rad) {
 		Collection<MobEffectInstance> collection = this.getActiveEffects();
 		if (!collection.isEmpty()) {
-			AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
-			areaEffectCloud.setRadius(rad + 0.5f);
-			areaEffectCloud.setRadiusOnUse(-0.5f);
-			areaEffectCloud.setWaitTime(10);
-			areaEffectCloud.setDuration(areaEffectCloud.getDuration() / 2);
-			areaEffectCloud.setRadiusPerTick(-areaEffectCloud.getRadius() / (float) areaEffectCloud.getDuration());
+			AreaEffectCloud cloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
+			cloud.setRadius(rad + 0.5f);
+			cloud.setRadiusOnUse(-0.5f);
+			cloud.setWaitTime(10);
+			cloud.setDuration(cloud.getDuration() / 2);
+			cloud.setRadiusPerTick(-cloud.getRadius() / (float) cloud.getDuration());
 			for (MobEffectInstance mobEffectInstance : collection) {
-				areaEffectCloud.addEffect(new MobEffectInstance(mobEffectInstance));
+				cloud.addEffect(new MobEffectInstance(mobEffectInstance));
 			}
-			this.level().addFreshEntity(areaEffectCloud);
+			this.level().addFreshEntity(cloud);
 		}
 	}
 }

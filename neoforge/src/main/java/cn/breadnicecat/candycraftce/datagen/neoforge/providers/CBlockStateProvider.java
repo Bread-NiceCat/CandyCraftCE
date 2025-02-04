@@ -2,7 +2,6 @@ package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.block.BlockEntry;
-import cn.breadnicecat.candycraftce.block.CFluids;
 import cn.breadnicecat.candycraftce.block.blocks.*;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import com.google.common.collect.Sets;
@@ -23,11 +22,14 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
+import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL_FLUID;
+import static cn.breadnicecat.candycraftce.block.CFluids.GRENADINE_FLUID;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static com.mojang.datafixers.util.Pair.of;
+import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 /**
  * Created in 2023/10/14 22:47
@@ -66,30 +68,23 @@ public class CBlockStateProvider extends BlockStateProvider {
 			}, MAGICAL_LEAVES);
 		}
 		//particle-only@liquid
-		{
-			accept(b -> {
-				LiquidBlock block = b.getBlock();
-				String name = b.getName();
-				simpleBlock(block, models().getBuilder(name).texture("particle", blockTexture(block)));
-			}, CFluids.CARAMEL_FLUID, CFluids.GRENADINE_FLUID);
-		}
+		simpleBlock(CARAMEL_FLUID.getBlock(), models().getBuilder(CARAMEL_FLUID.getName()).texture("particle", modLoc(BLOCK_FOLDER + "/caramel")));
+		simpleBlock(GRENADINE_FLUID.getBlock(), models().getBuilder(GRENADINE_FLUID.getName()).texture("particle", modLoc(BLOCK_FOLDER + "/grenadine_static")));
 		//cubeAll : *
-		{
-			accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
-					SUGAR_BLOCK, CARAMEL_BLOCK, PUDDING,
+		accept((b) -> simpleBlockWithItem(b.get(), cubeAll(b.get())),
+				SUGAR_BLOCK, CARAMEL_BLOCK, PUDDING,
 //					BLACK_CHOCOLATE_STONE, BLACK_CHOCOLATE_COBBLESTONE, BLACK_CHOCOLATE_BRICKS,BLACK_CHOCOLATE_STONE_TILE,
-					CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
-					SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
-					DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
-					LICORICE_BLOCK, LICORICE_BRICKS,
-					NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
-					TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
-					CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
-					RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK, GRENADINE_ICE,
-					ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT,
-					CARAMEL_BRICKS, CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE
-			);
-		}
+				CHOCOLATE_STONE, CHOCOLATE_COBBLESTONE, WHITE_CHOCOLATE_STONE, WHITE_CHOCOLATE_COBBLESTONE,
+				SUGAR_FACTORY, ADVANCED_SUGAR_FACTORY, MARSHMALLOW_PLANKS, LIGHT_MARSHMALLOW_PLANKS,
+				DARK_MARSHMALLOW_PLANKS, CHOCOLATE_LEAVES, WHITE_CHOCOLATE_LEAVES, CARAMEL_LEAVES, CANDIED_CHERRY_LEAVES,
+				LICORICE_BLOCK, LICORICE_BRICKS,
+				NOUGAT_BLOCK, NOUGAT_HEAD, HONEYCOMB_BLOCK, HONEYCOMB_LAMP, PEZ_BLOCK,
+				TRAMPOJELLY, RED_TRAMPOJELLY, SOFT_TRAMPOJELLY, JELLY_SHOCK_ABSORBER,
+				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
+				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK, GRENADINE_ICE,
+				ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT,
+				CARAMEL_BRICKS, CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE
+		);
 		
 		//cubeBottomTop : *_side *_bottom *_top
 		zone(() -> {

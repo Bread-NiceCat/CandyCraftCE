@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.level;
+package cn.breadnicecat.candycraftce.misc;
 
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import net.fabricmc.api.EnvType;

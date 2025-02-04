@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.level.multiblocks;
+package cn.breadnicecat.candycraftce.utils.multiblocks;
 
 import cn.breadnicecat.candycraftce.utils.Axes;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
@@ -50,7 +50,7 @@ public abstract class VectorPortalShape {
 	public abstract Iterable<BlockPos> getAllFrames();
 	
 	public boolean validate(Level level, PortalConfig config) {
-		for (BlockPos frame : getAllFrames()) {
+		for (BlockPos frame : getRequiredFrames()) {
 			if (!config.isFrame(level.getBlockState(frame))) return false;
 		}
 		for (BlockPos portal : getPortals()) {
@@ -75,7 +75,7 @@ public abstract class VectorPortalShape {
 	 *                         #param statePlacer enableCompound为false时，始终传入[1]，为true时，因为传送门交叉会传入更多
 	 */
 	public record PortalConfig(int minWidth, int maxWidth, int minHeight, int maxHeight, boolean enableHorizontal,
-	                           boolean enableCompound, Predicate<BlockState> isEmpty, Predicate<BlockState> isFrame) {
+							   boolean enableCompound, Predicate<BlockState> isEmpty, Predicate<BlockState> isFrame) {
 		public boolean isEmpty(BlockState b) {
 			return isEmpty.test(b);
 		}
@@ -95,42 +95,36 @@ public abstract class VectorPortalShape {
 	public static Optional<VectorPortalShape> findPortalOnFrame(BlockGetter getter, BlockPos pos, PortalConfig config) {
 		if (!config.isFrame(getter.getBlockState(pos))) return Optional.empty();
 		List<VectorPortalShape> parts = new LinkedList<>();
-		
-		for (BlockPos neighbourPo : LevelUtils.getNeighbourPos(pos)) {
-			BlockState state = getter.getBlockState(neighbourPo);
-			if (config.isEmpty(state)) {
-				findPortal(getter, neighbourPo, config).ifPresent(parts::add);
-			}
-		}
-		return parts.isEmpty() ? Optional.empty() :
-				parts.size() == 1 ? Optional.of(parts.get(0)) : Optional.of(new Compound(parts));
+		LevelUtils.getNeighbourPos(pos).forEach(neiPos ->
+				findPortalInFrame(getter, neiPos, config).ifPresent(parts::add));
+		return parts.isEmpty() ? Optional.empty()
+				: parts.size() == 1 ? Optional.of(parts.getFirst()) : Optional.of(new Compound(parts));
 		
 	}
 	
 	/**
 	 * @param pos 传送门内的任意一格
 	 */
-	public static Optional<VectorPortalShape> findPortal(BlockGetter getter, BlockPos pos, PortalConfig config) {
-		{
-			if (!config.isEmpty.test(getter.getBlockState(pos))) return Optional.empty();
-			List<Unit> units = new ArrayList<>(3);
-			
-			for (Axis axis : XZY) {
-				if (axis != Y || config.enableHorizontal) {
-					Unit unit = findAxis(getter, pos, axis, config);
-					if (unit != null) {
-						if (config.enableCompound) {
-							units.add(unit);
-						} else {
-							return Optional.of(unit);
-						}
+	public static Optional<VectorPortalShape> findPortalInFrame(BlockGetter getter, BlockPos pos, PortalConfig config) {
+		if (!config.isEmpty.test(getter.getBlockState(pos)))
+			return Optional.empty();
+		
+		List<Unit> units = new ArrayList<>(3);
+		for (Axis axis : XZY) {
+			if (axis != Y || config.enableHorizontal) {
+				Unit unit = findAxis(getter, pos, axis, config);
+				if (unit != null) {
+					if (config.enableCompound) {
+						units.add(unit);
+					} else {
+						return Optional.of(unit);
 					}
 				}
 			}
-			return units.isEmpty() ? Optional.empty() :
-					units.size() == 1 ? Optional.of(units.get(0))
-							: Optional.of(new Compound(units));
 		}
+		return units.isEmpty() ? Optional.empty() :
+				units.size() == 1 ? Optional.of(units.getFirst())
+						: Optional.of(new Compound(units));
 	}
 	
 	public static class Unit extends VectorPortalShape {
@@ -157,7 +151,7 @@ public abstract class VectorPortalShape {
 		 * height指bottomLeft的pipe2[1] + height +1 抵到框架
 		 */
 		public Unit(BlockPos bottomLeft, Axis axis, int width, int height, PortalConfig config,
-		            Set<BlockPos> portals, Set<BlockPos> frames, @Nullable Set<BlockPos> extraFrames) {
+					Set<BlockPos> portals, Set<BlockPos> frames, @Nullable Set<BlockPos> extraFrames) {
 			this.bottomLeft = bottomLeft;
 			this.axis = axis;
 			this.axes = new Axes(axis);
@@ -207,7 +201,7 @@ public abstract class VectorPortalShape {
 		@Override
 		public String toString() {
 			return """
-					{"type":"unit","bottom_left":{"x":%d,"y":%d,"z":%d},"axis":"%s","width":%d,"height":%d}
+					{"type":"unit","bottom_left":[%d,%d,%d],"axis":"%s","width":%d,"height":%d}
 					""".formatted(bottomLeft.getX(), bottomLeft.getY(), bottomLeft.getZ(), axis, width, height);
 		}
 		
@@ -375,7 +369,7 @@ public abstract class VectorPortalShape {
 	 * @return {正边界宽度，总宽度} 如果未找到则返回 {-1,-1}
 	 */
 	private static int @NotNull [] findBound(BlockGetter level, BlockPos pos, Axis pipe, Predicate<BlockState> isEmpty,
-	                                         Predicate<BlockState> isFrame, int limit) {
+											 Predicate<BlockState> isFrame, int limit) {
 		int pn = -1;
 		Direction direction = axis2direction(pipe, true);
 		BlockPos.MutableBlockPos mutable = pos.mutable();
@@ -397,7 +391,7 @@ public abstract class VectorPortalShape {
 	}
 	
 	private static @Nullable List<Set<BlockPos>> collectBlocks(BlockGetter level, @NotNull BlockPos bottomLeft, Axis @NotNull [] pipe2, int length1, int length2,
-	                                                           Predicate<BlockState> isEmpty, Predicate<BlockState> isFrame) {
+															   Predicate<BlockState> isEmpty, Predicate<BlockState> isFrame) {
 		// | bw * * * * | length=5
 		List<Set<BlockPos>> sets = newList(3, i -> new HashSet<>());
 		

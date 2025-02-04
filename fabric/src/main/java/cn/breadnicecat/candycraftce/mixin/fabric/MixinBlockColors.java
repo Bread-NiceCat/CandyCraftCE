@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin.fabric;
 
-import cn.breadnicecat.candycraftce.level.PuddingColor;
+import cn.breadnicecat.candycraftce.misc.PuddingColor;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.color.block.BlockColors;
 import org.spongepowered.asm.mixin.Mixin;

@@ -50,7 +50,7 @@ public class CCDatagenMain {
 		generator.addProvider(evt.includeClient(), new CItemModelProvider(pack, efhelper));
 		generator.addProvider(evt.includeClient(), new CSoundProvider(pack, efhelper));
 		
-		generator.addProvider(evt.includeServer(), new NoisingSettingsProvider(pack));
+		generator.addProvider(evt.includeServer(), new CNoisingSettingsProvider(pack));
 		
 		generator.addProvider(true, new CTerminalStateProvider(STATE));
 	}

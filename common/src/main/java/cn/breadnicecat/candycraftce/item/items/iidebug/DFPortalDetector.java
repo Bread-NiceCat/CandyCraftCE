@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.item.items.iidebug;
 
-import cn.breadnicecat.candycraftce.level.multiblocks.VectorPortalShape;
 import cn.breadnicecat.candycraftce.utils.LevelUtils;
 import cn.breadnicecat.candycraftce.utils.TickUtils;
+import cn.breadnicecat.candycraftce.utils.multiblocks.VectorPortalShape;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.breadnicecat.candycraftce.block.blocks.CaramelPortalBlock.CONFIG;
+import static cn.breadnicecat.candycraftce.level.CaramelPortal.CONFIG;
 import static cn.breadnicecat.candycraftce.utils.LevelUtils.move;
 import static net.minecraft.ChatFormatting.RED;
 import static net.minecraft.ChatFormatting.YELLOW;
@@ -58,7 +58,7 @@ class DFPortalDetector implements IIDebugFunction {
 			pos = move(pos, clickedFace, 1);
 			LevelUtils.particleBlock(ParticleTypes.BUBBLE, level, pos, 1 / 4d);
 			if (CONFIG.isEmpty(level.getBlockState(pos))) {
-				portal = VectorPortalShape.findPortal(level, pos, CONFIG);
+				portal = VectorPortalShape.findPortalInFrame(level, pos, CONFIG);
 			}
 			float ttt = (System.nanoTime() - stt) / 1E6F;
 			
