@@ -48,7 +48,6 @@ public class CBlockStateProvider extends BlockStateProvider {
 		this.exFileHelper = existingFileHelper;
 	}
 	
-	@SuppressWarnings("CodeBlock2Expr")
 	@Override
 	protected void registerStatesAndModels() {
 		//(_)type : textureName
@@ -83,7 +82,9 @@ public class CBlockStateProvider extends BlockStateProvider {
 				CARAMEL_GLASS, ROUND_CARAMEL_GLASS, DIAMOND_CARAMEL_GLASS, MINT_BLOCK,
 				RASPBERRY_BLOCK, BANANA_SEAWEEDS_BLOCK, COTTON_CANDY_BLOCK, CHEWING_GUM_BLOCK, GRENADINE_ICE,
 				ICE_CREAM, MINT_ICE_CREAM, STRAWBERRY_ICE_CREAM, BLUEBERRY_ICE_CREAM, JAWBREAKER_BRICKS, JAWBREAKER_LIGHT,
-				CARAMEL_BRICKS, CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE
+				CARAMEL_BRICKS, CHOCOLATE_BRICKS, WHITE_CHOCOLATE_BRICKS, CHOCOLATE_STONE_TILE, WHITE_CHOCOLATE_STONE_TILE,
+				JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE,
+				WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE
 		);
 		
 		//cubeBottomTop : *_side *_bottom *_top
@@ -280,32 +281,32 @@ public class CBlockStateProvider extends BlockStateProvider {
 		});
 		
 		//black_ore *
-		zone(() -> {
-			ResourceLocation black = blockTexture(CHOCOLATE_STONE.get());
-			ResourceLocation white = blockTexture(WHITE_CHOCOLATE_STONE.get());
-			ResourceLocation parent = modLoc("block/ore");
-			accept(b -> {
-				Block block = b.get();
-				ResourceLocation ore = blockTexture(block);
-				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
-						.texture("stone", black)
-						.texture("ore", ore);
-				simpleBlockWithItem(block, model);
-			}, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE);
-			mapping(blockTexture(WHITE_JELLY_ORE), blockTexture(JELLY_ORE));
-			mapping(blockTexture(WHITE_NOUGAT_ORE), blockTexture(NOUGAT_ORE));
-			mapping(blockTexture(WHITE_LICORICE_ORE), blockTexture(LICORICE_ORE));
-			mapping(blockTexture(WHITE_HONEYCOMB_ORE), blockTexture(HONEYCOMB_ORE));
-			mapping(blockTexture(WHITE_PEZ_ORE), blockTexture(PEZ_ORE));
-			accept(b -> {
-				Block block = b.get();
-				ResourceLocation ore = blockTexture(block);
-				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
-						.texture("stone", white)
-						.texture("ore", ore);
-				simpleBlockWithItem(block, model);
-			}, WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE);
-		});
+//		zone(() -> {
+//			ResourceLocation black = blockTexture(CHOCOLATE_STONE.get());
+//			ResourceLocation white = blockTexture(WHITE_CHOCOLATE_STONE.get());
+//			ResourceLocation parent = modLoc("block/ore");
+//			accept(b -> {
+//				Block block = b.get();
+//				ResourceLocation ore = blockTexture(block);
+//				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
+//						.texture("stone", black)
+//						.texture("ore", ore);
+//				simpleBlockWithItem(block, model);
+//			}, JELLY_ORE, NOUGAT_ORE, LICORICE_ORE, HONEYCOMB_ORE, PEZ_ORE);
+//			mapping(blockTexture(WHITE_JELLY_ORE), blockTexture(JELLY_ORE));
+//			mapping(blockTexture(WHITE_NOUGAT_ORE), blockTexture(NOUGAT_ORE));
+//			mapping(blockTexture(WHITE_LICORICE_ORE), blockTexture(LICORICE_ORE));
+//			mapping(blockTexture(WHITE_HONEYCOMB_ORE), blockTexture(HONEYCOMB_ORE));
+//			mapping(blockTexture(WHITE_PEZ_ORE), blockTexture(PEZ_ORE));
+//			accept(b -> {
+//				Block block = b.get();
+//				ResourceLocation ore = blockTexture(block);
+//				BlockModelBuilder model = models().withExistingParent(b.getName(), parent)
+//						.texture("stone", white)
+//						.texture("ore", ore);
+//				simpleBlockWithItem(block, model);
+//			}, WHITE_JELLY_ORE, WHITE_NOUGAT_ORE, WHITE_LICORICE_ORE, WHITE_HONEYCOMB_ORE, WHITE_PEZ_ORE);
+//		});
 		
 		//mixed_cube *_1 *_2
 		zone(() -> {

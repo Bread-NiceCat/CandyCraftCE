@@ -17,7 +17,7 @@ public class CommonUtils {
 	
 	
 	public static Class<?> getCaller() {
-		return getCaller(1);
+		return getCaller(2);
 	}
 	
 	/**

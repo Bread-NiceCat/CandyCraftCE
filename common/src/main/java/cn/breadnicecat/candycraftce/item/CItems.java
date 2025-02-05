@@ -73,6 +73,7 @@ public class CItems {
 	
 	public static final ItemEntry<Item> COTTON_CANDY = create("cotton_candy").setFood(1, 1f).save();
 	public static final ItemEntry<Item> GUMMY = create("gummy").setFood(1, 1f, p -> p.effect(new MobEffectInstance(MobEffects.CONFUSION, (int) (10 * TickUtils.SEC2TICK)), 0.8f)).save();
+	public static final ItemEntry<Item> GUMMY_BALL = create("gummy_ball").save();
 	public static final ItemEntry<Item> HOT_GUMMY = create("hot_gummy").setFood(2, 2f).save();
 	public static final ItemEntry<Item> CHOCOLATE_COIN = create("chocolate_coin").setFood(5, 10f, p -> p.effect(new MobEffectInstance(MobEffects.GLOWING, (int) (5 * TickUtils.SEC2TICK)), 1f)).save();
 	public static final ItemEntry<Item> NOUGAT_POWDER = create("nougat_powder").save();
@@ -157,11 +158,11 @@ public class CItems {
 	public static final ItemEntry<AxeItem> LICORICE_AXE = createAxe("licorice_axe", CTiers.LICORICE, 7F, -3.2F).save();
 	public static final ItemEntry<HoeItem> LICORICE_HOE = createHoe("licorice_hoe", CTiers.LICORICE, -1, -2.0F).save();
 	//HONEYCOMB
-	public static final ItemEntry<SwordItem> HONEYCOMB_SWORD = createSword("honeycomb_sword", CTiers.HONEYCOMB, 3, -2.4F).save();
-	public static final ItemEntry<ShovelItem> HONEYCOMB_SHOVEL = createShovel("honeycomb_shovel", CTiers.HONEYCOMB, 1.5F, -3F).save();
-	public static final ItemEntry<PickaxeItem> HONEYCOMB_PICKAXE = createPickaxe("honeycomb_pickaxe", CTiers.HONEYCOMB, 1, -2.8F).save();
-	public static final ItemEntry<AxeItem> HONEYCOMB_AXE = createAxe("honeycomb_axe", CTiers.HONEYCOMB, 7F, -3.2F).save();
-	public static final ItemEntry<HoeItem> HONEYCOMB_HOE = createHoe("honeycomb_hoe", CTiers.HONEYCOMB, -1, -2.0F).save();
+	public static final ItemEntry<SwordItem> HONEY_SWORD = createSword("honeycomb_sword", CTiers.HONEYCOMB, 3, -2.4F).save();
+	public static final ItemEntry<ShovelItem> HONEY_SHOVEL = createShovel("honeycomb_shovel", CTiers.HONEYCOMB, 1.5F, -3F).save();
+	public static final ItemEntry<PickaxeItem> HONEY_PICKAXE = createPickaxe("honeycomb_pickaxe", CTiers.HONEYCOMB, 1, -2.8F).save();
+	public static final ItemEntry<AxeItem> HONEY_AXE = createAxe("honeycomb_axe", CTiers.HONEYCOMB, 7F, -3.2F).save();
+	public static final ItemEntry<HoeItem> HONEY_HOE = createHoe("honeycomb_hoe", CTiers.HONEYCOMB, -1, -2.0F).save();
 	//PEZ
 	public static final ItemEntry<SwordItem> PEZ_SWORD = createSword("pez_sword", CTiers.PEZ, 3, -2.4F).save();
 	public static final ItemEntry<ShovelItem> PEZ_SHOVEL = createShovel("pez_shovel", CTiers.PEZ, 1.5F, -3.0F).save();

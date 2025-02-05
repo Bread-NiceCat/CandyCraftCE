@@ -60,7 +60,7 @@ public class Bunny extends Animal {
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, FOOD, false));
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 8.0f, 2.2, 2.2));
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Monster.class, 4.0F, 2.2, 2.2));
-//		this.goalSelector.addGoal(4, new Rabbit.RabbitAvoidEntityGoal(this, Player.class, 8.0F, 2.2, 2.2));
+//		this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal(this, Player.class, 8.0F, 2.2, 2.2));
 //		this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal(this, Wolf.class, 10.0F, 2.2, 2.2));
 //		this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal(this, Monster.class, 4.0F, 2.2, 2.2));
 //		this.goalSelector.addGoal(5, new Rabbit.RaidGardenGoal(this));

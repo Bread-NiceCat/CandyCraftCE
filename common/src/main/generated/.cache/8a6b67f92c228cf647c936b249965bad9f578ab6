@@ -1,4 +1,4 @@
-// 1.21	2025-02-02T19:07:02.1233726	Tags for minecraft:item mod id candycraftce
+// 1.21	2025-02-05T12:59:52.7166968	Tags for minecraft:item mod id candycraftce
 f7b57839acc146f6eb3fe9021153aa1548aff9b0 data/candycraftce/tags/item/candy_arrow.json
 1a181a21de4a5f9f69851f207173aa89f9ffe46e data/candycraftce/tags/item/chocolate.json
 084a35bdeb323ab9c235e7f6e289a5a61fc368bd data/candycraftce/tags/item/emblem.json
@@ -13,7 +13,7 @@ e1169a3ee44ecbd2b15644823a090935a97b8e4c data/candycraftce/tags/item/ore_honeyco
 511f1b726a205f85bdf6e2e334f5d3ae1853aff7 data/candycraftce/tags/item/ore_nougat.json
 be6f9612730e4a2fba1fd5e3cce83b44a9e240a2 data/candycraftce/tags/item/ore_pez.json
 4edf7b668ac20b953a8799c0affcf4b0a78ae7fa data/candycraftce/tags/item/return_ticket.json
-a041fd8da9700a5c64e84fa4555569e2d382c528 data/candycraftce/tags/item/sugary.json
+ccaae55aed408b0e9b3ca737eb23432c0180ce15 data/candycraftce/tags/item/sugary.json
 e4557011233b96df27cfabf19cfc62603b32d67e data/c/tags/item/music_discs.json
 ba9c2d56982b75eebe860fe016b7c5a385cbd780 data/minecraft/tags/item/axes.json
 9dc4ceec81eac7be7e666072ebd35870fb6ec60c data/minecraft/tags/item/hoes.json

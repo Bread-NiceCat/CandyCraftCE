@@ -1,7 +1,6 @@
 {
-  "parent": "candycraftce:block/ore",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "ore": "candycraftce:block/pez_ore",
-    "stone": "candycraftce:block/white_chocolate_stone"
+    "all": "candycraftce:block/white_pez_ore"
   }
 }

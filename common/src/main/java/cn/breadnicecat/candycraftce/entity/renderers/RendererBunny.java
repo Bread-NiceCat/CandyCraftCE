@@ -62,7 +62,7 @@ public class RendererBunny extends MobRenderer<Bunny, ModelBunny> {
 			ModelBunny m = getParentModel();
 			m.setupAnim(bunny, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			int color = bunny.getColor();
-			m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucent(TEX)), packedLight, getOverlayCoords(bunny, 0.0F), color);
+			m.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutout(TEX)), packedLight, getOverlayCoords(bunny, 0.0F), color);
 		}
 	}
 }

@@ -78,6 +78,7 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(SUGAR_CRYSTAL, "冰糖");
 		addItemById(COTTON_CANDY, "棉花糖");
 		addItemById(GUMMY, "软糖");
+		addItemById(GUMMY_BALL, "软糖");
 		addItemById(HOT_GUMMY, "熟软糖");
 		addItemById(CHOCOLATE_COIN, "巧克力币");
 		addItemById(NOUGAT_POWDER, "牛轧糖");
@@ -118,11 +119,11 @@ public class CLanguageProvider implements DataProvider {
 		addItemById(LICORICE_PICKAXE, "盐甘草糖镐");
 		addItemById(LICORICE_AXE, "盐甘草糖斧");
 		addItemById(LICORICE_HOE, "盐甘草糖锄");
-		addItemById(HONEYCOMB_SWORD, "蜜蜡剑");
-		addItemById(HONEYCOMB_SHOVEL, "蜜蜡锹");
-		addItemById(HONEYCOMB_PICKAXE, "蜜蜡镐");
-		addItemById(HONEYCOMB_AXE, "蜜蜡斧");
-		addItemById(HONEYCOMB_HOE, "蜜蜡锄");
+		addItemById(HONEY_SWORD, "蜜蜡剑");
+		addItemById(HONEY_SHOVEL, "蜜蜡锹");
+		addItemById(HONEY_PICKAXE, "蜜蜡镐");
+		addItemById(HONEY_AXE, "蜜蜡斧");
+		addItemById(HONEY_HOE, "蜜蜡锄");
 		addItemById(PEZ_SWORD, "皮礼士糖剑");
 		addItemById(PEZ_SHOVEL, "皮礼士糖锹");
 		addItemById(PEZ_PICKAXE, "皮礼士糖镐");

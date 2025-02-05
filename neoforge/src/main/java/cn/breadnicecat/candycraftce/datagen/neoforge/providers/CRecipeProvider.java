@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.datagen.neoforge.providers;
 
+import cn.breadnicecat.candycraftce.item.CItems;
 import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
@@ -27,7 +28,6 @@ import static cn.breadnicecat.candycraftce.datagen.neoforge.providers.recipes.Su
 import static cn.breadnicecat.candycraftce.datagen.neoforge.providers.recipes.SugarFurnaceRecipeBuilder.furnace;
 import static cn.breadnicecat.candycraftce.item.CItemTags.IT_LEAF;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
 import static java.util.Arrays.asList;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
@@ -65,7 +65,7 @@ public class CRecipeProvider extends RecipeProvider {
 				.pattern("x  ").define('x', have(BT_MARSHMALLOW_LOGS.it()))
 				.pattern("x  ")
 				.unlockedBy(hasn(), has()).save(writer, id());
-		furnace(def(HOT_GUMMY)).ingredient(GUMMY).exp(2f).save(writer, id());
+		furnace(def(HOT_GUMMY)).ingredient(CItems.GUMMY).exp(2f).save(writer, id());
 		shaped(FOOD, def(WAFFLE))
 				.pattern("## ")
 				.pattern("## ").define('#', have(WAFFLE_NUGGET))
@@ -104,7 +104,7 @@ public class CRecipeProvider extends RecipeProvider {
 					hasrst();
 					e.unlockedBy(hasn(), has()).save(writer, id());
 				});
-		tools(HONEYCOMB_SWORD, HONEYCOMB_SHOVEL, HONEYCOMB_PICKAXE, HONEYCOMB_AXE, HONEYCOMB_HOE,
+		tools(HONEY_SWORD, HONEY_SHOVEL, HONEY_PICKAXE, HONEY_AXE, HONEY_HOE,
 				of(MARSHMALLOW_STICK), of(have(HONEYCOMB)))
 				.forEach(e -> {
 					def(e.getResult());
@@ -381,7 +381,7 @@ public class CRecipeProvider extends RecipeProvider {
 	}
 	
 	private @NotNull List<ShapedRecipeBuilder> tools(ItemLike sword, ItemLike shovel, ItemLike pickaxe, ItemLike axe, ItemLike hoe,
-	                                                 Ingredient stick, Ingredient material) {
+													 Ingredient stick, Ingredient material) {
 		return asList(
 				sword != null ? shaped(COMBAT, sword)
 						.pattern(" @ ").define('@', material)
@@ -407,7 +407,7 @@ public class CRecipeProvider extends RecipeProvider {
 	}
 	
 	private @NotNull List<ShapedRecipeBuilder> armors(ItemLike helmet, ItemLike chest, ItemLike legs, ItemLike boots,
-	                                                  Ingredient material) {
+													  Ingredient material) {
 		return asList(
 				helmet != null ? shaped(COMBAT, helmet)
 						.pattern("@@@").define('@', material)
