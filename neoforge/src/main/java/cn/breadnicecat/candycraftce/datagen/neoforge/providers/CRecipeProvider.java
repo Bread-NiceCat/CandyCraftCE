@@ -448,12 +448,12 @@ public class CRecipeProvider extends RecipeProvider {
 	}
 	
 	private String hasn() {
-		CommonUtils.must(_used++ < 2, "abused");
+		CommonUtils.check(_used++ < 2, "abused");
 		return _hasK;
 	}
 	
 	private Criterion<?> has() {
-		CommonUtils.must(_used++ < 2, "abused");
+		CommonUtils.check(_used++ < 2, "abused");
 		return _hasV;
 	}
 	
@@ -483,7 +483,7 @@ public class CRecipeProvider extends RecipeProvider {
 	private ItemLike _now;
 	
 	private <T extends ItemLike> T def(T t) {
-		CommonUtils.must(_now == null, "previous item is unused");
+		CommonUtils.check(_now == null, "previous item is unused");
 		_now = t;
 		return t;
 	}

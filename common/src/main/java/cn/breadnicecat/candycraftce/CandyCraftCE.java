@@ -12,7 +12,6 @@ import cn.breadnicecat.candycraftce.misc.CDamageTypes;
 import cn.breadnicecat.candycraftce.misc.CGameRules;
 import cn.breadnicecat.candycraftce.misc.egg_project.CEggProject;
 import cn.breadnicecat.candycraftce.particle.CParticles;
-import cn.breadnicecat.candycraftce.poi.CPoiTypes;
 import cn.breadnicecat.candycraftce.recipe.CRecipeTypes;
 import cn.breadnicecat.candycraftce.sound.CJukeboxSound;
 import cn.breadnicecat.candycraftce.sound.CSoundEvents;
@@ -64,11 +63,7 @@ public final class CandyCraftCE {
 		}
 		LOGGER.info("=".repeat(64));
 
-//		Prevent certain classes from not being chained and not being initialized,
-//		regardless of order,
-//      especially some classes which contains `register` ops.
-//      note: some class only contains `RegistryKey<>` (like `CEnchantments`) needn't this!
-//      防止某些类不被链式初始化,不计顺序,
+//      防止某些类不被链式初始化
 //      尤其是一些包含 'register' 操作的类。
 //      注意：某些仅包含 'RegistryKey' 的类,如 'CEnchantments',不需要这个！
 		
@@ -77,7 +72,6 @@ public final class CandyCraftCE {
 		CBlocks.init();
 		CFluids.init();
 		CDimInit.init();
-		CPoiTypes.init();
 		CGameRules.init();
 		CEggProject.init();
 		CEntityTypes.init();

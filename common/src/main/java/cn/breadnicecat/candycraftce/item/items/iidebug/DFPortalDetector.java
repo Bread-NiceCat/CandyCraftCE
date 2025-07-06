@@ -69,7 +69,7 @@ class DFPortalDetector implements IIDebugFunction {
 				//viewable
 				shape.getUnits().forEach(unit -> LevelUtils.particleBlock(FLAME, level, unit.bottomLeft, unit.getTopRight(), 1 / 4d));
 				//colorful outputs
-				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.INSTANCE.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toString()))));
+				player.sendSystemMessage(NbtUtils.toPrettyComponent(JsonOps.INSTANCE.convertTo(NbtOps.INSTANCE, GsonHelper.parse(shape.toJson()))));
 			} else {
 				level.playSound(player, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS);
 				player.sendSystemMessage(NAME.copy().append(" 未找到正确的传送门框架").withStyle(RED));

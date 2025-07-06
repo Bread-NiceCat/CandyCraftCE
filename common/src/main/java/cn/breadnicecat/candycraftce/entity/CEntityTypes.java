@@ -49,9 +49,10 @@ public class CEntityTypes {
 					.addLayer(ModelCookieCreeper.MAIN, ModelCookieCreeper::createBodyLayer))
 			.setPlacements(ON_GROUND, MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules)
 			.save();
+
 	public static final EntityEntry<ExplorableJelly> STRAWBERRY_JELLY = create("strawberry_jelly", ExplorableJelly.class, ExplorableJelly::new, MONSTER)
 			.attribute(ExplorableJelly::createAttributes)
-			.spawnEgg(5592405, 16711680)
+			.spawnEgg(0x555555, 0xff0000)
 			.sized(0.52f, 0.52f)
 			.clientTrackingRange(10)
 			.modify(b -> b.eyeHeight(0.325f))

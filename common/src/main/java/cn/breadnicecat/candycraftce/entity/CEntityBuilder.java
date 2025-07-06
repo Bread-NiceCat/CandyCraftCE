@@ -35,7 +35,7 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.hookMinecraftSetup;
 import static cn.breadnicecat.candycraftce.CandyCraftCE.register;
 import static cn.breadnicecat.candycraftce.item.CItems._spawn_egg;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.check;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE;
 
@@ -131,7 +131,7 @@ public class CEntityBuilder<T extends Entity> {
 	
 	public CEntityBuilder<T> client(Consumer<ClientBuilder<T>> consumer) {
 		if (CandyCraftCE.isClient()) {
-			CommonUtils.must(clientBuilder == null, "You have created a ClientBuilder");
+			CommonUtils.check(clientBuilder == null, "You have created a ClientBuilder");
 			clientBuilder = consumer;
 		}
 		return this;
@@ -151,15 +151,15 @@ public class CEntityBuilder<T extends Entity> {
 			});
 		}
 		if (attribute != null) {
-			CommonUtils.must(s.isLivingEntity(), "Only LivingEntity has Attribute");
+			CommonUtils.check(s.isLivingEntity(), "Only LivingEntity has Attribute");
 			registerAttribute((EntityEntry<LivingEntity>) s, attribute);
 		}
 		if (egg != null) {
-			CommonUtils.must(s.isMob(), "Only Mob has SpawnEgg");
+			CommonUtils.check(s.isMob(), "Only Mob has SpawnEgg");
 			eggs.add(egg.apply(s));
 		}
 		if (placement != null) {
-			CommonUtils.must(s.isMob(), "Only Mob have SpawnPlacement");
+			CommonUtils.check(s.isMob(), "Only Mob have SpawnPlacement");
 			hookMinecraftSetup(() -> SpawnPlacements.register((EntityType<Mob>) s.get(), placement.a(), placement.b(), (SpawnPlacements.SpawnPredicate<Mob>) placement.c()));
 		}
 		
@@ -189,7 +189,7 @@ public class CEntityBuilder<T extends Entity> {
 		
 		
 		private ClientBuilder() {
-			must(CandyCraftCE.isClient(), "not in client!");
+			CommonUtils.check(CandyCraftCE.isClient(), "not in client!");
 		}
 		
 		private EntityRendererProvider<T> rendererProvider;

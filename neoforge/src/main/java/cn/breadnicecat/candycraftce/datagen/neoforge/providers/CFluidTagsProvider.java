@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.check;
 
 /**
  * Created in 2024/4/5 下午11:46
@@ -40,10 +40,10 @@ public class CFluidTagsProvider extends FluidTagsProvider {
 	private void add(TagKey<Fluid> tagKey, SimpleEntry<Fluid, ?>... fe) {
 		if (fe.length == 0) return;
 		HashSet<SimpleEntry<Fluid, ?>> set = new HashSet<>();
-		must(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
+		check(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
 		IntrinsicTagAppender<Fluid> tag = tag(tagKey);
 		accept(i -> {
-			must(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
+			check(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
 			tag.add(i.get());
 		}, fe);
 	}

@@ -124,8 +124,8 @@ public class CPlacedFeatures {
 	 * @param datamap [data1,weigh1,data2,weigh2,...],length=2n>0
 	 */
 	private static WeightedListInt simpleWeighedInt(int... datamap) {
-		CommonUtils.must(datamap.length % 2 == 0, "unmatched data map");
-		CommonUtils.must(datamap.length > 0, "data map can't be empty");
+		CommonUtils.check(datamap.length % 2 == 0, "unmatched data map");
+		CommonUtils.check(datamap.length > 0, "data map can't be empty");
 		SimpleWeightedRandomList.Builder<IntProvider> builder = SimpleWeightedRandomList.builder();
 		for (int i = 0; i < datamap.length; i += 2) {
 			builder.add(ConstantInt.of(datamap[0]), datamap[i + 1]);

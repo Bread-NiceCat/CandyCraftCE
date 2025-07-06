@@ -68,9 +68,13 @@ public abstract class VectorPortalShape {
 	 * @return true 至少成功放置了1个方块
 	 */
 	public abstract boolean build(Level level, BiFunction<Axes, BlockState, BlockState> statePlacer);
-	
+
+	public abstract String toJson();
+
+
 	/**
 	 * @param enableCompound   允许复合传送门，如果为true，statePlacer则为必填项
+	 *
 	 * @param enableHorizontal 允许传送门水平放置
 	 *                         #param statePlacer enableCompound为false时，始终传入[1]，为true时，因为传送门交叉会传入更多
 	 */
@@ -97,7 +101,8 @@ public abstract class VectorPortalShape {
 		List<VectorPortalShape> parts = new LinkedList<>();
 		LevelUtils.getNeighbourPos(pos).forEach(neiPos ->
 				findPortalInFrame(getter, neiPos, config).ifPresent(parts::add));
-		return parts.isEmpty() ? Optional.empty()
+		return parts.isEmpty()
+				? Optional.empty()
 				: parts.size() == 1 ? Optional.of(parts.getFirst()) : Optional.of(new Compound(parts));
 		
 	}
@@ -111,6 +116,7 @@ public abstract class VectorPortalShape {
 		
 		List<Unit> units = new ArrayList<>(3);
 		for (Axis axis : XZY) {
+			//除非启用了enableHorizontal，否则axis=Y不会进入if
 			if (axis != Y || config.enableHorizontal) {
 				Unit unit = findAxis(getter, pos, axis, config);
 				if (unit != null) {
@@ -197,9 +203,12 @@ public abstract class VectorPortalShape {
 			}
 			return flag;
 		}
-		
 		@Override
 		public String toString() {
+			return toJson();
+		}
+		@Override
+        public String toJson() {
 			return """
 					{"type":"unit","bottom_left":[%d,%d,%d],"axis":"%s","width":%d,"height":%d}
 					""".formatted(bottomLeft.getX(), bottomLeft.getY(), bottomLeft.getZ(), axis, width, height);
@@ -295,15 +304,22 @@ public abstract class VectorPortalShape {
 			}
 			return flag;
 		}
-		
 		@Override
-		public String toString() {
+        public String toJson() {
 			return """
 					{"type": "compound", "parts": %s}
 					""".formatted(parts);
 		}
+		@Override
+		public String toString() {
+			return toJson();
+		}
 	}
-	
+
+	/**
+	 * 传送门内部按轴找
+	 * @param axis 传送门面向的轴
+	 */
 	private static @Nullable Unit findAxis(BlockGetter level, BlockPos pos, Axis axis, @NotNull PortalConfig config) {
 		Axis[] pipe2 = axis2pipe2(axis);
 		boolean exchangeable = axis == Y;//只有传送门水平的时候才启用
@@ -320,10 +336,14 @@ public abstract class VectorPortalShape {
 		 * 则优先给这个这个bound赋予限制强的limit。
 		 *
 		 * */
+
+		//命名：如果不可互换，W代表Width,H代表Height
+		//如果可互换，M代表最大值中较大的，m代表较小的一方
 		IntIntPair limitWM = IntIntPair.of(config.minWidth, config.maxWidth);
 		IntIntPair limitHm = IntIntPair.of(config.minHeight, config.maxHeight);
 		
 		if (exchangeable && limitWM.rightInt() < limitHm.rightInt()) {
+			//交换
 			var i = limitHm;
 			limitHm = limitWM;
 			limitWM = i;
@@ -335,32 +355,37 @@ public abstract class VectorPortalShape {
 		int[] boundH = findBound(level, pos, pipe2[1], config.isEmpty, config.isFrame, exchangeable ? limitWM.rightInt() : limitHm.rightInt());
 		
 		if (exchangeable) {
-			boolean flag = false;
+			boolean valid = false;
 			for (int i = 0; i < 2; i++) {
 				//定双方都满足的limit
-				if (boundW[1] >= limitWM.leftInt() && boundH[1] >= limitHm.leftInt()) flag = true;
+				if (boundW[1] >= limitWM.leftInt() && boundH[1] >= limitHm.leftInt()) {
+					valid = true;
+					break;
+				}
 				//交换,继续
 				var cg = limitHm;
 				limitHm = limitWM;
 				limitWM = cg;
 			}
-			if (!flag) return null;
+			if (!valid) return null;
 		} else if (boundW[1] < limitWM.leftInt() || boundH[1] < limitHm.leftInt()) return null;
-		
+
+		//处理结果
 		int delta1 = boundW[1] - boundW[0] - 1;
 		int delta2 = boundH[1] - boundH[0] - 1;
-		BlockPos bottomLeft = pos.relative(pipe2[0], -delta1)
-				.relative(pipe2[1], -delta2);
+		BlockPos bottomLeft = pos.relative(pipe2[0], -delta1).relative(pipe2[1], -delta2);
 		List<Set<BlockPos>> sets = collectBlocks(level, bottomLeft, pipe2, boundW[1], boundH[1], config.isEmpty, config.isFrame);
-		return sets == null ? null :
-				new Unit(bottomLeft, axis, boundW[1], boundH[1], config, sets.get(0), sets.get(1), sets.get(2));
+		return sets == null
+				? null
+				//注：下面两个bound[1]的+1是调试时发现的问题，暂未找到问题的源头，即使找到了也很难修改，鉴于上述逻辑耦合度高且未出现错误，暂且这样处理
+				: new Unit(bottomLeft, axis, boundW[1]+1, boundH[1]+1, config, sets.get(0), sets.get(1), sets.get(2));
 	}
 	
 	/**
 	 * <pre>
 	 * | = = = = = = = | : 总宽度 = 7
 	 * |       = = = = | : 正边界宽度 = 4
-	 * 8 7 6 0 1 2 3 4 5 : i(for),7号位是bottomLeft
+	 * 8 7 6 1 2 3 4 5 : i(for),7号位是bottomLeft
 	 * | = = = = = = = |
 	 *       ↑pos
 	 * </pre>
@@ -370,12 +395,13 @@ public abstract class VectorPortalShape {
 	 */
 	private static int @NotNull [] findBound(BlockGetter level, BlockPos pos, Axis pipe, Predicate<BlockState> isEmpty,
 											 Predicate<BlockState> isFrame, int limit) {
-		int pn = -1;
+		int pn = -1;//正边界宽度
 		Direction direction = axis2direction(pipe, true);
 		BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (int i = 0; i < limit + 1; i++) {
 			BlockState state = level.getBlockState(mutable);
 			if (isEmpty.test(state)) {
+				//nop
 			} else if (isFrame.test(state)) {
 				if (pn == -1) {
 					pn = i - 1;
@@ -389,12 +415,15 @@ public abstract class VectorPortalShape {
 		}
 		return new int[]{-1, -1};
 	}
-	
+
+	/**
+	 * @return {portal,required_frame,extra_frame}
+	 */
 	private static @Nullable List<Set<BlockPos>> collectBlocks(BlockGetter level, @NotNull BlockPos bottomLeft, Axis @NotNull [] pipe2, int length1, int length2,
 															   Predicate<BlockState> isEmpty, Predicate<BlockState> isFrame) {
 		// | bw * * * * | length=5
 		List<Set<BlockPos>> sets = newList(3, i -> new HashSet<>());
-		
+		//命名:这里的宽高都是抽象层面上，并不是实际的
 		int minW = bottomLeft.get(pipe2[0]) - 1;
 		int minH = bottomLeft.get(pipe2[1]) - 1;
 		int maxW = minW + length1 + 1;
@@ -432,10 +461,10 @@ public abstract class VectorPortalShape {
 	public static Direction axis2direction(Axis axis, boolean positive) {
 		return Direction.get(positive ? POSITIVE : NEGATIVE, axis);
 	}
-	
-	
-	private static BlockPos.MutableBlockPos at(BlockPos.MutableBlockPos pos, Axis axis, int value) {
-		return switch (axis) {
+
+
+	public static void at(BlockPos.MutableBlockPos pos, Axis axis, int value) {
+		 switch (axis) {
 			case X -> pos.setX(value);
 			case Y -> pos.setY(value);
 			case Z -> pos.setZ(value);

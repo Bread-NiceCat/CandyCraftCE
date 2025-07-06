@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import static cn.breadnicecat.candycraftce.block.CBlockTags.*;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.check;
 import static net.minecraft.tags.BlockTags.*;
 
 /**
@@ -41,6 +41,7 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 	protected void addTags(HolderLookup.@NotNull Provider provider) {
 		
 		var sugary = new HashSet<>(BLOCKS);
+		//Here to write some exclusive code
 		add(BT_SUGARY.bt(), sugary.toArray(BlockEntry[]::new));
 		
 		add(BT_CARAMEL_PORTAL_FRAME, CARAMEL_BLOCK, SUGAR_BLOCK);
@@ -134,10 +135,10 @@ public class CBlockTagsProvider extends BlockTagsProvider {
 	private IntrinsicTagAppender<Block> add(TagKey<Block> tagKey, BlockEntry<?>... be) {
 		
 		HashSet<BlockEntry<?>> set = new HashSet<>();
-		must(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
+		check(validator.put(tagKey, set) == null, () -> "Duplicate query tag: " + tagKey);
 		IntrinsicTagAppender<Block> tag = tag(tagKey);
 		accept(i -> {
-			must(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
+			check(set.add(i), () -> "Duplicate block: " + i + " in Tag: " + tagKey);
 			tag.add(i.get());
 		}, be);
 		return tag;

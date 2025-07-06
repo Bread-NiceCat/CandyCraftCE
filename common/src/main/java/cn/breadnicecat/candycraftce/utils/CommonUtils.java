@@ -14,8 +14,7 @@ import java.util.function.Supplier;
  * @date 2022/12/30 15:32
  */
 public class CommonUtils {
-	
-	
+public static Random RANDOM=new Random();
 	public static Class<?> getCaller() {
 		return getCaller(2);
 	}
@@ -32,15 +31,15 @@ public class CommonUtils {
 				.getDeclaringClass();
 	}
 	
-	public static void must(boolean bool) {
-		must(bool, "false");
+	public static void check(boolean bool) {
+		check(bool, "false");
 	}
 	
-	public static void must(boolean bool, String msg) {
+	public static void check(boolean bool, String msg) {
 		if (!bool) throw new IllegalStateException(msg);
 	}
 	
-	public static void must(boolean bool, Supplier<String> msg) {
+	public static void check(boolean bool, Supplier<String> msg) {
 		if (!bool) throw new IllegalStateException(msg.get());
 	}
 	
@@ -53,6 +52,7 @@ public class CommonUtils {
 	}
 	
 	/**
+	 * 应用
 	 * 让visitor依次拜访每个house
 	 *
 	 * @return visitor
@@ -66,6 +66,7 @@ public class CommonUtils {
 	}
 	
 	/**
+	 * 接收
 	 * 依次让所有guest拜访house
 	 *
 	 * @return house

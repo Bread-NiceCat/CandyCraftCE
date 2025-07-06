@@ -1,6 +1,7 @@
 package cn.breadnicecat.candycraftce.entity.entities.mobs;
 
 import cn.breadnicecat.candycraftce.entity.CEntityTypes;
+import cn.breadnicecat.candycraftce.utils.CommonUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -35,7 +37,7 @@ import static cn.breadnicecat.candycraftce.item.CItems.LICORICE;
  * @see Rabbit
  * <p>
  **/
-public class Bunny extends Animal {
+public class Bunny extends Rabbit {
 	private static final EntityDataAccessor<Integer> COLOR_ID = SynchedEntityData.defineId(Bunny.class, EntityDataSerializers.INT);
 	public static final String COLOR_KEY = "color";
 	public static final Ingredient FOOD = Ingredient.of(LICORICE);
@@ -43,14 +45,16 @@ public class Bunny extends Animal {
 	public Bunny(EntityType<? extends Bunny> entityType, Level level) {
 		super(entityType, level);
 		if (!level.isClientSide) {
-			setColor(level.random.nextInt(0xffffff));
+			setColor(CommonUtils.RANDOM.nextInt(0xffffff));
 		}
 	}
 	
-	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 3.0);
+	public static AttributeSupplier.@NotNull Builder createAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.3)
+				.add(Attributes.ATTACK_DAMAGE, 3.0);
 	}
-	
+
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));

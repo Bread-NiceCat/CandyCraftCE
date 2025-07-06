@@ -26,7 +26,7 @@ import static cn.breadnicecat.candycraftce.block.CFluids.CARAMEL_FLUID;
 import static cn.breadnicecat.candycraftce.block.CFluids.GRENADINE_FLUID;
 import static cn.breadnicecat.candycraftce.item.CItems.HONEYCOMB_TORCH_ITEM;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.accept;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.check;
 import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
 import static com.mojang.datafixers.util.Pair.of;
 import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
@@ -610,7 +610,7 @@ public class CBlockStateProvider extends BlockStateProvider {
 	 * @see #modLoc(String)
 	 */
 	private void mapping(ResourceLocation ori, ResourceLocation dest) {
-		must(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
+		check(mappings.put(ori, dest) == null, () -> "Duplicate mapping: " + ori + " -> " + dest);
 	}
 	
 	/**

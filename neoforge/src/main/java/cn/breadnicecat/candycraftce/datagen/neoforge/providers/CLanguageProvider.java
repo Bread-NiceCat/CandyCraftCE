@@ -39,7 +39,7 @@ import static cn.breadnicecat.candycraftce.entity.CEntityTypes.*;
 import static cn.breadnicecat.candycraftce.item.CItems.LICORICE_SPEAR;
 import static cn.breadnicecat.candycraftce.item.CItems.*;
 import static cn.breadnicecat.candycraftce.sound.CJukeboxSound.*;
-import static cn.breadnicecat.candycraftce.utils.CommonUtils.must;
+import static cn.breadnicecat.candycraftce.utils.CommonUtils.check;
 
 /**
  * Created in 2023/8/22 21:05
@@ -400,7 +400,7 @@ public class CLanguageProvider implements DataProvider {
 	}
 	
 	public void add(String key, String en_us, @Nullable String zh_cn) {
-		must(existKeys.add(key), () -> "Duplicate key: " + key);
+		check(existKeys.add(key), () -> "Duplicate key: " + key);
 		enProv.add(key, en_us);
 		if (zh_cn != null) {
 			zhProv.add(key, zh_cn);
