@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "candycraftce",
+  "version": "${version}",
+  "name": "CandyCraft Community Edition",
+  "authors": [
+    "Bread_NiceCat",
+    "Star_Ocean_Sama(Resources)"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Bread-Nicecat/CandyCraftCE",
+    "sources": "https://github.com/Bread-Nicecat/CandyCraftCE"
+  },
+  "license": "GNU LGPL v3",
+  "icon": "assets/candycraftce/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "value": "cn.breadnicecat.candycraftce.CandyCraftCE",
+        "adapter": "kotlin"
+      }
+    ],
+    "fabric-datagen": [
+      {
+        "value": "cn.breadnicecat.candycraftce.data.CandyCraftCEDataGenerator",
+        "adapter": "kotlin"
+      }
+    ],
+    "jei_mod_plugin": [
+      {
+        "value": "cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin",
+        "adapter": "kotlin"
+      }
+    ]
+  },
+  "mixins": [
+    "candycraftce.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*"
+  }
+}

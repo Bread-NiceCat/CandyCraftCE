@@ -1,0 +1,117 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+    id "org.jetbrains.kotlin.jvm" version "2.2.21"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = archives_base_name
+}
+loom {
+    String vendor = System.getProperty("java.vm.vendor")
+    println("JVM Vendor: ${vendor}")
+    runs.configureEach {
+        it.vmArg "-Dmixin.debug.export=true"
+        if (vendor.contains("JetBrains")) {
+            it.vmArg "-XX:+AllowEnhancedClassRedefinition"
+        }
+    }
+}
+repositories {
+    flatDir {
+        dir rootProject.file("libs")
+        content { includeGroup "native" }
+    }
+    maven { url = "https://modmaven.dev" }
+    maven {
+        url "https://cursemaven.com"
+        content { includeGroup "curse.maven" }
+    }
+    maven { url "https://maven.minecraftforge.net/" }
+    maven { url = 'https://maven.parchmentmc.org' }
+
+}
+
+fabricApi {
+    configureDataGeneration {
+        client = true
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    //mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:${parchment_version}")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+
+    modRuntimeOnly "curse.maven:appleskin-248787:4770825"
+    modRuntimeOnly "curse.maven:cloth-config-348521:4973440"
+    modRuntimeOnly "curse.maven:jade-324717:4792447"
+    modRuntimeOnly "native:BetterTags-1.20.1-Fabric:1.3"
+
+    modImplementation "mezz.jei:jei-1.20.1-fabric-api:15.2.0.25"
+    modRuntimeOnly "mezz.jei:jei-1.20.1-fabric:15.2.0.25"
+
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": inputs.properties.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = 17
+    }
+}
+
+java {
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    inputs.property "archivesName", project.base.archivesName
+
+    from("LICENSE") {
+        rename { "${it}_${inputs.properties.archivesName}" }
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}
+compileKotlin {
+}
