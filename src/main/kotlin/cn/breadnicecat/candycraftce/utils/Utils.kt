@@ -20,11 +20,33 @@ object Utils {
     }
 
     fun String.modLoc(modId: String = MOD_ID) = ResourceLocation(MOD_ID, this)
+    fun String.mcLoc() = ResourceLocation(this)
     fun <V> ResourceLocation.get(register: Registry<V>): V? = register.get(this)
 
     fun <V : Any> Registry<V>.createKey(id: ResourceLocation) = ResourceKey.create(this.key(), id)!!
     fun <V : Any> Registry<V>.register(id: ResourceLocation, value: V): V = Registry.register(this, id, value)
     fun <V : Any> Registry<V>.register(id: ResourceKey<V>, value: V): V = Registry.register(this, id, value)
+
+
+    fun <K, V> Map<K, V>.safeForEach(desc: (K) -> String, action: (Map.Entry<K, V>) -> Unit) {
+        safeForEach(
+            onError = { entry, e -> throw RuntimeException(desc(entry.key), e) },
+            action = action
+        )
+    }
+
+    inline fun <K, V> Map<K, V>.safeForEach(
+        onError: (Map.Entry<K, V>, Throwable) -> Unit,
+        action: (Map.Entry<K, V>) -> Unit,
+    ) {
+        this.forEach {
+            try {
+                action(it)
+            } catch (e: Throwable) {
+                onError(it, e)
+            }
+        }
+    }
 
     val Int.tick get() = TimeUnit.Tick(this)
     val Int.second get() = TimeUnit.Second(this.toFloat())

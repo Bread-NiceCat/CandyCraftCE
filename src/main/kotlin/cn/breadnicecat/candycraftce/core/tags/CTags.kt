@@ -1,0 +1,56 @@
+package cn.breadnicecat.candycraftce.core.tags
+
+import cn.breadnicecat.candycraftce.data.DataUtils
+import cn.breadnicecat.candycraftce.utils.Utils.modLoc
+import net.minecraft.core.registries.Registries
+import net.minecraft.tags.TagKey
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.block.Block
+
+typealias TagKeys = Pair<TagKey<Item>, TagKey<Block>>
+
+object CTags {
+    val marshmallow_logs = bind2("marshmallow_logs");
+    val marshmallow_planks = bind2("marshmallow_planks");
+    val jelly = bind2("jelly");
+    val ice_creams = bind2("ice_cream");
+    val chocolates = bind2("chocolate");
+    val sugary = bind2("sugary");
+    val ore_honeycomb = bind2("ore_honeycomb");
+    val ore_pez = bind2("ore_pez");
+    val ore_licorice = bind2("ore_licorice");
+    val ore_nougat = bind2("ore_nougat");
+    val ore_jelly = bind2("ore_jelly");
+
+    object CItemTags {
+        val leaf = bind("leaf")
+        val emblem = bind("emblem")
+
+        fun bind(name: String): TagKey<Item> {
+            return TagKey.create(Registries.ITEM, name.modLoc())
+        }
+
+    }
+
+    object CBlockTags {
+        val caramel_portal_frame = bind("caramel_portal_frame")
+        val candy_plant_suitable = bind("candy_plant_suitable")
+        val candy_animal_spawnable_on = bind("candy_animal_spawnable_on")
+        val carver_overrideable = bind("carver_overrideable")
+
+        val ore_white_overrideable = bind("ore_white_overrideable")
+        val ore_black_overrideable = bind("ore_black_overrideable")
+        val candy_ores = bind("candy_ores")
+
+        fun bind(name: String): TagKey<Block> {
+            return TagKey.create(Registries.BLOCK, name.modLoc())
+        }
+    }
+
+    fun bind2(name: String): TagKeys {
+        val v: TagKeys = CItemTags.bind(name) to CBlockTags.bind(name)
+        DataUtils.tagCopy(v)
+        return v
+    }
+
+}

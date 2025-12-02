@@ -27,9 +27,9 @@ class V<E : Any>(e: E) : ReadOnlyProperty<Any, E> {
     private var e: E? = e
 
     fun isValid() = e != null
-    fun get(): E = e!!
+    fun get(): E = e ?: error("invalidated value!")
     fun getOrNull(): E? = e
-    private fun invalidate() {
+    fun invalidate() {
         e = null
     }
 

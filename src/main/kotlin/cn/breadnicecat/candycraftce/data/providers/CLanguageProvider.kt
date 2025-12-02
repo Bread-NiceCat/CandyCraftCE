@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.data.providers
 
-import cn.breadnicecat.candycraftce.data.DataUtils.checkingRunning
+import cn.breadnicecat.candycraftce.data.DataUtils.checkDataRunning
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder
@@ -15,7 +15,7 @@ class CLanguageProviders(val output: FabricDataOutput) : DataProvider {
 
     companion object {
         init {
-            checkingRunning()
+            checkDataRunning()
         }
 
         val zh: TranslationBuilderUsages = LinkedList<TranslationBuilder.() -> Unit>()
@@ -34,6 +34,7 @@ class CLanguageProviders(val output: FabricDataOutput) : DataProvider {
         return CompletableFuture.allOf(*subs.map { it.run(writer) }.toTypedArray())
     }
 
+    override fun getName(): String = "CLanguageProviders"
 
     private inner class SubLanguageProvider(code: String, val usage: TranslationBuilderUsages) :
         FabricLanguageProvider(output, code) {
@@ -41,6 +42,4 @@ class CLanguageProviders(val output: FabricDataOutput) : DataProvider {
             usage.forEach { it(translationBuilder) }
         }
     }
-
-    override fun getName(): String = "CLanguageProviders"
 }
