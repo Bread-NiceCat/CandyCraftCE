@@ -1,10 +1,15 @@
 package cn.breadnicecat.candycraftce.core.items
 
+import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.CANDYCRAFT
+import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.add
+import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.tab
+import cn.breadnicecat.candycraftce.core.tags.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.DataUtils.modelFlat
+import cn.breadnicecat.candycraftce.data.DataUtils.tag
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.utils.OperationRecordable
 import cn.breadnicecat.candycraftce.utils.Utils.instance
 import cn.breadnicecat.candycraftce.utils.Utils.modLoc
-import cn.breadnicecat.candycraftce.utils.Utils.safeForEach
 import cn.breadnicecat.candycraftce.utils.Utils.second
 import cn.breadnicecat.candycraftce.utils.V
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
@@ -15,7 +20,9 @@ import net.minecraft.world.effect.MobEffects.NIGHT_VISION
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Item.Properties
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.ItemLike
 import java.util.*
 import java.util.function.Consumer
 
@@ -27,18 +34,26 @@ object CItems {
     /*注册规范:
        .translate 翻译
        .model 模型
+       .tag 标签
        .food 食用性
        .save 保存
     */
-    private val simple = ItemBuilder("_modelSimple", { Item(it) })
+    private val simple = ItemBuilder("*simple", { Item(it) })
+        .tab(CANDYCRAFT)
         .modelFlat()
+
+    init {
+        CANDYCRAFT.add(Items.SUGAR)
+    }
 
     val licorice = simple.copy("licorice")
         .translate("Licorice", "盐甘草糖")
+        .tag(CItemTags.licorice)
         .food(3, 0.3f)
         .save()
     val honeycomb = simple.copy("honeycomb")
         .translate("Honeycomb", "蜜蜡")
+        .tag(CItemTags.honeycomb)
         .food(6, 0.1f)
         .save()
     val honeycomb_shard = simple.copy("honeycomb_shard")
@@ -47,6 +62,7 @@ object CItems {
         .save()
     val pez = simple.copy("pez")
         .translate("PEZ", "皮礼士糖")
+        .tag(CItemTags.pez)
         .food(10, 0.5f, listOf(1f to NIGHT_VISION.instance(60.second)))
         .save()
     val marshmallow_stick = simple.copy("marshmallow_stick")
@@ -119,20 +135,23 @@ object CItems {
         .save()
 
     //叶子
-    val chocolate_leaf = simple.copy("chocolate_leaf")
-        .translate("Chocolate Leaf", "巧克力叶子")
+    private val leaf = simple.copy("*leaf")
+        .tag(CItemTags.leaf)
         .food(2, 0.5f)
+
+    val chocolate_leaf = leaf.copy("chocolate_leaf")
+        .translate("Chocolate Leaf", "巧克力叶子")
         .save()
-    val white_chocolate_leaf = chocolate_leaf.copy("white_chocolate_leaf")
+    val white_chocolate_leaf = leaf.copy("white_chocolate_leaf")
         .translate("White Chocolate Leaf", "白巧克力叶子")
         .save()
-    val caramel_leaf = chocolate_leaf.copy("caramel_leaf")
+    val caramel_leaf = leaf.copy("caramel_leaf")
         .translate("Caramel Leaf", "焦糖叶子")
         .save()
-    val candied_cherry_leaf = chocolate_leaf.copy("candied_cherry_leaf")
+    val candied_cherry_leaf = leaf.copy("candied_cherry_leaf")
         .translate("Candied Cherry Leaf", "蜜饯樱桃叶子")
         .save()
-    val magical_leaf = chocolate_leaf.copy("magical_leaf")
+    val magical_leaf = leaf.copy("magical_leaf")
         .translate("Magical Leaf", "魔法叶子")
         .save()
 
@@ -154,10 +173,8 @@ object CItems {
         val id: String,
         val factory: ItemFactory<I>,
         internal var propBuilder: PropertiesFactory = {},
-    ) {
+    ) : OperationRecordable<ItemBuilder<I>>() {
 
-
-        private val ops = LinkedHashMap<String, ItemBuilderOp<I>>()
         private val lateUsage = LinkedList<Consumer<Entry<I>>>()
         fun food(
             nut: Int,
@@ -167,7 +184,7 @@ object CItems {
             alwaysEat: Boolean = false,
         ): ItemBuilder<I> {
             record("food") {
-                properties {
+                modifyProperties {
                     it.food(
                         FoodProperties.Builder()
                             .nutrition(nut)
@@ -189,8 +206,8 @@ object CItems {
         /*==============================
                    Core Zone
         ==============================*/
-        fun properties(action: PropertiesFactory): ItemBuilder<I> {
-            record("properties", overridable = false) {
+        fun modifyProperties(action: PropertiesFactory): ItemBuilder<I> {
+            record("modifyProperties", overridable = false) {
                 val prop = propBuilder
                 propBuilder = { prop(it); action(it) }
             }
@@ -201,65 +218,12 @@ object CItems {
          * 在注册后调用
          * */
         fun lateUsage(action: (Entry<I>) -> Unit) {
-            check(!saved)
+            check(!frozen)
             lateUsage.add(action)
         }
 
-
-        private var saving = false
-        private var saved = false
-
-        /**
-         * 记录每次操作，用于在保存前执行
-         * [overridable]允许重写,默认为true
-         * [private]如果为true则不会在[copy]时复制,默认为false
-         * */
-        @Suppress("DuplicatedCode")
-        internal fun record(
-            key: String,
-            overridable: Boolean = true,
-            private: Boolean = false,
-            op: ItemBuilderOp<I>,
-        ) {
-            check(!saved)
-            //在保存时忽略op中里面的record操作
-            //用于模拟高级别record覆盖低级别record
-            if (saving) {
-                op()
-                return
-            }
-            var key = key
-            if (private) {
-                key = "_private$key"
-            }
-            if (!overridable) {
-                key += "@${id}.${key}@${op.hashCode()}"
-                var vkey = key
-                var cnt = 0
-                //抗碰撞
-                while (vkey in ops) {
-                    vkey = key + cnt++
-                }
-                key = vkey
-            }
-            ops[key] = op
-        }
-
-        fun loadOps(model: ItemBuilder<I>) {
-            check(!saved)
-            check("_uncopiable" !in model.ops)
-            val op = model.ops.filter { (key, _) -> !key.startsWith("_private") }
-            ops.putAll(op)
-        }
-
-        fun uncopiable() {
-            record("_uncopiable") { error("Unable to copy ops as the builder has been marked it as uncopiable") }
-        }
-
         fun save(): Entry<I> {
-            saving = true
-            ops.safeForEach(desc = { "Operation: $it" }) { (_, op) -> op() }
-            saved = true
+            executeRecords()
             val item = register(id.modLoc()) { factory(Properties().apply(propBuilder)) }
             val entry = Entry(id.modLoc(), item, this.v())
             lateUsage.forEach { it.accept(entry) }
@@ -270,14 +234,17 @@ object CItems {
             id: String,
             factory: ItemFactory<I> = this.factory,
             properties: PropertiesFactory = this.propBuilder,
-            withOps: Boolean = true,
+            withRecord: Boolean = true,
         ): ItemBuilder<I> {
             val new = ItemBuilder(id, factory, properties)
-            if (withOps) {
-                new.loadOps(this)
+            if (withRecord) {
+                new.copyRecord(this)
             }
             return new
         }
+
+        override val receiver: ItemBuilder<I>
+            get() = this
 
         companion object {
             @Suppress("UNCHECKED_CAST")
@@ -295,15 +262,20 @@ object CItems {
         val id: ResourceLocation,
         val item: I,
         private val builder: V<ItemBuilder<I>>,
-    ) {
+    ) : ItemLike {
         operator fun component1() = id
         operator fun component2() = item
+
+        override fun asItem(): Item = item
         fun copy(
             id: String,
             factory: ItemFactory<I> = builder.get().factory,
             properties: PropertiesFactory = builder.get().propBuilder,
-            withOps: Boolean = true,
-        ) = builder.get().copy(id, factory, properties, withOps)
+            withRecord: Boolean = true,
+        ) = builder.get().copy(id, factory, properties, withRecord)
+
+        //        val defaultInstance: ItemStack get() = item.defaultInstance
+        fun getDefaultInstance(): ItemStack = item.defaultInstance
     }
 
 }

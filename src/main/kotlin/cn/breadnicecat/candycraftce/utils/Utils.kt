@@ -28,9 +28,14 @@ object Utils {
     fun <V : Any> Registry<V>.register(id: ResourceKey<V>, value: V): V = Registry.register(this, id, value)
 
 
-    fun <K, V> Map<K, V>.safeForEach(desc: (K) -> String, action: (Map.Entry<K, V>) -> Unit) {
+    fun <K, V> Map<K, V>.safeForEach(onErrorDesc: (K) -> String, action: (Map.Entry<K, V>) -> Unit) {
         safeForEach(
-            onError = { entry, e -> throw RuntimeException(desc(entry.key), e) },
+            onError = { entry, tr ->
+                when (tr) {
+                    is Exception -> throw RuntimeException(onErrorDesc(entry.key), tr)
+                    is Error -> throw Error(onErrorDesc(entry.key), tr)
+                }
+            },
             action = action
         )
     }

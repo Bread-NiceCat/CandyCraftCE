@@ -47,10 +47,10 @@ object DataUtils {
 
     fun <I : Item> CItems.ItemBuilder<I>.tag(vararg tag: TagKey<Item>): CItems.ItemBuilder<I> {
         ifDatagen {
-            record("tag") {
+            record("tag", overridable = false) {
                 lateUsage { (id, _) ->
                     tag.forEach { key ->
-                        CTagProviders.getItemOp(key) { add(id) }
+                        CTagProviders.putItemOp(key) { add(id) }
                     }
                 }
             }
@@ -64,7 +64,7 @@ object DataUtils {
             record("tag") {
                 lateUsage { (id, _) ->
                     tag.forEach { key ->
-                        CTagProviders.getBlockOp(key) { add(id) }
+                        CTagProviders.putBlockOp(key) { add(id) }
                     }
                 }
             }
@@ -138,7 +138,7 @@ object DataUtils {
                     createSimpleBlock(
                         block, ModelTemplates.CUBE_ALL.create(block, tex, this.modelOutput)
                     )
-                );
+                )
             }
         }
         return this
@@ -175,8 +175,9 @@ object DataUtils {
         abstractTranslate(TranslationBuilder::add, this, en, zh)
     }
 
-    fun ResourceKey<CreativeModeTab>.translate(en: String, zh: String? = null) {
+    fun ResourceKey<CreativeModeTab>.translate(en: String, zh: String? = null): ResourceKey<CreativeModeTab> {
         abstractTranslate(TranslationBuilder::add, this, en, zh)
+        return this
     }
 
     fun <B : Block> CBlocks.BlockBuilder<B>.translate(en: String, zh: String? = null): CBlocks.BlockBuilder<B> {

@@ -28,11 +28,11 @@ class CTagProviders(val output: FabricDataOutput, val lookup: CompletableFuture<
         private val items = HashMap<TagKey<Item>, LinkedList<TagAppenderOp<Item>>>()
         private val blocks = HashMap<TagKey<Block>, LinkedList<TagAppenderOp<Block>>>()
         private val copies = HashMap<TagKey<Item>, TagKey<Block>>()
-        fun getItemOp(tag: TagKey<Item>, op: TagAppenderOp<Item>) {
+        fun putItemOp(tag: TagKey<Item>, op: TagAppenderOp<Item>) {
             items.computeIfAbsent(tag) { LinkedList() }.add(op)
         }
 
-        fun getBlockOp(tag: TagKey<Block>, op: TagAppenderOp<Block>) {
+        fun putBlockOp(tag: TagKey<Block>, op: TagAppenderOp<Block>) {
             blocks.computeIfAbsent(tag) { LinkedList() }.add(op)
         }
 

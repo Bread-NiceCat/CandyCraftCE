@@ -11,12 +11,12 @@ object CandyCraftCE : ModInitializer {
 
     @Suppress("UnusedExpression")
     override fun onInitialize() {
-        CItems
         CItemTabs
+        CItems
         CBlocks
-
     }
 
+    //from mixin
     @JvmStatic
     fun onPostInitialize() {
         V.invalidateAll()

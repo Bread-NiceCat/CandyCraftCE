@@ -10,21 +10,24 @@ import net.minecraft.world.level.block.Block
 typealias TagKeys = Pair<TagKey<Item>, TagKey<Block>>
 
 object CTags {
-    val marshmallow_logs = bind2("marshmallow_logs");
-    val marshmallow_planks = bind2("marshmallow_planks");
-    val jelly = bind2("jelly");
-    val ice_creams = bind2("ice_cream");
-    val chocolates = bind2("chocolate");
-    val sugary = bind2("sugary");
-    val ore_honeycomb = bind2("ore_honeycomb");
-    val ore_pez = bind2("ore_pez");
-    val ore_licorice = bind2("ore_licorice");
-    val ore_nougat = bind2("ore_nougat");
-    val ore_jelly = bind2("ore_jelly");
+    val marshmallow_logs = bind2("marshmallow_logs")
+    val marshmallow_planks = bind2("marshmallow_planks")
+    val jelly = bind2("jelly")
+    val ice_creams = bind2("ice_cream")
+    val chocolates = bind2("chocolate")
+    val sugary = bind2("sugary")
+    val ore_honeycomb = bind2("ore_honeycomb")
+    val ore_pez = bind2("ore_pez")
+    val ore_licorice = bind2("ore_licorice")
+    val ore_nougat = bind2("ore_nougat")
+    val ore_jelly = bind2("ore_jelly")
 
     object CItemTags {
+        val pez = bind("pez")
         val leaf = bind("leaf")
         val emblem = bind("emblem")
+        val licorice = bind("licorice")
+        val honeycomb = bind("honeycomb")
 
         fun bind(name: String): TagKey<Item> {
             return TagKey.create(Registries.ITEM, name.modLoc())

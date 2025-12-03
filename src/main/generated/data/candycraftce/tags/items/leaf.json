@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "candycraftce:chocolate_leaf",
+    "candycraftce:white_chocolate_leaf",
+    "candycraftce:caramel_leaf",
+    "candycraftce:candied_cherry_leaf",
+    "candycraftce:magical_leaf"
+  ]
+}

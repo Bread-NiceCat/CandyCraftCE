@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.data
 
 import cn.breadnicecat.candycraftce.data.providers.CLanguageProviders
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
+import cn.breadnicecat.candycraftce.data.providers.CTagProviders
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 
@@ -11,5 +12,6 @@ object CandyCraftCEDataGenerator : DataGeneratorEntrypoint {
 
         pack.addProvider(::CModelProvider)
         pack.addProvider(::CLanguageProviders)
+        pack.addProvider(::CTagProviders)
     }
 }

@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-02T19:17:40.6050299	CandyCraft CE/Model Definitions
+// 1.20.1	2025-12-02T20:15:17.4650865	CandyCraft CE/Model Definitions
 670e64307cbfc2cc43889e9529e294c98e60869c assets\candycraftce\models\item\magical_leaf.json
 5ceba7de0c9bc08b64adaf4eb0007c8e202acf1f assets\candycraftce\models\item\chewing_gum.json
 f05a32a6c8e3d22f43377a15b2240a878fd3bc56 assets\candycraftce\models\item\chocolate_brick.json
@@ -25,8 +25,8 @@ a581ab53188ab63f6b762bbb909b4f6eee89fa3c assets\candycraftce\models\block\sugar_
 fc4e671f33fc4c1b5d041154503c6be4f56ca423 assets\candycraftce\models\item\sugar_crystal.json
 22aca8f17c76fbae8b29dddc4c9aec8ee13ae521 assets\candycraftce\models\item\honeycomb.json
 21ac6a0845019f68a00f983e001684b75b576ac6 assets\candycraftce\models\item\sugar_block.json
-2a628cdd206f486f50f651a8eda2326908686e66 assets\candycraftce\models\item\cranfish_scale.json
 6dba3b77714d9de90d208902d38b4d4aed288f35 assets\candycraftce\models\item\white_chocolate_brick.json
+2a628cdd206f486f50f651a8eda2326908686e66 assets\candycraftce\models\item\cranfish_scale.json
 60b8ce2c2fdcb069d6f5914177b36d6016006a2b assets\candycraftce\models\item\candied_cherry.json
 b0e36a3a17e6baa926e524b670bae3b4b594a7e6 assets\candycraftce\models\item\lollipop.json
 67887a0cb781ea14c94a694c6f94840ff14b5345 assets\candycraftce\models\item\nougat_powder.json
