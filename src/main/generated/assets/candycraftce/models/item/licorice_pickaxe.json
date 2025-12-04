@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "candycraftce:item/licorice_pickaxe"
+  }
+}

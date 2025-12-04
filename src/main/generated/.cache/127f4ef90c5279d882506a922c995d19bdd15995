@@ -1,5 +1,11 @@
-// 1.20.1	2025-12-02T20:15:17.4636529	CandyCraft CE/CTagProviders
+// 1.20.1	2025-12-04T19:53:53.0075834	CandyCraft CE/CTagProviders
 ca8f7555dec66ef77d72d653c8f63ab85e52058b data\candycraftce\tags\items\pez.json
 a04497e2ded289e930b09b1be6770efab793eb3a data\candycraftce\tags\items\licorice.json
+d926ba9986732fb9da42fbf158b5aba47cbdf28b data\minecraft\tags\items\hoes.json
 5c92c667d88fc692e313b45d9339a586f0298ec9 data\candycraftce\tags\items\leaf.json
+bcb4b796f7a266a723f63efdeb81f36b8d95ec4f data\minecraft\tags\items\pickaxes.json
+05e10a42126261e8b2c2a3f42fa0c6ee67f01c43 data\minecraft\tags\items\swords.json
+ecafcd4590566d4db8f41a8a1b820bd30239212b data\minecraft\tags\items\axes.json
 7dd17b83183547c0c02ca8dd07ceda2aed3af541 data\candycraftce\tags\items\honeycomb.json
+097b7958e2ad88e0aab6f1449ce1adc50c9b4370 data\minecraft\tags\items\shovels.json
+8134bcc7cc68784e08c49bfa4f6389fc431b178f data\candycraftce\tags\items\keys.json

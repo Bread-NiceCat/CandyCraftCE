@@ -23,6 +23,7 @@ object CTags {
     val ore_jelly = bind2("ore_jelly")
 
     object CItemTags {
+        val keys = bind("keys")
         val pez = bind("pez")
         val leaf = bind("leaf")
         val emblem = bind("emblem")

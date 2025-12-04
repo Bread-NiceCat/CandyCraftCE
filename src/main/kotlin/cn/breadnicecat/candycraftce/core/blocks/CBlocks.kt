@@ -9,6 +9,7 @@ import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.tab
 import cn.breadnicecat.candycraftce.data.DataUtils.modelBlockSimple
 import cn.breadnicecat.candycraftce.data.DataUtils.modelCubeAll
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.utils.Arguments
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
 import cn.breadnicecat.candycraftce.utils.Utils.modLoc
 import cn.breadnicecat.candycraftce.utils.Utils.register
@@ -24,7 +25,7 @@ import java.util.*
 import java.util.function.Consumer
 
 private typealias BlockBuilderOp<I> = CBlocks.BlockBuilder<I>.() -> Unit
-private typealias BlockFactory<B> = (BlockBehaviour.Properties) -> B
+private typealias BlockFactory<B> = Arguments.(BlockBehaviour.Properties) -> B
 private typealias BehaviourFactory = (BlockBehaviour.Properties) -> Unit
 
 object CBlocks {
@@ -51,6 +52,7 @@ object CBlocks {
     ) : OperationRecordable<BlockBuilder<B>>() {
 
         private val lateUsage = LinkedList<Consumer<Entry<B>>>()
+        private val arguments = Arguments.Builder()
         private var blockItem: CItems.Entry<out BlockItem>? = null
         private var blockItemMod: (Entry<B>.(CItems.ItemBuilder<out BlockItem>) -> Unit) = {}
         fun modifyBlockItem(action: Entry<B>.(CItems.ItemBuilder<out BlockItem>) -> Unit = {}) {
@@ -106,9 +108,24 @@ object CBlocks {
             lateUsage.add(action)
         }
 
+        fun argument(key: String, value: String?): BlockBuilder<B> {
+            if (value == null) arguments.remove(key)
+            else arguments[key] = value
+            return this
+        }
+
+        fun arguments(vararg args: Pair<String, String?>): BlockBuilder<B> {
+            args.forEach { (key, value) ->
+                argument(key, value)
+            }
+            return this
+        }
+
         fun save(): Entry<B> {
             executeRecords()
-            val block = register(id.modLoc()) { factory(of().apply(propBuilder)) }
+            val block = register(id.modLoc()) {
+                factory(arguments.build(), of().apply(propBuilder))
+            }
             val entry = Entry(id.modLoc(), block, blockItem, this.v())
             lateUsage.forEach { it.accept(entry) }
             return entry
