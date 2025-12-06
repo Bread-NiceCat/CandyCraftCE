@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.core.items
 
-import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.CANDYCRAFT
-import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.add
-import cn.breadnicecat.candycraftce.core.tabs.CItemTabs.tab
-import cn.breadnicecat.candycraftce.core.tags.CTags.CItemTags
+import cn.breadnicecat.candycraftce.core.tab.CItemTabs.CANDYCRAFT
+import cn.breadnicecat.candycraftce.core.tab.CItemTabs.add
+import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
+import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.DataUtils.modelFlat
 import cn.breadnicecat.candycraftce.data.DataUtils.modelHandheld
 import cn.breadnicecat.candycraftce.data.DataUtils.tag
@@ -33,13 +33,7 @@ typealias ItemFactory<I> = Arguments.(Properties) -> I
 typealias PropertiesFactory = (Properties) -> Unit
 
 object CItems {
-    /*注册规范:
-       .translate 翻译
-       .model 模型
-       .tag 标签
-       .food 食用性
-       .save 保存
-    */
+
     private val simple = ItemBuilder("*simple", { Item(it) })
         .tab(CANDYCRAFT)
         .modelFlat()
@@ -205,6 +199,34 @@ object CItems {
 //	public static final ItemEntry<RecordItem> RECORD_2 = createRecord("record_2", 2, CSoundEvents.CD_2, 98).save();
 //	public static final ItemEntry<RecordItem> RECORD_3 = createRecord("record_3", 3, CSoundEvents.CD_3, 112).save();
 //	public static final ItemEntry<RecordItem> RECORD_4 = createRecord("record_4", 4, CSoundEvents.CD_4, 188).save();
+
+    val emblem = simple.copy("*emblem")
+        .tag(CItemTags.emblem)
+
+    val gingerbread_emblem = emblem.copy("gingerbread_emblem")
+        .translate("Gingerbread Emblem", "姜饼徽章")
+        .save()
+    val jelly_emblem = emblem.copy("jelly_emblem")
+        .translate("Jelly Emblem", "果冻徽章")
+        .save()
+    val sky_emblem = emblem.copy("sky_emblem")
+        .translate("Sky Emblem", "天空徽章")
+        .save()
+    val chewing_gum_emblem = emblem.copy("chewing_gum_emblem")
+        .translate("Chewing Gum Emblem", "口香糖徽章")
+        .save()
+    val honeycomb_emblem = emblem.copy("honeycomb_emblem")
+        .translate("Honeycomb Emblem", "蜂蜡徽章")
+        .save()
+    val cranberry_emblem = emblem.copy("cranberry_emblem")
+        .translate("Cranberry Emblem", "蔓越莓徽章")
+        .save()
+    val nessie_emblem = emblem.copy("nessie_emblem")
+        .translate("Nessie Emblem", "尼斯徽章")
+        .save()
+    val suguard_emblem = emblem.copy("suguard_emblem")
+        .translate("Suguard Emblem", "姜饼守卫徽章")
+        .save()
 
     //public static final ItemEntry<Item> GINGERBREAD_EMBLEM = create("gingerbread_emblem").save();
 //	public static final ItemEntry<Item> JELLY_EMBLEM = create("jelly_emblem").save();
@@ -485,7 +507,7 @@ object CItems {
         private val arguments = Arguments.Builder()
         fun food(
             nut: Int,
-            satMod: Float,
+            satMod: Float = 0f,
             mobEffect: List<Pair<Float, MobEffectInstance>> = listOf(),
             fastEat: Boolean = false,
             alwaysEat: Boolean = false,
@@ -558,13 +580,10 @@ object CItems {
             id: String,
             factory: ItemFactory<I> = this.factory,
             properties: PropertiesFactory = this.propBuilder,
-            withRecord: Boolean = true,
         ): ItemBuilder<I> {
             val new = ItemBuilder(id, factory, properties)
             new.arguments.putAll(arguments)
-            if (withRecord) {
-                new.copyRecord(this)
-            }
+            new.copyRecord(this)
             return new
         }
 
@@ -596,10 +615,8 @@ object CItems {
             id: String,
             factory: ItemFactory<I> = builder.get().factory,
             properties: PropertiesFactory = builder.get().propBuilder,
-            withRecord: Boolean = true,
-        ) = builder.get().copy(id, factory, properties, withRecord)
+        ) = builder.get().copy(id, factory, properties)
 
-        //        val defaultInstance: ItemStack get() = item.defaultInstance
         fun getDefaultInstance(): ItemStack = item.defaultInstance
     }
 

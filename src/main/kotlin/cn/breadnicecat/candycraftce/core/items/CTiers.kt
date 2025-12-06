@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.items
 
-import cn.breadnicecat.candycraftce.core.tags.CTags
+import cn.breadnicecat.candycraftce.core.tag.CTags
 import net.minecraft.world.item.Tier
 import net.minecraft.world.item.Tiers
 import net.minecraft.world.item.crafting.Ingredient

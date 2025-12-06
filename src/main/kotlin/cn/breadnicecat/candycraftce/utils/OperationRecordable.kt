@@ -57,9 +57,9 @@ abstract class OperationRecordable<Receiver> {
         record("@uncopiable") { error("uncopiable") }
     }
 
-    fun removeRecord(key: String, must: Boolean = true) {
+    fun removeRecord(key: String, optional: Boolean = false) {
         val removed = ops.keys.removeIf { it.split("@", limit = 2)[0] == key }
-        if (must && !removed) {
+        if (!optional && !removed) {
             error("Unable to remove record as the record does not exist")
         }
     }

@@ -1,19 +1,24 @@
 package cn.breadnicecat.candycraftce.data
 
-import cn.breadnicecat.candycraftce.core.blocks.CBlocks
+import cn.breadnicecat.candycraftce.core.block.CBlocks
 import cn.breadnicecat.candycraftce.core.items.CItems
-import cn.breadnicecat.candycraftce.core.tags.TagKeys
+import cn.breadnicecat.candycraftce.core.tag.TagKeys
 import cn.breadnicecat.candycraftce.data.providers.CLanguageProviders
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
+import cn.breadnicecat.candycraftce.mixin.data.AccessorModelTemplate
+import com.mojang.datafixers.util.Either
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.createSimpleBlock
 import net.minecraft.data.models.ItemModelGenerators
 import net.minecraft.data.models.model.ModelLocationUtils.getModelLocation
+import net.minecraft.data.models.model.ModelTemplate
 import net.minecraft.data.models.model.ModelTemplates
 import net.minecraft.data.models.model.TextureMapping
+import net.minecraft.data.models.model.TextureMapping.getBlockTexture
+import net.minecraft.data.models.model.TextureMapping.layer0
 import net.minecraft.data.models.model.TextureSlot
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -21,6 +26,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
+import java.util.*
 
 object DataUtils {
     @Suppress("UnstableApiUsage")
@@ -88,14 +94,20 @@ object DataUtils {
     }
 
 
-    fun <I : Item> CItems.ItemBuilder<I>.modelFlat(): CItems.ItemBuilder<I> {
+    fun <I : Item> CItems.ItemBuilder<I>.modelFlat(
+        layer0: Either<ResourceLocation, Item>? = null,
+    ): CItems.ItemBuilder<I> {
         ifDatagen {
-            model {
-                generateFlatItem(it.item, ModelTemplates.FLAT_ITEM)
+            model { (_, item) ->
+                val tex: TextureMapping = if (layer0 != null) {
+                    layer0.map(::layer0, ::layer0)
+                } else layer0(item)
+                ModelTemplates.FLAT_ITEM.create(getModelLocation(item), tex, this.output)
             }
         }
         return this
     }
+
 
     fun <I : Item> CItems.ItemBuilder<I>.modelHandheld(): CItems.ItemBuilder<I> {
         ifDatagen {
@@ -106,12 +118,12 @@ object DataUtils {
         return this
     }
 
-    fun <I : Item> CItems.ItemBuilder<I>.modelBlockSimple(block: CBlocks.Entry<*>): CItems.ItemBuilder<I> {
+    fun <I : Item> CItems.ItemBuilder<I>.modelBlockSimple(block: Block): CItems.ItemBuilder<I> {
         ifDatagen {
             record("model") {
                 lateUsage { (_, item) ->
                     CModelProvider.blocks.add {
-                        delegateItemModel(item, getModelLocation(block.block))
+                        delegateItemModel(item, getModelLocation(block))
                     }
                 }
             }
@@ -119,11 +131,87 @@ object DataUtils {
         return this
     }
 
-    fun <B : Block> CBlocks.BlockBuilder<B>.model(modelAction: BlockModelGenerators.(CBlocks.Entry<B>) -> Unit): CBlocks.BlockBuilder<B> {
+    fun <I : Item> CItems.ItemBuilder<I>.modelBlockDirect(block: Block): CItems.ItemBuilder<I> {
+        ifDatagen {
+            record("model") {
+                CModelProvider.blocks.add {
+                    createSimpleFlatItemModel(block)
+                }
+            }
+        }
+        return this
+    }
+
+    // Block
+    fun template(id: String, suffix: String? = null, vararg requiredSlots: TextureSlot): ModelTemplate {
+        return ModelTemplate(
+            Optional.of(
+                ResourceLocation(
+                    "minecraft",
+                    "block/$id"
+                )
+            ), Optional.ofNullable(suffix),
+            *requiredSlots
+        )
+    }
+
+    fun <B : Block> CBlocks.BlockBuilder<B>.model(modelAction: BlockModelGenerators.(B) -> Unit): CBlocks.BlockBuilder<B> {
         ifDatagen {
             record("model") {
                 lateUsage { e ->
-                    CModelProvider.blocks.add { modelAction(this, e) }
+                    CModelProvider.blocks.add { modelAction(this, e.block) }
+                }
+            }
+        }
+        return this
+    }
+
+    fun <B : Block> CBlocks.BlockBuilder<B>.modelExisted(modelLocation: ResourceLocation? = null): CBlocks.BlockBuilder<B> {
+        ifDatagen {
+            model {
+                blockStateOutput.accept(
+                    createSimpleBlock(
+                        it,
+                        modelLocation ?: getModelLocation(it)
+                    )
+                )
+            }
+        }
+        return this
+    }
+
+    inline fun <B : Block> CBlocks.BlockBuilder<B>.modelSimple(
+        template: ModelTemplate,
+        crossinline mapping: TextureMapping.(B) -> Unit = {},
+    ): CBlocks.BlockBuilder<B> {
+        ifDatagen {
+            model {
+                val tex = TextureMapping()
+                mapping(tex, it)
+                val model = template.create(it, tex, this.modelOutput)
+                blockStateOutput.accept(
+                    createSimpleBlock(
+                        it, model
+                    )
+                )
+            }
+        }
+        return this
+    }
+
+    fun <B : Block> CBlocks.BlockBuilder<B>.modelSimply(
+        template: ModelTemplate,
+        withSuffix: Boolean = true,
+    ): CBlocks.BlockBuilder<B> {
+        ifDatagen {
+            modelSimple(template) {
+                val requiredSlots = (template as AccessorModelTemplate).requiredSlots
+                requiredSlots.forEach { slot ->
+                    put(
+                        slot,
+                        if (withSuffix) getBlockTexture(it, "_" + slot.id)
+                        else getBlockTexture(it)
+                    )
                 }
             }
         }
@@ -132,12 +220,19 @@ object DataUtils {
 
     fun <B : Block> CBlocks.BlockBuilder<B>.modelCubeAll(): CBlocks.BlockBuilder<B> {
         ifDatagen {
-            model { (_, block) ->
-                val tex = TextureMapping().put(TextureSlot.ALL, TextureMapping.getBlockTexture(block))
-                this.blockStateOutput.accept(
-                    createSimpleBlock(
-                        block, ModelTemplates.CUBE_ALL.create(block, tex, this.modelOutput)
-                    )
+            modelSimple(ModelTemplates.CUBE_ALL) {
+                put(TextureSlot.ALL, getBlockTexture(it))
+            }
+        }
+        return this
+    }
+
+    fun <B : Block> CBlocks.BlockBuilder<B>.modelCross(tinted: Boolean = false): CBlocks.BlockBuilder<B> {
+        ifDatagen {
+            model {
+                createCrossBlock(
+                    it,
+                    if (tinted) BlockModelGenerators.TintState.TINTED else BlockModelGenerators.TintState.NOT_TINTED
                 )
             }
         }

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.items
 
-import cn.breadnicecat.candycraftce.core.tags.CTags
+import cn.breadnicecat.candycraftce.core.tag.CTags
 import cn.breadnicecat.candycraftce.utils.memoized
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents

@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce
 
-import cn.breadnicecat.candycraftce.core.blocks.CBlocks
+import cn.breadnicecat.candycraftce.core.block.CBlocks
 import cn.breadnicecat.candycraftce.core.items.CItems
-import cn.breadnicecat.candycraftce.core.tabs.CItemTabs
+import cn.breadnicecat.candycraftce.core.tab.CItemTabs
 import cn.breadnicecat.candycraftce.utils.V
 import net.fabricmc.api.ModInitializer
 

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "candycraftce:block/pudding",
+    "top": "candycraftce:block/pudding_farmland_top_moist"
+  }
+}

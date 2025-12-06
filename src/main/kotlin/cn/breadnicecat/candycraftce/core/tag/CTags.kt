@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.core.tags
+package cn.breadnicecat.candycraftce.core.tag
 
 import cn.breadnicecat.candycraftce.data.DataUtils
 import cn.breadnicecat.candycraftce.utils.Utils.modLoc
@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.material.Fluid
 
 typealias TagKeys = Pair<TagKey<Item>, TagKey<Block>>
 
@@ -21,6 +22,13 @@ object CTags {
     val ore_licorice = bind2("ore_licorice")
     val ore_nougat = bind2("ore_nougat")
     val ore_jelly = bind2("ore_jelly")
+
+    object CFluidTags {
+        val candy_water_plant_suitable = bind("candy_water_plant_suitable")
+        fun bind(name: String): TagKey<Fluid> {
+            return TagKey.create(Registries.FLUID, name.modLoc())
+        }
+    }
 
     object CItemTags {
         val keys = bind("keys")

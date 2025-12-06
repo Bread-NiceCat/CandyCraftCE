@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.core.tabs
+package cn.breadnicecat.candycraftce.core.tab
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.core.items.CItems

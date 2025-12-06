@@ -1,10 +1,12 @@
-// 1.20.1	2025-12-04T19:53:53.0075834	CandyCraft CE/CTagProviders
+// 1.20.1	2025-12-06T22:03:21.017961	CandyCraft CE/CTagProviders
 ca8f7555dec66ef77d72d653c8f63ab85e52058b data\candycraftce\tags\items\pez.json
-a04497e2ded289e930b09b1be6770efab793eb3a data\candycraftce\tags\items\licorice.json
-d926ba9986732fb9da42fbf158b5aba47cbdf28b data\minecraft\tags\items\hoes.json
-5c92c667d88fc692e313b45d9339a586f0298ec9 data\candycraftce\tags\items\leaf.json
 bcb4b796f7a266a723f63efdeb81f36b8d95ec4f data\minecraft\tags\items\pickaxes.json
+5c92c667d88fc692e313b45d9339a586f0298ec9 data\candycraftce\tags\items\leaf.json
 05e10a42126261e8b2c2a3f42fa0c6ee67f01c43 data\minecraft\tags\items\swords.json
+7ac2284730961dda07c1ecd7cfaadfc26a27fa57 data\candycraftce\tags\items\emblem.json
+d926ba9986732fb9da42fbf158b5aba47cbdf28b data\minecraft\tags\items\hoes.json
+a04497e2ded289e930b09b1be6770efab793eb3a data\candycraftce\tags\items\licorice.json
+81acc8817c562f06c2b34125bd8e74c1065fc491 data\candycraftce\tags\blocks\candy_plant_suitable.json
 ecafcd4590566d4db8f41a8a1b820bd30239212b data\minecraft\tags\items\axes.json
 7dd17b83183547c0c02ca8dd07ceda2aed3af541 data\candycraftce\tags\items\honeycomb.json
 097b7958e2ad88e0aab6f1449ce1adc50c9b4370 data\minecraft\tags\items\shovels.json
