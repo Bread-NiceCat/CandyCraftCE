@@ -4,163 +4,207 @@ import cn.breadnicecat.candycraftce.core.tab.CItemTabs.CANDYCRAFT
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.add
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
 import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
-import cn.breadnicecat.candycraftce.data.DataUtils.modelFlat
-import cn.breadnicecat.candycraftce.data.DataUtils.modelHandheld
-import cn.breadnicecat.candycraftce.data.DataUtils.tag
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.OperationRecordable
+import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
+import cn.breadnicecat.candycraftce.utils.Utils
 import cn.breadnicecat.candycraftce.utils.Utils.instance
-import cn.breadnicecat.candycraftce.utils.Utils.modLoc
 import cn.breadnicecat.candycraftce.utils.Utils.second
-import cn.breadnicecat.candycraftce.utils.V
-import cn.breadnicecat.candycraftce.utils.V.Companion.v
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
-import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects.CONFUSION
 import net.minecraft.world.effect.MobEffects.NIGHT_VISION
-import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.*
-import net.minecraft.world.item.Item.Properties
-import net.minecraft.world.level.ItemLike
-import java.util.*
-import java.util.function.Consumer
 
-private typealias ItemBuilderOp<I> = CItems.ItemBuilder<I>.() -> Unit
-typealias ItemFactory<I> = Arguments.(Properties) -> I
-
-typealias PropertiesFactory = (Properties) -> Unit
 
 object CItems {
-
-    private val simple = ItemBuilder("*simple", { Item(it) })
-        .tab(CANDYCRAFT)
-        .modelFlat()
-
     init {
+        Utils.sign()
         CANDYCRAFT.add(Items.SUGAR)
     }
 
+    private val simple = ItemBuilder("*simple", { Item(it) })
+        .tab(CANDYCRAFT)
+        .data {
+            modelFlat()
+        }
+
     val licorice = simple.copy("licorice")
-        .translate("Licorice", "盐甘草糖")
-        .tag(CItemTags.licorice)
+        .data {
+            translate("Licorice", "盐甘草糖")
+            tag(CItemTags.licorice)
+        }
         .food(3, 0.3f)
         .save()
     val honeycomb = simple.copy("honeycomb")
-        .translate("Honeycomb", "蜜蜡")
-        .tag(CItemTags.honeycomb)
+        .data {
+            translate("Honeycomb", "蜜蜡")
+            tag(CItemTags.honeycomb)
+        }
         .food(6, 0.1f)
         .save()
     val honeycomb_shard = simple.copy("honeycomb_shard")
-        .translate("Honeycomb Shard", "蜜蜡碎片")
+        .data {
+            translate("Honeycomb Shard", "蜜蜡碎片")
+        }
         .food(6, 0.1f)
         .save()
     val pez = simple.copy("pez")
-        .translate("PEZ", "皮礼士糖")
-        .tag(CItemTags.pez)
+        .data {
+            translate("PEZ", "皮礼士糖")
+            tag(CItemTags.pez)
+        }
         .food(10, 0.5f, listOf(1f to NIGHT_VISION.instance(60.second)))
         .save()
     val marshmallow_stick = simple.copy("marshmallow_stick")
-        .translate("Marshmallow Stick", "棉花软木木棍")
+        .data {
+            translate("Marshmallow Stick", "棉花软木木棍")
+        }
         .food(1, 1f)
         .save()
     val sugar_crystal = simple.copy("sugar_crystal")
-        .translate("Sugar Crystal", "冰糖")
+        .data {
+            translate("Sugar Crystal", "冰糖")
+        }
         .food(4, 2f)
         .save()
 
     val chocolate_brick = simple.copy("chocolate_brick")
-        .translate("Chocolate Brick", "巧克力砖")
+        .data {
+            translate("Chocolate Brick", "巧克力砖")
+        }
         .food(2, 1f)
         .save()
     val caramel_brick = chocolate_brick.copy("caramel_brick")
-        .translate("Caramel Brick", "焦糖砖")
+        .data {
+            translate("Caramel Brick", "焦糖砖")
+        }
         .save()
     val white_chocolate_brick = chocolate_brick.copy("white_chocolate_brick")
-        .translate("White Chocolate Brick", "白巧克力砖")
+        .data {
+            translate("White Chocolate Brick", "白巧克力砖")
+        }
         .save()
     val cotton_candy = chocolate_brick.copy("cotton_candy")
-        .translate("Cotton Candy", "棉花糖")
+        .data {
+            translate("Cotton Candy", "棉花糖")
+        }
         .save()
 
     val gummy = simple.copy("gummy")
-        .translate("Gummy", "软糖")
+        .data {
+            translate("Gummy", "软糖")
+        }
         .food(2, 1f, listOf(0.8f to CONFUSION.instance(10.second)))
         .save()
     val hot_gummy = simple.copy("hot_gummy")
-        .translate("Hot Gummy", "熟软糖")
+        .data {
+            translate("Hot Gummy", "熟软糖")
+        }
         .food(2, 1f)
         .save()
     val chocolate_coin = simple.copy("chocolate_coin")
-        .translate("Chocolate Coin", "巧克力币")
+        .data {
+            translate("Chocolate Coin", "巧克力币")
+        }
         .food(2, 1f)
         .save()
 
     val nougat_powder = simple.copy("nougat_powder")
-        .translate("Nougat Powder", "牛轧糖粉")
+        .data {
+            translate("Nougat Powder", "牛轧糖粉")
+        }
         .food(2, 1f, fastEat = true)
         .save()
     val pez_dust = simple.copy("pez_dust")
-        .translate("PEZ Dust", "皮礼士糖粉")
+        .data {
+            translate("PEZ Dust", "皮礼士糖粉")
+        }
         .food(2, 1f, listOf(1f to NIGHT_VISION.instance((60 / 9f).second)), fastEat = true)
         .save()
     val waffle = simple.copy("waffle")
-        .translate("Waffle", "华夫饼")
+        .data {
+            translate("Waffle", "华夫饼")
+        }
         .food(2, 1f)
         .save()
     val waffle_nugget = simple.copy("waffle_nugget")
-        .translate("Waffle Nugget", "华夫饼碎屑")
+        .data {
+            translate("Waffle Nugget", "华夫饼碎屑")
+        }
         .food(2, 1f)
         .save()
     val candied_cherry = simple.copy("candied_cherry")
-        .translate("Candied Cherry", "蜜饯樱桃")
+        .data {
+            translate("Candied Cherry", "蜜饯樱桃")
+        }
         .food(2, 1f)
         .save()
     val candy_cane = simple.copy("candy_cane")
-        .translate("Candy Cane", "拐杖糖")
+        .data {
+            translate("Candy Cane", "拐杖糖")
+        }
         .food(2, 1f)
         .save()
     val chewing_gum = simple.copy("chewing_gum")
-        .translate("Chewing Gum", "口香糖")
+        .data {
+            translate("Chewing Gum", "口香糖")
+        }
         .food(2, 1f)
         .save()
     val lollipop = simple.copy("lollipop")
-        .translate("Lollipop", "棒棒糖")
+        .data {
+            translate("Lollipop", "棒棒糖")
+        }
         .food(2, 1f)
         .save()
 
     //叶子
     private val leaf = simple.copy("*leaf")
-        .tag(CItemTags.leaf)
+        .data {
+            tag(CItemTags.leaf)
+        }
         .food(2, 0.5f)
 
     val chocolate_leaf = leaf.copy("chocolate_leaf")
-        .translate("Chocolate Leaf", "巧克力叶子")
+        .data {
+            translate("Chocolate Leaf", "巧克力叶子")
+        }
         .save()
     val white_chocolate_leaf = leaf.copy("white_chocolate_leaf")
-        .translate("White Chocolate Leaf", "白巧克力叶子")
+        .data {
+            translate("White Chocolate Leaf", "白巧克力叶子")
+        }
         .save()
     val caramel_leaf = leaf.copy("caramel_leaf")
-        .translate("Caramel Leaf", "焦糖叶子")
+        .data {
+            translate("Caramel Leaf", "焦糖叶子")
+        }
         .save()
     val candied_cherry_leaf = leaf.copy("candied_cherry_leaf")
-        .translate("Candied Cherry Leaf", "蜜饯樱桃叶子")
+        .data {
+            translate("Candied Cherry Leaf", "蜜饯樱桃叶子")
+        }
         .save()
     val magical_leaf = leaf.copy("magical_leaf")
-        .translate("Magical Leaf", "魔法叶子")
+        .data {
+            translate("Magical Leaf", "魔法叶子")
+        }
         .save()
 
     val cranfish = simple.copy("cranfish")
-        .translate("Cranfish", "蔓越莓鱼")
+        .data {
+            translate("Cranfish", "蔓越莓鱼")
+        }
         .food(2, 1f)
         .save()
     val cranfish_cooked = simple.copy("cranfish_cooked")
-        .translate("Cranfish Cooked", "烤蔓越莓鱼")
+        .data {
+            translate("Cranfish Cooked", "烤蔓越莓鱼")
+        }
         .food(2, 1f)
         .save()
     val cranfish_scale = simple.copy("cranfish_scale")
-        .translate("Cranfish Scale", "蔓越莓鱼鳞")
+        .data {
+            translate("Cranfish Scale", "蔓越莓鱼鳞")
+        }
         .food(2, 1f)
         .save()
 
@@ -168,17 +212,23 @@ object CItems {
     //public static final ItemEntry<ItemNameBlockItem> LOLLIPOP_SEEDS = create("lollipop_seeds", (p) -> new ItemNameBlockItem(LOLLIPOP_STEM.get(), p)).setFood(1, 0f).save();
 
     private val key = simple.copy("*key")
-        .tag(CItemTags.keys)
+        .data {
+            tag(CItemTags.keys)
+        }
         .modifyProperties {
             it.stacksTo(1)
                 .rarity(Rarity.UNCOMMON)
         }
 
     val jelly_sentry_key = key.copy("jelly_sentry_key")
-        .translate("Jelly Sentry Key", "果冻守卫钥匙")
+        .data {
+            translate("Jelly Sentry Key", "果冻守卫钥匙")
+        }
         .save()
     val jelly_boss_key = key.copy("jelly_boss_key")
-        .translate("Jelly Boss Key", "果冻国王钥匙")
+        .data {
+            translate("Jelly Boss Key", "果冻国王钥匙")
+        }
         .save()
 
     /*地牢钥匙*/
@@ -201,31 +251,49 @@ object CItems {
 //	public static final ItemEntry<RecordItem> RECORD_4 = createRecord("record_4", 4, CSoundEvents.CD_4, 188).save();
 
     val emblem = simple.copy("*emblem")
-        .tag(CItemTags.emblem)
+        .data {
+            tag(CItemTags.emblem)
+        }
 
     val gingerbread_emblem = emblem.copy("gingerbread_emblem")
-        .translate("Gingerbread Emblem", "姜饼徽章")
+        .data {
+            translate("Gingerbread Emblem", "姜饼徽章")
+        }
         .save()
     val jelly_emblem = emblem.copy("jelly_emblem")
-        .translate("Jelly Emblem", "果冻徽章")
+        .data {
+            translate("Jelly Emblem", "果冻徽章")
+        }
         .save()
     val sky_emblem = emblem.copy("sky_emblem")
-        .translate("Sky Emblem", "天空徽章")
+        .data {
+            translate("Sky Emblem", "天空徽章")
+        }
         .save()
     val chewing_gum_emblem = emblem.copy("chewing_gum_emblem")
-        .translate("Chewing Gum Emblem", "口香糖徽章")
+        .data {
+            translate("Chewing Gum Emblem", "口香糖徽章")
+        }
         .save()
     val honeycomb_emblem = emblem.copy("honeycomb_emblem")
-        .translate("Honeycomb Emblem", "蜂蜡徽章")
+        .data {
+            translate("Honeycomb Emblem", "蜂蜡徽章")
+        }
         .save()
     val cranberry_emblem = emblem.copy("cranberry_emblem")
-        .translate("Cranberry Emblem", "蔓越莓徽章")
+        .data {
+            translate("Cranberry Emblem", "蔓越莓徽章")
+        }
         .save()
     val nessie_emblem = emblem.copy("nessie_emblem")
-        .translate("Nessie Emblem", "尼斯徽章")
+        .data {
+            translate("Nessie Emblem", "尼斯徽章")
+        }
         .save()
     val suguard_emblem = emblem.copy("suguard_emblem")
-        .translate("Suguard Emblem", "姜饼守卫徽章")
+        .data {
+            translate("Suguard Emblem", "姜饼守卫徽章")
+        }
         .save()
 
     //public static final ItemEntry<Item> GINGERBREAD_EMBLEM = create("gingerbread_emblem").save();
@@ -252,148 +320,197 @@ object CItems {
     private val sword = simple.copy("*sword", {
         SwordItem(get("tier"), get("damage"), get("speed"), it)
     })
-        .tag(ItemTags.SWORDS)
-        .modelHandheld()
+        .data {
+            tag(ItemTags.SWORDS)
+            modelHandheld()
+        }
     private val shovel = simple.copy("*sword", {
         ShovelItem(get("tier"), get("damage"), get("speed"), it)
-    })
-        .tag(ItemTags.SHOVELS)
-        .modelHandheld()
+    }).data {
+        tag(ItemTags.SHOVELS)
+        modelHandheld()
+    }
     private val pickaxe = simple.copy("*sword", {
         PickaxeItem(get("tier"), get("damage"), get("speed"), it)
-    })
-        .tag(ItemTags.PICKAXES)
-        .modelHandheld()
+    }).data {
+        tag(ItemTags.PICKAXES)
+        modelHandheld()
+    }
     private val axe = simple.copy("*sword", {
         AxeItem(get("tier"), get("damage"), get("speed"), it)
     })
-        .tag(ItemTags.AXES)
-        .modelHandheld()
+        .data {
+            tag(ItemTags.AXES)
+            modelHandheld()
+        }
     private val hoe = simple.copy("*sword", {
         HoeItem(get("tier"), get("damage"), get("speed"), it)
     })
-        .tag(ItemTags.HOES)
-        .modelHandheld()
+        .data {
+            tag(ItemTags.HOES)
+            modelHandheld()
+        }
+
 
     val marshmallow_sword = sword.copy("marshmallow_sword")
-        .translate("Marshmallow Sword", "棉花软糖木剑")
+        .data {
+            translate("Marshmallow Sword", "棉花软糖木剑")
+        }
         .argument("tier", CTiers.MARSHMALLOW)
         .argument("damage", 3)
         .argument("speed", -2.4f)
         .save()
     val marshmallow_shovel = shovel.copy("marshmallow_shovel")
-        .translate("Marshmallow Shovel", "棉花软糖木铲")
+        .data {
+            translate("Marshmallow Shovel", "棉花软糖木铲")
+        }
         .argument("tier", CTiers.MARSHMALLOW)
         .argument("damage", 1.5f)
         .argument("speed", -3f)
         .save()
     val marshmallow_pickaxe = pickaxe.copy("marshmallow_pickaxe")
-        .translate("Marshmallow Pickaxe", "棉花软糖木镐")
+        .data {
+            translate("Marshmallow Pickaxe", "棉花软糖木镐")
+        }
         .argument("tier", CTiers.MARSHMALLOW)
         .argument("damage", 1)
         .argument("speed", -2.8f)
         .save()
     val marshmallow_axe = axe.copy("marshmallow_axe")
-        .translate("Marshmallow Axe", "棉花软糖木斧")
+        .data {
+            translate("Marshmallow Axe", "棉花软糖木斧")
+        }
         .argument("tier", CTiers.MARSHMALLOW)
         .argument("damage", 6f)
         .argument("speed", -3.2f)
         .save()
     val marshmallow_hoe = hoe.copy("marshmallow_hoe")
-        .translate("Marshmallow Hoe", "棉花软糖木锄")
+        .data {
+            translate("Marshmallow Hoe", "棉花软糖木锄")
+        }
         .argument("tier", CTiers.MARSHMALLOW)
         .argument("damage", 0)
         .argument("speed", -3.0f)
         .save()
 
     val licorice_sword = sword.copy("licorice_sword")
-        .translate("Licorice Sword", "盐甘草糖剑")
+        .data {
+            translate("Licorice Sword", "盐甘草糖剑")
+        }
         .argument("tier", CTiers.LICORICE)
         .argument("damage", 3)
         .argument("speed", -2.4f)
         .save()
     val licorice_shovel = shovel.copy("licorice_shovel")
-        .translate("Licorice Shovel", "盐甘草糖铲")
+        .data {
+            translate("Licorice Shovel", "盐甘草糖铲")
+        }
         .argument("tier", CTiers.LICORICE)
         .argument("damage", 1.5f)
         .argument("speed", -3f)
         .save()
     val licorice_pickaxe = pickaxe.copy("licorice_pickaxe")
-        .translate("Licorice Pickaxe", "盐甘草糖镐")
+        .data {
+            translate("Licorice Pickaxe", "盐甘草糖镐")
+        }
         .argument("tier", CTiers.LICORICE)
         .argument("damage", 1)
         .argument("speed", -2.8f)
         .save()
     val licorice_axe = axe.copy("licorice_axe")
-        .translate("Licorice Axe", "盐甘草糖斧")
+        .data {
+            translate("Licorice Axe", "盐甘草糖斧")
+        }
         .argument("tier", CTiers.LICORICE)
         .argument("damage", 7f)
         .argument("speed", -3.2f)
         .save()
     val licorice_hoe = hoe.copy("licorice_hoe")
-        .translate("Licorice Hoe", "盐甘草糖锄")
+        .data {
+            translate("Licorice Hoe", "盐甘草糖锄")
+        }
         .argument("tier", CTiers.LICORICE)
         .argument("damage", -1)
         .argument("speed", -2f)
         .save()
 
     val honeycomb_sword = sword.copy("honeycomb_sword")
-        .translate("Honeycomb Sword", "蜜蜡剑")
+        .data {
+            translate("Honeycomb Sword", "蜜蜡剑")
+        }
         .argument("tier", CTiers.HONEYCOMB)
         .argument("damage", 3)
         .argument("speed", -2.4f)
         .save()
     val honeycomb_shovel = shovel.copy("honeycomb_shovel")
-        .translate("Honeycomb Shovel", "蜜蜡铲")
+        .data {
+            translate("Honeycomb Shovel", "蜜蜡铲")
+        }
         .argument("tier", CTiers.HONEYCOMB)
         .argument("damage", 1.5f)
         .argument("speed", -3f)
         .save()
     val honeycomb_pickaxe = pickaxe.copy("honeycomb_pickaxe")
-        .translate("Honeycomb Pickaxe", "蜜蜡镐")
+        .data {
+            translate("Honeycomb Pickaxe", "蜜蜡镐")
+        }
         .argument("tier", CTiers.HONEYCOMB)
         .argument("damage", 1)
         .argument("speed", -2.8f)
         .save()
     val honeycomb_axe = axe.copy("honeycomb_axe")
-        .translate("Honeycomb Axe", "蜜蜡斧")
+        .data {
+            translate("Honeycomb Axe", "蜜蜡斧")
+        }
         .argument("tier", CTiers.HONEYCOMB)
         .argument("damage", 7f)
         .argument("speed", -3.2f)
         .save()
     val honeycomb_hoe = hoe.copy("honeycomb_hoe")
-        .translate("Honeycomb Hoe", "蜜蜡锄")
+        .data {
+            translate("Honeycomb Hoe", "蜜蜡锄")
+        }
         .argument("tier", CTiers.HONEYCOMB)
         .argument("damage", -1)
         .argument("speed", -2f)
         .save()
 
     val pez_sword = sword.copy("pez_sword")
-        .translate("Pez Sword", "皮礼士糖剑")
+        .data {
+            translate("Pez Sword", "皮礼士糖剑")
+        }
         .argument("tier", CTiers.PEZ)
         .argument("damage", 3)
         .argument("speed", -2.4f)
         .save()
     val pez_shovel = shovel.copy("pez_shovel")
-        .translate("Pez Shovel", "皮礼士糖铲")
+        .data {
+            translate("Pez Shovel", "皮礼士糖铲")
+        }
         .argument("tier", CTiers.PEZ)
         .argument("damage", 1.5f)
         .argument("speed", -3f)
         .save()
     val pez_pickaxe = pickaxe.copy("pez_pickaxe")
-        .translate("Pez Pickaxe", "皮礼士糖镐")
+        .data {
+            translate("Pez Pickaxe", "皮礼士糖镐")
+        }
         .argument("tier", CTiers.PEZ)
         .argument("damage", 1)
         .argument("speed", -2.8f)
         .save()
     val pez_axe = axe.copy("pez_axe")
-        .translate("Pez Axe", "皮礼士糖斧")
+        .data {
+            translate("Pez Axe", "皮礼士糖斧")
+        }
         .argument("tier", CTiers.PEZ)
         .argument("damage", 5f)
         .argument("speed", -3f)
         .save()
     val pez_hoe = hoe.copy("pez_hoe")
-        .translate("Pez Hoe", "皮礼士糖锄")
+        .data {
+            translate("Pez Hoe", "皮礼士糖锄")
+        }
         .argument("tier", CTiers.PEZ)
         .argument("damage", 5)
         .argument("speed", -3f)
@@ -412,212 +529,97 @@ object CItems {
         .argument("slot", ArmorItem.Type.BOOTS)
 
     val licorice_helmet = helmet.copy("licorice_helmet")
-        .translate("Licorice Helmet", "盐甘草糖头盔")
+        .data {
+            translate("Licorice Helmet", "盐甘草糖头盔")
+        }
         .argument("material", CMaterials.LICORICE)
         .save()
     val licorice_chestplate = chestplate.copy("licorice_chestplate")
-        .translate("Licorice Chestplate", "盐甘草糖胸甲")
+        .data {
+            translate("Licorice Chestplate", "盐甘草糖胸甲")
+        }
         .argument("material", CMaterials.LICORICE)
         .save()
     val licorice_leggings = leggings.copy("licorice_leggings")
-        .translate("Licorice Leggings", "盐甘草糖护腿")
+        .data {
+            translate("Licorice Leggings", "盐甘草糖护腿")
+        }
         .argument("material", CMaterials.LICORICE)
         .save()
     val licorice_boots = boots.copy("licorice_boots")
-        .translate("Licorice Boots", "盐甘草糖靴")
+        .data {
+            translate("Licorice Boots", "盐甘草糖靴")
+        }
         .argument("material", CMaterials.LICORICE)
         .save()
     val honeycomb_helmet = helmet.copy("honeycomb_helmet")
-        .translate("Honeycomb Helmet", "蜜蜡头盔")
+        .data {
+            translate("Honeycomb Helmet", "蜜蜡头盔")
+        }
         .argument("material", CMaterials.HONEYCOMB)
         .save()
     val honeycomb_chestplate = chestplate.copy("honeycomb_chestplate")
-        .translate("Honeycomb Chestplate", "蜜蜡胸甲")
+        .data {
+            translate("Honeycomb Chestplate", "蜜蜡胸甲")
+        }
         .argument("material", CMaterials.HONEYCOMB)
         .save()
     val honeycomb_leggings = leggings.copy("honeycomb_leggings")
-        .translate("Honeycomb Leggings", "蜜蜡护腿")
+        .data {
+            translate("Honeycomb Leggings", "蜜蜡护腿")
+        }
         .argument("material", CMaterials.HONEYCOMB)
         .save()
     val honeycomb_boots = boots.copy("honeycomb_boots")
-        .translate("Honeycomb Boots", "蜜蜡靴")
+        .data {
+            translate("Honeycomb Boots", "蜜蜡靴")
+        }
         .argument("material", CMaterials.HONEYCOMB)
         .save()
     val pez_helmet = helmet.copy("pez_helmet")
-        .translate("Pez Helmet", "皮礼士糖头盔")
+        .data {
+            translate("Pez Helmet", "皮礼士糖头盔")
+        }
         .argument("material", CMaterials.PEZ)
         .save()
     val pez_chestplate = chestplate.copy("pez_chestplate")
-        .translate("Pez Chestplate", "皮礼士糖胸甲")
+        .data {
+            translate("Pez Chestplate", "皮礼士糖胸甲")
+        }
         .argument("material", CMaterials.PEZ)
         .save()
     val pez_leggings = leggings.copy("pez_leggings")
-        .translate("Pez Leggings", "皮礼士糖护腿")
+        .data {
+            translate("Pez Leggings", "皮礼士糖护腿")
+        }
         .argument("material", CMaterials.PEZ)
         .save()
     val pez_boots = boots.copy("pez_boots")
-        .translate("Pez Boots", "皮礼士糖靴")
+        .data {
+            translate("Pez Boots", "皮礼士糖靴")
+        }
         .argument("material", CMaterials.PEZ)
         .save()
     val trampojelly_boots = boots.copy("trampojelly_boots")
-        .translate("Trampojelly Boots", "减震果冻靴")
+        .data {
+            translate("Trampojelly Boots", "减震果冻靴")
+        }
         .argument("material", CMaterials.TRAMPOJELLY_BOOTS)
         .save()
     val water_mask = helmet.copy("water_mask")
-        .translate("Water Mask", "水下面罩")
+        .data {
+            translate("Water Mask", "水下面罩")
+        }
         .argument("material", CMaterials.WATER_MASK)
         .save()
     val jelly_crown = helmet.copy("jelly_crown")
-        .translate("Jelly Crown", "果冻皇冠")
+        .data {
+            translate("Jelly Crown", "果冻皇冠")
+        }
         .argument("material", CMaterials.JELLY_CROWN)
         .save()
-
-    //	/*Armors*/
-//	//Licorice
-//	public static final ItemEntry<ArmorItem> LICORICE_HELMET = createHelmet("licorice_helmet", CArmorMaterials.LICORICE).save();
-//	public static final ItemEntry<ArmorItem> LICORICE_CHESTPLATE = createChestplate("licorice_chestplate", CArmorMaterials.LICORICE).save();
-//	public static final ItemEntry<ArmorItem> LICORICE_LEGGINGS = createLeggings("licorice_leggings", CArmorMaterials.LICORICE).save();
-//	public static final ItemEntry<ArmorItem> LICORICE_BOOTS = createBoots("licorice_boots", CArmorMaterials.LICORICE).save();
-//	//HoneyComb
-//	public static final ItemEntry<ArmorItem> HONEYCOMB_HELMET = createHelmet("honeycomb_helmet", CArmorMaterials.HONEYCOMB).save();
-//	public static final ItemEntry<ArmorItem> HONEYCOMB_CHESTPLATE = createChestplate("honeycomb_chestplate", CArmorMaterials.HONEYCOMB).save();
-//	public static final ItemEntry<ArmorItem> HONEYCOMB_LEGGINGS = createLeggings("honeycomb_leggings", CArmorMaterials.HONEYCOMB).save();
-//	public static final ItemEntry<ArmorItem> HONEYCOMB_BOOTS = createBoots("honeycomb_boots", CArmorMaterials.HONEYCOMB).save();
-//	//PEZ
-//	public static final ItemEntry<ArmorItem> PEZ_HELMET = createHelmet("pez_helmet", CArmorMaterials.PEZ).save();
-//	public static final ItemEntry<ArmorItem> PEZ_CHESTPLATE = createChestplate("pez_chestplate", CArmorMaterials.PEZ).save();
-//	public static final ItemEntry<ArmorItem> PEZ_LEGGINGS = createLeggings("pez_leggings", CArmorMaterials.PEZ).save();
-//	public static final ItemEntry<ArmorItem> PEZ_BOOTS = createBoots("pez_boots", CArmorMaterials.PEZ).save();
-//	//Sp(p) -> new Item
-//	public static final ItemEntry<ArmorItem> WATER_MASK = createHelmet("water_mask", CArmorMaterials.WATER_MASK).save();
-//	public static final ItemEntry<ArmorItem> JELLY_CROWN = createHelmet("jelly_crown", CArmorMaterials.JELLY_CROWN).save();
-//	public static final ItemEntry<ArmorItem> TRAMPOJELLY_BOOTS = createBoots("trampojelly_boots", CArmorMaterials.TRAMPOJELLY_BOOTS)
-//			.save();
 //	public static final ItemEntry<IIDebugItem> IIDEBUG = create("iidebug", higher(IIDebugItem::new))
 //			.setCtab(false)
 //			.save();
 //
-    class ItemBuilder<I : Item>(
-        val id: String,
-        val factory: ItemFactory<I>,
-        internal var propBuilder: PropertiesFactory = {},
-    ) : OperationRecordable<ItemBuilder<I>>() {
-
-        private val lateUsage = LinkedList<Consumer<Entry<I>>>()
-        private val arguments = Arguments.Builder()
-        fun food(
-            nut: Int,
-            satMod: Float = 0f,
-            mobEffect: List<Pair<Float, MobEffectInstance>> = listOf(),
-            fastEat: Boolean = false,
-            alwaysEat: Boolean = false,
-        ): ItemBuilder<I> {
-            record("food") {
-                modifyProperties {
-                    it.food(
-                        FoodProperties.Builder()
-                            .nutrition(nut)
-                            .saturationMod(satMod)
-                            .apply {
-                                if (fastEat) fast()
-                                if (alwaysEat) alwaysEat()
-                                mobEffect.forEach { (probability, effect) ->
-                                    effect(effect, probability)
-                                }
-                            }
-                            .build()
-                    )
-                }
-            }
-            return this
-        }
-
-        /*==============================
-                   Core Zone
-        ==============================*/
-        fun modifyProperties(action: PropertiesFactory): ItemBuilder<I> {
-            record("modifyProperties", overridable = false) {
-                val prop = propBuilder
-                propBuilder = { prop(it); action(it) }
-            }
-            return this
-        }
-
-        fun argument(key: String, value: Any?): ItemBuilder<I> {
-            record("argument", overridable = false) {
-                if (value == null) arguments.remove(key)
-                else arguments[key] = value
-            }
-            return this
-        }
-
-        fun arguments(vararg args: Pair<String, Any?>): ItemBuilder<I> {
-            args.forEach { (key, value) ->
-                argument(key, value)
-            }
-            return this
-        }
-
-        /**
-         * 在注册后调用
-         * */
-        fun lateUsage(action: (Entry<I>) -> Unit) {
-            check(!frozen)
-            lateUsage.add(action)
-        }
-
-        fun save(): Entry<I> {
-            executeRecords()
-            val item = register(id.modLoc()) {
-                factory(arguments.build(), Properties().apply(propBuilder))
-            }
-            val entry = Entry(id.modLoc(), item, this.v())
-            lateUsage.forEach { it.accept(entry) }
-            return entry
-        }
-
-        fun copy(
-            id: String,
-            factory: ItemFactory<I> = this.factory,
-            properties: PropertiesFactory = this.propBuilder,
-        ): ItemBuilder<I> {
-            val new = ItemBuilder(id, factory, properties)
-            new.arguments.putAll(arguments)
-            new.copyRecord(this)
-            return new
-        }
-
-        override val receiver: ItemBuilder<I>
-            get() = this
-
-        companion object {
-            @Suppress("UNCHECKED_CAST")
-            private fun <I : Item> register(
-                id: ResourceLocation,
-                factory: () -> I,
-            ): I {
-                return Items.registerItem(id, factory()) as I
-            }
-
-        }
-    }
-
-    class Entry<I : Item>(
-        val id: ResourceLocation,
-        val item: I,
-        private val builder: V<ItemBuilder<I>>,
-    ) : ItemLike {
-        operator fun component1() = id
-        operator fun component2() = item
-
-        override fun asItem(): Item = item
-        fun copy(
-            id: String,
-            factory: ItemFactory<I> = builder.get().factory,
-            properties: PropertiesFactory = builder.get().propBuilder,
-        ) = builder.get().copy(id, factory, properties)
-
-        fun getDefaultInstance(): ItemStack = item.defaultInstance
-    }
-
 }

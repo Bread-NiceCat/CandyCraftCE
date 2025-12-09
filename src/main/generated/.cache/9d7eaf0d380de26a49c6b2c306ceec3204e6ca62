@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-06T22:03:21.01897	CandyCraft CE/Model Definitions
+// 1.20.1	2025-12-08T21:38:15.0438725	CandyCraft CE/Model Definitions
 670e64307cbfc2cc43889e9529e294c98e60869c assets\candycraftce\models\item\magical_leaf.json
 5ceba7de0c9bc08b64adaf4eb0007c8e202acf1f assets\candycraftce\models\item\chewing_gum.json
 485efb568f7838e28d8c93fdd33bb750216ff833 assets\candycraftce\models\item\pez_shovel.json
@@ -8,8 +8,8 @@ d58ac41f5e076f73d90e506b2b28f2f41adff423 assets\candycraftce\models\block\mint.j
 54685128a8082ef0feed441b8f24ddf4ebd54fa1 assets\candycraftce\models\item\pez_boots.json
 b51a3d4f986909e738b37c1644e3d2510925afd3 assets\candycraftce\models\item\pez_dust.json
 976bb1a372aeaae3b743edfc11c69c63eadf5f03 assets\candycraftce\models\item\chewing_gum_emblem.json
-3e499dc3e5abdc889d9bb29c324b95785837bab1 assets\candycraftce\models\item\honeycomb_boots.json
 012e99ac7e6e702e70b696ac6ce7b16e9341e857 assets\candycraftce\models\block\custard_pudding.json
+3e499dc3e5abdc889d9bb29c324b95785837bab1 assets\candycraftce\models\item\honeycomb_boots.json
 12d1ab59997ee59e548f026c771dce3137418faa assets\candycraftce\models\item\waffle.json
 d6339345092ee98af98acc0b082601cbb56b9cb9 assets\candycraftce\blockstates\acid_mint_flower.json
 ed600eb40a404191f2833fe3717750e7eb9e60a3 assets\candycraftce\models\item\pez_axe.json
@@ -46,9 +46,9 @@ b1e2f7b6cc524a7571962b4b5854b77c9cbc0b78 assets\candycraftce\models\block\puddin
 bc86903fd943d3170ebab06f383446be5ed232ed assets\candycraftce\models\item\jelly_emblem.json
 119c09a127f3a4c7c37f30967bafb45734e7d168 assets\candycraftce\models\item\jelly_boss_key.json
 086929a1713737ec1a310887247b42ee7601d3d0 assets\candycraftce\models\item\pez_hoe.json
-f2d15e290b58966d156b1c6b91fc3f9f00a1f913 assets\candycraftce\models\item\honeycomb_leggings.json
 f05a32a6c8e3d22f43377a15b2240a878fd3bc56 assets\candycraftce\models\item\chocolate_brick.json
 303b5c2adcce08566217fdc4384c26c438a6bdd8 assets\candycraftce\models\item\nessie_emblem.json
+f2d15e290b58966d156b1c6b91fc3f9f00a1f913 assets\candycraftce\models\item\honeycomb_leggings.json
 9a7157196e99e4ec7157753dffd68818879a1003 assets\candycraftce\models\item\rope_raspberry.json
 1ac434e431d55dc232bd72d424796ae8d785888b assets\candycraftce\models\item\sweet_grass_3.json
 c3debfc8d1855b962988eaf851e2a1e04f43305d assets\candycraftce\models\block\fraise_tagada_flower.json
@@ -76,8 +76,8 @@ c7b749a1b408d3b623dc44c5862df536b7869d16 assets\candycraftce\blockstates\golden_
 5f509f802209f186b345fc756bf843c9787a03b8 assets\candycraftce\models\item\pudding.json
 2a628cdd206f486f50f651a8eda2326908686e66 assets\candycraftce\models\item\cranfish_scale.json
 c893ab07afc15ea851a923b17a66f4a7fccb84d8 assets\candycraftce\models\item\custard_pudding.json
-9f4c67809ca38ff89cd0acca5627d0e9c8e32c28 assets\candycraftce\models\block\pudding_farmland_moist.json
 b0e36a3a17e6baa926e524b670bae3b4b594a7e6 assets\candycraftce\models\item\lollipop.json
+9f4c67809ca38ff89cd0acca5627d0e9c8e32c28 assets\candycraftce\models\block\pudding_farmland_moist.json
 e758428c1dca85af56c927d84c0326688be7850a assets\candycraftce\models\item\honeycomb_sword.json
 7e3da9aff29d2e0f38c442866ba10e6e80ddb66e assets\candycraftce\models\block\acid_mint_flower.json
 ed0fe1221b93809f7ce0646053dd6c17ac13d083 assets\candycraftce\models\block\pudding.json

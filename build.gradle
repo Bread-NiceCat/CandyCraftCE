@@ -12,10 +12,11 @@ base {
 }
 loom {
     String vendor = System.getProperty("java.vm.vendor")
-    println("JVM Vendor: ${vendor}")
+    boolean jet = vendor.contains("JetBrains")
+    println("JVM Vendor: ${vendor}(AllowEnhancedClassRedefinition=${jet})")
     runs.configureEach {
         it.vmArg "-Dmixin.debug.export=true"
-        if (vendor.contains("JetBrains")) {
+        if (jet) {
             it.vmArg "-XX:+AllowEnhancedClassRedefinition"
         }
     }

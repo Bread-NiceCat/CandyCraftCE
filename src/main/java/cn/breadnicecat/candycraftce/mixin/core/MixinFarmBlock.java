@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.mixin;
+package cn.breadnicecat.candycraftce.mixin.core;
 
 
 import cn.breadnicecat.candycraftce.core.block.CBlocks;

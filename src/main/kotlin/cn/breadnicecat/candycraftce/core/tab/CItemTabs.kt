@@ -2,7 +2,9 @@ package cn.breadnicecat.candycraftce.core.tab
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.core.items.CItems
+import cn.breadnicecat.candycraftce.core.items.ItemBuilder
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.utils.Utils
 import cn.breadnicecat.candycraftce.utils.Utils.createKey
 import cn.breadnicecat.candycraftce.utils.Utils.modLoc
 import cn.breadnicecat.candycraftce.utils.Utils.register
@@ -20,6 +22,10 @@ import java.util.function.Supplier
 
 
 object CItemTabs {
+    init {
+        Utils.sign()
+    }
+
     private val modTabContents = HashMap<ResourceKey<CreativeModeTab>, LinkedList<ItemStack>>()
     private val unlocalTabContents = HashMap<ResourceKey<CreativeModeTab>, LinkedList<ItemStack>>()
 
@@ -29,7 +35,7 @@ object CItemTabs {
     )
         .translate("CandyCraft Community Edition", "糖果世界社区版")
 
-    fun <I : Item> CItems.ItemBuilder<I>.tab(tab: ResourceKey<CreativeModeTab>): CItems.ItemBuilder<I> {
+    fun <I : Item> ItemBuilder<I>.tab(tab: ResourceKey<CreativeModeTab>): ItemBuilder<I> {
         record("tab", overridable = false) {
             lateUsage { (_, item) ->
                 tab.add(item)

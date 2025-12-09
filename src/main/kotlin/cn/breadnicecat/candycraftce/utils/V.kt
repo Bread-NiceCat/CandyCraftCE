@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.utils
 
-import com.mojang.logging.LogUtils
+import cn.breadnicecat.candycraftce.CandyCraftCE.log
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -10,7 +10,6 @@ import kotlin.reflect.KProperty
 class V<E : Any>(e: E) : ReadOnlyProperty<Any, E> {
     companion object {
         private var all: HashSet<V<*>>? = HashSet<V<*>>()
-        private val log = LogUtils.getLogger()
         fun invalidateAll() {
             log.info("Invalidating all V")
             all!!.forEach { it.invalidate() }

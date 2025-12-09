@@ -52,7 +52,7 @@ class CustardPuddingBlock(properties: Properties) : Block(properties) {
         return canBeCustard(state, level, pos)
                 && !level.getFluidState(above).`is`(FluidTags.WATER)
     }
-
+    
     @Deprecated("Deprecated in Java")
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
         //还原为布丁

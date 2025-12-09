@@ -17,16 +17,18 @@ import net.minecraft.world.level.block.state.BlockState
 interface ISugarTarget {
     companion object {
         /**
-         * @see [cn.breadnicecat.candycraftce.mixin.MixinItem]
+         * @see [cn.breadnicecat.candycraftce.mixin.core.MixinItem.useOn]
          * */
         @JvmStatic
         fun grow(item: ItemStack, level: Level, pos: BlockPos): Boolean {
             val state = level.getBlockState(pos)
-            val target = state.block
-            if (target is ISugarTarget && target.isValidSugarTarget(level, pos, state, level.isClientSide)) {
+            val block = state.block
+            if (block is ISugarTarget
+                && block.isValidSugarTarget(level, pos, state, level.isClientSide)
+            ) {
                 if (level !is ServerLevel) return true
-                if (target.isSugarSuccess(level, level.random, pos, state)) {
-                    target.performSugar(level, level.random, pos, state)
+                if (block.isSugarSuccess(level, level.random, pos, state)) {
+                    block.performSugar(level, level.random, pos, state)
                     item.shrink(1)
                     return true
                 }
