@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.block.blocks.plant
 
-import cn.breadnicecat.candycraftce.utils.Utils.modLoc
+import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
 import net.minecraft.Util
 
 /**

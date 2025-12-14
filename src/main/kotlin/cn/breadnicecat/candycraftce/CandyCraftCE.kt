@@ -11,17 +11,17 @@ import org.slf4j.Logger
 
 object CandyCraftCE : ModInitializer {
     const val MOD_ID = "candycraftce"
-    val log: Logger = LogUtils.getLogger()
+    val clog: Logger = LogUtils.getLogger()
 
     @Suppress("UnusedExpression")
     override fun onInitialize() {
-        log.info("CandyCraftCE loading...")
+        clog.info("CandyCraftCE loading...")
         timing {
             CItemTabs
             CItems
             CBlocks
         }.also {
-            log.info("CandyCraftCE loaded in $it ms")
+            clog.info("CandyCraftCE loaded in $it ms")
         }
     }
 

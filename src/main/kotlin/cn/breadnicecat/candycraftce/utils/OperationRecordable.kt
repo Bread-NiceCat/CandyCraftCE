@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.utils
 
-import cn.breadnicecat.candycraftce.utils.Utils.safeForEach
+import cn.breadnicecat.candycraftce.utils.ModUtils.safeForEach
 
 typealias Operation<Receiver> = Receiver.() -> Unit
 

@@ -3,16 +3,26 @@ package cn.breadnicecat.candycraftce.utils
 class BitMap private constructor(
     private val bits: ByteArray,
     private val size: Int,
+    private var reversed: Boolean = false,
 ) {
     //(总位数 + 7) / 8（向上取整）
     constructor(size: Int) : this(ByteArray((size + 7) / 8), size)
-    constructor(other: BitMap) : this(other.bits.copyOf(), other.size)
+    private constructor(other: BitMap, reverse: Boolean = false) : this(other.bits.copyOf(), other.size, reverse)
 
     init {
         require(size > 0)
     }
 
+    operator fun set(index: Int, v: Boolean) {
+        if (v) set(index) else clear(index)
+    }
+
     fun set(index: Int) {
+        if (reversed) {
+            clear(index)
+            return
+        }
+
         checkIndex(index)
         val byteIndex = index / 8  // 计算对应的字节下标
         val bitPosition = index % 8  // 计算字节内的位位置（0-7）
@@ -20,14 +30,15 @@ class BitMap private constructor(
         bits[byteIndex] = (bits[byteIndex].toInt() or (1 shl bitPosition)).toByte()
     }
 
-    operator fun set(index: Int, v: Boolean) {
-        if (v) set(index) else clear(index)
-    }
-
     /**
      * 将指定为设为0
      */
     fun clear(index: Int) {
+        if (reversed) {
+            set(index)
+            return
+        }
+
         checkIndex(index)
         val byteIndex = index / 8
         val bitPosition = index % 8
@@ -39,19 +50,8 @@ class BitMap private constructor(
         checkIndex(index)
         val byteIndex = index / 8
         val bitPosition = index % 8
-        return (bits[byteIndex].toInt() and (1 shl bitPosition)) != 0
-    }
-
-    /**
-     * 统计已设置为 1 的位的总数
-     */
-    fun countSetBits(): Int {
-        var count = 0
-        for (byte in bits) {
-            // 将字节转为无符号值（避免负数影响），再统计二进制中 1 的个数
-            count += Integer.bitCount(byte.toInt() and 0xFF)
-        }
-        return count
+        val bool = (bits[byteIndex].toInt() and (1 shl bitPosition)) != 0
+        return if (reversed) !bool else bool
     }
 
     private fun checkIndex(index: Int) {
@@ -68,4 +68,8 @@ class BitMap private constructor(
     }
 
     fun copy(): BitMap = BitMap(this)
+    fun reverseCopy(): BitMap = BitMap(this, true)
+    fun reverse() {
+        reversed = !reversed
+    }
 }

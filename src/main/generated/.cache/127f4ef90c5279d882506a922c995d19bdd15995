@@ -1,7 +1,8 @@
-// 1.20.1	2025-12-08T21:38:15.0428602	CandyCraft CE/CTagProviders
+// 1.20.1	2025-12-14T08:22:56.4818977	CandyCraft CE/CTagProviders
 ca8f7555dec66ef77d72d653c8f63ab85e52058b data\candycraftce\tags\items\pez.json
 5c92c667d88fc692e313b45d9339a586f0298ec9 data\candycraftce\tags\items\leaf.json
 bcb4b796f7a266a723f63efdeb81f36b8d95ec4f data\minecraft\tags\items\pickaxes.json
+03b31bb97c114f58cf803c22efcd26aebdaa7155 data\candycraftce\tags\blocks\caramel_portal_frame.json
 05e10a42126261e8b2c2a3f42fa0c6ee67f01c43 data\minecraft\tags\items\swords.json
 7ac2284730961dda07c1ecd7cfaadfc26a27fa57 data\candycraftce\tags\items\emblem.json
 d926ba9986732fb9da42fbf158b5aba47cbdf28b data\minecraft\tags\items\hoes.json

@@ -5,9 +5,9 @@ import cn.breadnicecat.candycraftce.core.items.ItemBuilder.ItemEntry
 import cn.breadnicecat.candycraftce.core.items.ItemFactory
 import cn.breadnicecat.candycraftce.core.items.PropertiesFactory
 import cn.breadnicecat.candycraftce.utils.Arguments
+import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
+import cn.breadnicecat.candycraftce.utils.ModUtils.register
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
-import cn.breadnicecat.candycraftce.utils.Utils.modLoc
-import cn.breadnicecat.candycraftce.utils.Utils.register
 import cn.breadnicecat.candycraftce.utils.V
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
 import net.minecraft.core.registries.BuiltInRegistries

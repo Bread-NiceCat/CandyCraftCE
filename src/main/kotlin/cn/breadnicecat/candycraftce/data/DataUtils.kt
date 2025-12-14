@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.Transl
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.data.models.model.ModelTemplate
 import net.minecraft.data.models.model.TextureSlot
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.contents.TranslatableContents
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.CreativeModeTab
@@ -17,7 +19,7 @@ object DataUtils {
     val isRunning get() = FabricDataGenHelper.ENABLED
 
     fun checkDataRunning() {
-        if (!isRunning) error("Data generation is not running")
+        if (!isRunning) error("Any generation is not running")
     }
 
     inline fun ifDatagen(
@@ -77,6 +79,14 @@ object DataUtils {
 
     fun ResourceKey<CreativeModeTab>.translate(en: String, zh: String? = null): ResourceKey<CreativeModeTab> {
         abstractTranslate(TranslationBuilder::add, this, en, zh)
+        return this
+    }
+
+    fun Component.translate(en: String, zh: String? = null): Component {
+        abstractTranslate({ key, v ->
+            val trans = key.contents as? TranslatableContents ?: error("Unsupported component type")
+            add(trans.key, v)
+        }, this, en, zh)
         return this
     }
 

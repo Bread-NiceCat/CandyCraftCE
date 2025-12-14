@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.core.items
 
 import cn.breadnicecat.candycraftce.utils.Arguments
+import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
-import cn.breadnicecat.candycraftce.utils.Utils.modLoc
 import cn.breadnicecat.candycraftce.utils.V
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
 import net.minecraft.resources.ResourceLocation

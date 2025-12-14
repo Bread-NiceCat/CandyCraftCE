@@ -1,13 +1,16 @@
 package cn.breadnicecat.candycraftce.core.items
 
+import cn.breadnicecat.candycraftce.client.PuddingColor
+import cn.breadnicecat.candycraftce.core.items.ItemBuilderClientScope.Companion.client
+import cn.breadnicecat.candycraftce.core.items.items.debugger.MarshmallowDebugger
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.CANDYCRAFT
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.add
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
 import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
-import cn.breadnicecat.candycraftce.utils.Utils
-import cn.breadnicecat.candycraftce.utils.Utils.instance
-import cn.breadnicecat.candycraftce.utils.Utils.second
+import cn.breadnicecat.candycraftce.utils.ModUtils
+import cn.breadnicecat.candycraftce.utils.ModUtils.instance
+import cn.breadnicecat.candycraftce.utils.ModUtils.second
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.effect.MobEffects.CONFUSION
 import net.minecraft.world.effect.MobEffects.NIGHT_VISION
@@ -16,7 +19,7 @@ import net.minecraft.world.item.*
 
 object CItems {
     init {
-        Utils.sign()
+        ModUtils.sign()
         CANDYCRAFT.add(Items.SUGAR)
     }
 
@@ -186,6 +189,11 @@ object CItems {
     val magical_leaf = leaf.copy("magical_leaf")
         .data {
             translate("Magical Leaf", "魔法叶子")
+        }
+        .client {
+            tint { _, _ ->
+                PuddingColor.getDefaultEnchantColor()
+            }
         }
         .save()
 
@@ -618,8 +626,15 @@ object CItems {
         }
         .argument("material", CMaterials.JELLY_CROWN)
         .save()
-//	public static final ItemEntry<IIDebugItem> IIDEBUG = create("iidebug", higher(IIDebugItem::new))
-//			.setCtab(false)
-//			.save();
-//
+
+    val marshmallow_debugger = simple.copy("marshmallow_debugger", factory = { MarshmallowDebugger(it) })
+        .data {
+            translate("Marshmallow Debugger", "棉花软糖调试器")
+        }
+        .modifyProperties { it.stacksTo(1).rarity(Rarity.EPIC) }
+        .apply {
+            removeRecord("tab")
+        }
+        .tab(CreativeModeTabs.OP_BLOCKS)
+        .save()
 }

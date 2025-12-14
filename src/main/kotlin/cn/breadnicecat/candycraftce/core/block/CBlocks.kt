@@ -14,7 +14,7 @@ import cn.breadnicecat.candycraftce.core.tag.CTags
 import cn.breadnicecat.candycraftce.data.DataUtils.template
 import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
-import cn.breadnicecat.candycraftce.utils.Utils
+import cn.breadnicecat.candycraftce.utils.ModUtils
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.data.models.BlockModelGenerators.createEmptyOrFullDispatch
 import net.minecraft.data.models.BlockModelGenerators.createRotatedVariants
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 
 object CBlocks {
     init {
-        Utils.sign()
+        ModUtils.sign()
     }
 
     private val simple = BlockBuilder("*simple", { Block(it) })
@@ -48,11 +48,18 @@ object CBlocks {
     val sugar_block = simple.copy("sugar_block", factory = { SugarBlock(it) })
         .data {
             translate("Sugar Block", "糖块")
+            tag(CTags.CBlockTags.caramel_portal_frame)
         }
         .copyProperties(Blocks.SAND)
         .modifyProperties { it.randomTicks() }
         .save()
-
+    val caramel_block = simple.copy("caramel_block")
+        .data {
+            translate("Caramel Block", "焦糖块")
+            tag(CTags.CBlockTags.caramel_portal_frame)
+        }
+        .copyProperties(Blocks.STONE)
+        .save()
     val pudding = simple.copy("pudding")
         .data {
             translate("Pudding", "布丁")

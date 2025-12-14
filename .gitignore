@@ -5,8 +5,7 @@ out/
 classes/
 
 # eclipse
-
-=*.launch
+*.launch
 
 # idea
 .idea/
@@ -33,3 +32,5 @@ replay_*.log
 *.hprof
 *.jfr
 .kotlin/*
+
+logs

@@ -33,7 +33,7 @@ object PuddingColor {
     }
 
     fun getDefaultEnchantColor(): Int {
-        return 0xb0b0ff
+        return 0xb0ecff
     }
 
     fun getColor(biome: Holder<Biome>): Int {
