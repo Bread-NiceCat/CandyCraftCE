@@ -3,30 +3,37 @@ package cn.breadnicecat.candycraftce.core.block
 
 import cn.breadnicecat.candycraftce.client.PuddingColor
 import cn.breadnicecat.candycraftce.core.block.BlockBuilderClientScope.Companion.client
+import cn.breadnicecat.candycraftce.core.block.blocks.CaramelLeavesBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.CustardPuddingBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.PuddingFarmBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.SugarBlock
-import cn.breadnicecat.candycraftce.core.block.blocks.plant.*
+import cn.breadnicecat.candycraftce.core.block.blocks.plant.AcidMintFlower
+import cn.breadnicecat.candycraftce.core.block.blocks.plant.CandyPlantBlock
+import cn.breadnicecat.candycraftce.core.block.blocks.plant.CandyWaterPlantBlock
+import cn.breadnicecat.candycraftce.core.block.blocks.plant.GoldenSugarFlowerBlock
 import cn.breadnicecat.candycraftce.core.items.ItemBuilderClientScope.Companion.client
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.CANDYCRAFT
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
 import cn.breadnicecat.candycraftce.core.tag.CTags
-import cn.breadnicecat.candycraftce.data.DataUtils.template
 import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.utils.ModUtils
+import cn.breadnicecat.candycraftce.utils.ModUtils.mcLoc
+import cn.breadnicecat.candycraftce.utils.V.Companion.v
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.data.models.BlockModelGenerators.createEmptyOrFullDispatch
 import net.minecraft.data.models.BlockModelGenerators.createRotatedVariants
 import net.minecraft.data.models.blockstates.MultiVariantGenerator
-import net.minecraft.data.models.model.ModelLocationUtils.getModelLocation
 import net.minecraft.data.models.model.ModelTemplates
-import net.minecraft.data.models.model.TextureMapping
 import net.minecraft.data.models.model.TextureMapping.getBlockTexture
 import net.minecraft.data.models.model.TextureSlot
+import net.minecraft.tags.BlockTags
+import net.minecraft.tags.ItemTags
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.LeavesBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.material.MapColor
 
 
 object CBlocks {
@@ -34,6 +41,13 @@ object CBlocks {
         ModUtils.sign()
     }
 
+    private val mixed_bricks_raw by mutableListOf<BlockBuilder.BlockEntry<*>>().v()
+
+    /**
+     * 提供最基本的方块设置：
+     * 简单mod物品
+     * 简单cubeall模型
+     * */
     private val simple = BlockBuilder("*simple", { Block(it) })
         .simpleBlockItem {
             it.data {
@@ -41,114 +55,58 @@ object CBlocks {
             }.tab(CANDYCRAFT)
         }
         .data {
-            modelCubeAll()
-        }
-
-
-    val sugar_block = simple.copy("sugar_block", factory = { SugarBlock(it) })
-        .data {
-            translate("Sugar Block", "糖块")
-            tag(CTags.CBlockTags.caramel_portal_frame)
-        }
-        .copyProperties(Blocks.SAND)
-        .modifyProperties { it.randomTicks() }
-        .save()
-    val caramel_block = simple.copy("caramel_block")
-        .data {
-            translate("Caramel Block", "焦糖块")
-            tag(CTags.CBlockTags.caramel_portal_frame)
-        }
-        .copyProperties(Blocks.STONE)
-        .save()
-    val pudding = simple.copy("pudding")
-        .data {
-            translate("Pudding", "布丁")
-            tag(CTags.CBlockTags.candy_plant_suitable)
-        }
-        .save()
-    val custard_pudding = simple.copy("custard_pudding", { CustardPuddingBlock(it) })
-        .data {
-            translate("Custard Pudding", "奶皮布丁")
-            tag(CTags.CBlockTags.candy_plant_suitable)
             model {
-                val overlay = TextureSlot.create("overlay")
-                val template = template(
-                    "grass_block", null,
-                    TextureSlot.PARTICLE, TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, overlay
-                )
-                val tex = TextureMapping()
-                    .put(TextureSlot.PARTICLE, getBlockTexture(pudding.block))
-                    .put(TextureSlot.BOTTOM, getBlockTexture(pudding.block))
-                    .put(TextureSlot.TOP, getBlockTexture(it, "_top_overlay"))
-                    .put(TextureSlot.SIDE, getBlockTexture(it, "_side"))
-                    .put(overlay, getBlockTexture(it, "_side_overlay"))
-                val model = template.create(it, tex, modelOutput)
-                val variant = createRotatedVariants(model)
-                blockStateOutput.accept(MultiVariantGenerator.multiVariant(it, *variant))
+                cubeAll().simpleState()
             }
         }
-        .client {
-            renderType(RenderType.cutoutMipped())
-            tint { _, getter, pos, _ ->
-                val biome = getter?.getBiomeFabric(pos)
-                if (biome != null) PuddingColor.getColor(biome) else PuddingColor.getDefaultPuddingColor()
-            }
-        }
-        .modifyBlockItem {
-            it.client {
-                tint { _, _ -> PuddingColor.getDefaultPuddingColor() }
-            }
-        }
-        .modifyProperties { it.randomTicks() }
-        .save()
 
-    val pudding_farm = simple.copy("pudding_farmland", { PuddingFarmBlock(it) })
-        .data {
-            translate("Pudding Farmland", "布丁耕地")
-            tag(CTags.CBlockTags.candy_plant_suitable)
-            model {
-                val dry = ModelTemplates.FARMLAND.create(
-                    it,
-                    TextureMapping()
-                        .put(TextureSlot.DIRT, getBlockTexture(pudding.block))
-                        .put(TextureSlot.TOP, getBlockTexture(it, "_top")),
-                    modelOutput
-                )
-                val moist = ModelTemplates.FARMLAND.create(
-                    getModelLocation(it, "_moist"),
-                    TextureMapping()
-                        .put(TextureSlot.DIRT, getBlockTexture(pudding.block))
-                        .put(TextureSlot.TOP, getBlockTexture(it, "_top_moist")),
-                    modelOutput
-                )
-                blockStateOutput
-                    .accept(
-                        MultiVariantGenerator.multiVariant(it).with(
-                            createEmptyOrFullDispatch(
-                                BlockStateProperties.MOISTURE,
-                                PuddingFarmBlock.MAX_MOISTURE,
-                                moist,
-                                dry
-                            )
-                        )
-                    )
-            }
-        }
-        .modifyProperties { it.randomTicks() }
-        .modifyBlockItem {
-            it.removeRecord("tab")
-        }
-        .save()
+    //========
+    //  植物
+    //========
 
-    val sweet_grass_0 = simple.copy("sweet_grass_0", factory = { SweetGrassBlock(it) })
+    val crossPlant = simple.copy("*crossPlant")
         .data {
-            translate("Sweet Grass", "甜草")
-            modelCross()
+            model { cross().simpleState() }
         }
+        .client { cutout() }
         .copyProperties(Blocks.POPPY)
         .modifyBlockItem {
             it.data { modelBlockDirect(block) }
         }
+
+    val fraise_tagada_flower = crossPlant.sub("fraise_tagada_flower", { CandyPlantBlock(it) })
+        .data { translate("Fraise Tagada Flower", "果蜜花") }
+        .mapColor(MapColor.COLOR_PINK)
+        .save()
+    val golden_sugar_flower = fraise_tagada_flower.sub("golden_sugar_flower", { GoldenSugarFlowerBlock(it) })
+        .data { translate("Golden Sugar Flower", "金果蜜花") }
+        .mapColor(MapColor.GOLD)
+        .save()
+    val acid_mint_flower = fraise_tagada_flower.sub("acid_mint_flower", { AcidMintFlower(it) })
+        .data { translate("Acid Mint Flower", "酸薄荷花") }
+        .mapColor(MapColor.PLANT)
+        .save()
+
+    //水生
+    val mint = crossPlant.sub("mint", { CandyWaterPlantBlock(it) })
+        .data { translate("Mint", "水生薄荷") }
+        .copyProperties(Blocks.KELP_PLANT)
+        .mapColor(MapColor.PLANT)
+        .save()
+    val rope_raspberry = mint.copy("rope_raspberry")
+        .data { translate("Rope Raspberry", "绳状树莓") }
+        .mapColor(MapColor.COLOR_RED)
+        .save()
+    val banana_seaweed = mint.copy("banana_seaweed")
+        .data { translate("Banana Seaweed", "香蕉海草") }
+        .mapColor(MapColor.GOLD)
+        .save()
+
+    val sweet_grass_0 = fraise_tagada_flower.copy("sweet_grass_0")
+        .data {
+            translate("Sweet Grass", "甜草")
+        }
+        .mapColor(MapColor.COLOR_PINK)
         .save()
     val sweet_grass_1 = sweet_grass_0.copy("sweet_grass_1")
         .save()
@@ -157,42 +115,228 @@ object CBlocks {
     val sweet_grass_3 = sweet_grass_0.copy("sweet_grass_3")
         .save()
 
-    val mint = simple.copy("mint", { CandyWaterPlantBlock(it) })
-        .data {
-            translate("Mint", "水生薄荷")
-            modelCross()
-        }
-        .copyProperties(Blocks.KELP_PLANT)
-        .modifyBlockItem {
-            it.data { modelBlockDirect(block) }
-        }
+    val mint_block = simple.copy("mint_block")
+        .data { translate("Mint Block", "水生薄荷块") }
+        .copyProperties(Blocks.HAY_BLOCK)
         .save()
-    val rope_raspberry = mint.copy("rope_raspberry")
-        .data {
-            translate("Rope Raspberry", "绳状树莓")
-        }
+    val raspberry_block = mint_block.copy("raspberry_block")
+        .data { translate("Raspberry Block", "水生树莓块") }
         .save()
-    val banana_seaweed = mint.copy("banana_seaweed")
+    val banana_seaweeds_block = mint_block.copy("banana_seaweeds_block")
+        .data { translate("Banana Seaweeds Block", "香蕉海草块") }
+        .save()
+    val cotton_candy_block = mint_block.copy("cotton_candy_block")
+        .data { translate("Cotton Candy Block", "棉花糖块") }
+        .save()
+    val candied_cherry_sack = mint_block.copy("candied_cherry_sack")
         .data {
-            translate("Banana Seaweed", "香蕉海草")
+            translate("Candied Cherry Sack", "蜜饯樱桃袋")
+            model {
+                cubeBottomTop().simpleState()
+            }
         }
         .save()
 
-    val fraise_tagada_flower = mint.copy("fraise_tagada_flower", { CandyPlantBlock(it) })
-        .data {
-            translate("Fraise Tagada Flower", "果蜜花")
+    val chewing_gum_block = simple.copy("chewing_gum_block")
+        .copyProperties(Blocks.SLIME_BLOCK)
+        .modifyProperties {
+            it.destroyTime(0.6F)
         }
         .save()
-    val golden_sugar_flower = fraise_tagada_flower.copy("golden_sugar_flower", { GoldenSugarFlowerBlock(it) })
+
+
+    // 树叶
+    private val leaves = simple.sub("*leaves", { LeavesBlock(it) })
         .data {
-            translate("Golden Sugar Flower", "金果蜜花")
+            tag2(CTags.candy_leaves)
+            tag2(ItemTags.LEAVES, BlockTags.LEAVES)
+        }
+        .copyProperties(Blocks.OAK_LEAVES)
+        .client { cutout() }
+
+    val chocolate_leaves = leaves.copy("chocolate_leaves")
+        .data { translate("Chocolate Leaves", "巧克力树叶") }
+        .mapColor(MapColor.DIRT)
+        .save()
+    val white_chocolate_leaves = leaves.copy("white_chocolate_leaves")
+        .data { translate("White_chocolate Leaves", "白巧克力树叶") }
+        .save()
+    val caramel_leaves = leaves.sub("caramel_leaves", { CaramelLeavesBlock(it) })
+        .data { translate("Caramel Leaves", "焦糖树叶") }
+        .save()
+    val candied_cherry_leaves = leaves.copy("candied_cherry_leaves")
+        .data { translate("Candied_cherry Leaves", "蜜饯樱桃树叶") }
+        .save()
+    val magical_leaves = leaves.copy("magical_leaves")
+        .data { translate("Magical Leaves", "魔法树叶") }
+        .client {
+            tint { _, level, pos, _ ->
+                if (level != null && pos != null && level.hasBiomes()) {
+                    return@tint PuddingColor.getColor(level.getBiomeFabric(pos), pos)
+                }
+                return@tint PuddingColor.getDefaultEnchantColor()
+            }
         }
         .save()
-    val acid_mint_flower = fraise_tagada_flower.copy("acid_mint_flower", { AcidMintFlower(it) })
+
+    // 木板
+    val marshmallow_planks = simple.copy("marshmallow_planks")
         .data {
-            translate("Acid Mint Flower", "酸薄荷花")
+            translate("Marshmallow Planks", "棉花软糖木板")
+            tag2(CTags.marshmallow_planks)
         }
+        .copyProperties(Blocks.OAK_PLANKS)
+        .mapColor(MapColor.COLOR_PINK)
         .save()
+    val DARK_MARSHMALLOW_PLANKS = marshmallow_planks.copy("dark_marshmallow_planks")
+        .data {
+            translate("Dark Marshmallow Planks", "深色棉花软糖木板")
+        }
+        .mapColor(MapColor.PODZOL)
+        .save()
+    val LIGHT_MARSHMALLOW_PLANKS = marshmallow_planks.copy("light_marshmallow_planks")
+        .data {
+            translate("Light Marshmallow Planks", "浅色棉花软糖木板")
+        }
+        .mapColor(MapColor.TERRACOTTA_WHITE)
+        .save()
+
+
+    // 环境基础方块
+    val pudding = simple.copy("pudding")
+        .data {
+            translate("Pudding", "布丁")
+            tag(CTags.CBlockTags.candy_plant_suitable)
+        }
+        .mapColor(MapColor.SNOW)
+        .save()
+    val custard_pudding = simple.sub("custard_pudding", { CustardPuddingBlock(it) })
+        .data {
+            translate("Custard Pudding", "奶皮布丁")
+            tag(CTags.CBlockTags.candy_plant_suitable)
+            model {
+                withParent("grass_block".mcLoc()) {
+                    TextureSlot.PARTICLE provide getBlockTexture(pudding.block)
+                    TextureSlot.BOTTOM provide getBlockTexture(pudding.block)
+                    TextureSlot.TOP provide getBlockTexture(it, "_top_overlay")
+                    TextureSlot.SIDE provide getBlockTexture(it, "_side")
+                    "overlay" provide getBlockTexture(it, "_side_overlay")
+                }.applyState { block, model ->
+                    MultiVariantGenerator.multiVariant(block, *createRotatedVariants(model))
+                }
+            }
+        }
+        .client {
+            renderType(RenderType.cutoutMipped())
+            tint { _, level, pos, _ ->
+                if (pos != null && level != null && level.hasBiomes()) {
+                    return@tint PuddingColor.getColor(level.getBiomeFabric(pos), pos)
+
+                }
+                PuddingColor.getDefaultPuddingColor()
+            }
+        }
+        .modifyBlockItem {
+            it.client {
+                tint { _, _ -> PuddingColor.getDefaultPuddingColor() }
+            }
+        }
+        .modifyProperties { it.randomTicks() }
+        .mapColor(MapColor.COLOR_PINK)
+        .save()
+    val pudding_farm = simple.sub("pudding_farmland", { PuddingFarmBlock(it) })
+        .data {
+            translate("Pudding Farmland", "布丁耕地")
+            tag(CTags.CBlockTags.candy_plant_suitable)
+            model {
+                val dry by template(ModelTemplates.FARMLAND) {
+                    TextureSlot.DIRT provide getBlockTexture(pudding.block)
+                    TextureSlot.TOP provide getBlockTexture(it, "_top")
+                }
+                val moist by template(ModelTemplates.FARMLAND, "_moist") {
+                    TextureSlot.DIRT provide getBlockTexture(pudding.block)
+                    TextureSlot.TOP provide getBlockTexture(it, "_top_moist")
+                }
+                state {
+                    MultiVariantGenerator.multiVariant(it).with(
+                        createEmptyOrFullDispatch(
+                            BlockStateProperties.MOISTURE,
+                            PuddingFarmBlock.MAX_MOISTURE,
+                            moist,
+                            dry
+                        )
+                    )
+                }
+            }
+        }
+        .modifyProperties { it.randomTicks() }
+        .mapColor(MapColor.COLOR_GRAY)
+        .save()
+
+    val ice_cream = simple.copy("ice_cream")
+        .data { translate("Ice Cream", "冰淇淋") }
+        .copyProperties(Blocks.SNOW)
+        .mapColor(MapColor.SNOW)
+        .save()
+    val mint_ice_cream = ice_cream.copy("mint_ice_cream")
+        .data { translate("Mint Ice Cream", "薄荷冰淇淋") }
+        .save()
+    val strawberry_ice_cream = ice_cream.copy("strawberry_ice_cream")
+        .data { translate("Strawberry Ice Cream", "草莓冰淇淋") }
+        .save()
+    val blueberry_ice_cream = ice_cream.copy("blueberry_ice_cream")
+        .data { translate("Blueberry Ice Cream", "蓝莓冰淇淋") }
+        .save()
+
+
+    val sugar_block = simple.sub("sugar_block", factory = { SugarBlock(it) })
+        .data {
+            translate("Sugar Block", "糖块")
+            tag(CTags.CBlockTags.caramel_portal_frame)
+        }
+        .copyProperties(Blocks.SAND)
+        .modifyProperties { it.randomTicks() }
+        .mapColor(MapColor.QUARTZ)
+        .save()
+    val caramel_block = simple.copy("caramel_block")
+        .data {
+            translate("Caramel Block", "焦糖块")
+            tag(CTags.CBlockTags.caramel_portal_frame)
+        }
+        .copyProperties(Blocks.STONE)
+        .mapColor(MapColor.COLOR_ORANGE)
+        .save()
+        .apply { mixed_bricks_raw.add(this) }
+
+    val caramel_bricks = caramel_block.copy("caramel_bricks")
+        .data {
+            translate("Caramel Bricks", "焦糖砖块")
+            tag2(CTags.candy_bricks)
+        }
+        .copyProperties(Blocks.STONE_BRICKS)
+        .mapColor(MapColor.TERRACOTTA_ORANGE)
+        .save()
+//    val white_chocolate_stone = caramel_block.copy("white_chocolate_stone")
+//        .data {
+//            translate("White Chocolate Stone", "白巧克力石头")
+//        }
+//        .save()
+
+
+//    val mixed_bricks: List<BlockBuilder.BlockEntry<*>> = mixed_bricks_raw.compose()
+//        .map { (first, second) ->
+//            caramel_bricks.copy("mixed_${first.id.path}_${second.id.path}")
+//                .data {
+//                    translate("Mixed Bricks", "混合砖块")
+//                    model {
+//                        TODO()
+//                        modelExisted().getModel()
+//                    }
+//                }
+//                .save()
+//        }
+//        .toList()
+
 
 }
 

@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.core.block
 
+import cn.breadnicecat.candycraftce.CandyCraftCE
 import cn.breadnicecat.candycraftce.core.items.ItemBuilder
 import cn.breadnicecat.candycraftce.core.items.ItemBuilder.ItemEntry
 import cn.breadnicecat.candycraftce.core.items.ItemFactory
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.material.MapColor
 import java.util.*
 import java.util.function.Consumer
 
@@ -87,6 +89,11 @@ class BlockBuilder<B : Block>(
         return this
     }
 
+    fun mapColor(mapColor: MapColor): BlockBuilder<B> {
+        modifyProperties { it.mapColor(mapColor) }
+        return this
+    }
+
     /**
      * 在注册后调用
      * */
@@ -109,20 +116,36 @@ class BlockBuilder<B : Block>(
     }
 
     fun save(): BlockEntry<B> {
+        val location = id.modLoc()
+        CandyCraftCE.clog.info("Registering Block/{}", location)
+
         executeRecords()
+        val argument = arguments.build()
+
+
         val properties = propCopy?.let { Properties.copy(it) } ?: Properties.of()
-            .apply(propBuilder)
-        val block = register(id.modLoc()) {
-            factory(arguments.build(), properties)
-        }
-        val entry = BlockEntry(id.modLoc(), block, blockItem, this.v())
+        properties.apply(propBuilder)
+
+        val block = register(location) { factory(argument, properties) }
+
+        val entry = BlockEntry(location, block, blockItem, this.v())
         lateUsage.forEach { it.accept(entry) }
         return entry
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun <NB : B> sub(
+        id: String,
+        factory: BlockFactory<NB>,
+        properties: BehaviourFactory = this.propBuilder,
+    ): BlockBuilder<NB> {
+        val new = BlockBuilder(id, factory, properties)
+        new.copyRecord(this as OperationRecordable<BlockBuilder<NB>>)
+        return new
+    }
+
     fun copy(
         id: String,
-        factory: BlockFactory<B> = this.factory,
         properties: BehaviourFactory = this.propBuilder,
     ): BlockBuilder<B> {
         val new = BlockBuilder(id, factory, properties)
@@ -153,9 +176,14 @@ class BlockBuilder<B : Block>(
         operator fun component2() = block
         fun copy(
             id: String,
-            factory: BlockFactory<B> = builder.get().factory,
             properties: BehaviourFactory = builder.get().propBuilder,
-        ) = builder.get().copy(id, factory, properties)
+        ) = builder.get().copy(id, properties)
+
+        fun <NB : B> sub(
+            id: String,
+            factory: BlockFactory<NB>,
+            properties: BehaviourFactory = builder.get().propBuilder,
+        ): BlockBuilder<NB> = builder.get().sub(id, factory, properties)
 
         fun defaultBlockState(): BlockState = block.defaultBlockState()
     }

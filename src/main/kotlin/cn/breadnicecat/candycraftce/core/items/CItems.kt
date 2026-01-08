@@ -10,7 +10,7 @@ import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.utils.ModUtils
 import cn.breadnicecat.candycraftce.utils.ModUtils.instance
-import cn.breadnicecat.candycraftce.utils.ModUtils.second
+import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.effect.MobEffects.CONFUSION
 import net.minecraft.world.effect.MobEffects.NIGHT_VISION
@@ -334,16 +334,18 @@ object CItems {
         }
     private val shovel = simple.copy("*sword", {
         ShovelItem(get("tier"), get("damage"), get("speed"), it)
-    }).data {
-        tag(ItemTags.SHOVELS)
-        modelHandheld()
-    }
+    })
+        .data {
+            tag(ItemTags.SHOVELS)
+            modelHandheld()
+        }
     private val pickaxe = simple.copy("*sword", {
         PickaxeItem(get("tier"), get("damage"), get("speed"), it)
-    }).data {
-        tag(ItemTags.PICKAXES)
-        modelHandheld()
-    }
+    })
+        .data {
+            tag(ItemTags.PICKAXES)
+            modelHandheld()
+        }
     private val axe = simple.copy("*sword", {
         AxeItem(get("tier"), get("damage"), get("speed"), it)
     })

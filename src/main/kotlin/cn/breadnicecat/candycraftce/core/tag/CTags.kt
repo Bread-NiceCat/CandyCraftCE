@@ -11,8 +11,10 @@ import net.minecraft.world.level.material.Fluid
 typealias TagKeys = Pair<TagKey<Item>, TagKey<Block>>
 
 object CTags {
+    val candy_leaves = bind2("candy_leaves")
     val marshmallow_logs = bind2("marshmallow_logs")
     val marshmallow_planks = bind2("marshmallow_planks")
+    val candy_bricks = bind2("candy_bricks")
     val jelly = bind2("jelly")
     val ice_creams = bind2("ice_cream")
     val chocolates = bind2("chocolate")

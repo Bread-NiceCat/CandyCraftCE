@@ -1,12 +1,41 @@
 import cn.breadnicecat.candycraftce.utils.AxisSet
 import cn.breadnicecat.candycraftce.utils.BitMap
 import cn.breadnicecat.candycraftce.utils.ModUtils
+import cn.breadnicecat.candycraftce.utils.ModUtils.compose
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet
 import net.minecraft.core.BlockPos
 import org.junit.Test
 import kotlin.random.Random
 
 class Test {
+    class A<B : SuperB> {
+        @Suppress("UNCHECKED_CAST")
+        fun <NB : SuperB> copyTo(factory: () -> NB): A<NB> {
+            return this as A<NB>
+        }
+    }
+
+    open class SuperB
+    class SubB : SuperB()
+
+    @Test
+    fun ttest() {
+        val a = A<SuperB>()
+        a.copyTo { SuperB() }
+        a.copyTo { SubB() }
+    }
+
+    @Test
+    fun compose() {
+        val l = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        val e = listOf<Int>()
+        val s = listOf(1)
+        l.compose().forEach { (a, b) -> println("list: $a -> $b") }
+        s.compose().forEach { (a, b) -> println("single: $a -> $b") }
+        e.compose().forEach { (a, b) -> println("empty: $a -> $b") }
+
+    }
+
     @Test
     fun neibTest() {
         ModUtils.getNeighbourPos(BlockPos(0, 0, 0))

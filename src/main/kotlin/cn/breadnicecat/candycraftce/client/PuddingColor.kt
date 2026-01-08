@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.client
 
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
+import net.minecraft.core.BlockPos
 import net.minecraft.core.Holder
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.biome.Biome
@@ -36,7 +37,7 @@ object PuddingColor {
         return 0xb0ecff
     }
 
-    fun getColor(biome: Holder<Biome>): Int {
+    fun getColor(biome: Holder<Biome>, pos: BlockPos): Int {
         return getDefaultPuddingColor()
     }
 }

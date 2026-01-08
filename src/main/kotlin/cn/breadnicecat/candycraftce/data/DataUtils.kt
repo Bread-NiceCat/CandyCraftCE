@@ -5,14 +5,11 @@ import cn.breadnicecat.candycraftce.data.providers.CLanguageProviders
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
-import net.minecraft.data.models.model.ModelTemplate
-import net.minecraft.data.models.model.TextureSlot
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.contents.TranslatableContents
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.CreativeModeTab
-import java.util.*
 
 object DataUtils {
     @Suppress("UnstableApiUsage")
@@ -33,20 +30,6 @@ object DataUtils {
         ifDatagen {
             CTagProviders.putCopies(tagKeys)
         }
-    }
-
-
-    // Block
-    fun template(id: String, suffix: String? = null, vararg requiredSlots: TextureSlot): ModelTemplate {
-        return ModelTemplate(
-            Optional.of(
-                ResourceLocation(
-                    "minecraft",
-                    "block/$id"
-                )
-            ), Optional.ofNullable(suffix),
-            *requiredSlots
-        )
     }
 
 

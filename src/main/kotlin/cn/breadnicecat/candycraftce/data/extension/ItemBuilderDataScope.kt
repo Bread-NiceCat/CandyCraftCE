@@ -24,9 +24,11 @@ import net.minecraft.world.level.block.Block
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  *
  */
-class ItemBuilderDataScope<I : Item>(private val builder: ItemBuilder<I>) {
+class ItemBuilderDataScope<I : Item> private constructor(
+    private val builder: ItemBuilder<I>,
+) {
     companion object {
-        inline fun <I : Item> ItemBuilder<I>.data(action: ItemBuilderDataScope<I>.() -> Unit): ItemBuilder<I> {
+        fun <I : Item> ItemBuilder<I>.data(action: ItemBuilderDataScope<I>.() -> Unit): ItemBuilder<I> {
             ifDatagen {
                 action(ItemBuilderDataScope(this))
             }
@@ -35,35 +37,28 @@ class ItemBuilderDataScope<I : Item>(private val builder: ItemBuilder<I>) {
     }
 
     fun tag(vararg tag: TagKey<Item>) {
-        ifDatagen {
-            builder.record("tag", overridable = false) {
-                lateUsage { (id, _) ->
-                    tag.forEach { key ->
-                        CTagProviders.putItemOp(key) { add(id) }
-                    }
+        builder.record("tag", overridable = false) {
+            lateUsage { (id, _) ->
+                tag.forEach { key ->
+                    CTagProviders.putItemOp(key) { add(id) }
                 }
             }
-
         }
     }
 
 
     fun translate(en: String, zh: String? = null) {
-        ifDatagen {
-            builder.record("translate", private = true) {
-                lateUsage { (_, i) ->
-                    abstractTranslate(TranslationBuilder::add, i, en, zh)
-                }
+        builder.record("translate", private = true) {
+            lateUsage { (_, i) ->
+                abstractTranslate(TranslationBuilder::add, i, en, zh)
             }
         }
     }
 
     fun model(modelAction: ItemModelGenerators.(ItemEntry<I>) -> Unit) {
-        ifDatagen {
-            builder.record("model") {
-                lateUsage { e ->
-                    CModelProvider.items.add { modelAction(this, e) }
-                }
+        builder.record("model") {
+            lateUsage { e ->
+                CModelProvider.items.add { modelAction(this, e) }
             }
         }
     }
@@ -72,43 +67,35 @@ class ItemBuilderDataScope<I : Item>(private val builder: ItemBuilder<I>) {
     fun modelFlat(
         layer0: Either<ResourceLocation, Item>? = null,
     ) {
-        ifDatagen {
-            model { (_, item) ->
-                val tex: TextureMapping = if (layer0 != null) {
-                    layer0.map(::layer0, ::layer0)
-                } else layer0(item)
-                ModelTemplates.FLAT_ITEM.create(getModelLocation(item), tex, this.output)
-            }
+        model { (_, item) ->
+            val tex: TextureMapping = if (layer0 != null) {
+                layer0.map(::layer0, ::layer0)
+            } else layer0(item)
+            ModelTemplates.FLAT_ITEM.create(getModelLocation(item), tex, this.output)
         }
     }
 
 
     fun modelHandheld() {
-        ifDatagen {
-            model {
-                generateFlatItem(it.item, ModelTemplates.FLAT_HANDHELD_ITEM)
-            }
+        model {
+            generateFlatItem(it.item, ModelTemplates.FLAT_HANDHELD_ITEM)
         }
     }
 
     fun modelBlockSimple(block: Block) {
-        ifDatagen {
-            builder.record("model") {
-                lateUsage { (_, item) ->
-                    CModelProvider.blocks.add {
-                        delegateItemModel(item, getModelLocation(block))
-                    }
+        builder.record("model") {
+            lateUsage { (_, item) ->
+                CModelProvider.blocks.add {
+                    delegateItemModel(item, getModelLocation(block))
                 }
             }
         }
     }
 
     fun modelBlockDirect(block: Block) {
-        ifDatagen {
-            builder.record("model") {
-                CModelProvider.blocks.add {
-                    createSimpleFlatItemModel(block)
-                }
+        builder.record("model") {
+            CModelProvider.blocks.add {
+                createSimpleFlatItemModel(block)
             }
         }
     }

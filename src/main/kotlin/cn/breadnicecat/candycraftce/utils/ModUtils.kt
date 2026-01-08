@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce.utils
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.CandyCraftCE.clog
+import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.tick
 import net.fabricmc.api.EnvType
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.multiplayer.ClientLevel
@@ -208,9 +209,12 @@ object ModUtils {
         this.put(key, tag)
     }
 
-    val Int.tick get() = TimeUnit.Tick(this)
-    val Int.second get() = TimeUnit.Second(this.toFloat())
-    val Float.second get() = TimeUnit.Second(this)
-    val Long.ms get() = TimeUnit.Millis(this)
-    val Int.ms get() = TimeUnit.Millis(this.toLong())
+    fun <T> List<T>.compose(): Stream<Pair<T, T>> {
+        return stream().flatMap { first ->
+            stream().filter { second -> second != first }
+                .map { second ->
+                    first to second
+                }
+        }
+    }
 }

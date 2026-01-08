@@ -23,6 +23,8 @@ class BlockBuilderClientScope<B : Block>(val builder: BlockBuilder<B>) {
         }
     }
 
+    fun cutout() = renderType(RenderType.cutoutMipped())
+    fun translucent() = renderType(RenderType.translucent())
     fun renderType(type: RenderType) {
         builder.record("renderType") {
             lateUsage { (_, block) ->

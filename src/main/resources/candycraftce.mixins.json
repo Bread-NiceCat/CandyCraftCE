@@ -5,8 +5,7 @@
   "mixins": [
     "core.MixinBuiltInRegistries",
     "core.MixinFarmBlock",
-    "core.MixinItem",
-    "data.AccessorModelTemplate"
+    "core.MixinItem"
   ],
   "injectors": {
     "defaultRequire": 1

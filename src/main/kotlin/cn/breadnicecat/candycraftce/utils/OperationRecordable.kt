@@ -64,7 +64,7 @@ abstract class OperationRecordable<Receiver> {
         }
     }
 
-    fun executeRecords() {
+    protected fun executeRecords() {
         executing = true
         ops.safeForEach({ "Execute operation: $it" }) { (_, op) -> (op(receiver)) }
         frozen = true
