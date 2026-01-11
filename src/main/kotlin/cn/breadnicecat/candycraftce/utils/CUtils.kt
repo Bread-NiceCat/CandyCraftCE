@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.utils
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
-import cn.breadnicecat.candycraftce.CandyCraftCE.clog
 import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.tick
 import net.fabricmc.api.EnvType
 import net.fabricmc.loader.api.FabricLoader
@@ -19,6 +18,8 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.level.Level
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.stream.Stream
 import kotlin.math.max
 import kotlin.math.min
@@ -36,12 +37,23 @@ object CUtils {
     }
 
     private val walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+
+    private val logCache = mutableMapOf<String, Logger>()
+    val mainLog = modLogger("Main")
+    val registerLog = modLogger("Registry")
+
+    val clog: Logger get() = modLogger(walker.callerClass.simpleName)
+
+    fun modLogger(tag: String): Logger {
+        return logCache.computeIfAbsent(tag) { LoggerFactory.getLogger("CandyCraftCE|${it}") }
+    }
+
     fun sign() {
-        clog.info("${walker.callerClass.simpleName} loaded")
+        mainLog.info("${walker.callerClass.simpleName} loaded")
     }
 
     fun logRegister(type: String, id: ResourceLocation) {
-        clog.info("Registering $type/$id")
+        registerLog.info("Registering $type/$id")
     }
 
     inline fun ifClient(block: () -> Unit) {

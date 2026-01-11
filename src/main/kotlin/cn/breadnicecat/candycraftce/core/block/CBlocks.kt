@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.core.block
 
 
-import cn.breadnicecat.candycraftce.CandyCraftCE.clog
 import cn.breadnicecat.candycraftce.client.PuddingColor
 import cn.breadnicecat.candycraftce.core.block.BlockBuilderClientScope.Companion.client
 import cn.breadnicecat.candycraftce.core.block.blocks.CaramelLeavesBlock
@@ -17,6 +16,7 @@ import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Compani
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.mixin.core.AccessorAxeItem
 import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.clog
 import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
 import net.minecraft.client.renderer.RenderType

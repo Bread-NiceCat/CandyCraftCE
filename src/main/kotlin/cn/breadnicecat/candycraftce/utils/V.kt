@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.utils
 
-import cn.breadnicecat.candycraftce.CandyCraftCE.clog
+import cn.breadnicecat.candycraftce.utils.CUtils.clog
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
