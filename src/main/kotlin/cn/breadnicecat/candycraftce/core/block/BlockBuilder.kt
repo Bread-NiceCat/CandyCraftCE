@@ -1,13 +1,13 @@
 package cn.breadnicecat.candycraftce.core.block
 
-import cn.breadnicecat.candycraftce.CandyCraftCE
 import cn.breadnicecat.candycraftce.core.items.ItemBuilder
 import cn.breadnicecat.candycraftce.core.items.ItemBuilder.ItemEntry
 import cn.breadnicecat.candycraftce.core.items.ItemFactory
 import cn.breadnicecat.candycraftce.core.items.PropertiesFactory
 import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
-import cn.breadnicecat.candycraftce.utils.ModUtils.register
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
+import cn.breadnicecat.candycraftce.utils.CUtils.register
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
 import cn.breadnicecat.candycraftce.utils.V
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
@@ -102,13 +102,13 @@ class BlockBuilder<B : Block>(
         lateUsage.add(action)
     }
 
-    fun argument(key: String, value: String?): BlockBuilder<B> {
+    fun argument(key: String, value: Any?): BlockBuilder<B> {
         if (value == null) arguments.remove(key)
         else arguments[key] = value
         return this
     }
 
-    fun arguments(vararg args: Pair<String, String?>): BlockBuilder<B> {
+    fun arguments(vararg args: Pair<String, Any?>): BlockBuilder<B> {
         args.forEach { (key, value) ->
             argument(key, value)
         }
@@ -117,7 +117,7 @@ class BlockBuilder<B : Block>(
 
     fun save(): BlockEntry<B> {
         val location = id.modLoc()
-        CandyCraftCE.clog.info("Registering Block/{}", location)
+        CUtils.logRegister("Block", location)
 
         executeRecords()
         val argument = arguments.build()

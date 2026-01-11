@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.utils
 
-import cn.breadnicecat.candycraftce.utils.ModUtils.safeForEach
+import cn.breadnicecat.candycraftce.CandyCraftCE.clog
 
 typealias Operation<Receiver> = Receiver.() -> Unit
 
@@ -66,7 +66,13 @@ abstract class OperationRecordable<Receiver> {
 
     protected fun executeRecords() {
         executing = true
-        ops.safeForEach({ "Execute operation: $it" }) { (_, op) -> (op(receiver)) }
+        ops.forEach { (key, ops) ->
+            try {
+                ops(receiver)
+            } catch (e: Throwable) {
+                clog.error("Execute operation: `$e` for key: `$key`", e)
+            }
+        }
         frozen = true
     }
 

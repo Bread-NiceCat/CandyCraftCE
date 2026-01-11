@@ -1,24 +1,23 @@
 package cn.breadnicecat.candycraftce.core.block
 
 
+import cn.breadnicecat.candycraftce.CandyCraftCE.clog
 import cn.breadnicecat.candycraftce.client.PuddingColor
 import cn.breadnicecat.candycraftce.core.block.BlockBuilderClientScope.Companion.client
 import cn.breadnicecat.candycraftce.core.block.blocks.CaramelLeavesBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.CustardPuddingBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.PuddingFarmBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.SugarBlock
-import cn.breadnicecat.candycraftce.core.block.blocks.plant.AcidMintFlower
-import cn.breadnicecat.candycraftce.core.block.blocks.plant.CandyPlantBlock
-import cn.breadnicecat.candycraftce.core.block.blocks.plant.CandyWaterPlantBlock
-import cn.breadnicecat.candycraftce.core.block.blocks.plant.GoldenSugarFlowerBlock
+import cn.breadnicecat.candycraftce.core.block.blocks.plant.*
 import cn.breadnicecat.candycraftce.core.items.ItemBuilderClientScope.Companion.client
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.CANDYCRAFT
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
 import cn.breadnicecat.candycraftce.core.tag.CTags
 import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.mcLoc
+import cn.breadnicecat.candycraftce.mixin.core.AccessorAxeItem
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.data.models.BlockModelGenerators.createEmptyOrFullDispatch
@@ -32,13 +31,14 @@ import net.minecraft.tags.ItemTags
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LeavesBlock
+import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.material.MapColor
 
 
 object CBlocks {
     init {
-        ModUtils.sign()
+        CUtils.sign()
     }
 
     private val mixed_bricks_raw by mutableListOf<BlockBuilder.BlockEntry<*>>().v()
@@ -64,7 +64,7 @@ object CBlocks {
     //  植物
     //========
 
-    val crossPlant = simple.copy("*crossPlant")
+    private val crossPlant = simple.copy("*crossPlant")
         .data {
             model { cross().simpleState() }
         }
@@ -179,6 +179,67 @@ object CBlocks {
         }
         .save()
 
+    //树苗
+    private val sapling = crossPlant.sub("*sapling", { CandySaplingBlock(get("grower"), it) })
+        .copyProperties(Blocks.OAK_SAPLING)
+
+    val chocolate_sapling = sapling.copy("chocolate_sapling")
+        .data { translate("Chocolate Sapling", "巧克力树苗") }
+        .argument("grower", CGrowers.chocolate_grower)
+        .save()
+    val white_chocolate_sapling = sapling.copy("white_chocolate_sapling")
+        .data { translate("White Chocolate Sapling", "白巧克力树苗") }
+        .argument("grower", CGrowers.white_chocolate_grower)
+        .save()
+    val caramel_sapling = sapling.copy("caramel_sapling")
+        .data { translate("Caramel Sapling", "焦糖树苗") }
+        .argument("grower", CGrowers.caramel_grower)
+        .save()
+    val candied_cherry_sapling = sapling.copy("candied_cherry_sapling")
+        .data { translate("Candied Cherry Sapling", "蜜饯樱桃树苗") }
+        .argument("grower", CGrowers.candied_cherry_grower)
+        .save()
+
+    //原木
+    private val log = simple.sub("*log", { RotatedPillarBlock(it) })
+        .copyProperties(Blocks.OAK_LOG)
+        .data {
+            model {
+                action {
+                    woodProvider(it).logWithHorizontal(it)
+                }
+            }
+            tag(BlockTags.LOGS)
+            tag2(CTags.marshmallow_logs)
+        }
+    val marshmallow_log = log.copy("marshmallow_log")
+        .data { translate("Marshmallow Log", "棉花软糖原木") }
+        .save()
+    val dark_marshmallow_log = log.copy("dark_marshmallow_log")
+        .data { translate("Dark Marshmallow Log", "深色棉花软糖原木") }
+        .save()
+    val light_marshmallow_log = log.copy("light_marshmallow_log")
+        .data { translate("Light Marshmallow Log", "浅色棉花软糖原木") }
+        .save()
+    val stripped_marshmallow_log = log.copy("stripped_marshmallow_log")
+        .data { translate("Stripped Marshmallow Log", " 去皮棉花软糖原木") }
+        .save()
+    val stripped_dark_marshmallow_log = log.copy("stripped_dark_marshmallow_log")
+        .data { translate("Stripped Dark Marshmallow Log", " 去皮深色棉花软糖原木") }
+        .save()
+    val stripped_light_marshmallow_log = log.copy("stripped_light_marshmallow_log")
+        .data { translate("Stripped Light Marshmallow Log", " 去皮浅色棉花软糖原木") }
+        .save()
+
+    init {
+        AccessorAxeItem.setSTRIPPABLES(HashMap(AccessorAxeItem.getSTRIPPABLES()).apply {
+            clog.info("Inject Axe Strippable")
+            put(marshmallow_log.block, stripped_marshmallow_log.block)
+            put(dark_marshmallow_log.block, stripped_dark_marshmallow_log.block)
+            put(light_marshmallow_log.block, stripped_light_marshmallow_log.block)
+        })
+    }
+
     // 木板
     val marshmallow_planks = simple.copy("marshmallow_planks")
         .data {
@@ -188,13 +249,13 @@ object CBlocks {
         .copyProperties(Blocks.OAK_PLANKS)
         .mapColor(MapColor.COLOR_PINK)
         .save()
-    val DARK_MARSHMALLOW_PLANKS = marshmallow_planks.copy("dark_marshmallow_planks")
+    val dark_marshmallow_planks = marshmallow_planks.copy("dark_marshmallow_planks")
         .data {
             translate("Dark Marshmallow Planks", "深色棉花软糖木板")
         }
         .mapColor(MapColor.PODZOL)
         .save()
-    val LIGHT_MARSHMALLOW_PLANKS = marshmallow_planks.copy("light_marshmallow_planks")
+    val light_marshmallow_planks = marshmallow_planks.copy("light_marshmallow_planks")
         .data {
             translate("Light Marshmallow Planks", "浅色棉花软糖木板")
         }
@@ -316,6 +377,7 @@ object CBlocks {
         .copyProperties(Blocks.STONE_BRICKS)
         .mapColor(MapColor.TERRACOTTA_ORANGE)
         .save()
+
 //    val white_chocolate_stone = caramel_block.copy("white_chocolate_stone")
 //        .data {
 //            translate("White Chocolate Stone", "白巧克力石头")
@@ -329,6 +391,8 @@ object CBlocks {
 //                .data {
 //                    translate("Mixed Bricks", "混合砖块")
 //                    model {
+//
+//
 //                        TODO()
 //                        modelExisted().getModel()
 //                    }

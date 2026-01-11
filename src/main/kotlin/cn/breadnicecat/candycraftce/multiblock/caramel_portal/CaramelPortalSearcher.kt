@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.multiblock.caramel_portal
 
 import cn.breadnicecat.candycraftce.utils.AxisSet
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.direction
-import cn.breadnicecat.candycraftce.utils.ModUtils.set
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.direction
+import cn.breadnicecat.candycraftce.utils.CUtils.set
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction.Axis
 import net.minecraft.core.Direction.Axis.Y
@@ -45,7 +45,7 @@ class CaramelPortalSearcher(
 
     fun findOnFrame(getter: BlockGetter, pos: BlockPos): CaramelPortal? {
         if (!config.isFrame(getter.getBlockState(pos))) return null
-        val parts = ModUtils.getNeighbourPos(pos)
+        val parts = CUtils.getNeighbourPos(pos)
             .map { (_, nPos) ->
                 find(getter, nPos)
             }

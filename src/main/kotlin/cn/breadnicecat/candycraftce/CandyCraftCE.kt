@@ -2,6 +2,7 @@ package cn.breadnicecat.candycraftce
 
 import cn.breadnicecat.candycraftce.core.block.CBlocks
 import cn.breadnicecat.candycraftce.core.items.CItems
+import cn.breadnicecat.candycraftce.core.level.CLevels
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs
 import cn.breadnicecat.candycraftce.utils.Timer.Companion.timing
 import cn.breadnicecat.candycraftce.utils.V
@@ -20,6 +21,7 @@ object CandyCraftCE : ModInitializer {
             CItemTabs
             CItems
             CBlocks
+            CLevels
         }.also {
             clog.info("CandyCraftCE loaded in $it ms")
         }

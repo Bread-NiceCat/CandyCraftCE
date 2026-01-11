@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.block.blocks.plant
 
-import cn.breadnicecat.candycraftce.utils.ModUtils.instance
+import cn.breadnicecat.candycraftce.utils.CUtils.instance
 import cn.breadnicecat.candycraftce.utils.TimeUnit
 import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
 import net.minecraft.core.BlockPos

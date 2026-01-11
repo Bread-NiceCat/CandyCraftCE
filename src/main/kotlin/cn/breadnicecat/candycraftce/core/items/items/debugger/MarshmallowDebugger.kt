@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.core.items.items.debugger
 import cn.breadnicecat.candycraftce.core.items.items.debugger.DebugFunc.Companion.DEBUG_TRANS_PREFIX
 import cn.breadnicecat.candycraftce.core.items.items.debugger.DebugFunc.Data
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.ModUtils.use
+import cn.breadnicecat.candycraftce.utils.CUtils.use
 import net.minecraft.ChatFormatting.GREEN
 import net.minecraft.ChatFormatting.YELLOW
 import net.minecraft.core.BlockPos

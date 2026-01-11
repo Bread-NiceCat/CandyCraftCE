@@ -4,10 +4,10 @@ import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.core.items.CItems
 import cn.breadnicecat.candycraftce.core.items.ItemBuilder
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.createKey
-import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
-import cn.breadnicecat.candycraftce.utils.ModUtils.register
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.createKey
+import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
+import cn.breadnicecat.candycraftce.utils.CUtils.register
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB
@@ -23,7 +23,7 @@ import java.util.function.Supplier
 
 object CItemTabs {
     init {
-        ModUtils.sign()
+        CUtils.sign()
     }
 
     private val modTabContents = HashMap<ResourceKey<CreativeModeTab>, LinkedList<ItemStack>>()

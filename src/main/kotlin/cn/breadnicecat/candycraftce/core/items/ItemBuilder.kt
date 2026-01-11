@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.core.items
 
-import cn.breadnicecat.candycraftce.CandyCraftCE
 import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
 import cn.breadnicecat.candycraftce.utils.V
 import cn.breadnicecat.candycraftce.utils.V.Companion.v
@@ -92,7 +92,7 @@ class ItemBuilder<I : Item>(
 
     fun save(): ItemEntry<I> {
         val location = id.modLoc()
-        CandyCraftCE.clog.info("Registering Item/{}", location)
+        CUtils.logRegister("Item", location)
 
         executeRecords()
         val item = register(location) {

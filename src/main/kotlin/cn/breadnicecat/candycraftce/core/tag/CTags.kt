@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.core.tag
 
 import cn.breadnicecat.candycraftce.data.DataUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.modLoc
+import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item

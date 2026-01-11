@@ -19,13 +19,12 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.level.Level
-import org.apache.logging.log4j.util.StackLocatorUtil
 import java.util.stream.Stream
 import kotlin.math.max
 import kotlin.math.min
 
 
-object ModUtils {
+object CUtils {
     fun MobEffect.instance(
         duration: TimeUnit = 0.tick,
         amplifier: Int = 0,
@@ -38,8 +37,11 @@ object ModUtils {
 
     private val walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
     fun sign() {
-        StackLocatorUtil.getCallerClass(1)
         clog.info("${walker.callerClass.simpleName} loaded")
+    }
+
+    fun logRegister(type: String, id: ResourceLocation) {
+        clog.info("Registering $type/$id")
     }
 
     inline fun ifClient(block: () -> Unit) {
@@ -178,31 +180,6 @@ object ModUtils {
     operator fun BlockPos.component1() = this.x
     operator fun BlockPos.component2() = this.y
     operator fun BlockPos.component3() = this.z
-    fun <K, V> Map<K, V>.safeForEach(onErrorDesc: (K) -> String, action: (Map.Entry<K, V>) -> Unit) {
-        safeForEach(
-            onError = { entry, tr ->
-                when (tr) {
-                    is Exception -> throw RuntimeException(onErrorDesc(entry.key), tr)
-                    is Error -> throw Error(onErrorDesc(entry.key), tr)
-                }
-            },
-            action = action
-        )
-    }
-
-    inline fun <K, V> Map<K, V>.safeForEach(
-        onError: (Map.Entry<K, V>, Throwable) -> Unit,
-        action: (Map.Entry<K, V>) -> Unit,
-    ) {
-        this.forEach {
-            try {
-                action(it)
-            } catch (e: Throwable) {
-                onError(it, e)
-            }
-        }
-    }
-
     fun CompoundTag.use(key: String, block: (CompoundTag) -> Unit) {
         val tag = this.getCompound(key)
         block(tag)

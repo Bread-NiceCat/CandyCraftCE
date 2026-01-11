@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.core.block.blocks
 
-import cn.breadnicecat.candycraftce.core.tag.CTags
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.tags.BlockTags
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.Block
@@ -61,7 +61,8 @@ class CaramelLeavesBlock(properties: Properties) : LeavesBlock(properties) {
     }
 
     fun getDistanceAt(state: BlockState): Int {
-        if (state.`is`(CTags.marshmallow_logs.second)) {
+//        if (state.`is`(CTags.marshmallow_logs.second)) {
+        if (state.`is`(BlockTags.LOGS)) {
             return 0
         }
         if (state.hasProperty(DISTANCE)) {

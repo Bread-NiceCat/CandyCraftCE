@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "candycraftce:block/white_chocolate_sapling"
+  }
+}

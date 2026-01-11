@@ -8,8 +8,8 @@ import cn.breadnicecat.candycraftce.core.tab.CItemTabs.add
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs.tab
 import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.instance
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.instance
 import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.effect.MobEffects.CONFUSION
@@ -19,7 +19,7 @@ import net.minecraft.world.item.*
 
 object CItems {
     init {
-        ModUtils.sign()
+        CUtils.sign()
         CANDYCRAFT.add(Items.SUGAR)
     }
 

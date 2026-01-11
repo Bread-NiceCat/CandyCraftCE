@@ -27,9 +27,9 @@ interface ISugarTarget {
                 && block.isValidSugarTarget(level, pos, state, level.isClientSide)
             ) {
                 if (level !is ServerLevel) return true
+                item.shrink(1)
                 if (block.isSugarSuccess(level, level.random, pos, state)) {
                     block.performSugar(level, level.random, pos, state)
-                    item.shrink(1)
                     return true
                 }
             }

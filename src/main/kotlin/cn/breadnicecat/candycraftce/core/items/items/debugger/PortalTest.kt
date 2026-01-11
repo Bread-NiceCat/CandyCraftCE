@@ -2,8 +2,8 @@ package cn.breadnicecat.candycraftce.core.items.items.debugger
 
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalConfig
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
 import cn.breadnicecat.candycraftce.utils.Timer.Companion.timing
 import com.mojang.serialization.JsonOps
 import net.minecraft.ChatFormatting
@@ -58,12 +58,12 @@ object PortalTest : DebugFunc<DebugFunc.Data.UnitData>() {
             timing {
                 val portal = PortalConfig.DEFAULT.searcher.find(level, pos0)
                 if (portal == null) {
-                    ModUtils.particleBlock(ParticleTypes.FLAME, it, pos0, 0.25)
+                    CUtils.particleBlock(ParticleTypes.FLAME, it, pos0, 0.25)
                     sendMessage(player, notfound_tip)
                 } else {
                     portal.getUnits().forEach { unit ->
-                        ModUtils.particleBlock(ParticleTypes.FLAME, it, unit.base, unit.end, 0.25)
-                        ModUtils.particleBlock(ParticleTypes.HAPPY_VILLAGER, it, unit.base, 0.25)
+                        CUtils.particleBlock(ParticleTypes.FLAME, it, unit.base, unit.end, 0.25)
+                        CUtils.particleBlock(ParticleTypes.HAPPY_VILLAGER, it, unit.base, 0.25)
                     }
                     sendMessage(player, found_tip)
                     sendMessage(

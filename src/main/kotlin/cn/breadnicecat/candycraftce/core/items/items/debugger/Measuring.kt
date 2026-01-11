@@ -1,11 +1,11 @@
 package cn.breadnicecat.candycraftce.core.items.items.debugger
 
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.component1
-import cn.breadnicecat.candycraftce.utils.ModUtils.component2
-import cn.breadnicecat.candycraftce.utils.ModUtils.component3
-import cn.breadnicecat.candycraftce.utils.ModUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.component1
+import cn.breadnicecat.candycraftce.utils.CUtils.component2
+import cn.breadnicecat.candycraftce.utils.CUtils.component3
+import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
 import net.minecraft.ChatFormatting
 import net.minecraft.ChatFormatting.GREEN
 import net.minecraft.ChatFormatting.YELLOW
@@ -98,7 +98,7 @@ object Measuring : DebugFunc<Measuring.MeasuringData>() {
             withStyle(GREEN)
         }
         level.ifClient {
-            ModUtils.particleBlock(ParticleTypes.HAPPY_VILLAGER, it, pos, 0.25)
+            CUtils.particleBlock(ParticleTypes.HAPPY_VILLAGER, it, pos, 0.25)
         }
         return true
     }
@@ -117,7 +117,7 @@ object Measuring : DebugFunc<Measuring.MeasuringData>() {
         if (isInHand && level is ClientLevel && data.shouldRenderZero() && player.tickCount % 3 == 0) {
             val zero = data.getZero()
             if (player.position().distanceTo(zero.center) <= 32) {
-                ModUtils.particleBlock(ParticleTypes.FLAME, level, zero, 0.25)
+                CUtils.particleBlock(ParticleTypes.FLAME, level, zero, 0.25)
             }
         }
     }

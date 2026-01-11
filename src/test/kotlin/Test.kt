@@ -1,7 +1,7 @@
 import cn.breadnicecat.candycraftce.utils.AxisSet
 import cn.breadnicecat.candycraftce.utils.BitMap
-import cn.breadnicecat.candycraftce.utils.ModUtils
-import cn.breadnicecat.candycraftce.utils.ModUtils.compose
+import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CUtils.compose
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet
 import net.minecraft.core.BlockPos
 import org.junit.Test
@@ -38,7 +38,7 @@ class Test {
 
     @Test
     fun neibTest() {
-        ModUtils.getNeighbourPos(BlockPos(0, 0, 0))
+        CUtils.getNeighbourPos(BlockPos(0, 0, 0))
             .forEach { (d, p) ->
                 println("$d: $p")
             }
