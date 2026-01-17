@@ -1,4 +1,9 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    "candycraftce:licorice_ore",
+    "candycraftce:white_licorice_ore",
+    "candycraftce:licorice_ore",
+    "candycraftce:white_licorice_ore"
+  ]
 }

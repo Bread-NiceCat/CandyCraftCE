@@ -1,0 +1,7 @@
+{
+  "parent": "candycraftce:block/ore",
+  "textures": {
+    "ore": "candycraftce:block/nougat_ore",
+    "stone": "candycraftce:block/chocolate_stone"
+  }
+}

@@ -1,15 +1,22 @@
 package cn.breadnicecat.candycraftce.utils
 
 import cn.breadnicecat.candycraftce.utils.CUtils.clog
+import cn.breadnicecat.candycraftce.utils.CUtils.debugLog
+import cn.breadnicecat.candycraftce.utils.CUtils.ifDev
 
 typealias Operation<Receiver> = Receiver.() -> Unit
+
+enum class QueueType {
+    HEAD, NORMAL, LAST
+}
 
 abstract class OperationRecordable<Receiver> {
 
     internal abstract val receiver: Receiver
 
-    private val ops = LinkedHashMap<String, Operation<Receiver>>()
+    private val ops = LinkedHashMap<String, Pair<QueueType, Operation<Receiver>>>()
 
+    private val stacks = mutableMapOf<String, List<String>>()
     var executing = false
         private set
     var frozen = false
@@ -19,9 +26,10 @@ abstract class OperationRecordable<Receiver> {
         key: String,
         overridable: Boolean = true,
         private: Boolean = false,
+        queue: QueueType = QueueType.NORMAL,
         op: Operation<Receiver>,
     ) {
-        check(!frozen)
+        //如果被嵌套了，就直接运行
         if (executing) {
             op(receiver)
             return
@@ -42,36 +50,59 @@ abstract class OperationRecordable<Receiver> {
                 key = vkey
             }
         }
-        ops[key] = op
+        CUtils.walker.walk { frame ->
+            stacks[key] = frame.map(Any::toString).toList()
+        }
+        ops[key] = queue to op
     }
 
-    fun copyRecord(model: OperationRecordable<Receiver>) {
+    fun copyFrom(model: OperationRecordable<Receiver>) {
         check(canAddOps())
-        check("@uncopiable" !in model.ops) { "Unable to copy ops as the builder has been marked it as uncopiable" }
+        check("@uncopiable" !in model.ops) { "This Operation has been marked as Uncopiable" }
         val op = model.ops.filter { (key, _) -> !key.contains("@private") }
         ops.putAll(op)
+        op.keys.forEach { key ->
+            model.stacks[key]?.also { stacks[key] = it }
+        }
     }
 
 
     fun markUncopiable() {
-        record("@uncopiable") { error("uncopiable") }
+        record("@uncopiable") { error("Uncopiable Operation") }
     }
 
     fun removeRecord(key: String, optional: Boolean = false) {
         val removed = ops.keys.removeIf { it.split("@", limit = 2)[0] == key }
         if (!optional && !removed) {
-            error("Unable to remove record as the record does not exist")
+            error("Unable to remove record as the record does not exist. Probably candidates: ${ops.keys}")
         }
     }
 
     protected fun executeRecords() {
+        require(!frozen && !executing) { "Operations has been executed" }
         executing = true
-        ops.forEach { (key, ops) ->
-            try {
-                ops(receiver)
-            } catch (e: Throwable) {
-                clog.error("Execute operation: `$e` for key: `$key`", e)
-            }
+        for (type in QueueType.entries) {
+            ops.filter { it.value.first == type }
+                .forEach { (key, entry) ->
+                    val (_, ops) = entry
+                    ifDev {
+                        debugLog.info("\t\trunning operation <${type.name.lowercase()}> `$key`")
+                    }
+                    try {
+                        ops(receiver)
+                    } catch (e: Throwable) {
+                        clog.error("Unexpected exception encountered when execute operation `$key`", e)
+                        clog.error(
+                            "Operation creation stack trace:\n${
+                                stacks[key]?.joinToString(
+                                    "\n\tat ",
+                                    prefix = "\tat "
+                                ) ?: "\tNo stack trace"
+                            }"
+                        )
+                        throw e
+                    }
+                }
         }
         frozen = true
     }

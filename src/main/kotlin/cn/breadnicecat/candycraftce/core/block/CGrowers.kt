@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
  * 给树苗使用
  */
 object CGrowers {
-    val chocolate_grower = object : AbstractTreeGrower() {
+    val chocolate_grower: AbstractTreeGrower = object : AbstractTreeGrower() {
         override fun getConfiguredFeature(
             random: RandomSource,
             hasFlowers: Boolean,
@@ -22,7 +22,7 @@ object CGrowers {
             return if (random.nextFloat() < 0.1) CFeatures.chocolate_fancy_tree else CFeatures.chocolate_tree
         }
     }
-    val white_chocolate_grower = object : AbstractTreeGrower() {
+    val white_chocolate_grower: AbstractTreeGrower = object : AbstractTreeGrower() {
         override fun getConfiguredFeature(
             random: RandomSource,
             hasFlowers: Boolean,
@@ -30,7 +30,7 @@ object CGrowers {
             return if (random.nextFloat() < 0.1) CFeatures.white_chocolate_fancy_tree else CFeatures.white_chocolate_tree
         }
     }
-    val caramel_grower = object : AbstractTreeGrower() {
+    val caramel_grower: AbstractTreeGrower = object : AbstractTreeGrower() {
         override fun getConfiguredFeature(
             random: RandomSource,
             hasFlowers: Boolean,
@@ -38,7 +38,7 @@ object CGrowers {
             return CFeatures.caramel_tree
         }
     }
-    val candied_cherry_grower = object : AbstractTreeGrower() {
+    val candied_cherry_grower: AbstractTreeGrower = object : AbstractTreeGrower() {
         override fun getConfiguredFeature(
             random: RandomSource,
             hasFlowers: Boolean,

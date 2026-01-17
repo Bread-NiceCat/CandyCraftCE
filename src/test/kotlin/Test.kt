@@ -1,7 +1,7 @@
 import cn.breadnicecat.candycraftce.utils.AxisSet
 import cn.breadnicecat.candycraftce.utils.BitMap
 import cn.breadnicecat.candycraftce.utils.CUtils
-import cn.breadnicecat.candycraftce.utils.CUtils.compose
+import cn.breadnicecat.candycraftce.utils.CUtils.descartes
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet
 import net.minecraft.core.BlockPos
 import org.junit.Test
@@ -30,9 +30,9 @@ class Test {
         val l = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         val e = listOf<Int>()
         val s = listOf(1)
-        l.compose().forEach { (a, b) -> println("list: $a -> $b") }
-        s.compose().forEach { (a, b) -> println("single: $a -> $b") }
-        e.compose().forEach { (a, b) -> println("empty: $a -> $b") }
+        l.descartes().forEach { (a, b) -> println("list: $a -> $b") }
+        s.descartes().forEach { (a, b) -> println("single: $a -> $b") }
+        e.descartes().forEach { (a, b) -> println("empty: $a -> $b") }
 
     }
 

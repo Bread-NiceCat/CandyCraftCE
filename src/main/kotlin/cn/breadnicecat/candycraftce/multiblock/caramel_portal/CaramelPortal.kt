@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.utils.AxisSet
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.state.BlockState
 import java.util.stream.Stream
 
 /**
@@ -13,7 +12,7 @@ import java.util.stream.Stream
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  *
  */
-interface CaramelPortal {
+sealed interface CaramelPortal {
     fun getPortals(): Stream<BlockPos>
     fun getRequiredFrames(): Stream<BlockPos>
     fun getOptionalFrames(): Stream<BlockPos>
@@ -30,16 +29,16 @@ interface CaramelPortal {
         return true
     }
 
-    fun build(level: Level, builder: (AxisSet) -> BlockState) {
+    fun build(level: Level, placer: PortalPlacer) {
         getPortalsAxis().forEach { (pos, ax) ->
-            level.setBlock(pos, builder(ax), 3)
+            level.setBlock(pos, placer.place(ax, level.getBlockState(pos)), 3)
         }
     }
 
     override fun toString(): String
     override fun hashCode(): Int
 
-    class Flat(
+    class Flat internal constructor(
         val base: BlockPos,
         val axis: Direction.Axis,
         val pipe2: List<Direction.Axis>,
@@ -74,21 +73,19 @@ interface CaramelPortal {
         """.trimIndent()
 
         override fun hashCode(): Int {
-            var result = width
-            result = 31 * result + height
+            var result = width * height
             result = 31 * result + base.hashCode()
             result = 31 * result + axis.hashCode()
             return result
         }
 
         override fun equals(other: Any?): Boolean {
-            return this === other
+            if (this === other) return true
+            return true
         }
-
-
     }
 
-    class Compound(val parts: Set<CaramelPortal>) : CaramelPortal {
+    class Compound internal constructor(val parts: Set<CaramelPortal>) : CaramelPortal {
         val requiredFrames: Set<BlockPos> by lazy {
             val required = LinkedHashSet<BlockPos>()
             parts.forEach {

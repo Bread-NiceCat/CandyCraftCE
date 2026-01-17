@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "candycraftce:mint_stairs",
+    "candycraftce:raspberry_stairs",
+    "candycraftce:banana_seaweeds_stairs",
+    "candycraftce:cotton_candy_stairs",
+    "candycraftce:candied_cherry_stairs",
+    "candycraftce:chewing_gum_stairs",
+    "candycraftce:marshmallow_stairs",
+    "candycraftce:light_marshmallow_stairs",
+    "candycraftce:dark_marshmallow_stairs",
+    "candycraftce:candy_cane_stairs",
+    "candycraftce:licorice_stairs",
+    "candycraftce:licorice_brick_stairs",
+    "candycraftce:ice_cream_stairs",
+    "candycraftce:mint_ice_cream_stairs",
+    "candycraftce:strawberry_ice_cream_stairs",
+    "candycraftce:blueberry_ice_cream_stairs"
+  ]
+}

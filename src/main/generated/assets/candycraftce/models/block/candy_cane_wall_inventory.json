@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "candycraftce:block/candy_cane_block_side"
+  }
+}

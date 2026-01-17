@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.data.extension
 
-import cn.breadnicecat.candycraftce.core.items.ItemBuilder
-import cn.breadnicecat.candycraftce.core.items.ItemBuilder.ItemEntry
+import cn.breadnicecat.candycraftce.core.item.ItemBuilder
+import cn.breadnicecat.candycraftce.core.item.ItemBuilder.ItemEntry
 import cn.breadnicecat.candycraftce.data.DataUtils.abstractTranslate
 import cn.breadnicecat.candycraftce.data.DataUtils.ifDatagen
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
@@ -63,6 +63,16 @@ class ItemBuilderDataScope<I : Item> private constructor(
         }
     }
 
+    fun modelFlat(
+        layer0: ResourceLocation? = null,
+        itemContext: Item? = null,
+    ) {
+        model { (_, itemCur) ->
+            val item = itemContext ?: itemCur
+            val tex = if (layer0 != null) layer0(layer0) else layer0(item)
+            ModelTemplates.FLAT_ITEM.create(getModelLocation(item), tex, this.output)
+        }
+    }
 
     fun modelFlat(
         layer0: Either<ResourceLocation, Item>? = null,

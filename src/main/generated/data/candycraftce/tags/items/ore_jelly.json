@@ -1,4 +1,9 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    "candycraftce:jelly_ore",
+    "candycraftce:white_jelly_ore",
+    "candycraftce:jelly_ore",
+    "candycraftce:white_jelly_ore"
+  ]
 }

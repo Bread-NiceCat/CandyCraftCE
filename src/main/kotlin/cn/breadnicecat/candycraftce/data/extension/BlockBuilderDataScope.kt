@@ -6,7 +6,9 @@ import cn.breadnicecat.candycraftce.data.DataUtils.abstractTranslate
 import cn.breadnicecat.candycraftce.data.DataUtils.ifDatagen
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
+import cn.breadnicecat.candycraftce.data.providers.loot.CBlockSubLoot
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder
+import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
@@ -18,7 +20,7 @@ import net.minecraft.world.level.block.Block
  *
  */
 class BlockBuilderDataScope<B : Block> private constructor(
-    private val builder: BlockBuilder<B>,
+    private val builder: BlockBuilder<B>,//这是模板builder，不要对其使用任何操作
 ) {
     companion object {
         fun <B : Block> BlockBuilder<B>.data(
@@ -51,6 +53,15 @@ class BlockBuilderDataScope<B : Block> private constructor(
         }
     }
 
+    fun byAxe() = tag(BlockTags.MINEABLE_WITH_AXE)
+    fun byHoe() = tag(BlockTags.MINEABLE_WITH_HOE)
+    fun byPickaxe() = tag(BlockTags.MINEABLE_WITH_PICKAXE)
+    fun byShovel() = tag(BlockTags.MINEABLE_WITH_SHOVEL)
+    fun bySword() = tag(BlockTags.SWORD_EFFICIENT)
+    fun needDiamond() = tag(BlockTags.NEEDS_DIAMOND_TOOL)
+    fun needIron() = tag(BlockTags.NEEDS_IRON_TOOL)
+    fun needStone() = tag(BlockTags.NEEDS_STONE_TOOL)
+
     fun translate(en: String, zh: String? = null) {
         builder.record("translate", private = true) {
             lateUsage { (_, b) ->
@@ -64,4 +75,14 @@ class BlockBuilderDataScope<B : Block> private constructor(
             BlockModelScope(this).apply(action)
         }
     }
+
+
+    fun loot(action: CBlockSubLoot.(B) -> Unit) {
+        builder.record("loot") {
+            lateUsage { entry ->
+                CBlockSubLoot.loots.add { action(entry.block) }
+            }
+        }
+    }
+
 }

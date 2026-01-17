@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "candycraftce:block/candied_cherry_sack_side",
+    "side": "candycraftce:block/candied_cherry_sack_side",
+    "top": "candycraftce:block/candied_cherry_sack_side"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "candycraftce:white_chocolate_cobblestone"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "candycraftce:blocks/white_chocolate_cobblestone"
+}

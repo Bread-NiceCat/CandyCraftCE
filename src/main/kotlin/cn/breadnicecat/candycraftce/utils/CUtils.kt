@@ -15,17 +15,34 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.util.valueproviders.ConstantInt
+import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.awt.Color
 import java.util.stream.Stream
 import kotlin.math.max
 import kotlin.math.min
 
 
 object CUtils {
+    val Int.rgb get() = Color(this)
+    val String.rgb
+        get() = run {
+            require(startsWith("#") || startsWith("0x")) { "Invalid color format" }
+            Color(Integer.decode(this))
+        }
+
+    /**
+     * @param amplifier 药水等级
+     * @param ambient 是否显示粒子
+     * */
     fun MobEffect.instance(
         duration: TimeUnit = 0.tick,
         amplifier: Int = 0,
@@ -36,36 +53,44 @@ object CUtils {
         return MobEffectInstance(this, duration.tick, amplifier, ambient, visible, showIcon)
     }
 
-    private val walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+    val walker: StackWalker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
 
     private val logCache = mutableMapOf<String, Logger>()
-    val mainLog = modLogger("Main")
+    val mainLog = modLogger("Core")
     val registerLog = modLogger("Registry")
-
+    val debugLog = modLogger("Debug")
     val clog: Logger get() = modLogger(walker.callerClass.simpleName)
 
     fun modLogger(tag: String): Logger {
         return logCache.computeIfAbsent(tag) { LoggerFactory.getLogger("CandyCraftCE|${it}") }
     }
 
+    private val signed = mutableSetOf<Class<*>>()
     fun sign() {
-        mainLog.info("${walker.callerClass.simpleName} loaded")
+        val clazz = walker.callerClass
+        require(signed.add(clazz)) { "Class ${clazz.simpleName} is already registered" }
+        mainLog.info("${clazz.simpleName} loaded")
     }
 
     fun logRegister(type: String, id: ResourceLocation) {
         registerLog.info("Registering $type/$id")
     }
 
+    fun isLoaded(modId: String): Boolean = FabricLoader.getInstance().isModLoaded(modId)
+    inline fun ifLoaded(modId: String, block: () -> Unit) {
+        if (isLoaded(modId)) block()
+    }
+
+    inline fun ifDev(block: () -> Unit) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment) block()
+    }
+
     inline fun ifClient(block: () -> Unit) {
-        if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) {
-            block()
-        }
+        if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) block()
     }
 
     inline fun ifServer(block: () -> Unit) {
-        if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) {
-            block()
-        }
+        if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) block()
     }
 
     inline fun Level.ifClient(block: (ClientLevel) -> Unit): Level {
@@ -82,13 +107,21 @@ object CUtils {
         return this
     }
 
+    fun Int.provider(): ConstantInt = ConstantInt.of(this)
+    fun Int.generator(): ConstantValue = ConstantValue.exactly(this.toFloat())
+    fun IntRange.provider(): UniformInt = UniformInt.of(this.first, this.last)
+    fun IntRange.generator(): UniformGenerator = UniformGenerator.between(this.first.toFloat(), this.last.toFloat())
+    fun <R> ResourceLocation.toKey(registry: ResourceKey<Registry<R>>): ResourceKey<R> {
+        return ResourceKey.create(registry, this)
+    }
+
     fun String.modLoc(modId: String = MOD_ID) = ResourceLocation(MOD_ID, this)
     fun String.mcLoc() = ResourceLocation(this)
     fun <V> ResourceLocation.get(register: Registry<V>): V? = register.get(this)
 
     fun <V : Any> Registry<V>.createKey(id: ResourceLocation) = ResourceKey.create(this.key(), id)!!
-    fun <V : Any> Registry<V>.register(id: ResourceLocation, value: V): V = Registry.register(this, id, value)
-    fun <V : Any> Registry<V>.register(id: ResourceKey<V>, value: V): V = Registry.register(this, id, value)
+    fun <V : Any> Registry<in V>.register(id: ResourceLocation, value: V): V = Registry.register(this, id, value)
+    fun <R : Any, V : R> Registry<R>.register(id: ResourceKey<R>, value: V): V = Registry.register(this, id, value)
 
     fun BlockPos.MutableBlockPos.set(axis: Axis, value: Int) {
         when (axis) {
@@ -192,18 +225,54 @@ object CUtils {
     operator fun BlockPos.component1() = this.x
     operator fun BlockPos.component2() = this.y
     operator fun BlockPos.component3() = this.z
-    fun CompoundTag.use(key: String, block: (CompoundTag) -> Unit) {
-        val tag = this.getCompound(key)
-        block(tag)
-        this.put(key, tag)
+    fun GameRules.Key<GameRules.BooleanValue>.get(level: Level): Boolean {
+        return level.gameRules.getBoolean(this)
     }
 
-    fun <T> List<T>.compose(): Stream<Pair<T, T>> {
+    fun GameRules.Key<GameRules.IntegerValue>.get(level: Level): Int {
+        return level.gameRules.getInt(this)
+    }
+
+    fun <T : GameRules.Value<T>> GameRules.Key<T>.get(level: Level): T {
+        return level.gameRules.getRule(this)
+    }
+
+    //读取并自动写入复合nbt里面的数据
+    fun CompoundTag.use(key: String, block: (CompoundTag) -> Unit) {
+        if (key in this) {
+            block(getCompound(key))
+        } else {
+            put(key, CompoundTag().also(block))
+        }
+    }
+
+    //笛卡尔叉乘
+    fun <T> List<T>.descartes(): Stream<Pair<T, T>> {
         return stream().flatMap { first ->
             stream().filter { second -> second != first }
                 .map { second ->
                     first to second
                 }
+        }
+    }
+
+
+    inline fun <T, R> cistrans(
+        model: Pair<T, T>,
+        actual: Pair<T, T>,
+        cis: () -> R,
+        trans: () -> R,
+        default: () -> R,
+        equals: (T, T) -> Boolean = { a, b -> a == b },
+    ): R {
+        val (modelA, modelB) = model
+        val (actualA, actualB) = actual
+        return if (equals(modelA, actualA) && equals(modelB, actualB)) {
+            cis()
+        } else if (equals(modelA, actualB) && equals(modelB, actualA)) {
+            trans()
+        } else {
+            default()
         }
     }
 }

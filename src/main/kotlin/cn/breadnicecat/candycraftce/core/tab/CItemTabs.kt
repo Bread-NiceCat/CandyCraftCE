@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.core.tab
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
-import cn.breadnicecat.candycraftce.core.items.CItems
-import cn.breadnicecat.candycraftce.core.items.ItemBuilder
+import cn.breadnicecat.candycraftce.core.item.CItems
+import cn.breadnicecat.candycraftce.core.item.ItemBuilder
 import cn.breadnicecat.candycraftce.data.DataUtils.translate
 import cn.breadnicecat.candycraftce.utils.CUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.createKey

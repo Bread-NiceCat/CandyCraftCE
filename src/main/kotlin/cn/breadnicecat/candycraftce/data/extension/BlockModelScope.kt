@@ -2,6 +2,10 @@ package cn.breadnicecat.candycraftce.data.extension
 
 import cn.breadnicecat.candycraftce.core.block.BlockBuilder
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
+import cn.breadnicecat.candycraftce.utils.Arguments
+import cn.breadnicecat.candycraftce.utils.CUtils.clog
+import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
+import cn.breadnicecat.candycraftce.utils.mixin.MixinExtensions.accessor
 import com.google.gson.JsonElement
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.TintState
@@ -10,7 +14,6 @@ import net.minecraft.data.models.model.ModelLocationUtils.getModelLocation
 import net.minecraft.data.models.model.ModelTemplate
 import net.minecraft.data.models.model.ModelTemplates
 import net.minecraft.data.models.model.TextureMapping
-import net.minecraft.data.models.model.TextureMapping.getBlockTexture
 import net.minecraft.data.models.model.TextureSlot.*
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Block
@@ -25,14 +28,19 @@ typealias StateOutput = Consumer<BlockStateGenerator>
 class BlockModelScope<B : Block> internal constructor(
     private val builder: BlockBuilder<B>,
 ) {
+    companion object {
+        val families by HashMap<Block, BlockModelGenerators.BlockFamilyProvider>().immediate()
+    }
 
+    val arguments: Arguments get() = builder.arguments
     fun action(modelAction: BlockModelGenerators.(B) -> Unit) {
         builder.lateUsage { e ->
-            CModelProvider.blocks.add { modelAction(this, e.block) }
+            val block = e.block
+            CModelProvider.blocks.add { modelAction(this, block) }
         }
     }
 
-    fun model(modelGen: (B, ModelOutput) -> ResourceLocation): PreparedModel {
+    fun gen(modelGen: (B, ModelOutput) -> ResourceLocation): PreparedModel {
         val model = PreparedModel()
         action {
             model.setModel(modelGen(it, modelOutput))
@@ -53,7 +61,7 @@ class BlockModelScope<B : Block> internal constructor(
     }
 
     fun modelExisted(modelLocation: ResourceLocation? = null) =
-        model { b, _ ->
+        gen { b, _ ->
             modelLocation ?: getModelLocation(b)
         }
 
@@ -64,7 +72,7 @@ class BlockModelScope<B : Block> internal constructor(
         mapping: MappingScope.(B) -> Unit,
     ): PreparedModel {
         val parentModel = parentPrefix?.let { parent.withPrefix("$it/") } ?: parent
-        return model { block, output ->
+        return gen { block, output ->
             val scope = MappingScope().apply { mapping(block) }
             val template = ModelTemplate(
                 Optional.of(parentModel),
@@ -83,7 +91,7 @@ class BlockModelScope<B : Block> internal constructor(
         suffix: String = "",
         mapping: MappingScope.(B) -> Unit,
     ): PreparedModel {
-        return model { block, output ->
+        return gen { block, output ->
             val scope = MappingScope()
             mapping(scope, block)
             template.createWithSuffix(block, suffix, scope.toMapping(), output)
@@ -91,17 +99,43 @@ class BlockModelScope<B : Block> internal constructor(
     }
 
     fun cubeAll() = template(ModelTemplates.CUBE_ALL) {
-        ALL provide getBlockTexture(it)
+        ALL provide it
     }
 
     fun cubeBottomTop() = template(ModelTemplates.CUBE_BOTTOM_TOP) {
-        TOP provide getBlockTexture(it, "_top")
-        BOTTOM provide getBlockTexture(it, "_bottom")
-        SIDE provide getBlockTexture(it, "_side")
+        TOP provide it suffix "_top"
+        BOTTOM provide it suffix "_bottom"
+        SIDE provide it suffix "_side"
+    }
+
+    fun cubeColumn() = template(ModelTemplates.CUBE_COLUMN) {
+        SIDE provide it suffix "_side"
+        END provide it suffix "_end"
+    }
+
+    fun family(
+        fullParent: Block,
+        mapping: TextureMapping? = null,
+        familyAction: BlockModelGenerators.BlockFamilyProvider.(B) -> Unit,
+    ) {
+        action { block ->
+            val provider = families!!.computeIfAbsent(fullParent) {
+                val map = if (mapping == null) {
+                    clog.warn("Missing family of `$fullParent` and mapping is null, default cube mapping will be used")
+                    TextureMapping.cube(it)
+                } else {
+                    mapping
+                }
+                BlockFamilyProvider(map).apply {
+                    this.accessor().setFullBlock(getModelLocation(fullParent))
+                }
+            }
+            familyAction(provider, block)
+        }
     }
 
     fun cross(tinted: Boolean = false): PreparedModel {
-        return model { block, output ->
+        return gen { block, output ->
             val tintState = if (tinted) TintState.TINTED else TintState.NOT_TINTED
             tintState.cross.create(block, TextureMapping.cross(block), output)
         }
