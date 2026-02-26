@@ -1,0 +1,29 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_x"
+      },
+      "when": {
+        "x": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_y"
+      },
+      "when": {
+        "y": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "candycraftce:block/caramel_portal_x",
+        "y": 90
+      },
+      "when": {
+        "z": "true"
+      }
+    }
+  ]
+}

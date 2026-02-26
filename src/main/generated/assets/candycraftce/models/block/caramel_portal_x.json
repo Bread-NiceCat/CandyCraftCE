@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/nether_portal_ew",
+  "textures": {
+    "particle": "candycraftce:block/caramel_portal",
+    "portal": "candycraftce:block/caramel_portal"
+  }
+}

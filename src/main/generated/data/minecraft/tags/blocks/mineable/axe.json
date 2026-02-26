@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "candycraftce:marshmallow_log",
+    "candycraftce:dark_marshmallow_log",
+    "candycraftce:light_marshmallow_log",
+    "candycraftce:stripped_marshmallow_log",
+    "candycraftce:stripped_dark_marshmallow_log",
+    "candycraftce:stripped_light_marshmallow_log",
+    "candycraftce:marshmallow_planks",
+    "candycraftce:dark_marshmallow_planks",
+    "candycraftce:light_marshmallow_planks",
+    "candycraftce:marshmallow_fence",
+    "candycraftce:light_marshmallow_fence",
+    "candycraftce:dark_marshmallow_fence",
+    "candycraftce:marshmallow_slab",
+    "candycraftce:light_marshmallow_slab",
+    "candycraftce:dark_marshmallow_slab",
+    "candycraftce:marshmallow_stairs",
+    "candycraftce:light_marshmallow_stairs",
+    "candycraftce:dark_marshmallow_stairs",
+    "candycraftce:marshmallow_door",
+    "candycraftce:light_marshmallow_door",
+    "candycraftce:dark_marshmallow_door",
+    "candycraftce:marshmallow_trapdoor",
+    "candycraftce:light_marshmallow_trapdoor",
+    "candycraftce:dark_marshmallow_trapdoor",
+    "candycraftce:marshmallow_fence_gate",
+    "candycraftce:light_marshmallow_fence_gate",
+    "candycraftce:dark_marshmallow_fence_gate"
+  ]
+}
