@@ -4,6 +4,9 @@ package cn.breadnicecat.candycraftce.core.block
 import cn.breadnicecat.candycraftce.client.PuddingColor
 import cn.breadnicecat.candycraftce.core.block.BlockBuilderClientScope.Companion.client
 import cn.breadnicecat.candycraftce.core.block.blocks.*
+import cn.breadnicecat.candycraftce.core.block.blocks.jelly.JellyBlock
+import cn.breadnicecat.candycraftce.core.block.blocks.jelly.SensitiveJellyBlock
+import cn.breadnicecat.candycraftce.core.block.blocks.jelly.TrampoJellyBlock
 import cn.breadnicecat.candycraftce.core.block.blocks.plant.*
 import cn.breadnicecat.candycraftce.core.item.CItems
 import cn.breadnicecat.candycraftce.core.item.ItemBuilderClientScope.Companion.client
@@ -23,6 +26,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.createEmptyOrFullDispatch
 import net.minecraft.data.models.BlockModelGenerators.createRotatedVariants
 import net.minecraft.data.models.blockstates.*
@@ -436,10 +440,17 @@ object CBlocks {
     val blueberry_ice_cream = ice_cream.copy("blueberry_ice_cream")
         .data { translate("Blueberry Ice Cream", "蓝莓冰淇淋") }
         .save()
-
-    val sugar_block = simple.sub("sugar_block", factory = { SugarBlock(it) })
+    val sugar_block = simple.copy("sugar_block")
         .data {
             translate("Sugar Block", "糖块")
+            tag(CTags.CBlockTags.caramel_portal_frame)
+            byPickaxe()
+        }
+        .save()
+
+    val sugar_sand = simple.sub("sugar_sand", factory = { SugarSandBlock(it) })
+        .data {
+            translate("Sugar Sand", "砂糖块")
             tag(CTags.CBlockTags.caramel_portal_frame)
             loot {
                 dropWhenSilkTouchElse(it, Items.SUGAR, 4.generator())
@@ -749,23 +760,23 @@ object CBlocks {
         }
 
     private val marshmallow_arg = Arguments.builder {
-        "parent" to marshmallow_planks.block
-        "set_type" to BlockSetType.OAK
-        "wood_type" to WoodType.OAK
+        "parent" of marshmallow_planks.block
+        "set_type" of BlockSetType.OAK
+        "wood_type" of WoodType.OAK
     }
     private val light_marshmallow_arg = Arguments.builder {
-        "parent" to light_marshmallow_planks.block
-        "set_type" to BlockSetType.BAMBOO
-        "wood_type" to WoodType.BAMBOO
+        "parent" of light_marshmallow_planks.block
+        "set_type" of BlockSetType.BAMBOO
+        "wood_type" of WoodType.BAMBOO
     }
     private val dark_marshmallow_arg = Arguments.builder {
-        "parent" to dark_marshmallow_planks.block
-        "set_type" to BlockSetType.DARK_OAK
-        "wood_type" to WoodType.DARK_OAK
+        "parent" of dark_marshmallow_planks.block
+        "set_type" of BlockSetType.DARK_OAK
+        "wood_type" of WoodType.DARK_OAK
     }
     private val candy_cane_arg = Arguments.builder {
-        "parent" to candy_cane_block.block
-        "texture" to mapping {
+        "parent" of candy_cane_block.block
+        "texture" of mapping {
             TextureSlot.ALL provide candy_cane_block.block suffix "_side"
         }
     }
@@ -873,8 +884,8 @@ object CBlocks {
     private val banana_seaweeds_arg = Arguments.of("parent" to banana_seaweeds_block.block)
     private val cotton_candy_arg = Arguments.of("parent" to cotton_candy_block.block)
     private val candied_cherry_arg = Arguments.builder {
-        "parent" to candied_cherry_sack.block
-        "texture" to mapping {
+        "parent" of candied_cherry_sack.block
+        "texture" of mapping {
             TextureSlot.ALL provide candied_cherry_sack.block suffix "_side"
         }
     }
@@ -1269,6 +1280,59 @@ object CBlocks {
         .client { cutout() }
         .save()
 
+    private val jelly = simple.sub("*jelly", { JellyBlock(it) })
+        .client { translucent() }
+        .copyProperties(SLIME_BLOCK)
+        .modifyProperties { it.strength(5f, 2000f) }
+
+    val trampojelly =
+        jelly.sub("trampojelly", {
+            TrampoJellyBlock(
+                it, get("accY", null),
+                get("fallMultiplier", null)
+            )
+        }).data { translate("Trampojelly", " 弹力果冻") }
+            .argument("accY", 2.0)
+            .argument("fallMultiplier", 0.2f)
+            .save()
+    val red_trampojelly = trampojelly.copy("red_trampojelly")
+        .data { translate("Red Trampojelly", " 红色弹力果冻") }
+        .argument("accY", 4.0)
+        .argument("fallMultiplier", 0.1f)
+        .save()
+    val soft_trampojelly = trampojelly.copy("soft_trampojelly")
+        .data { translate("Soft Trampojelly", " 软弹力果冻") }
+        .argument("accY", 2.0)
+        .argument("fallMultiplier", 0f)
+        .save()
+    val jelly_shock_absorber = trampojelly.copy("jelly_shock_absorber")
+        .data { translate("Jelly Shock Absorber", "减震果冻") }
+        .argument("accY", null)
+        .argument("fallMultiplier", 0f)
+        .save()
+    val sensitive_jelly = jelly.sub("sensitive_jelly", { SensitiveJellyBlock(it) })
+        .data {
+            translate("Sensitive Jelly", "敏感果冻")
+            model {
+                val simple by cubeAll()
+                val active by template(ModelTemplates.CUBE_ALL, suffix = "_powered") {
+                    TextureSlot.ALL provide getBlockTexture(it, "_powered")
+                }
+                state {
+                    MultiVariantGenerator.multiVariant(it)
+                        .with(
+                            BlockModelGenerators.createBooleanModelDispatch(
+                                SensitiveJellyBlock.POWERED,
+                                active,
+                                simple
+                            )
+                        )
+                }
+            }
+        }
+        .save()
+
+
     val sugar_spikes = simple.sub("sugar_spikes", { SugarSpikesBlock(it) })
         .data {
             translate("Sugar Spikes", "糖刺")
@@ -1276,6 +1340,11 @@ object CBlocks {
         }
         .copyProperties(pez_block)
         .modifyProperties { it.noCollission() }
+        .modifyBlockItem {
+            it.data {
+                modelFlat(getBlockTexture(block))
+            }
+        }
         .client { cutout() }
         .save()
 
@@ -1420,12 +1489,8 @@ object CBlocks {
     val honeycomb_torch = simple.sub("honeycomb_torch", { TorchBlock(it, ParticleTypes.FLAME) })
         .data {
             translate("Honeycomb Torch", "蜜蜡火把")
-            model {
-                template(ModelTemplates.TORCH) {
-                    TextureSlot.TORCH provide it
-                }.simpleState()
-            }
         }
+        .apply { removeRecord("model", optional = true) }
         .client { cutout() }
         .copyProperties(TORCH)
         .noBlockItem()
@@ -1434,10 +1499,8 @@ object CBlocks {
     val wall_honeycomb_torch = honeycomb_torch.sub("wall_honeycomb_torch", { WallTorchBlock(it, ParticleTypes.FLAME) })
         .data {
             model {
-                template(ModelTemplates.WALL_TORCH) {
-                    TextureSlot.TORCH provide honeycomb_torch.block
-                }.applyState { block, model ->
-                    MultiVariantGenerator.multiVariant(block, *createRotatedVariants(model))
+                action {
+                    createNormalTorch(honeycomb_torch.block, it)
                 }
             }
         }

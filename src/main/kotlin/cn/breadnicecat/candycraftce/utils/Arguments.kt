@@ -42,7 +42,7 @@ open class Arguments(args: HashMap<String, Any>) {
         fun clear() = args.clear()
         fun put(key: String, value: Any) = args.put(key, value)
         operator fun set(key: String, value: Any) = put(key, value)
-        infix fun String.to(value: Any) = set(this, value)
+        infix fun String.of(value: Any?) = if (value == null) remove(this) else put(this, value)
         fun add(key: String, value: Any): Builder {
             put(key, value)
             return this

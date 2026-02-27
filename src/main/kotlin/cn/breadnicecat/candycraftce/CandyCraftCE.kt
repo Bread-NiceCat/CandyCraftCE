@@ -8,6 +8,8 @@ import cn.breadnicecat.candycraftce.core.rule.CGameRules
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs
 import cn.breadnicecat.candycraftce.integration.iconr.CCIconRCompat
 import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin
+import cn.breadnicecat.candycraftce.utils.CUtils.debugLog
+import cn.breadnicecat.candycraftce.utils.CUtils.ifDev
 import cn.breadnicecat.candycraftce.utils.CUtils.ifLoaded
 import cn.breadnicecat.candycraftce.utils.CUtils.mainLog
 import cn.breadnicecat.candycraftce.utils.Immediate
@@ -42,7 +44,19 @@ object CandyCraftCE : ModInitializer {
     //after Registry Frozen
     @JvmStatic
     fun onPostInitialize() {
-        Immediate.invalidateAll()
+        measureTime {
+            val mem = ifDev {
+                System.gc()
+                Runtime.getRuntime().freeMemory()
+            }
+            Immediate.invalidateAll()
+            ifDev {
+                System.gc()
+                debugLog.info("Immediate freed ${Runtime.getRuntime().freeMemory() - mem!!} bytes")
+            }
+        }.also {
+            mainLog.info("CandyCraftCE post-loaded in $it")
+        }
     }
 
 }

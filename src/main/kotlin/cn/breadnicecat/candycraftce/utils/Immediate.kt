@@ -12,13 +12,13 @@ class Immediate<E : Any>(e: E) : ReadOnlyProperty<Any, E?> {
         private var all: HashSet<Immediate<*>>? = HashSet<Immediate<*>>()
         fun invalidateAll() {
             all?.apply {
-                clog.info("Invalidating $size Immediate")
+                clog.info("Invalidating $size Immediate(s)")
                 forEach { it.invalidate() }
             }
             all = null
 
             if (all == null) return
-            clog.info("Invalidating ${all!!.size} Immediate")
+            clog.info("Invalidating ${all!!.size} Immediate(s)")
             all!!.forEach { it.invalidate() }
             all = null
         }

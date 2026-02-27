@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "candycraftce:block/sensitive_jelly"
+    },
+    "powered=true": {
+      "model": "candycraftce:block/sensitive_jelly_powered"
+    }
+  }
+}

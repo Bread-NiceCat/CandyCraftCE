@@ -13,7 +13,6 @@ import cn.breadnicecat.candycraftce.utils.CUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
 import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
 import net.minecraft.core.Direction
-import net.minecraft.data.models.model.TextureMapping.getBlockTexture
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.effect.MobEffects.CONFUSION
 import net.minecraft.world.effect.MobEffects.NIGHT_VISION
@@ -76,7 +75,7 @@ object CItems {
                 Direction.DOWN
             )
         })
-        .data { modelFlat(getBlockTexture(CBlocks.honeycomb_torch.block)) }
+        .apply { removeRecord("model", optional = true) }
         .save()
 
     val sugar_crystal = simple.copy("sugar_crystal")
@@ -546,13 +545,13 @@ object CItems {
     private val armor = simple.sub("*armor", {
         ArmorItem(get("material"), get("slot"), it)
     })
-    private val helmet = simple.copy("*helmet")
+    private val helmet = armor.copy("*helmet")
         .argument("slot", ArmorItem.Type.HELMET)
-    private val chestplate = simple.copy("*chestplate")
+    private val chestplate = armor.copy("*chestplate")
         .argument("slot", ArmorItem.Type.CHESTPLATE)
-    private val leggings = simple.copy("*leggings")
+    private val leggings = armor.copy("*leggings")
         .argument("slot", ArmorItem.Type.LEGGINGS)
-    private val boots = simple.copy("*boots")
+    private val boots = armor.copy("*boots")
         .argument("slot", ArmorItem.Type.BOOTS)
 
     val licorice_helmet = helmet.copy("licorice_helmet")

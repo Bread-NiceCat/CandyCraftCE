@@ -72,7 +72,7 @@ class CandyCropBlock(
     @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
-        return level.getBlockState(pos.below()).`is`(CBlocks.sugar_block.block)
+        return level.getBlockState(pos.below()).`is`(CBlocks.sugar_sand.block)
                 && (level.canSeeSky(pos) || level.getRawBrightness(pos, 0) >= 8)
                 && super.canSurvive(state, level, pos)
     }

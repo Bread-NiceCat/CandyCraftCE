@@ -110,8 +110,12 @@ class BlockBuilder<B : Block>(
     }
 
 
-    fun argument(key: String, value: Any): BlockBuilder<B> {
-        arguments[key] = value
+    fun argument(key: String, value: Any?): BlockBuilder<B> {
+        if (value == null) {
+            arguments.remove(key)
+        } else {
+            arguments[key] = value
+        }
         return this
     }
 

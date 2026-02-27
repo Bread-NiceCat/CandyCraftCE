@@ -216,15 +216,13 @@ class CaramelPortalBlock(properties: Properties) : Block(properties) {
         private val shapes: Array<VoxelShape> =
             arrayOf<VoxelShape>(DEFAULT, X_AABB, Y_AABB, XY_AABB, Z_AABB, XZ_AABB, YZ_AABB, XYZ_AABB)
 
-        /**
-         * @return true代表消费，应该直接取消事件继续进行
-         */
+        //Mixin
         @JvmStatic
         fun onLavaPlace(level: Level, pos: BlockPos) {
             searcher.find(level, pos)?.also { portal ->
                 for (frame in portal.getAllFrames()) {
                     val state: BlockState = level.getBlockState(frame)
-                    if (state.`is`(CBlocks.sugar_block.block)) {
+                    if (state.`is`(CBlocks.sugar_sand.block) || state.`is`(CBlocks.sugar_block.block)) {
                         level.setBlockAndUpdate(frame, caramel_block.defaultBlockState())
                     }
                 }

@@ -34,6 +34,7 @@ class ChewingGumPuddleBlock(properties: Properties) : Block(properties) {
         context: CollisionContext,
     ): VoxelShape = AABB
 
+    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun updateShape(
         state: BlockState,

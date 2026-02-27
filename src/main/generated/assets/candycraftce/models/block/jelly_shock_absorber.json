@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "candycraftce:block/jelly_shock_absorber"
+  }
+}

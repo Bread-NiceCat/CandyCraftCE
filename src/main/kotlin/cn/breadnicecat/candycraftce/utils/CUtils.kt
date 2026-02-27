@@ -59,7 +59,10 @@ object CUtils {
     val mainLog = modLogger("Core")
     val registerLog = modLogger("Registry")
     val debugLog = modLogger("Debug")
-    val clog: Logger get() = modLogger(walker.callerClass.simpleName)
+    val clog: Logger
+        get() = modLogger(walker.callerClass.let {
+            if (it.kotlin.isCompanion) it.enclosingClass else it
+        }.simpleName)
 
     fun modLogger(tag: String): Logger {
         return logCache.computeIfAbsent(tag) { LoggerFactory.getLogger("CandyCraftCE|${it}") }
@@ -81,16 +84,16 @@ object CUtils {
         if (isLoaded(modId)) block()
     }
 
-    inline fun ifDev(block: () -> Unit) {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment) block()
+    inline fun <R> ifDev(block: () -> R): R? {
+        return if (FabricLoader.getInstance().isDevelopmentEnvironment) block() else null
     }
 
-    inline fun ifClient(block: () -> Unit) {
-        if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) block()
+    inline fun <R> ifClient(block: () -> R): R? {
+        return if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) block() else null
     }
 
-    inline fun ifServer(block: () -> Unit) {
-        if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) block()
+    inline fun <R> ifServer(block: () -> R): R? {
+        return if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) block() else null
     }
 
     inline fun Level.ifClient(block: (ClientLevel) -> Unit): Level {

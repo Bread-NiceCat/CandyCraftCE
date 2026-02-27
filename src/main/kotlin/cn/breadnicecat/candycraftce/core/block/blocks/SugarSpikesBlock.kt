@@ -41,11 +41,13 @@ class SugarSpikesBlock(properties: Properties) : Block(properties) {
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
         entity.makeStuckInBlock(state, Vec3(0.6, 0.4, 0.6))
         entity.hurt(level.damageSources().generic(), 2f)
+        //TODO
 //        entity.hurt(CDamageTypes.stepOnSpikes(level.registryAccess()), 2f)
         super.entityInside(state, level, pos, entity)
     }
 
     override fun fallOn(level: Level, state: BlockState, pos: BlockPos, entity: Entity, fallDistance: Float) {
+        //TODO
 //        entity.causeFallDamage(fallDistance, 2.5f, CDamageTypes.stepOnSpikes(level.registryAccess()))
         entity.causeFallDamage(fallDistance, 2.5f, level.damageSources().generic())
     }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "candycraftce:sugar_block",
     "candycraftce:chocolate_stone",
     "candycraftce:chocolate_cobblestone",
     "candycraftce:white_chocolate_cobblestone",
