@@ -9,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.storage.loot.LootPool
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount
@@ -51,6 +52,21 @@ class CBlockSubLoot(output: FabricDataOutput) : FabricBlockLootTableProvider(out
         add(block) {
             this.createSingleItemTableWithSilkTouch(it, other, count)
         }
+    }
+
+    fun dropWhenShearsElse(block: Block, other: ItemLike, count: NumberProvider = 1.generator()) {
+        add(
+            block, LootTable.lootTable()
+                .withPool(
+                    LootPool.lootPool().setRolls(count)
+                        .`when`(HAS_SHEARS)
+                        .add(LootItem.lootTableItem(block))
+                ).withPool(
+                    LootPool.lootPool().setRolls(count)
+                        .`when`(HAS_SHEARS.invert())
+                        .add(LootItem.lootTableItem(other))
+                )
+        )
     }
 
     fun dropLeave(block: Block, sapling: Block, chances: FloatArray = NORMAL_LEAVES_SAPLING_CHANCES) {

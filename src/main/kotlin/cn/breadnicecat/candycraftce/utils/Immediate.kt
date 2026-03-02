@@ -27,7 +27,7 @@ class Immediate<E : Any>(e: E) : ReadOnlyProperty<Any, E?> {
     }
 
     init {
-        all!!.add(this)
+        all?.add(this) ?: invalidate()
     }
 
     private var e: E? = e

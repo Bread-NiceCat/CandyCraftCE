@@ -33,7 +33,7 @@ class BlockBuilder<B : Block>(
     private var blockItem: ItemEntry<out BlockItem>? = null
     private var blockItemMod: (BlockEntry<B>.(ItemBuilder<out BlockItem>) -> Unit) = {}
     private var propCopy: BlockBehaviour? = null
-
+    private var blockItemFunc: ((B) -> ItemFactory<BlockItem>)? = null
     fun modifyBlockItem(action: BlockEntry<B>.(ItemBuilder<out BlockItem>) -> Unit = {}): BlockBuilder<B> {
         record("modifyBlockItem", overridable = false) {
             val old = blockItemMod
@@ -131,11 +131,15 @@ class BlockBuilder<B : Block>(
         val properties = propCopy?.let { Properties.copy(it) } ?: Properties.of()
         properties.apply(propBuilder)
         val block = register(location) { factory(arguments, properties) }
+
         val entry = BlockEntry(location, block, blockItem, this.immediate())
 
         lateUsage.forEach { it.accept(entry) }
 
-        return entry
+        return if (blockItem != entry.item) {
+            BlockEntry(location, block, blockItem, this.immediate())
+        } else entry
+
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -175,7 +179,7 @@ class BlockBuilder<B : Block>(
     class BlockEntry<B : Block>(
         val id: ResourceLocation,
         val block: B,
-        private val item: ItemEntry<out BlockItem>?,
+        val item: ItemEntry<out BlockItem>?,
         private val builder: Immediate<BlockBuilder<B>>,
     ) : ItemLike by block {
         operator fun component1() = id

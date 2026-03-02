@@ -24,8 +24,10 @@ import cn.breadnicecat.candycraftce.utils.CUtils.generator
 import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
+import net.minecraft.advancements.critereon.StatePropertiesPredicate
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.data.loot.BlockLootSubProvider.HAS_SHEARS
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.createEmptyOrFullDispatch
 import net.minecraft.data.models.BlockModelGenerators.createRotatedVariants
@@ -45,6 +47,11 @@ import net.minecraft.world.level.block.state.properties.BlockSetType
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.WoodType
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.level.storage.loot.LootPool
+import net.minecraft.world.level.storage.loot.LootTable
+import net.minecraft.world.level.storage.loot.entries.LootItem
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition
 
 
 object CBlocks {
@@ -104,6 +111,76 @@ object CBlocks {
         .mapColor(MapColor.PLANT)
         .save()
 
+    //public static final BlockEntry<CandyCropBlock> DRAGIBUS_CROPS = create("dragibus_crops", CandyCropBlock::createL4).setProperties(WHEAT, null).noBlockItem().save();
+    //	public static final BlockEntry<LollipopStemBlock> LOLLIPOP_STEM = create("lollipop_stem", LollipopStemBlock::new).setProperties(WHEAT, null).noBlockItem().save();
+    //	public static final BlockEntry<LollipopFruitBlock> LOLLIPOP_FRUIT = create("lollipop_fruit", LollipopFruitBlock::new).setProperties(WHEAT, null).noBlockItem().save();
+    private val crop = crossPlant.sub("*crop", { CandyPlantBlock(it) })
+        .copyProperties(WHEAT)
+
+    val dragibus_crops = crossPlant.sub("dragibus_crops", { CandyCropBlock.createL4(it) })
+        .noBlockItem()
+        .save()
+
+    val lollipop_stem: BlockBuilder.BlockEntry<LollipopStemBlock> = crop.sub("lollipop_stem", { LollipopStemBlock(it) })
+        .data {
+            translate("Lollipop Stem", "棒棒糖茎")
+            model {
+                val m0 by template(ModelTemplates.CROSS, "_0") {
+                    TextureSlot.CROSS provide getBlockTexture(it, "_0")
+                }
+                val m1 by template(ModelTemplates.CROSS, "_1") {
+                    TextureSlot.CROSS provide getBlockTexture(it, "_1")
+                }
+                val m2 by template(ModelTemplates.CROSS, "_2") {
+                    TextureSlot.CROSS provide getBlockTexture(it, "_2")
+                }
+                state {
+                    MultiVariantGenerator.multiVariant(it)
+                        .with(PropertyDispatch.property(CandyCropBlock.AGE).generate { age ->
+                            val stage = it.stages(age)
+                            when (stage) {
+                                0 -> Variant.variant().with(VariantProperties.MODEL, m0)
+                                1 -> Variant.variant().with(VariantProperties.MODEL, m1)
+                                else -> Variant.variant().with(VariantProperties.MODEL, m2)
+                            }
+                        })
+                }
+            }
+            loot {
+                val condMaxAge = LootItemBlockStatePropertyCondition.hasBlockStateProperties(it)
+                    .setProperties(
+                        StatePropertiesPredicate.Builder.properties()
+                            .hasProperty(CandyCropBlock.AGE, CandyCropBlock.MAX_AGE)
+                    )
+                add(
+                    it,
+                    LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(1.generator()).add(
+                            LootItem.lootTableItem(it)
+                                .`when`(HAS_SHEARS)
+                                .`when`(condMaxAge)
+                                .otherwise(
+                                    LootItem.lootTableItem(CItems.lollipop_seeds).apply(
+                                        SetItemCountFunction.setCount((2..4).generator())
+                                            .`when`(condMaxAge)
+                                    )
+                                )
+                        )
+                    )
+                )
+            }
+        }
+        .modifyBlockItem {
+            it.data {
+                modelFlat(getBlockTexture(block, "_2"))
+            }
+        }
+        .save()
+
+    val lollipop_fruit = crop.sub("lollipop_fruit", { LollipopFruitBlock(it) })
+        .data { translate("Lollipop Fruit", "棒棒糖果实") }
+        .save()
+
     //水生
     val mint = crossPlant.sub("mint", { CandyWaterPlantBlock(it) })
         .data {
@@ -122,7 +199,7 @@ object CBlocks {
         .mapColor(MapColor.GOLD)
         .save()
 
-    val sweet_grass_0 = fraise_tagada_flower.copy("sweet_grass_0")
+    val sweet_grass_0 = fraise_tagada_flower.sub("sweet_grass_0", { SweetGrassBlock(it) })
         .data {
             translate("Sweet Grass", "甜草")
             loot { dropWhenSilkTouch(it) }

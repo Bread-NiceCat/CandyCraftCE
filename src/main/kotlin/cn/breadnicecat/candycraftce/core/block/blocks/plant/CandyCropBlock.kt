@@ -23,10 +23,10 @@ import kotlin.random.Random
  * <p>
  *
  */
-class CandyCropBlock(
+open class CandyCropBlock(
     properties: Properties,
-    val stages: (Int) -> Int,
-    val shapes: (Int) -> VoxelShape,
+    val stages: (Int) -> Int,//age->stage
+    val shapes: (Int) -> VoxelShape,//stage->shape
 ) : CandyPlantBlock(properties), ISugarTarget {
     companion object {
         const val MAX_AGE: Int = 7
@@ -72,7 +72,7 @@ class CandyCropBlock(
     @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
-        return level.getBlockState(pos.below()).`is`(CBlocks.sugar_sand.block)
+        return level.getBlockState(pos.below()).`is`(CBlocks.pudding_farm.block)
                 && (level.canSeeSky(pos) || level.getRawBrightness(pos, 0) >= 8)
                 && super.canSurvive(state, level, pos)
     }

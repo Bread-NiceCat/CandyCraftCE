@@ -1,9 +1,9 @@
-// 1.20.1	2026-02-28T00:02:08.3504811	CandyCraft CE/Candy Dynamic Registry Provider
+// 1.20.1	2026-03-02T15:02:34.0584752	CandyCraft CE/Candy Dynamic Registry Provider
 fb5c75beb97ce49b07aa1580683f4f35071a5437 data\candycraftce\worldgen\configured_feature\candied_cherry_tree.json
 8bbf6adfc081e2408beb506bc6b4551219dbaa34 data\candycraftce\worldgen\configured_feature\white_chocolate_tree.json
 c916458025771d2dc1dd6b30b7b4d8713a422eab data\candycraftce\worldgen\configured_feature\caramel_tree.json
 946352251085a60434164001a1dc778828991dd2 data\candycraftce\worldgen\configured_feature\magical_tree.json
 2e631c393689bce4c8799328eefcdf9991b7155a data\candycraftce\worldgen\configured_feature\chocolate_tree.json
-de5e9857acfba6148148c5838771a4bfe9e9b213 data\candycraftce\worldgen\configured_feature\chocolate_fancy_tree.json
 479e665425c191d804ab34ec9926206342a3fde1 data\candycraftce\worldgen\configured_feature\white_chocolate_fancy_tree.json
+de5e9857acfba6148148c5838771a4bfe9e9b213 data\candycraftce\worldgen\configured_feature\chocolate_fancy_tree.json
 e351e82e928dd6095afe3ea0c93ce6abbd0c4d18 data\candycraftce\worldgen\configured_feature\caramel_fancy_tree.json

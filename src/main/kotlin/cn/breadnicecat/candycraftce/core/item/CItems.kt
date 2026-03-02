@@ -168,11 +168,25 @@ object CItems {
         }
         .food(2, 1f)
         .save()
+
     val lollipop = simple.copy("lollipop")
         .data {
             translate("Lollipop", "棒棒糖")
         }
         .food(2, 1f)
+        .save()
+
+    val lollipop_seeds = simple.sub("lollipop_seeds", { ItemNameBlockItem(CBlocks.lollipop_stem.block, it) })
+        .data {
+            translate("Lollipop Seed", "棒棒糖种子")
+        }
+        .food(1, 1f)
+        .save()
+    val dragibus = simple.sub("dragibus", { ItemNameBlockItem(CBlocks.dragibus_crops.block, it) })
+        .data {
+            translate("Dragibus", "彩虹糖")
+        }
+        .food(1, 1f)
         .save()
 
     //叶子
