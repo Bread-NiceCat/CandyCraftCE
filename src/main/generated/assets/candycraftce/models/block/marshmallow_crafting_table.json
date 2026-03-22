@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "candycraftce:block/marshmallow_crafting_table_end",
+    "side": "candycraftce:block/marshmallow_crafting_table_side"
+  }
+}

@@ -4,7 +4,6 @@ import cn.breadnicecat.candycraftce.core.block.BlockBuilder
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
 import cn.breadnicecat.candycraftce.utils.Arguments
 import cn.breadnicecat.candycraftce.utils.CUtils.clog
-import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
 import cn.breadnicecat.candycraftce.utils.mixin.MixinExtensions.accessor
 import com.google.gson.JsonElement
 import net.minecraft.data.models.BlockModelGenerators
@@ -29,7 +28,7 @@ class BlockModelScope<B : Block> internal constructor(
     private val builder: BlockBuilder<B>,
 ) {
     companion object {
-        val families by HashMap<Block, BlockModelGenerators.BlockFamilyProvider>().immediate()
+        val families = mutableMapOf<Block, BlockModelGenerators.BlockFamilyProvider>()
     }
 
     val arguments: Arguments get() = builder.arguments

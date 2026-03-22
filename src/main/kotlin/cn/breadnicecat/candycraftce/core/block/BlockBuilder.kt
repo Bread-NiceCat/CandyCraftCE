@@ -33,7 +33,6 @@ class BlockBuilder<B : Block>(
     private var blockItem: ItemEntry<out BlockItem>? = null
     private var blockItemMod: (BlockEntry<B>.(ItemBuilder<out BlockItem>) -> Unit) = {}
     private var propCopy: BlockBehaviour? = null
-    private var blockItemFunc: ((B) -> ItemFactory<BlockItem>)? = null
     fun modifyBlockItem(action: BlockEntry<B>.(ItemBuilder<out BlockItem>) -> Unit = {}): BlockBuilder<B> {
         record("modifyBlockItem", overridable = false) {
             val old = blockItemMod

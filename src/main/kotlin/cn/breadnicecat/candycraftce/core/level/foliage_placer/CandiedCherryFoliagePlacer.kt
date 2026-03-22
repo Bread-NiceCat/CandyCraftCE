@@ -1,4 +1,4 @@
-package cn.breadnicecat.candycraftce.level.foliage_placer
+package cn.breadnicecat.candycraftce.core.level.foliage_placer
 
 import cn.breadnicecat.candycraftce.core.level.CFoliagePlacers
 import com.mojang.serialization.Codec

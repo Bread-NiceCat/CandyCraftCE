@@ -14,7 +14,7 @@ object CCIconRCompat {
         CUtils.sign()
     }
 
-//        var SHAPED_DUMPER: IRecipeDumper<ShapedRecipe?> = CraftingShapedDumper()
+//    var SHAPED_DUMPER: IRecipeDumper<ShapedRecipe?> = CraftingShapedDumper()
 //    init {
 //        IconR
 //    }

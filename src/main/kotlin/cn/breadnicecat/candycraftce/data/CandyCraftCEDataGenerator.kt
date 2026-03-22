@@ -16,6 +16,7 @@ object CandyCraftCEDataGenerator : DataGeneratorEntrypoint {
         pack.addProvider(::CTagProviders)
         pack.addProvider(::CLootProvider)
         pack.addProvider(::CDynamicRegistryProvider)
+        pack.addProvider(::CRecipeProvider)
     }
 
     override fun buildRegistry(registryBuilder: RegistrySetBuilder) {

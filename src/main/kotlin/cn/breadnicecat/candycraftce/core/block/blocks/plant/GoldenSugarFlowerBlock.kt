@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.core.block.blocks.plant
 
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
-import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 

@@ -13,7 +13,7 @@ import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalPlacer
 import cn.breadnicecat.candycraftce.utils.AxisSet
 import cn.breadnicecat.candycraftce.utils.CUtils.get
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
-import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceKey

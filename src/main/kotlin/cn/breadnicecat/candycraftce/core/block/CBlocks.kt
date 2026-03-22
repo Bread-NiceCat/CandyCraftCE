@@ -16,7 +16,6 @@ import cn.breadnicecat.candycraftce.core.tag.CTags
 import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.MappingScope.Companion.mapping
-import cn.breadnicecat.candycraftce.mixin.core.AccessorAxeItem
 import cn.breadnicecat.candycraftce.utils.Arguments
 import cn.breadnicecat.candycraftce.utils.CUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.clog
@@ -24,6 +23,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils.generator
 import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
+import cn.breadnicecat.candycraftce.utils.mixin.MixinExtensions.strippables
 import net.minecraft.advancements.critereon.StatePropertiesPredicate
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes
@@ -111,9 +111,6 @@ object CBlocks {
         .mapColor(MapColor.PLANT)
         .save()
 
-    //public static final BlockEntry<CandyCropBlock> DRAGIBUS_CROPS = create("dragibus_crops", CandyCropBlock::createL4).setProperties(WHEAT, null).noBlockItem().save();
-    //	public static final BlockEntry<LollipopStemBlock> LOLLIPOP_STEM = create("lollipop_stem", LollipopStemBlock::new).setProperties(WHEAT, null).noBlockItem().save();
-    //	public static final BlockEntry<LollipopFruitBlock> LOLLIPOP_FRUIT = create("lollipop_fruit", LollipopFruitBlock::new).setProperties(WHEAT, null).noBlockItem().save();
     private val crop = crossPlant.sub("*crop", { CandyPlantBlock(it) })
         .copyProperties(WHEAT)
 
@@ -223,19 +220,16 @@ object CBlocks {
     val raspberry_block = mint_block.copy("raspberry_block")
         .data {
             translate("Raspberry Block", "水生树莓块")
-            byHoe()
         }
         .save()
     val banana_seaweeds_block = mint_block.copy("banana_seaweeds_block")
         .data {
             translate("Banana Seaweeds Block", "香蕉海草块")
-            byHoe()
         }
         .save()
     val cotton_candy_block = mint_block.copy("cotton_candy_block")
         .data {
             translate("Cotton Candy Block", "棉花糖块")
-            byHoe()
         }
         .save()
     val candied_cherry_sack = mint_block.copy("candied_cherry_sack")
@@ -244,14 +238,12 @@ object CBlocks {
             model {
                 cubeBottomTop().simpleState()
             }
-            byHoe()
         }
         .save()
 
     val chewing_gum_block = simple.copy("chewing_gum_block")
         .data {
             translate("Chewing Gum Block", "口香糖块")
-            byHoe()
         }
         .copyProperties(SLIME_BLOCK)
         .modifyProperties {
@@ -387,12 +379,12 @@ object CBlocks {
         .save()
 
     init {
-        AccessorAxeItem.setSTRIPPABLES(HashMap(AccessorAxeItem.getSTRIPPABLES()).apply {
+        strippables = HashMap(strippables).apply {
             clog.info("Inject Axe Strippable")
             put(marshmallow_log.block, stripped_marshmallow_log.block)
             put(dark_marshmallow_log.block, stripped_dark_marshmallow_log.block)
             put(light_marshmallow_log.block, stripped_light_marshmallow_log.block)
-        })
+        }
     }
 
     // 木板
@@ -825,6 +817,63 @@ object CBlocks {
         .modifyProperties { it.strength(1.5f) }
         .mapColor(MapColor.TERRACOTTA_WHITE)
         .save()
+
+
+    //机器
+
+    val marshmallow_crafting_table = simple.sub("marshmallow_crafting_table", { MarshmallowCraftingTableBlock(it) })
+        .data {
+            translate("Marshmallow Crafting Table", "棉花软糖木工作台")
+            model { cubeColumn().simpleState() }
+            byAxe()
+        }
+        .copyProperties(CRAFTING_TABLE)
+        .save()
+
+    val licorice_furnace = simple.sub("licorice_furnace", { LicoriceFurnaceBlock(it) })
+        .data {
+            translate("Licorice Furnace", "盐甘草糖熔炉")
+            model {
+                val top = getBlockTexture(licorice_block.block)
+                val size = getBlockTexture(licorice_bricks.block)
+                val off by template(ModelTemplates.CUBE_ORIENTABLE) {
+                    TextureSlot.TOP provide top
+                    TextureSlot.FRONT provide getBlockTexture(it, "_front")
+                    TextureSlot.SIDE provide size
+                }
+                val on by template(ModelTemplates.CUBE_ORIENTABLE, "_on") {
+                    TextureSlot.TOP provide top
+                    TextureSlot.FRONT provide getBlockTexture(it, "_front_on")
+                    TextureSlot.SIDE provide size
+                }
+                state {
+                    MultiVariantGenerator.multiVariant(it)
+                        .with(
+                            BlockModelGenerators.createBooleanModelDispatch(
+                                LicoriceFurnaceBlock.LIT,
+                                on,
+                                off
+                            )
+                        )
+                }
+            }
+            byPickaxe()
+        }
+        .save()
+
+    val chocolate_furnace = licorice_furnace.sub("chocolate_furnace", { LicoriceFurnaceBlock(it) })
+        .data {
+            translate("Chocolate Furnace", "巧克力熔炉")
+        }
+    //	public static final BlockEntry<LicoriceFurnaceBlock> LICORICE_FURNACE = create("licorice_furnace", LicoriceFurnaceBlock::new).setProperties(Blocks.FURNACE, null).save();
+    //	public static final BlockEntry<ChocolateFurnaceBlock> CHOCOLATE_FURNACE = create("chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(LICORICE_FURNACE, null).save();
+    //	public static final BlockEntry<ChocolateFurnaceBlock> WHITE_CHOCOLATE_FURNACE = create("white_chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(CHOCOLATE_FURNACE, null).save();
+    //	//	public static final BlockEntry<ChocolateFurnaceBlock> BLACK_CHOCOLATE_FURNACE = create("black_chocolate_furnace", ChocolateFurnaceBlock::new).setProperties(CHOCOLATE_FURNACE, null).save();
+    //	public static final BlockEntry<SugarFactoryBlock> SUGAR_FACTORY = create("sugar_factory", SugarFactoryBlock::new).setProperties(CANDY_CANE_BLOCK, null).save();
+    //	public static final BlockEntry<AdvancedSugarFactoryBlock> ADVANCED_SUGAR_FACTORY = create("advanced_sugar_factory", AdvancedSugarFactoryBlock::new).setProperties(SUGAR_FACTORY, null).save();
+    //	//TODO AlchemyMixer functions
+    //	public static final BlockEntry<AlchemyMixerBlock> ALCHEMY_MIXER = create("alchemy_mixer", AlchemyMixerBlock::new).setProperties(ANVIL, Properties::noOcclusion).save();
+    //
 
     private val fence = no_itemModel.sub("*fence", { FenceBlock(it) })
         .data {

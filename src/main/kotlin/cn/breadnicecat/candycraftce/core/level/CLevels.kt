@@ -12,12 +12,9 @@ import net.minecraft.core.registries.Registries
  *
  */
 
-@Suppress("UnusedExpression")
 object CLevels {
     init {
         CUtils.sign()
-        CFoliagePlacers
-        CFeatures
     }
 
     const val LAND_HEIGHT: Int = 384
@@ -34,5 +31,4 @@ object CLevels {
 
     val dungeons = dungeons_location.toKey(Registries.DIMENSION)
     val candyland = candyland_location.toKey(Registries.DIMENSION)
-
 }

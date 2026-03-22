@@ -1,16 +1,19 @@
 package cn.breadnicecat.candycraftce.utils
 
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
-import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.tick
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.tick
+import cn.breadnicecat.candycraftce.utils.codec.JsonCodecImpl
 import net.fabricmc.api.EnvType
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.multiplayer.ClientLevel
+import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Direction.Axis
 import net.minecraft.core.Direction.AxisDirection
 import net.minecraft.core.Registry
 import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -19,8 +22,11 @@ import net.minecraft.util.valueproviders.ConstantInt
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
 import org.slf4j.Logger
@@ -39,19 +45,6 @@ object CUtils {
             Color(Integer.decode(this))
         }
 
-    /**
-     * @param amplifier 药水等级
-     * @param ambient 是否显示粒子
-     * */
-    fun MobEffect.instance(
-        duration: TimeUnit = 0.tick,
-        amplifier: Int = 0,
-        ambient: Boolean = false,
-        visible: Boolean = true,
-        showIcon: Boolean = visible,
-    ): MobEffectInstance {
-        return MobEffectInstance(this, duration.tick, amplifier, ambient, visible, showIcon)
-    }
 
     val walker: StackWalker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
 
@@ -69,10 +62,18 @@ object CUtils {
     }
 
     private val signed = mutableSetOf<Class<*>>()
+    private var late = false
     fun sign() {
         val clazz = walker.callerClass
         require(signed.add(clazz)) { "Class ${clazz.simpleName} is already registered" }
         mainLog.info("${clazz.simpleName} loaded")
+        if (late) {
+            mainLog.error("This class is late for sign! It is a bug, please report it!")
+        }
+    }
+
+    internal fun markLateForSign() {
+        late = true
     }
 
     fun logRegister(type: String, id: ResourceLocation) {
@@ -119,12 +120,43 @@ object CUtils {
     }
 
     fun String.modLoc(modId: String = MOD_ID) = ResourceLocation(MOD_ID, this)
+
+    /**
+     * @return namespace:textures/gui/(path).png
+     */
+    fun ResourceLocation.guiTex(): ResourceLocation = withPath { "textures/gui/$it.png" }
+
+    /**
+     * @return namespace:textures/entity/(path).png
+     */
+    fun ResourceLocation.entityTex(): ResourceLocation = withPath { "textures/entity/$it.png" }
+    fun ResourceLocation.model(location: String) = ModelResourceLocation(namespace, location, path)
+
     fun String.mcLoc() = ResourceLocation(this)
     fun <V> ResourceLocation.get(register: Registry<V>): V? = register.get(this)
 
     fun <V : Any> Registry<V>.createKey(id: ResourceLocation) = ResourceKey.create(this.key(), id)!!
     fun <V : Any> Registry<in V>.register(id: ResourceLocation, value: V): V = Registry.register(this, id, value)
     fun <R : Any, V : R> Registry<R>.register(id: ResourceKey<R>, value: V): V = Registry.register(this, id, value)
+
+    val ingredientCodec = JsonCodecImpl(Ingredient::toJson, Ingredient::fromJson)
+
+    val Item.key get() = BuiltInRegistries.ITEM.getKey(this)
+    val Block.key get() = BuiltInRegistries.BLOCK.getKey(this)
+
+    /**
+     * @param amplifier 药水等级
+     * @param ambient 是否显示粒子
+     * */
+    fun MobEffect.instance(
+        duration: MCTimeUnit = 0.tick,
+        amplifier: Int = 0,
+        ambient: Boolean = false,
+        visible: Boolean = true,
+        showIcon: Boolean = visible,
+    ): MobEffectInstance {
+        return MobEffectInstance(this, duration.toTick, amplifier, ambient, visible, showIcon)
+    }
 
     fun BlockPos.MutableBlockPos.set(axis: Axis, value: Int) {
         when (axis) {
@@ -259,7 +291,7 @@ object CUtils {
         }
     }
 
-
+    //顺反异构
     inline fun <T, R> cistrans(
         model: Pair<T, T>,
         actual: Pair<T, T>,
@@ -278,4 +310,5 @@ object CUtils {
             default()
         }
     }
+
 }

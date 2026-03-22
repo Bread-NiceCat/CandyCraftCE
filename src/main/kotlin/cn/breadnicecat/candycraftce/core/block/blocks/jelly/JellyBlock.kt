@@ -19,6 +19,7 @@ open class JellyBlock(properties: Properties) : Block(properties) {
         val shape: VoxelShape = Shapes.create(0.0, 0.0, 0.0, 1.0, 0.995, 1.0)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getShape(
         state: BlockState,
         level: BlockGetter,

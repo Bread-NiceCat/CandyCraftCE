@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.core.block.blocks.plant
 
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
-import cn.breadnicecat.candycraftce.utils.TimeUnit
-import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
 import net.minecraft.core.BlockPos
 import net.minecraft.world.effect.MobEffects.CONFUSION
 import net.minecraft.world.effect.MobEffects.POISON
@@ -22,7 +22,7 @@ open class AcidMintFlower(properties: Properties) : CandyPlantBlock(properties) 
 
     @Deprecated("Deprecated in Java")
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
-        if (entity is LivingEntity && level.random.nextFloat() < probability / TimeUnit.tps) {
+        if (entity is LivingEntity && level.random.nextFloat() < probability / MCTimeUnit.tps) {
             applyEffects(entity)
         }
     }

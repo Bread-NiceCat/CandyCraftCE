@@ -1,8 +1,8 @@
 package cn.breadnicecat.candycraftce.data.extension.level
 
 import cn.breadnicecat.candycraftce.core.block.CBlocks
+import cn.breadnicecat.candycraftce.core.level.foliage_placer.CandiedCherryFoliagePlacer
 import cn.breadnicecat.candycraftce.core.level.foliage_placer.FancyCaramelFoliagePlacer
-import cn.breadnicecat.candycraftce.level.foliage_placer.CandiedCherryFoliagePlacer
 import net.minecraft.data.worldgen.BootstapContext
 import net.minecraft.data.worldgen.features.FeatureUtils
 import net.minecraft.resources.ResourceKey

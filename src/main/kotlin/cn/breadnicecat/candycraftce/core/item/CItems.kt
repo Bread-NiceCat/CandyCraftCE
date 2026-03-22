@@ -11,7 +11,7 @@ import cn.breadnicecat.candycraftce.core.tag.CTags.CItemTags
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.utils.CUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
-import cn.breadnicecat.candycraftce.utils.TimeUnit.Companion.second
+import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
 import net.minecraft.core.Direction
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.effect.MobEffects.CONFUSION
@@ -84,6 +84,7 @@ object CItems {
         }
         .food(4, 2f)
         .save()
+
 
     val chocolate_brick = simple.copy("chocolate_brick")
         .data {

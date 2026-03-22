@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "candycraftce:block/licorice_furnace"
+    },
+    "lit=true": {
+      "model": "candycraftce:block/licorice_furnace_on"
+    }
+  }
+}
