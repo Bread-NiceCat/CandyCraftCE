@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.data.providers
 
 import cn.breadnicecat.candycraftce.core.tag.TagKeys
-import cn.breadnicecat.candycraftce.data.DataUtils.checkDataRunning
+import cn.breadnicecat.candycraftce.data.CDataUtils.checkDataRunning
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.BlockTagProvider
@@ -37,7 +37,7 @@ class CTagProviders(val output: FabricDataOutput, val lookup: CompletableFuture<
         }
 
         fun putCopies(tag: TagKeys) {
-            copies[tag.first] = tag.second
+            copies[tag.item] = tag.block
         }
     }
 

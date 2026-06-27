@@ -1,8 +1,7 @@
 package cn.breadnicecat.candycraftce.utils
 
-import cn.breadnicecat.candycraftce.utils.CUtils.clog
-import cn.breadnicecat.candycraftce.utils.CUtils.debugLog
-import cn.breadnicecat.candycraftce.utils.CUtils.ifDev
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
+import cn.breadnicecat.candycraftce.utils.CLogUtils.debugLog
 
 typealias Operation<Receiver> = Receiver.() -> Unit
 
@@ -50,7 +49,7 @@ abstract class OperationRecordable<Receiver> {
                 key = vkey
             }
         }
-        CUtils.walker.walk { frame ->
+        CLogUtils.walker.walk { frame ->
             stacks[key] = frame.map(Any::toString).toList()
         }
         ops[key] = queue to op

@@ -3,6 +3,7 @@ package cn.breadnicecat.candycraftce.data
 import cn.breadnicecat.candycraftce.core.tag.TagKeys
 import cn.breadnicecat.candycraftce.data.providers.CLanguageProviders
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
+import cn.breadnicecat.candycraftce.utils.CUtils.trying
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper
 import net.minecraft.network.chat.Component
@@ -11,10 +12,15 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.CreativeModeTab
 
-object DataUtils {
+object CDataUtils {
+    //信雅互联没有data相关方法
     @Suppress("UnstableApiUsage")
-    val isRunning get() = FabricDataGenHelper.ENABLED
+    val isRunning get() = trying { FabricDataGenHelper.ENABLED } ?: false
 
+    /**
+     * A function used to check weather data generation is running.
+     * @throws IllegalStateException if data generation is not running
+     * */
     fun checkDataRunning() {
         if (!isRunning) error("Any generation is not running")
     }
@@ -34,6 +40,7 @@ object DataUtils {
 
 
     //Translate
+    //Duplicate part of other translate functions
     internal inline fun <I> abstractTranslate(
         crossinline func: TranslationBuilder.(I, String) -> Unit,
         key: I,

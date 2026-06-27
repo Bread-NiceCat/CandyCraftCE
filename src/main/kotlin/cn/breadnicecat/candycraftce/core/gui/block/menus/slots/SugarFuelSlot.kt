@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.gui.block.menus.slots
 
-import cn.breadnicecat.candycraftce.core.misc.CSugarFuels
+import cn.breadnicecat.candycraftce.core.fuels.CSugarFuels
 import net.minecraft.world.Container
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack

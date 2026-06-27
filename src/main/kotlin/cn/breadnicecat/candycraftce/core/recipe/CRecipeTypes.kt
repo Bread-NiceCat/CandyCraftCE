@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.core.recipe
 
 import cn.breadnicecat.candycraftce.core.recipe.recipes.SugarFurnaceRecipe
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.register
 import net.minecraft.core.registries.BuiltInRegistries
@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.RecipeType
 
 object CRecipeTypes {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     val sugar_furnace_type = CRecipeTypes.register(

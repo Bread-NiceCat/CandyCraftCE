@@ -3,8 +3,8 @@
   "package": "cn.breadnicecat.candycraftce.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "core.AccessorAxeItem", "core.MixinBuiltInRegistries", "core.MixinFarmBlock", "core.MixinItem",
-    "data.AccessorBlockFamilyProvider", "portal.MixinBukkitItem", "portal.MixinEntity"
+    "core.MixinFarmBlock", "core.MixinItem",
+    "data.AccessorBlockFamilyProvider", "portal.MixinBukkitItem"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -17,13 +17,13 @@ import cn.breadnicecat.candycraftce.data.extension.BlockBuilderDataScope.Compani
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.extension.MappingScope.Companion.mapping
 import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.CUtils
-import cn.breadnicecat.candycraftce.utils.CUtils.clog
+import cn.breadnicecat.candycraftce.utils.CLogUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
 import cn.breadnicecat.candycraftce.utils.CUtils.generator
+import cn.breadnicecat.candycraftce.utils.CUtils.immediate
 import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
-import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
-import cn.breadnicecat.candycraftce.utils.mixin.MixinExtensions.strippables
+import cn.breadnicecat.candycraftce.utils.MixinExtensions.strippables
 import net.minecraft.advancements.critereon.StatePropertiesPredicate
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes
@@ -56,7 +56,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 
 object CBlocks {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     private val mixed_bricks_raw by mutableListOf<BlockBuilder.BlockEntry<*>>().immediate()

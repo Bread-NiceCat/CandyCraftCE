@@ -22,7 +22,7 @@ enum class CTiers(
 
     MARSHMALLOW(
         Tiers.WOOD,
-        repair = { Ingredient.of(CTags.marshmallow_planks.first) }),
+        repair = { Ingredient.of(CTags.marshmallow_planks.item) }),
     LICORICE(
         Tiers.STONE,
         repair = { Ingredient.of(CItems.licorice) }),

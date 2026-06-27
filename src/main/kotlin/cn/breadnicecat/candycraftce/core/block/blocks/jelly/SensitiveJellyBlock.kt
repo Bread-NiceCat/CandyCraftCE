@@ -41,7 +41,7 @@ class SensitiveJellyBlock(properties: Properties) : JellyBlock(properties) {
         var detectPos: BlockPos = pos
         val above = pos.above()
         val aboveState = level.getBlockState(above)
-        if (aboveState.`is`(CTags.jelly.second) && !aboveState.`is`(this)) {
+        if (aboveState.`is`(CTags.jelly.block) && !aboveState.`is`(this)) {
             detectPos = above
         }
         val powered = !level.getEntitiesOfClass(

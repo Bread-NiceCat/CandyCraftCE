@@ -11,12 +11,15 @@ import cn.breadnicecat.candycraftce.multiblock.caramel_portal.CaramelPortalSearc
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalConfig
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalPlacer
 import cn.breadnicecat.candycraftce.utils.AxisSet
+import cn.breadnicecat.candycraftce.utils.CUtils.cistrans
 import cn.breadnicecat.candycraftce.utils.CUtils.get
 import cn.breadnicecat.candycraftce.utils.CUtils.instance
 import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
+import net.fabricmc.fabric.impl.dimension.Teleportable
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceKey
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.util.RandomSource
@@ -32,6 +35,9 @@ import net.minecraft.world.level.block.Blocks.LAVA
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.levelgen.Heightmap
+import net.minecraft.world.level.portal.PortalInfo
+import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
@@ -93,24 +99,47 @@ class CaramelPortalBlock(properties: Properties) : Block(properties) {
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos)
     }
 
+    @Suppress("UnstableApiUsage")
     @Deprecated("Deprecated in Java")
-    override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
-        if (level.isClientSide()) return
-        if (entity.isAlive && !entity.isPassenger && !entity.isVehicle && entity.canChangeDimensions()) {
-            //传送
-            getDestination(level, entity)?.also { destination ->
-                level.server?.also { server ->
-                    server.getLevel(destination)?.also { cl ->
-                        if (entity is LivingEntity) {
-                            //cn.breadnicecat.candycraftce.mixin.cn.breadnicecat.candycraftce.mixin.portal.MixinEntity#findDimensionEntryPoint
-                            if (entity.changeDimension(cl) is LivingEntity) {
-                                MobEffects.DAMAGE_RESISTANCE.instance(
-                                    16.second, 10,
-                                    ambient = false,
-                                    visible = false,
-                                    showIcon = true
+    override fun entityInside(state: BlockState, currentLevel: Level, pos: BlockPos, entity: Entity) {
+        if (currentLevel is ServerLevel) {
+            if (entity is LivingEntity && entity.isAlive && !entity.isPassenger && !entity.isVehicle && entity.canChangeDimensions()) {
+                //传送
+                getDestination(currentLevel, entity)?.also { destination ->
+                    val server = currentLevel.server
+                    server.getLevel(destination)?.also { destLevel ->
+                        //只支持 糖果<=>主世界
+                        val info = cistrans(
+                            (Level.OVERWORLD to CLevels.candyland),
+                            (currentLevel to destination),
+                            {
+                                PortalInfo(
+                                    entity.position().with(Direction.Axis.Y, (CLevels.LAND_MAX_Y + 16).toDouble()),
+                                    Vec3.ZERO,
+                                    entity.xRot,
+                                    entity.yRot
                                 )
-                            }
+                            },
+                            {
+                                //回到主世界
+                                val pos1: BlockPos = destLevel.getHeightmapPos(
+                                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                                    destLevel.getSharedSpawnPos()
+                                )
+                                PortalInfo(pos1.center, entity.deltaMovement, entity.xRot, entity.yRot)
+                            },
+                            { null }
+                        )
+                        (entity as Teleportable).fabric_setCustomTeleportTarget(info)
+                        
+                        val newEntity = entity.changeDimension(destLevel)
+                        if (newEntity is LivingEntity) {
+                            MobEffects.DAMAGE_RESISTANCE.instance(
+                                16.second, 10,
+                                ambient = false,
+                                visible = false,
+                                showIcon = true
+                            )
                         }
                     }
                 }

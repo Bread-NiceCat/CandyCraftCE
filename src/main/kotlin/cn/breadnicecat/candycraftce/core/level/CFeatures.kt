@@ -2,7 +2,7 @@ package cn.breadnicecat.candycraftce.core.level
 
 import cn.breadnicecat.candycraftce.core.block.CBlocks
 import cn.breadnicecat.candycraftce.data.extension.level.ConfiguredFeatureDataScope.Companion.data
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.feature.Feature
  */
 object CFeatures {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     val chocolate_tree = configured("chocolate_tree")

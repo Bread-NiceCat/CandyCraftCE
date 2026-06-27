@@ -2,10 +2,10 @@ package cn.breadnicecat.candycraftce.core.particle
 
 import cn.breadnicecat.candycraftce.core.particle.particles.CaramelPortalType
 import cn.breadnicecat.candycraftce.core.particle.particles.CaramelProvider
-import cn.breadnicecat.candycraftce.utils.CUtils
-import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.register
+import cn.breadnicecat.candycraftce.utils.ifClient
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.core.registries.BuiltInRegistries
@@ -20,7 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries
  */
 object CParticles {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     var caramel_portal_particle_type = register("caramel_portal_particle", CaramelPortalType())

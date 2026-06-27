@@ -2,10 +2,10 @@ package cn.breadnicecat.candycraftce.core.item.items.debugger
 
 import cn.breadnicecat.candycraftce.core.item.items.debugger.DebugFunc.Companion.DEBUG_TRANS_PREFIX
 import cn.breadnicecat.candycraftce.core.item.items.debugger.DebugFunc.Data
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.CUtils.debugLog
-import cn.breadnicecat.candycraftce.utils.CUtils.ifDev
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
+import cn.breadnicecat.candycraftce.utils.CLogUtils.debugLog
 import cn.breadnicecat.candycraftce.utils.CUtils.use
+import cn.breadnicecat.candycraftce.utils.ifDev
 import net.minecraft.ChatFormatting.GREEN
 import net.minecraft.ChatFormatting.YELLOW
 import net.minecraft.core.BlockPos

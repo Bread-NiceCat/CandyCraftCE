@@ -1,9 +1,9 @@
 package cn.breadnicecat.candycraftce.core.item.items.debugger
 
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalConfig
 import cn.breadnicecat.candycraftce.utils.CUtils
-import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.ifClient
 import com.mojang.serialization.JsonOps
 import net.minecraft.ChatFormatting
 import net.minecraft.core.BlockPos

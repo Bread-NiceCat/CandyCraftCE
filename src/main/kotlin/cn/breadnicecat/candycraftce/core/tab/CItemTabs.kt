@@ -3,8 +3,8 @@ package cn.breadnicecat.candycraftce.core.tab
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.core.item.CItems
 import cn.breadnicecat.candycraftce.core.item.ItemBuilder
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.createKey
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.register
@@ -23,7 +23,7 @@ import java.util.function.Supplier
 
 object CItemTabs {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     private val modTabContents = HashMap<ResourceKey<CreativeModeTab>, LinkedList<ItemStack>>()

@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.data.providers.loot
 
 import cn.breadnicecat.candycraftce.CandyCraftCE
-import cn.breadnicecat.candycraftce.utils.CUtils.clog
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
 import cn.breadnicecat.candycraftce.utils.CUtils.generator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider

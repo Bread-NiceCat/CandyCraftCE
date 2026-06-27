@@ -2,8 +2,8 @@ package cn.breadnicecat.candycraftce.data.extension
 
 import cn.breadnicecat.candycraftce.core.item.ItemBuilder
 import cn.breadnicecat.candycraftce.core.item.ItemBuilder.ItemEntry
-import cn.breadnicecat.candycraftce.data.DataUtils.abstractTranslate
-import cn.breadnicecat.candycraftce.data.DataUtils.ifDatagen
+import cn.breadnicecat.candycraftce.data.CDataUtils.abstractTranslate
+import cn.breadnicecat.candycraftce.data.CDataUtils.ifDatagen
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
 import com.mojang.datafixers.util.Either

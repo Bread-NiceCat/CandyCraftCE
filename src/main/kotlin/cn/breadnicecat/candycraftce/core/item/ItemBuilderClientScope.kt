@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.item
 
-import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.ifClient
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.client.color.item.ItemColor
 import net.minecraft.world.item.Item

@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.block
 
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.register
 import com.mojang.datafixers.types.Type
@@ -40,7 +40,7 @@ class CBlockEntityBuilder<B : BlockEntity> private constructor(
 
     fun save(): BlockEntityType<B> {
         val id = name.modLoc()
-        CUtils.logRegister("BlockEntity", id)
+        CLogUtils.logRegister("BlockEntity", id)
         return BuiltInRegistries.BLOCK_ENTITY_TYPE.register(
             id,
             BlockEntityType.Builder.of(factory, *valid).build(dsl)

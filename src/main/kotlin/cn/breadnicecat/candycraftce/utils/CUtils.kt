@@ -1,10 +1,10 @@
 package cn.breadnicecat.candycraftce.utils
 
+import cn.breadnicecat.candycraftce.CandyCraftCE
 import cn.breadnicecat.candycraftce.CandyCraftCE.MOD_ID
 import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.tick
-import cn.breadnicecat.candycraftce.utils.codec.JsonCodecImpl
-import net.fabricmc.api.EnvType
-import net.fabricmc.loader.api.FabricLoader
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.core.BlockPos
@@ -17,7 +17,6 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.valueproviders.ConstantInt
 import net.minecraft.util.valueproviders.UniformInt
 import net.minecraft.world.effect.MobEffect
@@ -29,8 +28,6 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.stream.Stream
 import kotlin.math.max
@@ -45,71 +42,7 @@ object CUtils {
             Color(Integer.decode(this))
         }
 
-
-    val walker: StackWalker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
-
-    private val logCache = mutableMapOf<String, Logger>()
-    val mainLog = modLogger("Core")
-    val registerLog = modLogger("Registry")
-    val debugLog = modLogger("Debug")
-    val clog: Logger
-        get() = modLogger(walker.callerClass.let {
-            if (it.kotlin.isCompanion) it.enclosingClass else it
-        }.simpleName)
-
-    fun modLogger(tag: String): Logger {
-        return logCache.computeIfAbsent(tag) { LoggerFactory.getLogger("CandyCraftCE|${it}") }
-    }
-
-    private val signed = mutableSetOf<Class<*>>()
-    private var late = false
-    fun sign() {
-        val clazz = walker.callerClass
-        require(signed.add(clazz)) { "Class ${clazz.simpleName} is already registered" }
-        mainLog.info("${clazz.simpleName} loaded")
-        if (late) {
-            mainLog.error("This class is late for sign! It is a bug, please report it!")
-        }
-    }
-
-    internal fun markLateForSign() {
-        late = true
-    }
-
-    fun logRegister(type: String, id: ResourceLocation) {
-        registerLog.info("Registering $type/$id")
-    }
-
-    fun isLoaded(modId: String): Boolean = FabricLoader.getInstance().isModLoaded(modId)
-    inline fun ifLoaded(modId: String, block: () -> Unit) {
-        if (isLoaded(modId)) block()
-    }
-
-    inline fun <R> ifDev(block: () -> R): R? {
-        return if (FabricLoader.getInstance().isDevelopmentEnvironment) block() else null
-    }
-
-    inline fun <R> ifClient(block: () -> R): R? {
-        return if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) block() else null
-    }
-
-    inline fun <R> ifServer(block: () -> R): R? {
-        return if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) block() else null
-    }
-
-    inline fun Level.ifClient(block: (ClientLevel) -> Unit): Level {
-        if (this is ClientLevel) {
-            block(this)
-        }
-        return this
-    }
-
-    inline fun Level.ifServer(block: (ServerLevel) -> Unit): Level {
-        if (this is ServerLevel) {
-            block(this)
-        }
-        return this
-    }
+    fun <E : Any> E.immediate() = CandyCraftCE.immediateScope.createImmediate(this)
 
     fun Int.provider(): ConstantInt = ConstantInt.of(this)
     fun Int.generator(): ConstantValue = ConstantValue.exactly(this.toFloat())
@@ -119,7 +52,7 @@ object CUtils {
         return ResourceKey.create(registry, this)
     }
 
-    fun String.modLoc(modId: String = MOD_ID) = ResourceLocation(MOD_ID, this)
+    fun String.modLoc(modId: String = MOD_ID) = ResourceLocation(modId, this)
 
     /**
      * @return namespace:textures/gui/(path).png
@@ -139,7 +72,7 @@ object CUtils {
     fun <V : Any> Registry<in V>.register(id: ResourceLocation, value: V): V = Registry.register(this, id, value)
     fun <R : Any, V : R> Registry<R>.register(id: ResourceKey<R>, value: V): V = Registry.register(this, id, value)
 
-    val ingredientCodec = JsonCodecImpl(Ingredient::toJson, Ingredient::fromJson)
+    val ingredientCodec = JsonCodec(Ingredient::toJson, Ingredient::fromJson)
 
     val Item.key get() = BuiltInRegistries.ITEM.getKey(this)
     val Block.key get() = BuiltInRegistries.BLOCK.getKey(this)
@@ -311,4 +244,23 @@ object CUtils {
         }
     }
 
+    inline fun JsonObject.forEach(action: (String, JsonElement) -> Unit) {
+        for ((key, value) in entrySet()) {
+            action(key, value)
+        }
+    }
+
+    fun JsonObject.merge(other: JsonObject) {
+        other.forEach { key, value ->
+            add(key, value)
+        }
+    }
+
+    inline fun <R> trying(supplier: () -> R): R? {
+        return try {
+            supplier()
+        } catch (e: Throwable) {
+            null
+        }
+    }
 }

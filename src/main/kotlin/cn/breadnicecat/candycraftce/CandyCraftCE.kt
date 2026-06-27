@@ -13,17 +13,22 @@ import cn.breadnicecat.candycraftce.core.rule.CGameRules
 import cn.breadnicecat.candycraftce.core.tab.CItemTabs
 import cn.breadnicecat.candycraftce.integration.iconr.CCIconRCompat
 import cn.breadnicecat.candycraftce.integration.jei.CJeiPlugin
-import cn.breadnicecat.candycraftce.utils.CUtils
-import cn.breadnicecat.candycraftce.utils.CUtils.debugLog
-import cn.breadnicecat.candycraftce.utils.CUtils.ifDev
-import cn.breadnicecat.candycraftce.utils.CUtils.ifLoaded
-import cn.breadnicecat.candycraftce.utils.CUtils.mainLog
-import cn.breadnicecat.candycraftce.utils.Immediate
+import cn.breadnicecat.candycraftce.utils.CLogUtils.debugLog
+import cn.breadnicecat.candycraftce.utils.CLogUtils.mainLog
+import cn.breadnicecat.candycraftce.utils.CLogUtils.markLateForSign
+import cn.breadnicecat.candycraftce.utils.ImmediateScope
+import cn.breadnicecat.candycraftce.utils.ifClient
+import cn.breadnicecat.candycraftce.utils.ifDev
+import cn.breadnicecat.candycraftce.utils.ifLoaded
+import cn.breadnicecat.candycraftce.utils.ifServer
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import kotlin.time.measureTime
 
 object CandyCraftCE : ModInitializer {
     const val MOD_ID = "candycraftce"
+    val immediateScope = ImmediateScope()
 
     @Suppress("UnusedExpression")
     override fun onInitialize() {
@@ -43,21 +48,27 @@ object CandyCraftCE : ModInitializer {
             ifLoaded("iconr") { CCIconRCompat }
             ifLoaded("jei") { CJeiPlugin }
         }.also {
-            CUtils.markLateForSign()
+            markLateForSign()
             mainLog.info("CandyCraftCE loaded in $it")
         }
     }
 
-    //from mixin
-    //after Registry Frozen
-    @JvmStatic
-    fun onPostInitialize() {
+    init {
+        ifClient {
+            ClientLifecycleEvents.CLIENT_STARTED.register { onPostInitialize }
+        }
+        ifServer {
+            ServerLifecycleEvents.SERVER_STARTED.register { onPostInitialize }
+        }
+    }
+
+    private val onPostInitialize = lazy {
         measureTime {
             val mem = ifDev {
                 System.gc()
                 Runtime.getRuntime().freeMemory()
             }
-            Immediate.invalidateAll()
+            immediateScope.invalidateScope()
             ifDev {
                 System.gc()
                 debugLog.info("`Immediate` freed ${Runtime.getRuntime().freeMemory() - mem!!} bytes")

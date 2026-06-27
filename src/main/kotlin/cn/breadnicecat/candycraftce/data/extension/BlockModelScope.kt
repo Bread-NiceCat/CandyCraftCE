@@ -3,8 +3,8 @@ package cn.breadnicecat.candycraftce.data.extension
 import cn.breadnicecat.candycraftce.core.block.BlockBuilder
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
 import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.CUtils.clog
-import cn.breadnicecat.candycraftce.utils.mixin.MixinExtensions.accessor
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
+import cn.breadnicecat.candycraftce.utils.MixinExtensions.accessor
 import com.google.gson.JsonElement
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.TintState
@@ -118,7 +118,7 @@ class BlockModelScope<B : Block> internal constructor(
         familyAction: BlockModelGenerators.BlockFamilyProvider.(B) -> Unit,
     ) {
         action { block ->
-            val provider = families!!.computeIfAbsent(fullParent) {
+            val provider = families.computeIfAbsent(fullParent) {
                 val map = if (mapping == null) {
                     clog.warn("Missing family of `$fullParent` and mapping is null, default cube mapping will be used")
                     TextureMapping.cube(it)

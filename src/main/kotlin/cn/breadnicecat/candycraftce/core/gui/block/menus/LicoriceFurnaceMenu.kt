@@ -20,7 +20,10 @@ class LicoriceFurnaceMenu(
     val containerData: ContainerData,
 ) : AbstractContainerMenu(type, containerId) {
 
-    constructor(i: Int, inventory: Inventory) : this(i, inventory, SimpleContainer(3), SimpleContainerData(4))
+    constructor(
+        i: Int,
+        inventory: Inventory,
+    ) : this(i, inventory, SimpleContainer(3), SimpleContainerData(4))
 
     constructor(
         containerId: Int,
@@ -40,7 +43,6 @@ class LicoriceFurnaceMenu(
     init {
         checkContainerSize(container, 3)
         checkContainerDataCount(containerData, 4)
-
         //player inv
         for (i in 0..2) {
             for (k in 0..8) {

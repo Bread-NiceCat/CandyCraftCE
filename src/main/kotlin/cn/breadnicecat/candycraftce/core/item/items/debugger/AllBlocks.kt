@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.item.items.debugger
 
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag

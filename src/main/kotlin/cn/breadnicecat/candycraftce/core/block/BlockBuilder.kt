@@ -4,10 +4,14 @@ import cn.breadnicecat.candycraftce.core.item.ItemBuilder
 import cn.breadnicecat.candycraftce.core.item.ItemBuilder.ItemEntry
 import cn.breadnicecat.candycraftce.core.item.ItemFactory
 import cn.breadnicecat.candycraftce.core.item.PropertiesFactory
-import cn.breadnicecat.candycraftce.utils.*
+import cn.breadnicecat.candycraftce.utils.Arguments
+import cn.breadnicecat.candycraftce.utils.CLogUtils.logRegister
+import cn.breadnicecat.candycraftce.utils.CUtils.immediate
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.register
-import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
+import cn.breadnicecat.candycraftce.utils.ImmediateScope.Immediate
+import cn.breadnicecat.candycraftce.utils.OperationRecordable
+import cn.breadnicecat.candycraftce.utils.QueueType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
@@ -125,7 +129,7 @@ class BlockBuilder<B : Block>(
 
     fun save(): BlockEntry<B> {
         val location = id.modLoc()
-        CUtils.logRegister("Block", location)
+        logRegister("Block", location)
         executeRecords()
         val properties = propCopy?.let { Properties.copy(it) } ?: Properties.of()
         properties.apply(propBuilder)

@@ -3,7 +3,7 @@ package cn.breadnicecat.candycraftce.core.block
 import cn.breadnicecat.candycraftce.core.block.CBlockEntityBuilder.Companion.create
 import cn.breadnicecat.candycraftce.core.block.CBlocks.licorice_furnace
 import cn.breadnicecat.candycraftce.core.block.blockentities.LicoriceFurnaceBE
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 
 /**
  * Created in 2024/1/30 23:08
@@ -15,7 +15,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils
  */
 object CBlockEntities {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     val licorice_furnace_be = create(licorice_furnace.id.path, ::LicoriceFurnaceBE)

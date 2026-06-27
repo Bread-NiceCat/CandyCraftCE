@@ -1,11 +1,11 @@
 package cn.breadnicecat.candycraftce.core.item.items.debugger
 
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
 import cn.breadnicecat.candycraftce.utils.CUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.component1
 import cn.breadnicecat.candycraftce.utils.CUtils.component2
 import cn.breadnicecat.candycraftce.utils.CUtils.component3
-import cn.breadnicecat.candycraftce.utils.CUtils.ifClient
+import cn.breadnicecat.candycraftce.utils.ifClient
 import net.minecraft.ChatFormatting
 import net.minecraft.ChatFormatting.GREEN
 import net.minecraft.ChatFormatting.YELLOW

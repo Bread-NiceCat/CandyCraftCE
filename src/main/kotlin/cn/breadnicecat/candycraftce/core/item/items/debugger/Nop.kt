@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.core.item.items.debugger
 
-import cn.breadnicecat.candycraftce.data.DataUtils.translate
-import cn.breadnicecat.candycraftce.utils.CUtils.clog
+import cn.breadnicecat.candycraftce.data.CDataUtils.translate
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
 import net.minecraft.ChatFormatting
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

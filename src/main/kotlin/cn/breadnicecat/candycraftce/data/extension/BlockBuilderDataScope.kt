@@ -2,8 +2,8 @@ package cn.breadnicecat.candycraftce.data.extension
 
 import cn.breadnicecat.candycraftce.core.block.BlockBuilder
 import cn.breadnicecat.candycraftce.core.tag.TagKeys
-import cn.breadnicecat.candycraftce.data.DataUtils.abstractTranslate
-import cn.breadnicecat.candycraftce.data.DataUtils.ifDatagen
+import cn.breadnicecat.candycraftce.data.CDataUtils.abstractTranslate
+import cn.breadnicecat.candycraftce.data.CDataUtils.ifDatagen
 import cn.breadnicecat.candycraftce.data.extension.ItemBuilderDataScope.Companion.data
 import cn.breadnicecat.candycraftce.data.providers.CTagProviders
 import cn.breadnicecat.candycraftce.data.providers.loot.CBlockSubLoot
@@ -41,7 +41,7 @@ class BlockBuilderDataScope<B : Block> private constructor(
     }
 
     //同时给方块和物品添加标签
-    fun tag2(tag: TagKeys) = tag2(tag.first, tag.second)
+    fun tag2(tag: TagKeys) = tag2(tag.item, tag.block)
 
     fun tag(vararg tag: TagKey<Block>) {
         builder.record("tag", overridable = false) {

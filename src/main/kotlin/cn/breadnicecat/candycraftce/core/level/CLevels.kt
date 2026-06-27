@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.level
 
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.toKey
 import net.minecraft.core.registries.Registries
@@ -14,7 +14,7 @@ import net.minecraft.core.registries.Registries
 
 object CLevels {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
     const val LAND_HEIGHT: Int = 384

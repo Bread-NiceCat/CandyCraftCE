@@ -1,10 +1,10 @@
 package cn.breadnicecat.candycraftce.core.item
 
 import cn.breadnicecat.candycraftce.utils.Arguments
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils.logRegister
+import cn.breadnicecat.candycraftce.utils.CUtils.immediate
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
-import cn.breadnicecat.candycraftce.utils.Immediate
-import cn.breadnicecat.candycraftce.utils.Immediate.Companion.immediate
+import cn.breadnicecat.candycraftce.utils.ImmediateScope
 import cn.breadnicecat.candycraftce.utils.OperationRecordable
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
@@ -87,7 +87,7 @@ class ItemBuilder<I : Item>(
 
     fun save(): ItemEntry<I> {
         val location = id.modLoc()
-        CUtils.logRegister("Item", location)
+        logRegister("Item", location)
 
         executeRecords()
         val item = register(location) {
@@ -138,7 +138,7 @@ class ItemBuilder<I : Item>(
     class ItemEntry<I : Item>(
         val id: ResourceLocation,
         val item: I,
-        private val builder: Immediate<ItemBuilder<I>>,
+        private val builder: ImmediateScope.Immediate<ItemBuilder<I>>,
     ) : ItemLike by item {
         operator fun component1() = id
         operator fun component2() = item

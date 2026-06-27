@@ -7,6 +7,7 @@ open class AxisSet private constructor(protected var ax: Int = 0b000) : Set<Axis
 
     companion object {
         protected fun set(ax: Int, ord: Int, v: Boolean): Int {
+            //new_ax
             val nax = if (v) {
                 ax or (1 shl ord)
             } else {
@@ -31,7 +32,7 @@ open class AxisSet private constructor(protected var ax: Int = 0b000) : Set<Axis
     }
 
     fun immutable(): AxisSet {
-        return this
+        return if (this is MutableAxisSet) AxisSet(ax) else this
     }
 
     fun hasX(): Boolean = has(Axis.X)

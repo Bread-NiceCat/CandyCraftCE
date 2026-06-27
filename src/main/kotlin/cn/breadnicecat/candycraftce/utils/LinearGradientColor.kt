@@ -7,7 +7,14 @@ import java.util.*
  * Created by NiceCat on 2026/1/18.
  * Project: candycraftce
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
- *
+ * example
+ * <pre>
+ *  LinearGradient {
+ *      0xb0ecff.rgb % 0f
+ *      0xa376da.rgb % .5f  //50%时是该颜色
+ *      0xb0b0ff.rgb % 1f
+ *  }
+ * </pre>
  */
 class LinearGradient(vararg colors: LinearGradientColor) {
 

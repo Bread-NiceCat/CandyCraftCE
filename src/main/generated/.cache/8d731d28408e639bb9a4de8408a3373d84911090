@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-22T22:48:25.3114413	CandyCraft CE/Loot Tables
+// 1.20.1	2026-06-28T03:06:27.0384217	CandyCraft CE/Loot Tables
 8bdf2da64ae12b648c567536777d940ed4372dae data\candycraftce\loot_tables\blocks\candied_cherry_sapling.json
 4a0b046b83d191d6191a9fdb614be790544791e2 data\candycraftce\loot_tables\blocks\sugar_spikes.json
 6ce1035625f03b5765639a85a7d160fdc8903a03 data\candycraftce\loot_tables\blocks\diamond_caramel_glass_pane.json
@@ -51,8 +51,8 @@ a1b542a9175c2bf1eb12cd7fb5ada177f2d0a7a6 data\candycraftce\loot_tables\blocks\ma
 1c1d2b626e94e580a9bfda7b3605f86ea6ec3808 data\candycraftce\loot_tables\blocks\dark_marshmallow_stairs.json
 899e41cd153b15fc355526d8233c04f97f3336f5 data\candycraftce\loot_tables\blocks\licorice_brick_fence.json
 dd97cf1587bfc67d9f9acfff4f8ed49846667529 data\candycraftce\loot_tables\blocks\rope_raspberry.json
-f8faa44742905d69772d3b47d80ef01065ac1fc9 data\candycraftce\loot_tables\blocks\sensitive_jelly.json
 27c97602c967af6f650839b8b7f629656664a8eb data\candycraftce\loot_tables\blocks\white_licorice_ore.json
+f8faa44742905d69772d3b47d80ef01065ac1fc9 data\candycraftce\loot_tables\blocks\sensitive_jelly.json
 8035462b66532855969881ca77fcc73b72587e01 data\candycraftce\loot_tables\blocks\marshmallow_door.json
 34bfe5485d92f41bc8573c04aad31b0a149a9a61 data\candycraftce\loot_tables\blocks\chocolate_stone.json
 74b8aac06b14f6c7b07daf2a93f1c73d370a92a3 data\candycraftce\loot_tables\blocks\red_trampojelly.json
@@ -111,8 +111,8 @@ d1b8a26629a26254739c3f18a59cd69be781ee92 data\candycraftce\loot_tables\blocks\ro
 6c726c2ab178b8ae922b6a423b95332273836960 data\candycraftce\loot_tables\blocks\dark_marshmallow_fence.json
 5714fe44b9b4c4064a3de00a654fae4cfdce2ef7 data\candycraftce\loot_tables\blocks\licorice_stairs.json
 d3aca841edf4300460c7d9a37468c62e52e0e764 data\candycraftce\loot_tables\blocks\chewing_gum_puddle.json
-db7a1b4c844732e2d9b8ca831cf1dcb2c0f2e403 data\candycraftce\loot_tables\blocks\cranberry_spikes.json
 2040182e2c97b540bdc1e2825aa353cd1b3a87fb data\candycraftce\loot_tables\blocks\caramel_bricks.json
+db7a1b4c844732e2d9b8ca831cf1dcb2c0f2e403 data\candycraftce\loot_tables\blocks\cranberry_spikes.json
 cfb7e77d29a1075f596668fc32ec51847be4f177 data\candycraftce\loot_tables\blocks\banana_seaweed.json
 aa217805476ecb8ddc6be5e308cf044bb1d9b701 data\candycraftce\loot_tables\blocks\jelly_ore.json
 c4ccdb370647ac236870681edfacef17a8bf5edc data\candycraftce\loot_tables\blocks\strawberry_ice_cream_stairs.json

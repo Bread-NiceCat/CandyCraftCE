@@ -1,10 +1,11 @@
 package cn.breadnicecat.candycraftce.core.recipe
 
+import cn.breadnicecat.candycraftce.utils.CUtils.merge
+import cn.breadnicecat.candycraftce.utils.CodecUtils.decodeFromNetwork
+import cn.breadnicecat.candycraftce.utils.CodecUtils.encodeToNetwork
 import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.NbtOps
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Recipe
@@ -15,10 +16,10 @@ import net.minecraft.world.item.crafting.Recipe
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  *
  */
-interface CodecSerializer<R : Recipe<*>> : RecipeSerializerExt<R> {
-    val codec: Codec<R>
+abstract class CodecSerializer<R : Recipe<*>> : RecipeSerializerExt<R> {
+    abstract val codec: Codec<R>
     override fun toJson(json: JsonObject, recipe: R) {
-        codec.encode(recipe, JsonOps.INSTANCE, json)
+        json.merge(codec.encodeStart(JsonOps.INSTANCE, recipe).result().orElseThrow().asJsonObject)
     }
 
     override fun fromJson(
@@ -32,14 +33,12 @@ interface CodecSerializer<R : Recipe<*>> : RecipeSerializerExt<R> {
         recipeId: ResourceLocation,
         buffer: FriendlyByteBuf,
     ): R {
-        val tag = buffer.readNbt()
-        return codec.decode(NbtOps.INSTANCE, tag).result().orElseThrow().first
+        return codec.decodeFromNetwork(buffer).result().orElseThrow()
     }
 
     override fun toNetwork(buffer: FriendlyByteBuf, recipe: R) {
-        val tag = codec.encodeStart(NbtOps.INSTANCE, recipe).result().orElseThrow()
-        buffer.writeNbt(tag as CompoundTag)
+        codec.encodeToNetwork(recipe, buffer)
     }
 }
 
-open class CodecSerializerImpl<R : Recipe<*>>(override val codec: Codec<R>) : CodecSerializer<R>
+open class CodecSerializerImpl<R : Recipe<*>>(override val codec: Codec<R>) : CodecSerializer<R>()

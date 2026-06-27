@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.rule
 
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory.createBooleanRule
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry
 import net.minecraft.world.level.GameRules
@@ -13,8 +13,7 @@ import net.minecraft.world.level.GameRules
  */
 object CGameRules {
     init {
-        CUtils.sign()
-
+        CLogUtils.sign()
     }
 
     val doCaramelPortalWorks: GameRules.Key<GameRules.BooleanValue> = GameRuleRegistry.register(

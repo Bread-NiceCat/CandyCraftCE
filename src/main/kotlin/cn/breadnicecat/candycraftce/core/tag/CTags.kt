@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.core.tag
 
-import cn.breadnicecat.candycraftce.data.DataUtils
+import cn.breadnicecat.candycraftce.data.CDataUtils
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
@@ -8,8 +8,8 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.material.Fluid
 
-typealias TagKeys = Pair<TagKey<Item>, TagKey<Block>>
 
+data class TagKeys(val item: TagKey<Item>, val block: TagKey<Block>)
 object CTags {
     val candy_leaves = bind2("candy_leaves")
     val marshmallow_logs = bind2("marshmallow_logs")
@@ -62,8 +62,8 @@ object CTags {
     }
 
     fun bind2(name: String): TagKeys {
-        val v: TagKeys = CItemTags.bind(name) to CBlockTags.bind(name)
-        DataUtils.tagCopy(v)
+        val v = TagKeys(CItemTags.bind(name), CBlockTags.bind(name))
+        CDataUtils.tagCopy(v)
         return v
     }
 

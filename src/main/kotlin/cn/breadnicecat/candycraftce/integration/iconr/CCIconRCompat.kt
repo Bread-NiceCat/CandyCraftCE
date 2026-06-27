@@ -1,6 +1,6 @@
 package cn.breadnicecat.candycraftce.integration.iconr
 
-import cn.breadnicecat.candycraftce.utils.CUtils
+import cn.breadnicecat.candycraftce.utils.CLogUtils
 
 /**
  * Created by NiceCat on 2026/2/25.
@@ -11,7 +11,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils
 
 object CCIconRCompat {
     init {
-        CUtils.sign()
+        CLogUtils.sign()
     }
 
 //    var SHAPED_DUMPER: IRecipeDumper<ShapedRecipe?> = CraftingShapedDumper()

@@ -2,14 +2,14 @@ package cn.breadnicecat.candycraftce.core.block.blockentities
 
 import cn.breadnicecat.candycraftce.core.block.CBlockEntities
 import cn.breadnicecat.candycraftce.core.block.blocks.LicoriceFurnaceBlock.Companion.LIT
+import cn.breadnicecat.candycraftce.core.fuels.CSugarFuels
 import cn.breadnicecat.candycraftce.core.gui.block.menus.LicoriceFurnaceMenu
-import cn.breadnicecat.candycraftce.core.misc.CSugarFuels
 import cn.breadnicecat.candycraftce.core.recipe.CRecipeTypes
 import cn.breadnicecat.candycraftce.core.recipe.recipes.SugarFurnaceRecipe
 import cn.breadnicecat.candycraftce.utils.Accessor.Companion.access
-import cn.breadnicecat.candycraftce.utils.CDataAccessors
 import cn.breadnicecat.candycraftce.utils.ItemStackArray
 import cn.breadnicecat.candycraftce.utils.MCTimeUnit.Companion.second
+import cn.breadnicecat.candycraftce.utils.accessors
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -25,7 +25,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeManager
-
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
@@ -63,12 +62,12 @@ class LicoriceFurnaceBE(
     private var recipeUsed: SugarFurnaceRecipe? = null
     private val quickCheck = RecipeManager.createCheck(CRecipeTypes.sugar_furnace_type.first)
 
-    val data: CDataAccessors = CDataAccessors(
-        access({ this.ticked }, { v -> this.ticked = v }),
-        access({ this.tickedTotal }, { v -> this.tickedTotal = v }),
-        access({ this.litTime }, { v -> this.litTime = v }),
-        access({ this.litTimeTotal }, { v -> this.litTimeTotal = v })
-    )
+    val data = accessors {
+        +access({ ticked }, { v -> ticked = v })
+        +access({ tickedTotal }, { v -> tickedTotal = v })
+        +access({ litTime }, { v -> litTime = v })
+        +access({ litTimeTotal }, { v -> litTimeTotal = v })
+    }
 
     constructor(blockPos: BlockPos, blockState: BlockState) : this(
         CBlockEntities.licorice_furnace_be,

@@ -1,7 +1,7 @@
 package cn.breadnicecat.candycraftce.core.block.blocks
 
 import cn.breadnicecat.candycraftce.core.block.blockentities.LicoriceFurnaceBE
-import cn.breadnicecat.candycraftce.utils.CUtils.ifServer
+import cn.breadnicecat.candycraftce.utils.ifServer
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
