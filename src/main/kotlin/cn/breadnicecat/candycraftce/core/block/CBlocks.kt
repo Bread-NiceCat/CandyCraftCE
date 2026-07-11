@@ -23,7 +23,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils.generator
 import cn.breadnicecat.candycraftce.utils.CUtils.immediate
 import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
-import cn.breadnicecat.candycraftce.utils.MixinExtensions.strippables
+import cn.breadnicecat.candycraftce.utils.MixinUtils.strippables
 import net.minecraft.advancements.critereon.StatePropertiesPredicate
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes

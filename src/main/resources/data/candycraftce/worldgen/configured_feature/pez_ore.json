@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "size": 4,
+    "discard_chance_on_air_exposure": 0.5,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "candycraftce:ore_white_overrideable"
+        },
+        "state": {
+          "Name": "candycraftce:white_pez_ore"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "candycraftce:ore_black_overrideable"
+        },
+        "state": {
+          "Name": "candycraftce:pez_ore"
+        }
+      }
+    ]
+  }
+}

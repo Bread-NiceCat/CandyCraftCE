@@ -27,7 +27,7 @@ object CTags {
 
     object CFluidTags {
         val candy_water_plant_suitable = bind("candy_water_plant_suitable")
-        fun bind(name: String): TagKey<Fluid> {
+        internal fun bind(name: String): TagKey<Fluid> {
             return TagKey.create(Registries.FLUID, name.modLoc())
         }
     }
@@ -40,7 +40,7 @@ object CTags {
         val licorice = bind("licorice")
         val honeycomb = bind("honeycomb")
 
-        fun bind(name: String): TagKey<Item> {
+        internal fun bind(name: String): TagKey<Item> {
             return TagKey.create(Registries.ITEM, name.modLoc())
         }
 
@@ -56,12 +56,12 @@ object CTags {
         val ore_black_overrideable = bind("ore_black_overrideable")
         val candy_ores = bind("candy_ores")
 
-        fun bind(name: String): TagKey<Block> {
+        internal fun bind(name: String): TagKey<Block> {
             return TagKey.create(Registries.BLOCK, name.modLoc())
         }
     }
 
-    fun bind2(name: String): TagKeys {
+    internal fun bind2(name: String): TagKeys {
         val v = TagKeys(CItemTags.bind(name), CBlockTags.bind(name))
         CDataUtils.tagCopy(v)
         return v

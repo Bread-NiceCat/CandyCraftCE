@@ -17,7 +17,7 @@ import kotlin.math.max
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  *
  */
-class CaramelPortalSearcher(val config: PortalConfig) {
+class CaramelPortalSearcher internal constructor(val config: PortalConfig) {
 
     fun find(level: BlockGetter, pos: BlockPos): CaramelPortal? {
         if (!config.isEmpty(level.getBlockState(pos))) return null

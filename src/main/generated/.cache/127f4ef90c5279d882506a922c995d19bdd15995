@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-28T03:06:27.0243989	CandyCraft CE/CTagProviders
+// 1.20.1	2026-07-12T00:30:02.9168194	CandyCraft CE/CTagProviders
 6d7629b4a45c4f36350836ec0aced3cb8bcc4c27 data\minecraft\tags\blocks\fences.json
 689d3b4e189d72a4ebf98b5a5e3ffb0e85537f33 data\candycraftce\tags\items\ice_cream.json
 ad3c59d8c32c55ba4e1660bd3855e3309372f422 data\candycraftce\tags\items\ore_jelly.json
@@ -10,8 +10,8 @@ ff5e7d18063d93e7225f46c6e7b289700ac82946 data\minecraft\tags\items\trapdoors.jso
 0365714a643011e8ac173fe655e6460bcd800c70 data\minecraft\tags\blocks\mineable\hoe.json
 a04497e2ded289e930b09b1be6770efab793eb3a data\candycraftce\tags\items\licorice.json
 d926ba9986732fb9da42fbf158b5aba47cbdf28b data\minecraft\tags\items\hoes.json
-a5bc9a14fa780a2eab4183e776580147cf20adcf data\minecraft\tags\blocks\logs.json
 562e4eca5e742db8849a5ea0fbf9fd3aded6ab1d data\minecraft\tags\blocks\mineable\shovel.json
+a5bc9a14fa780a2eab4183e776580147cf20adcf data\minecraft\tags\blocks\logs.json
 53403ee6fe4b99bd052b049c7a5d3bc1583175b6 data\minecraft\tags\blocks\doors.json
 487864d1bce55fe2332b45a39a23a3414689a414 data\minecraft\tags\blocks\climbable.json
 16747aaec4dc03a02751b954b99bdf06f811801f data\candycraftce\tags\blocks\candy_bricks.json
@@ -53,8 +53,8 @@ fdf7f86db2dee81eb786c74abbecf2c7e45b081c data\candycraftce\tags\blocks\ore_jelly
 a617116efc5ab4b517a7cc17430c10b71b3d9032 data\candycraftce\tags\blocks\chocolate.json
 436239bb3b3ff7acf3294622ecf8eabfb864266a data\minecraft\tags\blocks\stairs.json
 ff5e7d18063d93e7225f46c6e7b289700ac82946 data\minecraft\tags\blocks\trapdoors.json
-53403ee6fe4b99bd052b049c7a5d3bc1583175b6 data\minecraft\tags\items\doors.json
 245009efb960f6ae4e535bdc65b05cacb0df0439 data\candycraftce\tags\blocks\ore_nougat.json
+53403ee6fe4b99bd052b049c7a5d3bc1583175b6 data\minecraft\tags\items\doors.json
 6f59b8b466b09bfedcd880106f38489d6fd85dd0 data\candycraftce\tags\blocks\ore_licorice.json
 6d7629b4a45c4f36350836ec0aced3cb8bcc4c27 data\minecraft\tags\items\fences.json
 ecafcd4590566d4db8f41a8a1b820bd30239212b data\minecraft\tags\items\axes.json

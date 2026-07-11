@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 32,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "candycraftce:mint"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "candycraftce:rope_raspberry"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "candycraftce:banana_seaweed"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_fluids",
+            "fluids": "minecraft:water"
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "candycraftce:mint"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -7,7 +7,6 @@ import cn.breadnicecat.candycraftce.core.level.CLevels
 import cn.breadnicecat.candycraftce.core.particle.CParticles
 import cn.breadnicecat.candycraftce.core.rule.CGameRules
 import cn.breadnicecat.candycraftce.core.tag.CTags
-import cn.breadnicecat.candycraftce.multiblock.caramel_portal.CaramelPortalSearcher
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalConfig
 import cn.breadnicecat.candycraftce.multiblock.caramel_portal.PortalPlacer
 import cn.breadnicecat.candycraftce.utils.AxisSet
@@ -131,7 +130,7 @@ class CaramelPortalBlock(properties: Properties) : Block(properties) {
                             { null }
                         )
                         (entity as Teleportable).fabric_setCustomTeleportTarget(info)
-                        
+
                         val newEntity = entity.changeDimension(destLevel)
                         if (newEntity is LivingEntity) {
                             MobEffects.DAMAGE_RESISTANCE.instance(
@@ -209,14 +208,13 @@ class CaramelPortalBlock(properties: Properties) : Block(properties) {
                 Direction.Axis.Y -> Y
                 Direction.Axis.Z -> Z
             }
-        val searcher = CaramelPortalSearcher(
-            PortalConfig(
-                2, 21, 3, 21,
-                enableHorizontal = true, enableCompound = true,
-                isEmpty = { b -> b.isAir ||  /*b.is(CARAMEL_LIQUID.get()) ||*/b.`is`(LAVA) || b.`is`(caramel_portal.block) },
-                isFrame = { b -> b.`is`(CTags.CBlockTags.caramel_portal_frame) })
+        val searcher = PortalConfig(
+            2, 21, 3, 21,
+            enableHorizontal = true, enableCompound = true,
+            isEmpty = { b -> b.isAir ||  /*b.is(CARAMEL_LIQUID.get()) ||*/b.`is`(LAVA) || b.`is`(caramel_portal.block) },
+            isFrame = { b -> b.`is`(CTags.CBlockTags.caramel_portal_frame) }
+        ).searcher
 
-        )
         val placer = PortalPlacer { axes, old ->
             if (old.`is`(caramel_portal.block)) {
                 old.setValue(X, axes.hasX() || old.getValue(X))
@@ -242,7 +240,7 @@ class CaramelPortalBlock(properties: Properties) : Block(properties) {
         /**
          * bin : zyx
          */
-        private val shapes: Array<VoxelShape> =
+        private val shapes =
             arrayOf<VoxelShape>(DEFAULT, X_AABB, Y_AABB, XY_AABB, Z_AABB, XZ_AABB, YZ_AABB, XYZ_AABB)
 
         //Mixin

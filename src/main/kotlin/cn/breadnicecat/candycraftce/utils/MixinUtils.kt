@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Block
  *
  */
 @Suppress("UnstableApiUsage")
-object MixinExtensions {
+object MixinUtils {
     fun BlockModelGenerators.BlockFamilyProvider.accessor() = this as AccessorBlockFamilyProvider
 
     var strippables: Map<Block, Block>
@@ -22,4 +22,5 @@ object MixinExtensions {
 
 
 object MixinInterfaces {
+
 }

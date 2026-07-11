@@ -4,7 +4,7 @@ import cn.breadnicecat.candycraftce.core.block.BlockBuilder
 import cn.breadnicecat.candycraftce.data.providers.CModelProvider
 import cn.breadnicecat.candycraftce.utils.Arguments
 import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
-import cn.breadnicecat.candycraftce.utils.MixinExtensions.accessor
+import cn.breadnicecat.candycraftce.utils.MixinUtils.accessor
 import com.google.gson.JsonElement
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.BlockModelGenerators.TintState

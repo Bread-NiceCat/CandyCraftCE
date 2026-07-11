@@ -123,6 +123,7 @@ class LicoriceFurnaceBE(
                 ticked = 0
                 items.extract(INPUT_SLOT, 1)
                 items.insert(OUTPUT_SLOT, recipeUsed!!.assemble(this, level!!.registryAccess()))
+                exp += recipeUsed!!.exp
             }
         } else ticked = max(0, ticked - 2)
     }

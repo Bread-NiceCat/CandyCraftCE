@@ -14,16 +14,15 @@ object CRecipeTypes {
         CLogUtils.sign()
     }
 
-    val sugar_furnace_type = CRecipeTypes.register(
-        "sugar_furnace",
-        SugarFurnaceRecipe.Serializer
+    val sugar_furnace_type = register(
+        "sugar_furnace", SugarFurnaceRecipe.Serializer
     )
 //    val SUGAR_FACTORY_TYPE: RecipeTypeEntry<SugarFactoryRecipe> = CRecipeTypes.register<Recipe<*>>(
 //        "sugar_factory",
 //        java.util.function.Supplier { SugarFactoryRecipe.Serializer() })
 
 
-    fun <T : Recipe<*>> register(
+    internal fun <T : Recipe<*>> register(
         name: String,
         serializer: RecipeSerializerExt<T>,
     ): Pair<RecipeType<T>, RecipeSerializerExt<T>> {
