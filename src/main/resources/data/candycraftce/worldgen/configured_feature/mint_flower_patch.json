@@ -37,10 +37,8 @@
         {
           "type": "minecraft:block_predicate_filter",
           "predicate": {
-            "type": "minecraft:would_survive",
-            "state": {
-              "Name": "candycraftce:fraise_tagada_flower"
-            }
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
           }
         },
         {
@@ -48,7 +46,7 @@
           "predicate": {
             "type": "minecraft:would_survive",
             "state": {
-              "Name": "minecraft:air"
+              "Name": "candycraftce:fraise_tagada_flower"
             }
           }
         }

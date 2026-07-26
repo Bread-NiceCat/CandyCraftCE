@@ -14,15 +14,20 @@ import net.minecraft.world.level.biome.Biome
 
  */
 object CBiomes {
-    var CARAMEL_FOREST = create("caramel_forest")
-    var CHOCOLATE_FOREST = create("chocolate_forest")
-    var DEEP_SUGAR_OCEAN = create("deep_sugar_ocean")
-    var ENCHANTED_FOREST = create("enchanted_forest")
-    var ICE_CREAM_FOREST = create("ice_cream_forest")
-    var ICE_CREAM_PLAINS = create("ice_cream_plains")
-    var PUDDING_PLAINS = create("pudding_plains")
-    var SUGAR_OCEAN = create("sugar_ocean")
-    var SUGAR_RIVER = create("sugar_river")
+    val caramel_forest = create("caramel_forest")
+    val chocolate_forest = create("chocolate_forest")
+    val deep_sugar_ocean = create("deep_sugar_ocean")
+    val enchanted_forest = create("enchanted_forest")
+    val ice_cream_forest = create("ice_cream_forest")
+    val ice_cream_plains = create("ice_cream_plains")
+    val pudding_plains = create("pudding_plains")
+    val sugar_ocean = create("sugar_ocean")
+    val sugar_river = create("sugar_river")
+    val lukewarm_sugar_ocean = create("lukewarm_sugar_ocean")
+    val warm_sugar_ocean = create("warm_sugar_ocean")
+    val sugar_beach = create("sugar_beach")
+
+    val dungeons = create("dungeons")
     private fun create(loc: String): ResourceKey<Biome> {
         return ResourceKey.create(Registries.BIOME, loc.modLoc())
     }

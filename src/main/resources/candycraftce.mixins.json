@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "core.MixinFarmBlock", "core.MixinItem",
-    "data.AccessorBlockFamilyProvider", "portal.MixinBukkitItem", "worldgen.MixinNoiseBasedChunkGenerator"
+    "data.AccessorBlockFamilyProvider", "portal.MixinLevels", "worldgen.MixinNoiseBasedChunkGenerator"
   ],
   "injectors": {
     "defaultRequire": 1

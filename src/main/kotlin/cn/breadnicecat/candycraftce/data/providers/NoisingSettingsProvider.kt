@@ -6,8 +6,9 @@ import cn.breadnicecat.candycraftce.core.block.CBlocks.ice_cream
 import cn.breadnicecat.candycraftce.core.block.CBlocks.jawbreaker_bricks
 import cn.breadnicecat.candycraftce.core.block.CBlocks.pudding
 import cn.breadnicecat.candycraftce.core.block.CBlocks.white_chocolate_block
-import cn.breadnicecat.candycraftce.core.level.CBiomes.ICE_CREAM_FOREST
-import cn.breadnicecat.candycraftce.core.level.CBiomes.ICE_CREAM_PLAINS
+import cn.breadnicecat.candycraftce.core.level.CBiomes.ice_cream_forest
+import cn.breadnicecat.candycraftce.core.level.CBiomes.ice_cream_plains
+import cn.breadnicecat.candycraftce.utils.CLogUtils.clog
 import com.google.common.hash.HashCode
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,7 +16,6 @@ import com.mojang.serialization.JsonOps
 import net.minecraft.data.CachedOutput
 import net.minecraft.data.DataProvider
 import net.minecraft.data.PackOutput
-import net.minecraft.util.datafix.fixes.BlockEntitySignTextStrictJsonFix.GSON
 import net.minecraft.world.level.levelgen.SurfaceRules
 import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource
 import net.minecraft.world.level.levelgen.VerticalAnchor
@@ -42,9 +42,9 @@ class NoisingSettingsProvider(pack: PackOutput) : DataProvider {
         return CompletableFuture.runAsync {
             try {
                 val rules = candylandSurfaceRules()
-                val rulesStr = GSON.toJson(
+                val rulesStr = gson.toJson(
                     RuleSource.CODEC.encodeStart(JsonOps.INSTANCE, rules)
-                        .getOrThrow(false) { msg -> DataProvider.LOGGER.error(msg) }
+                        .getOrThrow(false) { msg -> clog.error(msg) }
                 )
                 val out = MODEL.replace($$"${surface_rule_generated_data}", rulesStr)
                 val data = out.toByteArray(StandardCharsets.UTF_8)
@@ -81,7 +81,7 @@ class NoisingSettingsProvider(pack: PackOutput) : DataProvider {
                     SurfaceRules.ifTrue(
                         SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
-                                SurfaceRules.isBiome(ICE_CREAM_PLAINS),
+                                SurfaceRules.isBiome(ice_cream_plains),
                                 iceCream
                             ),
                             SurfaceRules.ifTrue(
@@ -101,7 +101,7 @@ class NoisingSettingsProvider(pack: PackOutput) : DataProvider {
         }
         run {
             val middleLayer = SurfaceRules.ifTrue(
-                SurfaceRules.isBiome(ICE_CREAM_PLAINS, ICE_CREAM_FOREST),
+                SurfaceRules.isBiome(ice_cream_plains, ice_cream_forest),
                 white
             )
             layers.add(middleLayer)

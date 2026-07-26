@@ -1,7 +1,6 @@
 package cn.breadnicecat.candycraftce.mixin.portal;
 
 import cn.breadnicecat.candycraftce.core.block.blocks.CaramelPortalBlock;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -21,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * @author <a href="https://github.com/BreadNiceCat">Bread_NiceCat</a>
  *
  */
-@Mixin({ServerLevel.class, ClientLevel.class})
-public class MixinBukkitItem {
+@Mixin(ServerLevel.class)
+public class MixinLevels {
 	@Inject(method = "gameEvent", at = @At("HEAD"))
 	public void gameEvent(GameEvent event, Vec3 position, GameEvent.Context context, CallbackInfo ci) {
 		Level self = (Level) (Object) this;

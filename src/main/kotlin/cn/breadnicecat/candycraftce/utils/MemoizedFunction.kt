@@ -38,9 +38,3 @@ fun <K, V> memoized(
 ): ReadOnlyProperty<Any?, (K) -> V> {
     return MemoizedFunction(compute, threadSafe)
 }
-
-fun <K, V> memoized(
-    compute: (K) -> V,
-): ReadOnlyProperty<Any?, (K) -> V> {
-    return MemoizedFunction(compute)
-}

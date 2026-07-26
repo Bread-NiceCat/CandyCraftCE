@@ -25,6 +25,7 @@ import cn.breadnicecat.candycraftce.utils.CUtils.mcLoc
 import cn.breadnicecat.candycraftce.utils.CUtils.modLoc
 import cn.breadnicecat.candycraftce.utils.MixinUtils.strippables
 import net.minecraft.advancements.critereon.StatePropertiesPredicate
+import net.minecraft.client.renderer.BiomeColors
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.data.loot.BlockLootSubProvider.HAS_SHEARS
@@ -444,7 +445,9 @@ object CBlocks {
             renderType(RenderType.cutoutMipped())
             tint { _, level, pos, _ ->
                 return@tint if (pos != null && level != null && level.hasBiomes()) {
-                    PuddingColor.getPuddingColor(level.getBiomeFabric(pos), pos.center)
+                    BiomeColors.getAverageGrassColor(level, pos)
+                    //Embeddium等优化mod不支持自定义color cache
+//                    PuddingColor.getPuddingColor(level.getBiomeFabric(pos), pos.center)
                 } else {
                     PuddingColor.getDefaultPuddingColor()
                 }
