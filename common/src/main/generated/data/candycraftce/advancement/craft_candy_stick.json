@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:root",
+  "criteria": {
+    "marshmallow_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:marshmallow_stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.marshmallow_stick.desc"
+    },
+    "icon": {
+      "id": "candycraftce:marshmallow_stick"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.marshmallow_stick"
+    }
+  }
+}

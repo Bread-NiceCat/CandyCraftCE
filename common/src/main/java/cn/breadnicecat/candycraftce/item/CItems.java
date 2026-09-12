@@ -15,6 +15,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -39,7 +40,6 @@ import static cn.breadnicecat.candycraftce.CandyCraftCE.isClient;
 import static cn.breadnicecat.candycraftce.block.CBlocks.*;
 import static cn.breadnicecat.candycraftce.item.CItemBuilder.create;
 import static cn.breadnicecat.candycraftce.utils.CommonUtils.impossibleCode;
-import static net.minecraft.world.item.ArmorItem.Type.*;
 import static net.minecraft.world.level.material.Fluids.WATER;
 
 /**
@@ -124,19 +124,19 @@ public class CItems {
 	public static final ItemEntry<Item> RECORD_2 = createRecord("record_2", CJukeboxSound.CD_2).save();
 	public static final ItemEntry<Item> RECORD_3 = createRecord("record_3", CJukeboxSound.CD_3).save();
 	public static final ItemEntry<Item> RECORD_4 = createRecord("record_4", CJukeboxSound.CD_4).save();
-	public static final ItemEntry<Item> GINGERBREAD_EMBLEM = create("gingerbread_emblem").save();
-	public static final ItemEntry<Item> JELLY_EMBLEM = create("jelly_emblem").save();
-	public static final ItemEntry<Item> SKY_EMBLEM = create("sky_emblem").save();
-	public static final ItemEntry<Item> CHEWING_GUM_EMBLEM = create("chewing_gum_emblem").save();
-	public static final ItemEntry<Item> HONEYCOMB_EMBLEM = create("honeycomb_emblem").save();
-	public static final ItemEntry<Item> CRANBERRY_EMBLEM = create("cranberry_emblem").save();
-	public static final ItemEntry<Item> NESSIE_EMBLEM = create("nessie_emblem").save();
-	public static final ItemEntry<Item> SUGUARD_EMBLEM = create("suguard_emblem").save();
-	public static final ItemEntry<ForkItem> FORK = create("fork", ForkItem::new).setProperties(new Properties().stacksTo(1).durability(200)).save();
+	public static final ItemEntry<EmblemItem> GINGERBREAD_EMBLEM = createEmblem("gingerbread_emblem").save();
+	public static final ItemEntry<EmblemItem> JELLY_EMBLEM = createEmblem("jelly_emblem").save();
+	public static final ItemEntry<EmblemItem> SKY_EMBLEM = createEmblem("sky_emblem").save();
+	public static final ItemEntry<EmblemItem> CHEWING_GUM_EMBLEM = createEmblem("chewing_gum_emblem").save();
+	public static final ItemEntry<EmblemItem> HONEYCOMB_EMBLEM = createEmblem("honeycomb_emblem").save();
+	public static final ItemEntry<EmblemItem> CRANBERRY_EMBLEM = createEmblem("cranberry_emblem").save();
+	public static final ItemEntry<EmblemItem> NESSIE_EMBLEM = createEmblem("nessie_emblem").save();
+	public static final ItemEntry<EmblemItem> SUGUARD_EMBLEM = createEmblem("suguard_emblem").save();
+	public static final ItemEntry<ForkItem> FORK = create("fork", ForkItem::new).setProperties(new Properties().stacksTo(1).durability(200).component(DataComponents.TOOL, MaceItem.createToolProperties())).save();
 	
 	public static final ItemEntry<HoneycombArrowItem> HONEYCOMB_ARROW = create("honeycomb_arrow", HoneycombArrowItem::new).save();
-	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).setProperties(new Properties().stacksTo(1).durability(384)).save();
-	public static final ItemEntry<LicoriceSpearItem> LICORICE_SPEAR = create("licorice_spear", LicoriceSpearItem::new).setProperties(new Properties().stacksTo(1).durability(300)).save();
+	public static final ItemEntry<CaramelBowItem> CARAMEL_BOW = create("caramel_bow", CaramelBowItem::new).setProperties(new Properties().durability(384)).save();
+	public static final ItemEntry<LicoriceSpearItem> LICORICE_SPEAR = create("licorice_spear", LicoriceSpearItem::new).setProperties(new Properties().durability(300).attributes(LicoriceSpearItem.createAttributes()).component(DataComponents.TOOL, TridentItem.createToolProperties())).save();
 	//HELPER.single(CARAMEL_CROSSBOW, ItemCaramelCrossbow::new);
 	
 	public static final ItemEntry<StandingAndWallBlockItem> HONEYCOMB_TORCH_ITEM = create(HONEYCOMB_TORCH.getName(), p -> new StandingAndWallBlockItem(HONEYCOMB_TORCH.get(), WALL_HONEYCOMB_TORCH.get(), p, Direction.DOWN)).save();
@@ -172,25 +172,24 @@ public class CItems {
 	
 	/*Armors*/
 	//Licorice
-	public static final ItemEntry<ArmorItem> LICORICE_HELMET = createHelmet("licorice_helmet", CArmorMaterials.LICORICE).save();
-	public static final ItemEntry<ArmorItem> LICORICE_CHESTPLATE = createChestplate("licorice_chestplate", CArmorMaterials.LICORICE).save();
-	public static final ItemEntry<ArmorItem> LICORICE_LEGGINGS = createLeggings("licorice_leggings", CArmorMaterials.LICORICE).save();
-	public static final ItemEntry<ArmorItem> LICORICE_BOOTS = createBoots("licorice_boots", CArmorMaterials.LICORICE).save();
+	public static final ItemEntry<ArmorItem> LICORICE_HELMET = createArmor("licorice_helmet", CArmorMaterials.LICORICE, ArmorItem.Type.HELMET).save();
+	public static final ItemEntry<ArmorItem> LICORICE_CHESTPLATE = createArmor("licorice_chestplate", CArmorMaterials.LICORICE, ArmorItem.Type.CHESTPLATE).save();
+	public static final ItemEntry<ArmorItem> LICORICE_LEGGINGS = createArmor("licorice_leggings", CArmorMaterials.LICORICE, ArmorItem.Type.LEGGINGS).save();
+	public static final ItemEntry<ArmorItem> LICORICE_BOOTS = createArmor("licorice_boots", CArmorMaterials.LICORICE, ArmorItem.Type.BOOTS).save();
 	//HoneyComb
-	public static final ItemEntry<ArmorItem> HONEYCOMB_HELMET = createHelmet("honeycomb_helmet", CArmorMaterials.HONEYCOMB).save();
-	public static final ItemEntry<ArmorItem> HONEYCOMB_CHESTPLATE = createChestplate("honeycomb_chestplate", CArmorMaterials.HONEYCOMB).save();
-	public static final ItemEntry<ArmorItem> HONEYCOMB_LEGGINGS = createLeggings("honeycomb_leggings", CArmorMaterials.HONEYCOMB).save();
-	public static final ItemEntry<ArmorItem> HONEYCOMB_BOOTS = createBoots("honeycomb_boots", CArmorMaterials.HONEYCOMB).save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_HELMET = createArmor("honeycomb_helmet", CArmorMaterials.HONEYCOMB, ArmorItem.Type.HELMET).save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_CHESTPLATE = createArmor("honeycomb_chestplate", CArmorMaterials.HONEYCOMB, ArmorItem.Type.CHESTPLATE).save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_LEGGINGS = createArmor("honeycomb_leggings", CArmorMaterials.HONEYCOMB, ArmorItem.Type.LEGGINGS).save();
+	public static final ItemEntry<ArmorItem> HONEYCOMB_BOOTS = createArmor("honeycomb_boots", CArmorMaterials.HONEYCOMB, ArmorItem.Type.BOOTS).save();
 	//PEZ
-	public static final ItemEntry<ArmorItem> PEZ_HELMET = createHelmet("pez_helmet", CArmorMaterials.PEZ).save();
-	public static final ItemEntry<ArmorItem> PEZ_CHESTPLATE = createChestplate("pez_chestplate", CArmorMaterials.PEZ).save();
-	public static final ItemEntry<ArmorItem> PEZ_LEGGINGS = createLeggings("pez_leggings", CArmorMaterials.PEZ).save();
-	public static final ItemEntry<ArmorItem> PEZ_BOOTS = createBoots("pez_boots", CArmorMaterials.PEZ).save();
+	public static final ItemEntry<ArmorItem> PEZ_HELMET = createArmor("pez_helmet", CArmorMaterials.PEZ, ArmorItem.Type.HELMET).save();
+	public static final ItemEntry<ArmorItem> PEZ_CHESTPLATE = createArmor("pez_chestplate", CArmorMaterials.PEZ, ArmorItem.Type.CHESTPLATE).save();
+	public static final ItemEntry<ArmorItem> PEZ_LEGGINGS = createArmor("pez_leggings", CArmorMaterials.PEZ, ArmorItem.Type.LEGGINGS).save();
+	public static final ItemEntry<ArmorItem> PEZ_BOOTS = createArmor("pez_boots", CArmorMaterials.PEZ, ArmorItem.Type.BOOTS).save();
 	//Sp(p) -> new Item
-	public static final ItemEntry<ArmorItem> WATER_MASK = createHelmet("water_mask", CArmorMaterials.WATER_MASK).save();
-	public static final ItemEntry<ArmorItem> JELLY_CROWN = createHelmet("jelly_crown", CArmorMaterials.JELLY_CROWN).save();
-	public static final ItemEntry<ArmorItem> TRAMPOJELLY_BOOTS = createBoots("trampojelly_boots", CArmorMaterials.TRAMPOJELLY_BOOTS)
-			.save();
+	public static final ItemEntry<WaterMaskItem> WATER_MASK = create("water_mask", p -> new WaterMaskItem(CArmorMaterials.WATER_MASK.getHolder(), ArmorItem.Type.HELMET, p.durability(ArmorItem.Type.HELMET.getDurability(CArmorMaterials.WATER_MASK.durabilityMultiplier)).rarity(Rarity.UNCOMMON))).save();
+	public static final ItemEntry<ArmorItem> JELLY_CROWN = create("jelly_crown", p -> new ArmorItem(CArmorMaterials.JELLY_CROWN.getHolder(), ArmorItem.Type.HELMET, p.durability(ArmorItem.Type.HELMET.getDurability(CArmorMaterials.JELLY_CROWN.durabilityMultiplier)).rarity(Rarity.UNCOMMON))).save();
+	public static final ItemEntry<TrampojellyBootsItem> TRAMPOJELLY_BOOTS = create("trampojelly_boots", p -> new TrampojellyBootsItem(CArmorMaterials.TRAMPOJELLY_BOOTS.getHolder(), ArmorItem.Type.BOOTS, p.durability(ArmorItem.Type.BOOTS.getDurability(CArmorMaterials.TRAMPOJELLY_BOOTS.durabilityMultiplier)).rarity(Rarity.RARE))).save();
 	public static final ItemEntry<IIDebugItem> IIDEBUG = create("iidebug", higher(IIDebugItem::new))
 			.setCtab(false)
 			.sugarFuel(Integer.MAX_VALUE)
@@ -255,6 +254,10 @@ public class CItems {
 		return create(name, (p) -> _recordItem(song, p))
 				.setProperties(new Properties().stacksTo(1));
 	}
+
+	private static CItemBuilder<EmblemItem> createEmblem(String name) {
+		return create(name, (p) -> new EmblemItem(name, p));
+	}
 	//工具
 	
 	private static CItemBuilder<SwordItem> createSword(String name, Tier tier, int baseDamage, float baseSpeed) {
@@ -278,20 +281,8 @@ public class CItems {
 	}
 	
 	//盔甲
-	private static CItemBuilder<ArmorItem> createHelmet(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.getHolder(), HELMET, p.durability(HELMET.getDurability(material.durabilityMultiplier))));
-	}
-	
-	private static CItemBuilder<ArmorItem> createChestplate(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.getHolder(), CHESTPLATE, p.durability(CHESTPLATE.getDurability(material.durabilityMultiplier))));
-	}
-	
-	private static CItemBuilder<ArmorItem> createLeggings(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.getHolder(), LEGGINGS, p.durability(LEGGINGS.getDurability(material.durabilityMultiplier))));
-	}
-	
-	private static CItemBuilder<ArmorItem> createBoots(String name, CArmorMaterials material) {
-		return create(name, (p) -> new ArmorItem(material.getHolder(), BOOTS, p.durability(BOOTS.getDurability(material.durabilityMultiplier))));
+	private static CItemBuilder<ArmorItem> createArmor(String name, CArmorMaterials material, ArmorItem.Type type) {
+		return create(name, (p) -> new ArmorItem(material.getHolder(), type, p.durability(type.getDurability(material.durabilityMultiplier))));
 	}
 	
 	//平台差异

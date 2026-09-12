@@ -20,8 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>
  */
 public class MarshmallowCraftingTableBlock extends CraftingTableBlock {
-	private Component title;
-
 	public MarshmallowCraftingTableBlock(Properties properties) {
 		super(properties);
 	}
@@ -36,6 +34,6 @@ public class MarshmallowCraftingTableBlock extends CraftingTableBlock {
 					return stillValid(access, player, CBlocks.MARSHMALLOW_CRAFTING_TABLE.get());
 				}
 			};
-		}, title == null ? title = Component.translatable(CBlocks.MARSHMALLOW_CRAFTING_TABLE.get().getDescriptionId()) : title);
+		}, Component.translatable("container.crafting"));
 	}
 }

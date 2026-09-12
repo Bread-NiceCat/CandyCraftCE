@@ -1,0 +1,23 @@
+{
+  "parent": "candycraftce:craft_stick",
+  "criteria": {
+    "sugar_factory": {
+      "conditions": {
+        "recipe_id": "candycraftce:sugar_factory"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "frame": "goal",
+    "description": {
+      "translate": "advancements.candycraftce.sugar_factory.desc"
+    },
+    "icon": {
+      "id": "candycraftce:sugar_factory"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.sugar_factory"
+    }
+  }
+}

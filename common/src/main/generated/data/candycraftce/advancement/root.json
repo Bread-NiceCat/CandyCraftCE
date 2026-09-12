@@ -1,0 +1,23 @@
+{
+  "criteria": {
+    "travel_to_dim": {
+      "conditions": {
+        "to": "candycraftce:candyland"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "background": "candycraftce:textures/block/chocolate_stone.png",
+    "frame": "goal",
+    "description": {
+      "translate": "advancements.candycraftce.root.desc"
+    },
+    "icon": {
+      "id": "candycraftce:marshmallow_log"
+    },
+    "title": {
+      "translate": "mod.candycraftce"
+    }
+  }
+}

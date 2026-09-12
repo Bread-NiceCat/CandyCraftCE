@@ -1,5 +1,6 @@
 package cn.breadnicecat.candycraftce.neoforge;
 
+import cn.breadnicecat.candycraftce.advancements.CAdvancements;
 import cn.breadnicecat.candycraftce.CandyCraftCE;
 import cn.breadnicecat.candycraftce.utils.CLogUtils;
 import cn.breadnicecat.candycraftce.utils.SimpleEntry;
@@ -31,6 +32,7 @@ public class CandyCraftCEImpl {
 	
 	public CandyCraftCEImpl(IEventBus bus) {
 		CandyCraftCEImpl.bus = bus;
+		CAdvancements.bindHooks();
 		CandyCraftCE.bootstrap();
 	}
 	
