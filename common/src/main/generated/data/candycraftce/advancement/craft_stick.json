@@ -1,0 +1,22 @@
+{
+  "parent": "candycraftce:craft_candy_stick",
+  "criteria": {
+    "stick": {
+      "conditions": {
+        "recipe_id": "candycraftce:stick"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.stick.desc"
+    },
+    "icon": {
+      "id": "minecraft:stick"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.stick"
+    }
+  }
+}

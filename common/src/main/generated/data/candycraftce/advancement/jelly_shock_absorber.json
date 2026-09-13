@@ -1,0 +1,27 @@
+{
+  "parent": "candycraftce:trampojelly",
+  "criteria": {
+    "jelly_shock_absorber": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:jelly_shock_absorber"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "frame": "goal",
+    "description": {
+      "translate": "advancements.candycraftce.jelly_shock_absorber.desc"
+    },
+    "icon": {
+      "id": "candycraftce:jelly_shock_absorber"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.jelly_shock_absorber"
+    }
+  }
+}

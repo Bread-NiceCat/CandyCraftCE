@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:root",
+  "criteria": {
+    "candy_cane": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:candy_cane"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.candy_cane.desc"
+    },
+    "icon": {
+      "id": "candycraftce:candy_cane"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.candy_cane"
+    }
+  }
+}

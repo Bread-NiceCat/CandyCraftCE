@@ -1,0 +1,20 @@
+{
+  "parent": "candycraftce:craft_fork",
+  "criteria": {
+    "fork": {
+      "trigger": "candycraftce:eat_block"
+    }
+  },
+  "display": {
+    "frame": "challenge",
+    "description": {
+      "translate": "advancements.candycraftce.eat_block.desc"
+    },
+    "icon": {
+      "id": "candycraftce:custard_pudding"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.eat_block"
+    }
+  }
+}
