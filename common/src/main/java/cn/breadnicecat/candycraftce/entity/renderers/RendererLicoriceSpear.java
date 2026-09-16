@@ -5,7 +5,6 @@ import cn.breadnicecat.candycraftce.entity.models.ModelLicoriceSpear;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.TridentModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -28,11 +27,11 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.entityTex;
  **/
 public class RendererLicoriceSpear extends EntityRenderer<LicoriceSpear> {
 	public static ResourceLocation TEX = entityTex("licorice_spear");
-	private final TridentModel model;
+	private final ModelLicoriceSpear model;
 	
 	public RendererLicoriceSpear(EntityRendererProvider.Context context) {
 		super(context);
-		model = new TridentModel(context.bakeLayer(ModelLicoriceSpear.MAIN));
+		model = new ModelLicoriceSpear(context.bakeLayer(ModelLicoriceSpear.MAIN));
 	}
 	
 	@Override

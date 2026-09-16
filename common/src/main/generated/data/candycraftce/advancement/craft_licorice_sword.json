@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:licorice",
+  "criteria": {
+    "licorice_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:licorice_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.licorice_sword.desc"
+    },
+    "icon": {
+      "id": "candycraftce:licorice_sword"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.licorice_sword"
+    }
+  }
+}

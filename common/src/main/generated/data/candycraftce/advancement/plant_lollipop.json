@@ -1,0 +1,27 @@
+{
+  "parent": "candycraftce:plant_dragibus",
+  "criteria": {
+    "lollipop": {
+      "conditions": {
+        "location": [
+          {
+            "block": "candycraftce:lollipop_stem",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.lollipop.desc"
+    },
+    "icon": {
+      "id": "candycraftce:lollipop_seeds"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.lollipop"
+    }
+  }
+}

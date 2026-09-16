@@ -1,0 +1,27 @@
+{
+  "parent": "candycraftce:plant_lollipop",
+  "criteria": {
+    "lollipop": {
+      "conditions": {
+        "entity": {
+          "type": "candycraftce:cookie_creeper"
+        },
+        "item": {
+          "items": "candycraftce:lollipop"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.stall_cookie_creeper.desc"
+    },
+    "icon": {
+      "id": "candycraftce:lollipop"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.stall_cookie_creeper"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "candycraftce:craft_licorice_sword",
+  "criteria": {
+    "cookie_creeper": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "candycraftce:cookie_creeper"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.kill_cookie_creeper.desc"
+    },
+    "icon": {
+      "id": "minecraft:cookie"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.kill_cookie_creeper"
+    }
+  }
+}

@@ -43,14 +43,10 @@ public class CBlocks {
 	private static final Logger LOGGER = CLogUtils.sign();
 	public static final HashSet<BlockEntry<?>> BLOCKS = new HashSet<>();
 	
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null)
-			.setFood(1, 1).save();//TODO TEST
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null)
-			.setFood(1, 1).save();//TODO TEST
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_2 = create("sweet_grass_2", SweetGrassBlock::new).setProperties(POPPY, null)
-			.setFood(1, 1).save();//TODO TEST
-	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_3 = create("sweet_grass_3", SweetGrassBlock::new).setProperties(POPPY, null)
-			.setFood(1, 1).save();//TODO TEST
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_0 = create("sweet_grass_0", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_1 = create("sweet_grass_1", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_2 = create("sweet_grass_2", SweetGrassBlock::new).setProperties(POPPY, null).save();
+	public static final BlockEntry<SweetGrassBlock> SWEET_GRASS_3 = create("sweet_grass_3", SweetGrassBlock::new).setProperties(POPPY, null).save();
 	public static final BlockEntry<CandyWaterPlantBlock> MINT = create("mint", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save(MapColor.PLANT);
 	public static final BlockEntry<CandyWaterPlantBlock> ROPE_RASPBERRY = create("rope_raspberry", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save(MapColor.COLOR_PINK);
 	public static final BlockEntry<CandyWaterPlantBlock> BANANA_SEAWEED = create("banana_seaweed", CandyWaterPlantBlock::new).setProperties(KELP_PLANT, null).save(MapColor.COLOR_YELLOW);
@@ -68,12 +64,8 @@ public class CBlocks {
 	public static final BlockEntry<Block> WHITE_CHOCOLATE_CARAMEL_BRICKS = create("white_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
 //	public static final BlockEntry<Block> BLACK_CHOCOLATE_CARAMEL_BRICKS = create("black_chocolate_caramel_bricks").setProperties(CHOCOLATE_CARAMEL_BRICKS, null).save();
 	
-	public static final BlockEntry<PuddingBlock> PUDDING = create("pudding", PuddingBlock::new).setProperties(Blocks.DIRT, p -> p.sound(JELLY))
-			.setFood(1, 1)//TODO TEST
-			.save(MapColor.WOOL);
-	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY))
-			.setFood(1, 1)//TODO TEST
-			.save(MapColor.TERRACOTTA_PINK);
+	public static final BlockEntry<PuddingBlock> PUDDING = create("pudding", PuddingBlock::new).setProperties(Blocks.DIRT, p -> p.sound(JELLY)).save(MapColor.WOOL);
+	public static final BlockEntry<CustardPuddingBlock> CUSTARD_PUDDING = create("custard_pudding", CustardPuddingBlock::new).setProperties(Blocks.GRASS_BLOCK, p -> p.sound(JELLY)).save(MapColor.TERRACOTTA_PINK);
 	public static final BlockEntry<PuddingFarmBlock> PUDDING_FARMLAND = create("pudding_farmland", PuddingFarmBlock::new).setProperties(Blocks.FARMLAND, p -> p.sound(JELLY)).save();
 	public static final BlockEntry<Block> ICE_CREAM = create("ice_cream", Block::new).setProperties(SNOW_BLOCK, null).save(MapColor.SNOW);
 	public static final BlockEntry<Block> MINT_ICE_CREAM = create("mint_ice_cream", Block::new).setProperties(ICE_CREAM, null).save();
@@ -211,8 +203,8 @@ public class CBlocks {
 	public static final BlockEntry<StairBlock> STRAWBERRY_ICE_CREAM_STAIRS = stairBlock("strawberry_ice_cream_stairs", STRAWBERRY_ICE_CREAM::defaultBlockState).setProperties(STRAWBERRY_ICE_CREAM, null).save();
 	public static final BlockEntry<StairBlock> BLUEBERRY_ICE_CREAM_STAIRS = stairBlock("blueberry_ice_cream_stairs", BLUEBERRY_ICE_CREAM::defaultBlockState).setProperties(BLUEBERRY_ICE_CREAM, null).save();
 	public static final BlockEntry<DoorBlock> MARSHMALLOW_DOOR = create("marshmallow_door", (p) -> _doorBlock(p, BlockSetType.OAK)).setProperties(OAK_DOOR, null).save();
-	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
-	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> LIGHT_MARSHMALLOW_DOOR = create("light_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_DOOR, null).save();
+	public static final BlockEntry<DoorBlock> DARK_MARSHMALLOW_DOOR = create("dark_marshmallow_door", (p) -> _doorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_DOOR, null).save();
 	public static final BlockEntry<TrapDoorBlock> MARSHMALLOW_TRAPDOOR = create("marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.OAK)).setProperties(OAK_TRAPDOOR, null).save();
 	public static final BlockEntry<TrapDoorBlock> LIGHT_MARSHMALLOW_TRAPDOOR = create("light_marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.BAMBOO)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();
 	public static final BlockEntry<TrapDoorBlock> DARK_MARSHMALLOW_TRAPDOOR = create("dark_marshmallow_trapdoor", p -> _trapDoorBlock(p, BlockSetType.DARK_OAK)).setProperties(MARSHMALLOW_TRAPDOOR, null).save();

@@ -1,0 +1,22 @@
+{
+  "parent": "candycraftce:root",
+  "criteria": {
+    "sugar_block": {
+      "conditions": {
+        "recipe_id": "candycraftce:sugar_block"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.sugar_block.desc"
+    },
+    "icon": {
+      "id": "candycraftce:sugar_block"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.sugar_block"
+    }
+  }
+}

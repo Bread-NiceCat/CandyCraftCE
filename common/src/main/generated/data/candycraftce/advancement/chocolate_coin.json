@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:craft_sugar_factory",
+  "criteria": {
+    "chocolate_coin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:chocolate_coin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.chocolate_coin.desc"
+    },
+    "icon": {
+      "id": "candycraftce:chocolate_coin"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.chocolate_coin"
+    }
+  }
+}

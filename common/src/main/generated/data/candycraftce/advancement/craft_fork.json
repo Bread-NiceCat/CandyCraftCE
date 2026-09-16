@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:root",
+  "criteria": {
+    "fork": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:fork"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.fork.desc"
+    },
+    "icon": {
+      "id": "candycraftce:fork"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.fork"
+    }
+  }
+}

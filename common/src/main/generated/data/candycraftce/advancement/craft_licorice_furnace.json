@@ -1,0 +1,22 @@
+{
+  "parent": "candycraftce:licorice",
+  "criteria": {
+    "licorice_furnace": {
+      "conditions": {
+        "recipe_id": "candycraftce:licorice_furnace"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.licorice_furnace.desc"
+    },
+    "icon": {
+      "id": "candycraftce:licorice_furnace"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.licorice_furnace"
+    }
+  }
+}

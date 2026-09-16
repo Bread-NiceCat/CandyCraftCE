@@ -28,7 +28,6 @@ public class CDataComponents {
 	
 	public static final DataComponentEntry<CompoundTag> NBT = register("nbt", (arg) -> arg.persistent(CompoundTag.CODEC).networkSynchronized(ByteBufCodecs.COMPOUND_TAG));
 	public static final DataComponentEntry<Integer> SUGAR_BURN_TIME = register("sugar_burn_time", (arg) -> arg.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
-	public static final DataComponentEntry<CompoundTag> BLOCK_TO_EAT = register("block_to_eat", (arg) -> arg.persistent(CompoundTag.CODEC).networkSynchronized(ByteBufCodecs.COMPOUND_TAG));
 	
 	private static <T> DataComponentEntry<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		return CandyCraftCE.register(BuiltInRegistries.DATA_COMPONENT_TYPE, prefix(name), () -> builder.apply(new DataComponentType.Builder<>()).build())

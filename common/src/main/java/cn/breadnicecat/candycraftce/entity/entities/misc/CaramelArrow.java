@@ -1,11 +1,15 @@
 package cn.breadnicecat.candycraftce.entity.entities.misc;
 
 import cn.breadnicecat.candycraftce.entity.CEntityTypes;
+import cn.breadnicecat.candycraftce.item.CEnchantments;
 import cn.breadnicecat.candycraftce.item.CItems;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,38 +24,48 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  **/
 public class CaramelArrow extends AbstractArrow {
-	
+
 	public CaramelArrow(EntityType<? extends CaramelArrow> entityType, Level level) {
 		super(entityType, level);
 	}
-	
+
 	public CaramelArrow(Level level) {
 		this(CEntityTypes.CARAMEL_ARROW.get(), level);
 	}
-	
+
 	public CaramelArrow(double x, double y, double z, Level level) {
 		this(level);
 		setPos(x, y, z);
 	}
-	
-	
+
 	public CaramelArrow(double x, double y, double z, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
 		super(CEntityTypes.CARAMEL_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
 	}
-	
+
 	public CaramelArrow(LivingEntity owner, Level level, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
 		super(CEntityTypes.CARAMEL_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
 	}
-	
+
 	@Override
 	protected @NotNull ItemStack getPickupItem() {
 		return CItems.HONEYCOMB_ARROW.getDefaultInstance();
 	}
-	
+
 	@Override
 	protected @NotNull ItemStack getDefaultPickupItem() {
 		return CItems.HONEYCOMB_ARROW.getDefaultInstance();
 	}
-	
-}
 
+	@Override
+	protected void doPostHurtEffects(LivingEntity living) {
+		super.doPostHurtEffects(living);
+		if (!level().isClientSide()){
+			int lvl = EnchantmentHelper.getItemEnchantmentLevel(
+				CEnchantments.getHolder(CEnchantments.HONEYCOMB_GLUE, this.level().registryAccess()), this.getWeaponItem()
+			);
+			if (lvl > 0) {
+				living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, Math.min(lvl - 1, 2)));
+			}
+		}
+	}
+}

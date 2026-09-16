@@ -24,7 +24,7 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  */
 public class CCTab {
 	public static final LinkedHashSet<Supplier<ItemStack>> ENTRIES = new LinkedHashSet<>();
-	public static final String TITLE_KEY = "itemGroup.candycraftce";
+	public static final String TITLE_KEY = "mod.candycraftce";
 	public static final RegistryEntry<CreativeModeTab> TAB = register(MOD_ID,
 			() -> builder().title(Component.translatable(TITLE_KEY))
 					.icon(() -> CItems.DRAGIBUS.get().getDefaultInstance())

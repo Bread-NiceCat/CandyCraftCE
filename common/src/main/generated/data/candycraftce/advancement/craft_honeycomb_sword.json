@@ -1,0 +1,26 @@
+{
+  "parent": "candycraftce:honeycomb",
+  "criteria": {
+    "honeycomb_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "candycraftce:honeycomb_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.honeycomb_sword.desc"
+    },
+    "icon": {
+      "id": "candycraftce:honeycomb_sword"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.honeycomb_sword"
+    }
+  }
+}

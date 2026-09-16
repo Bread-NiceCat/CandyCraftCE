@@ -29,8 +29,8 @@ import static cn.breadnicecat.candycraftce.utils.ResourceUtils.prefix;
  * <p>
  */
 public enum CArmorMaterials {
-	JELLY_CROWN("jelly_crown", 15, new int[]{4}, 20, SoundEvents.ARMOR_EQUIP_TURTLE, 0F, 0F, () -> Ingredient.EMPTY),
-	TRAMPOJELLY_BOOTS("trampojelly_boots", 10, new int[4], 8, SoundEvents.ARMOR_EQUIP_TURTLE, 0F, 0F, () -> Ingredient.of(JELLY_SHOCK_ABSORBER)),
+	JELLY_CROWN("jelly_crown", 15, new int[]{4}, 20, SoundEvents.ARMOR_EQUIP_GENERIC, 0F, 0F, () -> Ingredient.EMPTY),
+	TRAMPOJELLY_BOOTS("trampojelly_boots", 10, new int[4], 8, SoundEvents.ARMOR_EQUIP_GENERIC, 0F, 0F, () -> Ingredient.of(JELLY_SHOCK_ABSORBER)),
 	WATER_MASK("water_mask", 10, new int[4], 8, SoundEvents.ARMOR_EQUIP_TURTLE, 0F, 0F, () -> Ingredient.of(CItems.CRANFISH_SCALE.get())),
 	
 	LICORICE("licorice", 13, new int[]{1, 4, 5, 2, 4}, 12, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, 0.0F, () -> Ingredient.of(CItems.LICORICE)),

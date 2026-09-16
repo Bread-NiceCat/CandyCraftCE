@@ -1,0 +1,24 @@
+{
+  "parent": "candycraftce:plant_lollipop",
+  "criteria": {
+    "lollipop": {
+      "conditions": {
+        "item": {
+          "items": "candycraftce:lollipop"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.candycraftce.eat_lollipop.desc"
+    },
+    "icon": {
+      "id": "candycraftce:lollipop"
+    },
+    "title": {
+      "translate": "advancements.candycraftce.eat_lollipop"
+    }
+  }
+}

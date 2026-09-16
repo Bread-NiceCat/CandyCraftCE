@@ -25,6 +25,7 @@ import static net.minecraft.world.item.enchantment.Enchantment.enchantment;
  **/
 public class CEnchantments {
 	public static final ResourceKey<Enchantment> DEVOURER = create("devourer");
+	public static final ResourceKey<Enchantment> HONEYCOMB_GLUE = create("honeycomb_glue");
 	
 	private static ResourceKey<Enchantment> create(String name) {
 		return ResourceKey.create(Registries.ENCHANTMENT, prefix(name));
@@ -46,6 +47,15 @@ public class CEnchantments {
 						3,
 						Enchantment.dynamicCost(12, 7),
 						Enchantment.constantCost(50),
+						4)
+				)
+		);
+		register(context, HONEYCOMB_GLUE, enchantment(Enchantment.definition(
+						HolderSet.direct(items.getOrThrow(CItems.CARAMEL_BOW.getKey())),
+						5,
+						3,
+						Enchantment.constantCost(15),
+						Enchantment.constantCost(25),
 						4)
 				)
 		);

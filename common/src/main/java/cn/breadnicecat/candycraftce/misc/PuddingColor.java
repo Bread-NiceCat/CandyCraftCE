@@ -59,21 +59,21 @@ public class PuddingColor {
 	 */
 	public static int getEnchantColor(double x, double z) {
 		double d0 = GRASS_COLOR_NOISE.getValue(x, 0, z);
-		return (d0 < -0.2) ? 0xb0ecff : d0 > 0.4 ? 0xa376da : 0xb0b0ff;
+		return (d0 < -0.2) ? 0xffb0ecff : d0 > 0.4 ? 0xffa376da : 0xffb0b0ff;
 	}
 	
 	/**
 	 * @return #dd99aa 粉色
 	 */
 	public static int getDefaultPuddingColor() {
-		return 0xdd99aa;
+		return 0xffdd99aa;
 	}
 	
 	/**
 	 * @return #b0b0ff 淡紫色
 	 */
 	public static int getDefaultEnchantColor() {
-		return 0xb0b0ff;
+		return 0xffb0b0ff;
 	}
 	
 	@Environment(EnvType.CLIENT)
